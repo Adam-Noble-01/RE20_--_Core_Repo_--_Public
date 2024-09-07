@@ -1,0 +1,379 @@
+<!-- #region  <-- - - - -  |  HEAD SECTION  | - - - - -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Template">
+        <title>Template | Layout & Styling Template</title>
+    </head>
+
+
+<!-- #endregion  <-- - - - -  |  HEAD SECTION  | - - - - -->
+<!-- #region  <-- - - - -  |  CSS STYLE SHEET  | - - - - -->
+
+<style>
+    /* #region  <-- - - - -  |  GLOBAL STYLE SETTINGS  | - - - - */
+            body {
+                font-family: 'Open Sans', sans-serif;
+                margin: 75px;
+                font-size: 11pt;
+                line-height: 1.4; 
+                color: rgb(60, 60, 60);
+            }
+    /* #endregion  <-- - - - -  |  GLOBAL STYLE SETTINGS  | - - - - */
+    /* #region  <-- - - - -  |  GENERAL TEXT STYLE SETTINGS  | - - - - */
+
+        /* Paragraphs */
+            p {
+                font-size: 11pt;  
+                color: rgb(60, 60, 60); 
+                margin-bottom: 20px;
+            }
+
+            /* Global style for bold text */
+            b, strong {
+                font-weight: 600;
+                color: rgb(85, 80, 65);
+                font-family: 'Open Sans', sans-serif;
+            }
+
+    /* #endregion  <-- - - - -  |  GENERAL TEXT STYLE SETTINGS  | - - - - */
+    /* #region  <-- - - - -  |  HEADING STYLE SETTINGS  | - - - - */
+
+            h1 {
+                color: rgb(85, 80, 65);
+                font-family: 'Open Sans', sans-serif;
+                font-size: 26pt;
+                font-weight: 600;
+                margin-top: 40px;
+                margin-bottom: -5px;
+                line-height: 1;
+            }
+
+            h2 {
+                color: rgb(85, 80, 65);
+                font-family: 'Open Sans', sans-serif;
+                font-size: 18pt;
+                font-weight: 600;
+                margin-top: 50px;
+                margin-bottom: -10px;
+                line-height: 1.2;
+            }
+
+            h3 {
+                color: rgb(85, 80, 65);
+                font-family: 'Open Sans', sans-serif;
+                font-size: 14pt;
+                font-weight: 600;
+                margin-top: 35px;
+                margin-bottom: 8px;
+                line-height: 1.2;
+            }
+
+            h4 {
+                color: rgb(85, 80, 65);
+                font-family: 'Open Sans', sans-serif;
+                font-size: 11pt;
+                font-weight: 600;
+                margin-top: 35px;
+                margin-bottom: 8px;
+                line-height: 1;
+            }
+
+            h5 {
+                color: rgb(85, 80, 65);
+                font-family: 'Open Sans', sans-serif;
+                font-size: 11pt;
+                font-weight: 400;
+                margin-top: 10px;
+                margin-bottom: -20px;
+                line-height: 1;
+            }
+
+            h6 {
+                color: rgb(120, 120, 120);
+                font-family: 'Open Sans', sans-serif;
+                font-weight: 400;
+                margin-top: 15px; 
+                margin-bottom: -5px;
+                font-size: 11pt;
+            }
+
+    /* #endregion  <-- - - - -  |  HEADING STYLE SETTINGS  | - - - - */
+    /* #region  <-- - - - -  |  LIST STYLES  | - - - - */
+
+                /* LIST STYLES */
+                /* Bullet Lists */
+                ul {
+                    list-style-type: none;
+                    padding-left: 5px;
+                    font-size: 11pt;
+                    line-height: 1.5; /* Ensures consistent line spacing */
+                }
+
+                ul li {
+                    position: relative;
+                    padding-left: 1.2em;
+                    margin-bottom: 5px; /* Adjusted for consistent spacing */
+                }
+
+                ul li::before {
+                    content: '\25A0';
+                    position: absolute;
+                    left: 0;
+                    color: rgb(125, 120, 105);
+                    font-size: 0.6em;
+                    line-height: 1.5; /* Ensures consistent line spacing */
+                }
+
+                /* Nested Numbered Lists */
+                ol {
+                    list-style-type: none;
+                    padding-left: 1.4em; /* Increased padding for better alignment */
+                    font-size: 11pt;
+                    line-height: 1.5; /* Ensures consistent line spacing */
+                    margin-bottom: 15px; /* Reduced margin to fix large gaps */
+                    counter-reset: item;
+                }
+
+                ol li {
+                    padding-left: 0.5em; /* Slightly increased padding for better spacing */
+                    margin-bottom: 5px; /* Adjusted for consistent spacing */
+                    display: block;
+                    position: relative;
+                }
+
+                ol > li:before {
+                    content: counters(item, ".") ". ";
+                    counter-increment: item;
+                    position: absolute;
+                    left: -1.6em; /* Fine-tuned positioning */
+                    top: 0.1em; /* Adjusted top to align with text */
+                }
+
+                /* Second Level */
+                ol ol {
+                    padding-left: 1.8em; /* Increased padding for clarity */
+                    margin-top: 5px;
+                    margin-bottom: 5px;
+                    line-height: 1.5; /* Ensures consistent line spacing */
+                }
+
+                ol ol > li:before {
+                    content: counters(item, ".") " ";
+                    left: -2.1em; /* Adjusted positioning */
+                    top: 0.1em; /* Adjusted top to align with text */
+                }
+
+                /* Third Level */
+                ol ol ol {
+                    padding-left: 2.3em; /* Adjusted padding for better alignment */
+                    line-height: 1.5; /* Ensures consistent line spacing */
+                }
+
+                ol ol ol > li:before {
+                    content: counter(item, lower-alpha) ". ";
+                    left: -1.8em; /* Adjusted positioning */
+                    top: 0.1em; /* Adjusted top to align with text */
+                }
+
+                /* Ensure proper spacing and prevent text clash */
+                ol li ol li ol li {
+                    padding-left: 0.6em; /* Increased padding for clarity */
+                    line-height: 1.5; /* Ensures consistent line spacing */
+                }
+
+                /* Additional levels if needed */
+                ol ol ol ol {
+                    padding-left: 2.8em; /* Adjusted padding for clarity */
+                    line-height: 1.5; /* Ensures consistent line spacing */
+                }
+
+    /* #endregion  <-- - - - -  |  LIST STYLES  | - - - - */
+    /* #endregion  <-- - - - -  |  EMAIL SIGNATURE IMAGE STYLE  | - - - - */
+    /* #region  <-- - - - -  |  HORIZONTAL LINES STYLE SETTINGS  | - - - - */
+
+                /* HORIZONTAL DIVIDER LINES */
+                hr {
+                    border-top: 1px solid rgb(180, 180, 180); 
+                    margin-top: 40px;
+                    margin-bottom: 40px;
+                    margin-left: 10px;
+                    margin-right: 20px;
+                    opacity: 0.5;
+                }
+
+    /* #endregion  <-- - - - -  |  HORIZONTAL LINE STYLE SETTINGS  | - - - - */
+    /* #region  <-- - - - -  |  CLASS STYLE DEFINITIONS  | - - - - */
+
+                /* CONTAINER BOX CLASS STYLE */
+                .container_box {
+                    background-color: white;
+                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+                    margin: 60px auto;
+                    max-width: 880px;
+                    padding: 40px;
+                }
+
+    /* #endregion  <-- - - - -  |  CLASS STYLE DEFINITIONS  | - - - - */
+    /* #region  <-- - - - -  |  TABLE STYLE SETTINGS  | - - - - */
+
+                /* Table base styles */
+                table {
+                    width: 100%;
+                    border-collapse: collapse;
+                }
+
+                /* Table headers */
+                th {
+                    background-color: rgb(245, 245, 245); /* Header row color */
+                    font-family: 'Open Sans', sans-serif;
+                    font-size: 12pt;
+                    font-weight: 600;
+                    color: rgb(85, 80, 65);
+                    padding: 8px;
+                    text-align: left;
+                }
+
+                /* Table cells */
+                td {
+                    background-color: inherit;
+                    padding: 8px;
+                    border: none;
+                    font-size: 11pt;
+                    color: rgb(60, 60, 60);
+                }
+
+                /* Even rows */
+                tr:nth-child(even) {
+                    background-color: rgb(250, 250, 250); /* Light grey for even rows */
+                    font-family: 'Open Sans', sans-serif;
+                    padding: 8px;
+                    font-size: 11pt;
+                    color: rgb(60, 60, 60);
+                }
+
+                /* Adjusting header tags to align with table headers */
+                thead {
+                    display: table-header-group;
+                    vertical-align: middle;
+                    border-color: inherit;
+                }
+
+                /* Row adjustments for better alignment and spacing */
+                tr {
+                    margin: 0; /* Remove default margins */
+                    padding: 0; /* Remove default paddings */
+                }
+
+                /* Ensuring no outer borders for the table */
+                table {
+                    border: none;
+                }
+
+    /* #endregion  <-- - - - -  |  TABLE STYLE SETTINGS  | - - - - */
+</style>
+
+<!-- #endregion  <-- - - - -  |  CSS STYLE SHEET  | - - - - -->
+<!-- #region  <-- - - - -  |  INSERT_CONTENT_HERE  | - - - - -->
+
+
+<h1>EX03  |  The History Of Green Tea</h1>
+<h6><em>This document provides a guide to green tea, including its origins, health benefits, production regions, and global significance as a commodity.</em></h6>
+<hr />
+<h2>Green Tea Origins</h2>
+<h3>Origins Of Green Tea</h3>
+<p>Green tea originated in <strong>China</strong>, where it has been cultivated and consumed for thousands of years. According to legend, it was discovered by Emperor <strong>Shen Nong</strong> in <strong>2737 BC</strong> when leaves from a wild tea tree accidentally blew into his pot of boiling water. This serendipitous moment marks the start of tea consumption in China, eventually leading to the cultivation and development of various tea varieties.</p>
+<h3>When People Started Drinking Green Tea</h3>
+<p>Tea drinking began in <strong>China</strong> as a medicinal practice long before it became a popular beverage. By the <strong>Tang Dynasty</strong> (618–907 AD), tea had become widespread and integrated into daily Chinese life. It was introduced to <strong>Japan</strong> by Buddhist monks in the 8th century and later made its way to <strong>Europe</strong> in the 17th century, where it gained popularity due to its perceived health benefits.</p>
+<h3>Differences Between Green Tea And Regular Tea</h3>
+<p>Green tea differs from regular (black) tea primarily in the processing method. Green tea leaves undergo minimal oxidation, preserving their green colour and light flavour. Black tea, in contrast, is fully oxidised, giving it a darker colour and stronger taste. Green tea contains more <strong>antioxidants</strong> but less <strong>caffeine</strong> than black tea.</p>
+<hr />
+<h2>Health Benefits Of Green Tea</h2>
+<h3>Green Tea And Wellness</h3>
+<p>Green tea is widely regarded for its numerous <strong>health benefits</strong>, attributed to its high content of antioxidants, polyphenols, and catechins. These natural compounds contribute to its reputation as a wellness beverage.</p>
+<h4>Key Health Benefits</h4>
+<ul>
+<li><strong>Rich In Antioxidants</strong>: Green tea contains powerful antioxidants, particularly <strong>EGCG</strong>, which help to neutralise free radicals and reduce oxidative stress.</li>
+<li><strong>Heart Health</strong>: Regular consumption may reduce <strong>bad cholesterol (LDL)</strong>, improve <strong>circulation</strong>, and lower <strong>blood pressure</strong>, reducing the risk of heart disease.</li>
+<li><strong>Brain Function</strong>: The combination of <strong>caffeine</strong> and <strong>L-theanine</strong> can improve focus, alertness, and memory while promoting relaxation.</li>
+<li><strong>Weight Loss</strong>: Green tea can enhance <strong>metabolism</strong> and assist in <strong>fat burning</strong>, making it popular in weight management.</li>
+<li><strong>Skin Health</strong>: The antioxidants in green tea help protect the skin from <strong>UV damage</strong> and promote anti-ageing effects.</li>
+<li><strong>Cancer Prevention</strong>: Some studies suggest green tea may lower the risk of certain cancers, such as breast and prostate cancers.</li>
+
+</ul>
+<hr />
+<h2>Regions Where Green Tea Is Popular</h2>
+<h3>East Asia</h3>
+<ul>
+<li><strong>China</strong>: Green tea originated in China, where it remains a central part of daily life and culture. Varieties such as <strong>Longjing</strong> and <strong>Biluochun</strong> are highly prized.</li>
+<li><strong>Japan</strong>: Known for its <strong>Matcha</strong> and <strong>Sencha</strong>, Japan has a deep-rooted green tea culture, with tea ceremonies playing a significant role in its traditions.</li>
+<li><strong>South Korea</strong>: Green tea is grown in <strong>Boseong</strong>, where its consumption is tied to health and well-being.</li>
+
+</ul>
+<h3>South Asia</h3>
+<ul>
+<li><strong>India</strong>: Though primarily known for black tea, India is expanding its green tea production. Varieties from <strong>Assam</strong> and <strong>Darjeeling</strong> are gaining popularity.</li>
+
+</ul>
+<h3>Southeast Asia</h3>
+<ul>
+<li><strong>Vietnam</strong>: Green tea is a staple in northern Vietnam, where it is enjoyed daily and has become an important export product.</li>
+
+</ul>
+<h3>Middle East &amp; North Africa</h3>
+<ul>
+<li><strong>Morocco</strong>: Green tea, particularly <strong>Moroccan Mint Tea</strong>, is a staple beverage, symbolising hospitality and shared community experiences.</li>
+
+</ul>
+<h3>Western Countries</h3>
+<ul>
+<li><strong>United States</strong>: Green tea has surged in popularity due to its health benefits, with <strong>Matcha</strong> becoming particularly trendy.</li>
+<li><strong>Europe</strong>: Green tea consumption is rising in <strong>Western Europe</strong>, driven by health-conscious consumers. <strong>Russia</strong> and other Eastern European countries also have a growing appreciation for green tea.</li>
+
+</ul>
+<hr />
+<h2>Where Green Tea Is Produced</h2>
+<h3>Major Producing Regions</h3>
+<ul>
+<li><strong>China</strong>: The world’s largest producer, responsible for over 50% of global green tea. Key regions include <strong>Zhejiang</strong>, <strong>Anhui</strong>, and <strong>Fujian</strong>.</li>
+<li><strong>Japan</strong>: Known for high-quality green tea, particularly <strong>Matcha</strong> and <strong>Sencha</strong>, with production concentrated in <strong>Shizuoka</strong> and <strong>Uji</strong>.</li>
+<li><strong>South Korea</strong>: <strong>Boseong</strong> is renowned for its green tea fields and production of quality teas.</li>
+<li><strong>India</strong>: Growing green tea production in regions like <strong>Darjeeling</strong> and <strong>Assam</strong> to meet increasing global demand.</li>
+<li><strong>Vietnam</strong>: A major green tea exporter, with the <strong>Thai Nguyen Province</strong> being a key production area.</li>
+<li><strong>Taiwan</strong>: Known for high-quality teas, with smaller-scale green tea production.</li>
+
+</ul>
+<h3>Emerging Producers</h3>
+<p>Countries like <strong>Sri Lanka</strong>, <strong>Kenya</strong>, and parts of <strong>Africa</strong> are expanding their green tea production due to increasing global demand.</p>
+<hr />
+<h2>Green Tea: Global Prices &amp; How It’s Traded</h2>
+<h3>Green Tea As A Commodity</h3>
+<p>Green tea is traded globally, with prices fluctuating based on <strong>quality</strong>, <strong>demand</strong>, and <strong>production</strong>. The market is dominated by countries like <strong>China</strong> and <strong>Japan</strong>, with green tea sold through <strong>auctions</strong>, <strong>direct contracts</strong>, and <strong>retail channels</strong>.</p>
+<h4>Pricing Factors</h4>
+<ul>
+<li><strong>Quality Grading</strong>: Green tea is graded by origin and processing methods, with <strong>premium</strong> varieties commanding higher prices.</li>
+<li><strong>Supply &amp; Demand</strong>: Adverse weather in tea-producing regions and increasing global demand, especially in health-conscious markets, affect prices.</li>
+<li><strong>Export Markets</strong>: Key importers include the <strong>United States</strong>, <strong>Russia</strong>, and <strong>Europe</strong>, where demand has surged in recent years.</li>
+
+</ul>
+<h3>Trade Mechanisms</h3>
+<p>Green tea is sold through auctions, with large volumes exported via <strong>direct contracts</strong> between producers and suppliers. In addition to traditional trading, <strong>e-commerce</strong> platforms have become significant distribution channels, especially for <strong>Matcha</strong> and specialty teas.</p>
+<hr />
+<h2>Traditions And Cultural Significance Of Green Tea</h2>
+<h3>East Asia</h3>
+<p>Green tea plays a significant role in the daily lives of people in <strong>China</strong> and <strong>Japan</strong>, where it is linked with <strong>meditation</strong>, <strong>ceremonial practices</strong>, and <strong>hospitality</strong>.</p>
+<h3>North Africa</h3>
+<p>In <strong>Morocco</strong>, green tea, particularly in the form of <strong>Mint Tea</strong>, is a symbol of <strong>generosity</strong> and <strong>community</strong>. It is a staple of social gatherings, deeply embedded in Moroccan culture.</p>
+<h3>Western Influence</h3>
+<p>In recent years, the global popularity of green tea has expanded beyond its traditional roots, with Western nations incorporating <strong>Matcha</strong> and other forms of green tea into modern cuisine, wellness practices, and cultural trends.</p>
+<hr />
+<h6><em>This guide offers an insight into the origins, benefits, and global significance of green tea, compiled on 07/09/2024.</em></h6>
+
+
+
+</html>
+<!-- #endregion  <-- - - - -  |  INSERT_CONTENT_HERE  | - - - - -->
