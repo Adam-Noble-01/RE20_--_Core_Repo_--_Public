@@ -19,80 +19,72 @@
 
 <!-- #region  <-- - - - -  |  CSS STYLE SHEET  | - - - - -->
 
-<style>
-
-    /* #region  <-- - - - -  |  GLOBAL STYLE SETTINGS  | - - - - */
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Open Sans', sans-serif;
-            font-size: 11pt;
-            line-height: 1.4;
-            color: rgb(60, 60, 60);
-            scrollbar-width: thin; /* Firefox */
-            scrollbar-color: #888 #f1f1f1; /* Firefox */
-            scrollbar-gutter: stable; /* Reserve space for the scrollbar to avoid layout shift */
-            -ms-overflow-style: -ms-autohiding-scrollbar; /* Internet Explorer & Edge (old) */
-        }
+    <style>
     
-        /* #region  <-- - - - -  |  SCROLL BAR SETTINGS  | - - - - */
+    /* #region  <-- - - - -  |  GLOBAL BODY STYLE SETTINGS  | - - - - */
     
-    
-            ::-webkit-scrollbar {
-                width: 10px;
-                height: 30px; 
-            }
-    
-            ::-webkit-scrollbar-track {
-                background: #f1f1f1;
-            }
-    
-            /* Default state of scrollbar thumb */
-            ::-webkit-scrollbar-thumb {
-                background: #888;
-                border-radius: 5px;
-                transition: background 1.5s ease; /* Smooth transition for fade effect */
-            }
-    
-            /* When the user interacts with the scrollbar */
-            ::-webkit-scrollbar-thumb:active,
-            ::-webkit-scrollbar-thumb:hover {
-                background: #f6f6f6; /* Darker when hovered or active */
-                transition: background 2.5s ease; /* Quick transition to dark on interaction */
-            }
-    
-            /* Fade to a lighter color after user interaction */
-            body:not(:hover) ::-webkit-scrollbar-thumb {
-                background: #f6f6f6; /* Fades to lighter grey after no interaction */
-            }
-    
-    
+        /* #region  .  .  . Body Style Settings .  .  . */
         
-        /* #endregion  <-- - - - -  |  SCROLL BAR SETTINGS  | - - - - */
+            body {
+                margin: 0;
+                padding: 0;
+                font-family: 'Open Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.4;
+                color: rgb(60, 60, 60);
+                overflow: y; /* NOTE: SCROLL BAR HIDDEN */
+            }
+        
+        /* #endregion  .  .  . Body Style Settings .  .  . */
+        
+        
+        /* #region  .  .  . Hidden Scroll Bar Settings .  .  . */
+            
+                /* For WebKit browsers (Chrome, Safari) */
+                ::-webkit-scrollbar {
+                    width: 0;
+                    height: 0;
+                }
+                
+                /* For Firefox */
+                * {
+                    scrollbar-width: none; /* Hides scrollbar in Firefox */
+                    scrollbar-color: transparent transparent; /* Ensures no scrollbar track or thumb */
+                }
+                
+                /* Optional for Edge and IE */
+                *::-ms-scrollbar {
+                    display: none;
+                }
+                
+        /* #endregion  .  .  . Hidden Scroll Bar Settings .  .  . */
+    
     
         /* #region  <-- - - - -  |  CUSTOM CLASSIFICATIONS & CONTAINERS  | - - - - */
+        
             /* Centre the content and set a max width of 800px */
                 .container_box {
-                    max-width: 900px;
-                    background-color: rgb(252,252,252);
-                    box-shadow: 0 0 10px rgba(26, 25, 25, 0.15);
-                    margin: 60px auto;
-                    padding-top: 30px;
-                    padding-bottom: 100px;
-                    padding-left: 80px;
-                    padding-right: 80px;
-                min-height: 100vh;
+                max-width: 900px;
+                background-color: rgb(252,252,252);
+                box-shadow: 0 0 10px rgba(26, 25, 25, 0.15);
+                margin: 50px auto;
+                padding-top: 30px;
+                padding-bottom: 100px;
+                padding-left: 70px;
+                padding-right: 75px;
+                min-height: 210%;
                 flex-direction: column;
                 justify-content: center;
                 box-sizing: border-box;
             }
+        
         /* #endregion  <-- - - - -  |  CUSTOM CLASSIFICATIONS & CONTAINERS  | - - - - */
     
     
-        /* #endregion  <-- - - - -  |  GLOBAL STYLE SETTINGS  | - - - - */
+    /* #endregion  <-- - - - -  |  GLOBAL STYLE SETTINGS  | - - - - */
     
     
-        /* #region  <-- - - - -  |  GENERAL TEXT STYLE SETTINGS  | - - - - */
+    /* #region  <-- - - - -  |  GENERAL TEXT STYLE SETTINGS  | - - - - */
     
         /* Paragraphs */
         p {
@@ -109,10 +101,10 @@
             font-family: 'Open Sans', sans-serif;
         }
     
-        /* #endregion  <-- - - - -  |  GENERAL TEXT STYLE SETTINGS  | - - - - */
+    /* #endregion  <-- - - - -  |  GENERAL TEXT STYLE SETTINGS  | - - - - */
     
     
-        /* #region  <-- - - - -  |  HEADING STYLE SETTINGS  | - - - - */
+    /* #region  <-- - - - -  |  HEADING STYLE SETTINGS  | - - - - */
     
         h1 {
             color: rgb(85, 80, 65);
@@ -173,126 +165,122 @@
             font-size: 11pt;
         }
     
-        /* #endregion  <-- - - - -  |  HEADING STYLE SETTINGS  | - - - - */
+    /* #endregion  <-- - - - -  |  HEADING STYLE SETTINGS  | - - - - */
     
     
-        /* #region  <-- - - - -  |  LIST STYLES  | - - - - */
+    /* #region  <-- - - - -  |  LIST STYLES  | - - - - */
     
-        /* LIST STYLES */
-        /* Bullet Lists */
+        /* #region  .  .  . Bullet Point Lists .  .  . */
         ul {
             list-style-type: none;
-            padding-left: 5px;
+            padding-left: 0px;
             font-size: 11pt;
             line-height: 1.5;
-            /* Ensures consistent line spacing */
         }
     
-        ul li {
-            position: relative;
-            padding-left: 1.2em;
-            margin-bottom: 5px;
-            /* Adjusted for consistent spacing */
+            ul li {
+                position: relative;
+                padding-left: 1.2em;
+                margin-bottom: 5px;
+                /* Adjusted for consistent spacing */
+            }
+    
+            ul li::before {
+                content: '\25A0';
+                position: absolute;
+                left: 3px;
+                color: rgb(125, 120, 105);
+                font-size: 8px; 
+                padding-top: 4.5px;
+                line-height: 1.5;
         }
+    /* #endregion  .  .  . Bullet Point Lists .  .  . */
+    /* #region  .  .  . Nested Numbered Lists .  .  . */
+            ol {
+                list-style-type: none;
+                padding-left: 1.4em;
+                /* Increased padding for better alignment */
+                font-size: 11pt;
+                line-height: 1.5;
+                /* Ensures consistent line spacing */
+                margin-bottom: 15px;
+                /* Reduced margin to fix large gaps */
+                counter-reset: item;
+            }
+        
+            ol li {
+                padding-left: 0.5em;
+                /* Slightly increased padding for better spacing */
+                margin-bottom: 5px;
+                /* Adjusted for consistent spacing */
+                display: block;
+                position: relative;
+            }
+        
+            ol>li:before {
+                content: counters(item, ".") ". ";
+                counter-increment: item;
+                position: absolute;
+                left: -1.6em;
+                /* Fine-tuned positioning */
+                top: 0.1em;
+                /* Adjusted top to align with text */
+            }
+        
+            /* Second Level */
+            ol ol {
+                padding-left: 1.8em;
+                /* Increased padding for clarity */
+                margin-top: 5px;
+                margin-bottom: 5px;
+                line-height: 1.5;
+                /* Ensures consistent line spacing */
+            }
+        
+            ol ol>li:before {
+                content: counters(item, ".") " ";
+                left: -2.1em;
+                /* Adjusted positioning */
+                top: 0.1em;
+                /* Adjusted top to align with text */
+            }
+        
+            /* Third Level */
+            ol ol ol {
+                padding-left: 2.3em;
+                /* Adjusted padding for better alignment */
+                line-height: 1.5;
+                /* Ensures consistent line spacing */
+            }
+        
+            ol ol ol>li:before {
+                content: counter(item, lower-alpha) ". ";
+                left: -1.8em;
+                /* Adjusted positioning */
+                top: 0.1em;
+                /* Adjusted top to align with text */
+            }
+        
+            /* Ensure proper spacing and prevent text clash */
+            ol li ol li ol li {
+                padding-left: 0.6em;
+                /* Increased padding for clarity */
+                line-height: 1.5;
+            }
+        
+            /* Additional levels if needed */
+            ol ol ol ol {
+                padding-left: 2.8em;
+                /* Adjusted padding for clarity */
+                line-height: 1.5;
+            }
+        /* #endregion  .  .  . Nested Numbered Lists .  .  . */
     
-        ul li::before {
-            content: '\25A0';
-            position: absolute;
-            left: 0;
-            color: rgb(125, 120, 105);
-            font-size: 0.6em;
-            line-height: 1.5;
-            /* Ensures consistent line spacing */
-        }
-    
-        /* Nested Numbered Lists */
-        ol {
-            list-style-type: none;
-            padding-left: 1.4em;
-            /* Increased padding for better alignment */
-            font-size: 11pt;
-            line-height: 1.5;
-            /* Ensures consistent line spacing */
-            margin-bottom: 15px;
-            /* Reduced margin to fix large gaps */
-            counter-reset: item;
-        }
-    
-        ol li {
-            padding-left: 0.5em;
-            /* Slightly increased padding for better spacing */
-            margin-bottom: 5px;
-            /* Adjusted for consistent spacing */
-            display: block;
-            position: relative;
-        }
-    
-        ol>li:before {
-            content: counters(item, ".") ". ";
-            counter-increment: item;
-            position: absolute;
-            left: -1.6em;
-            /* Fine-tuned positioning */
-            top: 0.1em;
-            /* Adjusted top to align with text */
-        }
-    
-        /* Second Level */
-        ol ol {
-            padding-left: 1.8em;
-            /* Increased padding for clarity */
-            margin-top: 5px;
-            margin-bottom: 5px;
-            line-height: 1.5;
-            /* Ensures consistent line spacing */
-        }
-    
-        ol ol>li:before {
-            content: counters(item, ".") " ";
-            left: -2.1em;
-            /* Adjusted positioning */
-            top: 0.1em;
-            /* Adjusted top to align with text */
-        }
-    
-        /* Third Level */
-        ol ol ol {
-            padding-left: 2.3em;
-            /* Adjusted padding for better alignment */
-            line-height: 1.5;
-            /* Ensures consistent line spacing */
-        }
-    
-        ol ol ol>li:before {
-            content: counter(item, lower-alpha) ". ";
-            left: -1.8em;
-            /* Adjusted positioning */
-            top: 0.1em;
-            /* Adjusted top to align with text */
-        }
-    
-        /* Ensure proper spacing and prevent text clash */
-        ol li ol li ol li {
-            padding-left: 0.6em;
-            /* Increased padding for clarity */
-            line-height: 1.5;
-            /* Ensures consistent line spacing */
-        }
-    
-        /* Additional levels if needed */
-        ol ol ol ol {
-            padding-left: 2.8em;
-            /* Adjusted padding for clarity */
-            line-height: 1.5;
-            /* Ensures consistent line spacing */
-        }
-    
-        /* #endregion  <-- - - - -  |  LIST STYLES  | - - - - */
+    /* #endregion  <-- - - - -  |  LIST STYLES  | - - - - */
     
     
-        /* #region  <-- - - - -  |  HORIZONTAL LINES STYLE SETTINGS  | - - - - */
+    /* #region  <-- - - - -  |  HORIZONTAL LINES STYLE SETTINGS  | - - - - */
     
-        /* HORIZONTAL DIVIDER LINES */
         hr {
             border-top: 1px solid rgb(180, 180, 180);
             margin-top: 40px;
@@ -302,18 +290,18 @@
             opacity: 0.5;
         }
     
-        /* #endregion  <-- - - - -  |  HORIZONTAL LINE STYLE SETTINGS  | - - - - */
+    /* #endregion  <-- - - - -  |  HORIZONTAL LINE STYLE SETTINGS  | - - - - */
     
     
-        /* #region  <-- - - - -  |  TABLE STYLE SETTINGS  | - - - - */
+    /* #region  <-- - - - -  |  TABLE STYLE SETTINGS  | - - - - */
     
-        /* Table base styles */
+    /* Table base styles */
         table {
             width: 100%;
             border-collapse: collapse;
         }
     
-        /* Table headers */
+    /* Table headers */
         th {
             background-color: rgb(245, 245, 245);
             /* Header row color */
@@ -325,7 +313,7 @@
             text-align: left;
         }
     
-        /* Table cells */
+    /* Table cells */
         td {
             background-color: inherit;
             padding: 8px;
@@ -334,7 +322,7 @@
             color: rgb(60, 60, 60);
         }
     
-        /* Even rows */
+    /* Even rows */
         tr:nth-child(even) {
             background-color: rgb(250, 250, 250);
             /* Light grey for even rows */
@@ -344,14 +332,14 @@
             color: rgb(60, 60, 60);
         }
     
-        /* Adjusting header tags to align with table headers */
+    /* Adjusting header tags to align with table headers */
         thead {
             display: table-header-group;
             vertical-align: middle;
             border-color: inherit;
         }
     
-        /* Row adjustments for better alignment and spacing */
+    /* Row adjustments for better alignment and spacing */
         tr {
             margin: 0;
             /* Remove default margins */
@@ -359,75 +347,77 @@
             /* Remove default paddings */
         }
     
-        /* Ensuring no outer borders for the table */
+    /* Ensuring no outer borders for the table */
         table {
             border: none;
         }
     
-        /* #endregion  <-- - - - -  |  TABLE STYLE SETTINGS  | - - - - */
+    /* #endregion  <-- - - - -  |  TABLE STYLE SETTINGS  | - - - - */
     
     </style>
     
+
 <!-- #endregion  <-- - - - -  |  CSS STYLE SHEET  | - - - - -->
 
 
 <!-- ------------------------------------------------------------------------------------------------------------------------ -->
 
+
 <!-- #region  <-- - - - -  |  RESPONSIVE STYLE ELEMENTS FOR MOBILE  | - - - - -->
 
     <style>
-                @media (max-width: 768px) {
-                    body {
-                        font-size: 5pt;
-                        margin-top: -10PX;
+            @media (max-width: 768px) {
+                body {
+                    font-size: 5pt;
+                    margin-top: -10PX;
+                }
+            
+                .container_box {
+                    padding: 20px;
+                    padding-top: 10px;
+                    margin: 20px;
+                    margin-top: 20px;
                     }
-
-                    .container_box {
-                        padding: 20px;
-                        padding-top: 10px;
-                        margin: 20px;
-                        margin-top: 20px;
-                        }
-
-                        hr {
-                        border-top: 1px solid rgb(180, 180, 180);
-                        margin-top: 40px;
-                        margin-bottom: -20px;
+                    
+                    hr {
+                    border-top: 1px solid rgb(180, 180, 180);
+                    margin-top: 40px;
+                    margin-bottom: -20px;
                     }
-
-
-                /* Paragraphs */
+                
+            /*  Responsive Paragraph Settings /
                 p {
                     font-size: 10pt;
                     margin-bottom: 15px;
                     color: rgb(80,80,80);
                 }
-
+                
                 /* Global style for bold text */
                 b,
                 strong {
                     font-weight: 600;
                 }
-
+            
+            /*Responsive Heading Settings*/
                 h1 {
                     font-size: 16pt;
                     line-height: 1;
                     font-weight: 600;
                     margin-top: 0.7em;
                 }
-
+                
                 h2 {
                     font-size: 14pt;
                     line-height: 1.0;
                     font-weight: 600;
                 }
-
+                
                 h3 {
                     font-size: 12pt;
                     line-height: 1.0;
                     font-weight: 600;
                 }
-
+                
                 h4 {
                     font-size: 11pt;
                     font-weight: 600;
@@ -436,7 +426,7 @@
                     line-height: 1;
                     font-weight: 600;
                 }
-
+                
                 h5 {
                     font-size: 11pt;
                     font-weight: 600;
@@ -445,7 +435,7 @@
                     line-height: 1;
                     font-weight: 600;
                 }
-
+                
                 h6 {
                     font-weight: 400;
                     margin-top: 20px;
@@ -454,7 +444,8 @@
                     font-weight: 200;
                 }
             }
-        
+            /*Responsive Heading Settings*/
+    
     </style>
 
 <!-- #endregion  <-- - - - -  |  RESPONSIVE STYLE ELEMENTS FOR MOBILE  | - - - - -->
@@ -462,6 +453,7 @@
 
 <!-- ------------------------------------------------------------------------------------------------------------------------ -->
 <!-- ------------------------------------------------------------------------------------------------------------------------ -->
+
 
 
 <!-- #region  <-- - - - -  |  !!INSERT_CONTENT_HERE!!  | - - - - -->
@@ -516,14 +508,6 @@
         <li>06 | Web Portal Tools</li>
         <li>07 | Developer Tools</li>
         
-        </ul>
-        </li>
-        
-        </ul>
-                
-        
-
-
     </div>
 </body>
 </html>
