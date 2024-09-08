@@ -1,0 +1,71 @@
+# NS02  |  File Tree Mapper
+###### NS02_02_01_NOTES_File_Tree_Mapper
+------------------------------------------------------------------------------------------------------------------------
+
+"D:\RE00_I_GitHub_Repo\NS_Library_NoodlSoft\NS05_Python_Library\NS03_02_Basic_Tools\NS02_02_01_File_Tree_Mapper\NS02_02_01_NOTES_File_Tree_Mapper.txt"
+
+### Objective
+- Create a Python Script for mapping a windows file structure.
+- The script should prompt the user to select the parent director.
+- The user selects this from a regular and familiar windows dialogue box / explorer file explorer dialogue.
+- The script then plots the file tree from that parent folder through all of the children recursively until it reaches the last child folders in the selected directories folder hierarchy.
+- The Python script then plots a simple plaintext diagram like the example below.
+- The Python script saves the output as a txt file.
+- The User is then prompted a second time with a new dialogue box to select a folder in their directory to save the .txt output  file to.
+- The dialogue box should auto append the  .txt extension without user needing to define .txt 
+- Give the user the option to open the plain text file with their systems default plaintext editor.
+
+### File Tree Example Structure
+------------------------------------------------------------------------------------------------------------------------
+
+**D:/Parent Folder Name/**
+│
+├── Documents/
+│   ├── Proposals/
+│   │   ├── Proposal-01.docx
+│   │   └── Proposal-02.docx
+│   ├── Contracts/
+│   │   ├── Contract-Client-A.pdf
+│   │   └── Contract-Client-B.pdf
+│   └── Reports/
+│       ├── Report-June.xlsx
+│       └── Report-July.xlsx
+│
+├── Designs/
+│   ├── Conceptual/
+│   │   ├── Sketch-01.png
+│   │   └── Sketch-02.png
+│   ├── CAD/
+│   │   ├── FloorPlan.dwg
+│   │   └── Elevation.dwg
+│   └── Renderings/
+│       ├── FrontView.png
+│       └── SideView.png
+│
+├── Meetings/
+│   ├── Minutes/
+│   │   ├── Meeting-01.docx
+│   │   └── Meeting-02.docx
+│   └── Agendas/
+│       ├── Agenda-01.docx
+│       └── Agenda-02.docx
+│
+└── Misc/
+    ├── Notes.txt
+    └── Ideas.pdf
+
+------------------------------------------------------------------------------------------------------------------------
+
+
+### File Index
+
+
+| File Name                             | Description                                             |
+| :------------------------------------ | ------------------------------------------------------- |
+| NS02_02_01_NOTES_File_Tree_Mapper.txt | This is the text readme file you are currently reading. |
+| ns02_02_01_file_tree_mapper.py        | This is the name of the python script file.             |
+
+### File Tree Example Structure
+------------------------------------------------------------------------------------------------------------------------
+
+###### 

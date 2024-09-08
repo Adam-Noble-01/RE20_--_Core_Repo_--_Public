@@ -1,0 +1,493 @@
+RE00_I_GitHub_Repo/
+│ 
+│
+├── GN_Library_Common/
+├── NA_Library_Noble_Architecture/
+│   ├── NA01_Core_Database/
+│   ├── NA02_Project_Notes/
+│   │   ├── 0000  I  Project Library  I  TEMPLATE/
+│   │   │   ├── 01  I  Archive/
+│   │   │   ├── 02  I  Project Notes/
+│   │   │   ├── 03  I  Specifications/
+│   │   │   ├── 04  I  Database & Spreadsheets/
+│   │   │   ├── 10  I  Local Folder Link/
+│   │   ├── GA04  I  Project Library  I  Kirkstead Close/
+│   │   ├── │   ├── GA04  I  Kirkstead Close.md
+│   │   ├── │   ├── GA04 I Project Requirements.md
+│   │   ├── KE03  I  Project Library  I  Brant Road/
+│   │   ├── │   ├── 10  I  Local Folder Link.lnk
+│   │   │   ├── 01  I  Archive/
+│   │   │   ├── │   ├── Archived    Floor Specification (copy).txt
+│   │   │   ├── │   ├── KE03_GF01  I  Floor Specification.txt
+│   │   │   │   ├── Specifications  I  0.1/
+│   │   │   │   ├── │   ├── KE03_GF01  I  Floor Specification.txt
+│   │   │   │   ├── │   ├── KE03_RF01  I  Flat Roof Specification.txt
+│   │   │   │   ├── │   ├── KE03_RG01  I  Rainwater Goods Specification.txt
+│   │   │   │   ├── │   ├── KE03_RL01  I  Roof Light Specification.txt
+│   │   │   ├── 02  I  Project Notes/
+│   │   │   ├── │   ├── KE03  I  Extra Notes & Research.txt
+│   │   │   ├── │   ├── KE03  I  Production Notes.txt
+│   │   │   ├── 03  I  Specifications/
+│   │   │   ├── │   ├── KE03_GF01  I  Floor Specification.txt
+│   │   │   ├── │   ├── KE03_RF01  I  Flat Roof Specification.txt
+│   │   │   ├── │   ├── KE03_RG01  I  Rainwater Goods Specification.txt
+│   │   │   ├── │   ├── KE03_RL01  I  Roof Light Specification.txt
+│   │   │   ├── 04  I  Database & Spreadsheets/
+│   │   │   ├── 05  I  Pricing Data/
+│   │   │   ├── │   ├── KE03  I  Rough BIM Data.txt
+│   │   ├── RB04  I  Project Library  I  Pemberley House/
+│   │   ├── │   ├── RB04  I  Messages & Notes.md
+│   │   ├── SB03  I  Project Library  I  Patterdale Close/
+│   │   ├── │   ├── SB03  I  Messages & Notes.md
+│   │   ├── │   ├── SB03 I Engineer Tender Email.txt
+│   │   ├── │   ├── SB03 I Project Details Library.txt
+│   ├── NA03_Brand_Standards/
+│   │   ├── 02_01  I  Master Json Schema/
+│   │   ├── │   ├── 01  I  Json Schema Notes.txt
+│   │   ├── │   ├── 01  I  Specification Key Json Notes.txt
+│   │   ├── 02_02  I  Json Library/
+│   │   ├── 02_05  I  Documentation Standards/
+│   │   ├── 02_06  I  Brand Style Guide/
+│   │   ├── 02_07  I  Markdown Note Standards/
+│   │   ├── │   ├── EX01  I  Standard  I  Example Notes Document Structure.txt
+│   │   ├── │   ├── EX02  I  Example  I  Current Memories.txt
+│   │   ├── │   ├── EX03  I  Approved Notes Example  I  Green Tea Guide.txt
+│   ├── NA04_Document_Vault/
+│   ├── │   ├── 01  I  Software Licenses
+│   ├── NA05_Knowledge_Library/
+│   │   ├── 02_01  I  Unsorted/
+│   │   ├── 02_02  I  Architectural Design/
+│   │   │   ├── 01  I  General Design Principals/
+│   │   │   ├── 02  I  Space Planning/
+│   │   │   ├── │   ├── 02_01  I  Geo Location Notes.md
+│   │   │   ├── 03  I  Detail Specifications/
+│   │   │   ├── │   ├── 03_01  I  Below Ground Masonry Notes.md
+│   │   │   ├── │   ├── 03_02  I  Luxury Vinyl Tile vs. Hardwood Flooring.md
+│   │   │   ├── 04  I  Product Datasheets/
+│   │   ├── 02_03  I  Web Design/
+│   │   ├── │   ├── 01  I  Online Resource Identifiers.md
+│   ├── NA10_Web_Development/
+│   │   ├── 11  I  Repo  I  Emails/
+│   │   ├── │   ├── 02  I  General Update Memo  I  Unvalidated.html
+│   │   ├── │   ├── 02  I  Subha Emailhtml.html
+│   │   │   ├── 02  I  Dynamic Email/
+│   │   │   ├── │   ├── 01  I  Dynamic Letter  I  Unvalidated 2.html
+│   │   │   ├── │   ├── 01  I  Dynamic Letter  I  Unvalidated.html
+│   │   │   ├── │   ├── 01  I  Dynamic Letter  I  Unvalidated.md
+│   │   ├── 14  I  Repo  I  Portal  I  File Sharing/
+│   │   │   ├── 01  I  HTML  I  Password Protected Quote Link/
+│   │   │   ├── │   ├── 01  I  HTML  I  Password Protected Quote Link.html
+│   │   │   │   ├── 01  I  Archive/
+│   │   │   │   │   ├── 1.0/
+│   │   │   │   │   ├── │   ├── 01  I  HTML  I  Password Protected Quote Link.html
+│   │   │   │   ├── GA04  Version/
+│   │   │   │   ├── │   ├── 01  I  HTML  I  Password Protected Quote Link.html
+│   │   ├── 21  I  Portal Repo  I  Posts/
+│   │   │   ├── 01  I  GPT Instructions  I  Process Key Points/
+│   │   │   ├── │   ├── 01  I  GPT Instructions  I  Process .md
+│   │   │   ├── 02  I Amy Post  I  Holiday Arrangements/
+│   │   │   ├── │   ├── 01  I Amy Post  I  Holiday Arrangements.html
+│   │   │   ├── │   ├── 01  I Amy Post  I  Holiday Arrangements.md
+│   │   │   ├── 03  I  NT03  I  Planning Update Post/
+│   │   │   ├── │   ├── 03  I  NT03  I  Planning Update Post.html
+│   │   │   ├── │   ├── 03  I  NT03  I  Planning Update Post.md
+│   ├── NA90_Temporary_Notes/
+│   ├── │   ├── 01  I  Quick Notes.txt
+│   ├── │   ├── 02  I  UNVALIDATED  I  Instructions Windows Voice.txt
+│   ├── │   ├── 10  I  Json Guide Schema Details.txt
+│   ├── │   ├── 10  I  ONGOING  I  Mardown  I  Diagram Research.txt
+│   ├── │   ├── EX01  I  NA  I  Note Starter
+│   ├── │   ├── SP01  I  Noble Architecture  I  Critical Reminders.txt
+│   ├── │   ├── SP01  I  Noble Architecture Quick Notes.txt
+│   ├── │   ├── VS01  I  VS Code Macro Notes.txt
+├── NS_Library_NoodlSoft/
+│   ├── NS01_Core_Database/
+│   ├── │   ├── NS01_01_MASTER_Index.txt
+│   ├── NS02_Knowledge Library/
+│   ├── │   ├── NS03  I  Python Auto-Text.txt
+│   ├── │   ├── NS04  I  Guide To Regular Expression.txt
+│   ├── NS03_Research_Notes/
+│   ├── NS04_Chat_Bots/
+│   │   ├── NS02_00_Archive/
+│   │   ├── NS02_01_Markdown Bot/
+│   │   ├── │   ├── 01  I  GPT  I  Spelling & Grammar Checking.txt
+│   │   ├── │   ├── 02  I  GPT  I  Write Portal Post.txt
+│   │   │   ├── 03  I  Markdown Bot References/
+│   │   │   ├── │   ├── 03_01  I  GPT  I  Mardown Tools Bot.txt
+│   │   │   ├── │   ├── 03_02  I  Heading Examples.txt
+│   │   │   ├── │   ├── 03_03  I  Example  I  Specification As Markdown Table.txt
+│   │   ├── NS02_05_Expert Architect/
+│   │   ├── │   ├── NS02_05_01_PROTOCOL_Bot_Expert Architect.txt
+│   │   ├── │   ├── NS02_05_02_EXAMPLE_For_Formatting Specifications.txt
+│   │   ├── │   ├── NS02_05_03_EXAMPLE_Specification_Table.txt
+│   │   │   ├── 01  I  Archive/
+│   │   ├── NS02_06_Structured CSV Writer/
+│   │   ├── │   ├── 04  I  Structured CSV Writer  I  GPT Bot.md
+│   │   ├── │   ├── 05  I  Structured Mardown Table I  GPT Bot (copy).md
+│   │   ├── NS02_21_Python Pro Developer/
+│   │   ├── │   ├── Usefull GPT Script For Python Software Engineering.txt
+│   ├── NS05_Python_Library/
+│   │   ├── NS03_00_Archived_Projects/
+│   │   │   ├── 02  I  ARCHIVE  I  NS Python Launcher/
+│   │   │   │   ├── 0.3  I  Working With 3  I  Text File Types/
+│   │   │   │   │   ├── 0.3.1/
+│   │   │   │   │   │   ├── 02_00_assets_dependancies/
+│   │   │   │   │   │   ├── │   ├── 01_Logo_Noble_Architecture.png
+│   │   │   │   │   │   ├── 02_10_gui/
+│   │   │   │   │   │   ├── │   ├── 02_11_ns_python_launcher.pyw
+│   │   │   │   │   │   │   ├── 01  I  Archive/
+│   │   │   │   │   │   │   ├── │   ├── 02_11_ns_python_launcher.pyw
+│   │   │   │   │   │   │   │   ├── 0.1 - UI Only/
+│   │   │   │   │   │   │   │   ├── │   ├── 02_01_ns_python_launcher.pyw
+│   │   │   │   │   │   │   │   ├── 02 - First Button Working/
+│   │   │   │   │   │   │   │   ├── │   ├── 02_11_ns_python_launcher.pyw
+│   │   │   │   │   │   ├── 02_20_helper_scripts/
+│   │   │   │   │   │   ├── │   ├── 02_11_ns_identify_filepath.pyw
+│   │   │   │   │   │   ├── │   ├── 02_12_open_typora.pyw
+│   │   │   │   │   │   │   ├── 01  I  Archive/
+│   │   │   │   │   │   │   │   ├── 02_11_ns_identify_filepath  I  Version 01/
+│   │   │   │   │   │   │   │   ├── │   ├── 02_11_ns_identify_filepath.pyw
+│   │   │   │   │   │   │   │   ├── 02_12_open_typora  I  Version 01/
+│   │   │   │   │   │   │   │   ├── │   ├── 02_12_open_typora.py
+│   │   │   │   │   │   │   ├── 02  I  Full Helper Scripts With Error Handling/
+│   │   │   │   │   │   │   ├── │   ├── 02_11_ns_identify_filepath.pyw
+│   │   │   │   │   │   │   ├── │   ├── 02_12_open_typora.pyw
+│   │   │   │   │   │   ├── 02_30_tools_text_scripts/
+│   │   │   │   │   │   ├── │   ├── 02_31_ns_plt_create_text_file.pyw
+│   │   │   │   │   │   ├── │   ├── 02_32_ns_plt_create_mardown_file.pyw
+│   │   │   │   │   │   ├── │   ├── 02_33_ns_plt_create_html_file.pyw
+│   │   │   │   │   │   ├── 02_40_tools_image_scripts/
+│   │   │   │   │   │   ├── 02_80_ahk_script/
+│   │   │   │   │   │   ├── │   ├── 02_10_ns_python_launcher_ahk_script.ahk
+│   │   │   │   │   ├── 0.3.2/
+│   │   │   │   │   │   ├── 02_00_assets_dependancies/
+│   │   │   │   │   │   ├── │   ├── 01_Logo_Noble_Architecture.png
+│   │   │   │   │   │   ├── 02_10_gui/
+│   │   │   │   │   │   ├── │   ├── 02_11_ns_python_launcher.pyw
+│   │   │   │   │   │   ├── │   ├── 02_11_ns_python_launcher.pyw - Shortcut.lnk
+│   │   │   │   │   │   │   ├── 01  I  Archive/
+│   │   │   │   │   │   │   ├── │   ├── 02_11_ns_python_launcher.pyw
+│   │   │   │   │   │   │   │   ├── 0.1 - UI Only/
+│   │   │   │   │   │   │   │   ├── │   ├── 02_01_ns_python_launcher.pyw
+│   │   │   │   │   │   │   │   ├── 02 - First Button Working/
+│   │   │   │   │   │   │   │   ├── │   ├── 02_11_ns_python_launcher.pyw
+│   │   │   │   │   │   ├── 02_20_helper_scripts/
+│   │   │   │   │   │   ├── │   ├── 02_11_ns_identify_filepath.pyw
+│   │   │   │   │   │   ├── │   ├── 02_12_open_typora.pyw
+│   │   │   │   │   │   │   ├── 01  I  Archive/
+│   │   │   │   │   │   │   │   ├── 02_11_ns_identify_filepath  I  Version 01/
+│   │   │   │   │   │   │   │   ├── │   ├── 02_11_ns_identify_filepath.pyw
+│   │   │   │   │   │   │   │   ├── 02_12_open_typora  I  Version 01/
+│   │   │   │   │   │   │   │   ├── │   ├── 02_12_open_typora.py
+│   │   │   │   │   │   │   ├── 02  I  Full Helper Scripts With Error Handling/
+│   │   │   │   │   │   │   ├── │   ├── 02_11_ns_identify_filepath.pyw
+│   │   │   │   │   │   │   ├── │   ├── 02_12_open_typora.pyw
+│   │   │   │   │   │   ├── 02_30_tools_text_scripts/
+│   │   │   │   │   │   ├── │   ├── 02_31_ns_plt_create_text_file.pyw
+│   │   │   │   │   │   ├── │   ├── 02_32_ns_plt_create_mardown_file.pyw
+│   │   │   │   │   │   ├── │   ├── 02_33_ns_plt_create_html_file.pyw
+│   │   │   │   │   │   ├── 02_40_tools_image_scripts/
+│   │   │   │   │   │   ├── 02_80_ahk_script/
+│   │   │   │   │   │   ├── │   ├── 02_10_ns_python_launcher_ahk_script.ahk
+│   │   │   │   │   ├── 0.3.3/
+│   │   │   │   │   │   ├── 02_00_assets_dependancies/
+│   │   │   │   │   │   ├── │   ├── 01_Logo_Noble_Architecture.png
+│   │   │   │   │   │   ├── 02_10_gui/
+│   │   │   │   │   │   ├── │   ├── 02_11_ns_python_launcher - Copy.pyw
+│   │   │   │   │   │   ├── │   ├── 02_11_ns_python_launcher.pyw
+│   │   │   │   │   │   │   ├── 01  I  Archive/
+│   │   │   │   │   │   │   ├── │   ├── 02_11_ns_python_launcher.pyw
+│   │   │   │   │   │   │   │   ├── 0.1 - UI Only/
+│   │   │   │   │   │   │   │   ├── │   ├── 02_01_ns_python_launcher.pyw
+│   │   │   │   │   │   │   │   ├── 02 - First Button Working/
+│   │   │   │   │   │   │   │   ├── │   ├── 02_11_ns_python_launcher.pyw
+│   │   │   │   │   │   ├── 02_20_helper_scripts/
+│   │   │   │   │   │   ├── │   ├── 02_11_ns_identify_filepath.pyw
+│   │   │   │   │   │   ├── │   ├── 02_12_open_typora.pyw
+│   │   │   │   │   │   │   ├── 01  I  Archive/
+│   │   │   │   │   │   │   │   ├── 02_11_ns_identify_filepath  I  Version 01/
+│   │   │   │   │   │   │   │   ├── │   ├── 02_11_ns_identify_filepath.pyw
+│   │   │   │   │   │   │   │   ├── 02_12_open_typora  I  Version 01/
+│   │   │   │   │   │   │   │   ├── │   ├── 02_12_open_typora.py
+│   │   │   │   │   │   │   ├── 02  I  Full Helper Scripts With Error Handling/
+│   │   │   │   │   │   │   ├── │   ├── 02_11_ns_identify_filepath.pyw
+│   │   │   │   │   │   │   ├── │   ├── 02_12_open_typora.pyw
+│   │   │   │   │   │   ├── 02_30_tools_text_scripts/
+│   │   │   │   │   │   ├── │   ├── 02_31_ns_plt_create_text_file.pyw
+│   │   │   │   │   │   ├── │   ├── 02_32_ns_plt_create_mardown_file.pyw
+│   │   │   │   │   │   ├── │   ├── 02_33_ns_plt_create_html_file.pyw
+│   │   │   │   │   │   ├── 02_40_tools_image_scripts/
+│   │   │   │   │   │   ├── 02_80_ahk_script/
+│   │   │   │   │   │   ├── │   ├── 02_10_ns_python_launcher_ahk_script.ahk
+│   │   │   │   ├── 0.4  I  Working 03.09/
+│   │   │   │   │   ├── 02  I  NS Python Launcher Dashboard/
+│   │   │   │   │   │   ├── 02_/
+│   │   │   │   │   │   ├── 02_00_assets_dependancies/
+│   │   │   │   │   │   ├── │   ├── 01_Logo_Noble_Architecture.png
+│   │   │   │   │   │   ├── 02_10_gui/
+│   │   │   │   │   │   ├── │   ├── 02_11_ns_python_launcher.pyw
+│   │   │   │   │   │   │   ├── 01  I  Archive/
+│   │   │   │   │   │   │   ├── │   ├── 02_11_ns_python_launcher.pyw
+│   │   │   │   │   │   │   │   ├── 0.1 - UI Only/
+│   │   │   │   │   │   │   │   ├── │   ├── 02_01_ns_python_launcher.pyw
+│   │   │   │   │   │   │   │   ├── 02 - First Button Working/
+│   │   │   │   │   │   │   │   ├── │   ├── 02_11_ns_python_launcher.pyw
+│   │   │   │   │   │   ├── 02_20_helper_scripts/
+│   │   │   │   │   │   ├── │   ├── 02_11_ns_identify_filepath.pyw
+│   │   │   │   │   │   ├── │   ├── 02_12_open_typora.pyw
+│   │   │   │   │   │   │   ├── 01  I  Archive/
+│   │   │   │   │   │   │   │   ├── 02_11_ns_identify_filepath  I  Version 01/
+│   │   │   │   │   │   │   │   ├── │   ├── 02_11_ns_identify_filepath.pyw
+│   │   │   │   │   │   │   │   ├── 02_12_open_typora  I  Version 01/
+│   │   │   │   │   │   │   │   ├── │   ├── 02_12_open_typora.py
+│   │   │   │   │   │   │   ├── 02  I  Full Helper Scripts With Error Handling/
+│   │   │   │   │   │   │   ├── │   ├── 02_11_ns_identify_filepath.pyw
+│   │   │   │   │   │   │   ├── │   ├── 02_12_open_typora.pyw
+│   │   │   │   │   │   ├── 02_30_tools_text_scripts/
+│   │   │   │   │   │   ├── │   ├── 02_31_ns_plt_create_text_file.pyw
+│   │   │   │   │   │   ├── │   ├── 02_32_ns_plt_create_mardown_file.pyw
+│   │   │   │   │   │   ├── │   ├── 02_33_ns_plt_create_html_file.pyw
+│   │   │   │   │   │   ├── 02_40_tools_image_scripts/
+│   │   │   │   │   │   ├── 02_80_ahk_script/
+│   │   │   │   │   │   ├── │   ├── 02_10_ns_python_launcher_ahk_script.ahk
+│   │   │   │   ├── 0.5  I  NS Python Launcher Dashboard/
+│   │   │   │   │   ├── 02_00_assets_dependancies/
+│   │   │   │   │   ├── │   ├── 01_Logo_Noble_Architecture.png
+│   │   │   │   │   ├── 02_01_Index/
+│   │   │   │   │   ├── │   ├── 02_01_na_dashboard_index.json
+│   │   │   │   │   ├── 02_10_gui/
+│   │   │   │   │   ├── │   ├── 02_11_ns_python_launcher.pyw
+│   │   │   │   │   │   ├── 01  I  Archive/
+│   │   │   │   │   │   ├── │   ├── 02_11_ns_python_launcher.pyw
+│   │   │   │   │   │   │   ├── 0.1 - UI Only/
+│   │   │   │   │   │   │   ├── │   ├── 02_01_ns_python_launcher.pyw
+│   │   │   │   │   │   │   ├── 02 - First Button Working/
+│   │   │   │   │   │   │   ├── │   ├── 02_11_ns_python_launcher.pyw
+│   │   │   │   │   ├── 02_20_helper_scripts/
+│   │   │   │   │   ├── │   ├── 02_11_ns_identify_filepath.pyw
+│   │   │   │   │   ├── │   ├── 02_12_open_typora.pyw
+│   │   │   │   │   │   ├── 01  I  Archive/
+│   │   │   │   │   │   │   ├── 02_12_open_typora  I  Version 01/
+│   │   │   │   │   │   │   ├── │   ├── 02_12_open_typora.py
+│   │   │   │   │   │   ├── 02  I  Full Helper Scripts With Error Handling/
+│   │   │   │   │   │   ├── │   ├── 02_11_ns_identify_filepath.pyw
+│   │   │   │   │   │   ├── │   ├── 02_12_open_typora.pyw
+│   │   │   │   │   ├── 02_30_tools_text_scripts/
+│   │   │   │   │   ├── │   ├── 02_31_ns_plt_create_text_file.pyw
+│   │   │   │   │   ├── │   ├── 02_32_ns_plt_create_mardown_file.pyw
+│   │   │   │   │   ├── │   ├── 02_33_ns_plt_create_html_file.pyw
+│   │   │   │   │   ├── 02_40_tools_image_scripts/
+│   │   │   │   │   ├── 02_80_ahk_script/
+│   │   │   │   │   ├── │   ├── 02_10_ns_python_launcher_ahk_script.ahk
+│   │   │   │   ├── 0.6  I  NA Dashboard  I  6.1/
+│   │   │   │   │   ├── 02_00_assets_dependancies/
+│   │   │   │   │   ├── │   ├── 01_Logo_Noble_Architecture.png
+│   │   │   │   │   ├── 02_01_Index/
+│   │   │   │   │   ├── │   ├── 02_01_na_dashboard_index.json
+│   │   │   │   │   ├── 02_10_gui/
+│   │   │   │   │   ├── │   ├── 02_11_na_dashboard_gui.pyw
+│   │   │   │   │   ├── │   ├── Hiya.html
+│   │   │   │   │   │   ├── 01  I  Archive/
+│   │   │   │   │   │   ├── │   ├── 02_11_na_dashboard_gui_04.pyw
+│   │   │   │   │   │   ├── │   ├── 02_11_ns_python_launcher.pyw
+│   │   │   │   │   │   │   ├── 0.1 - UI Only/
+│   │   │   │   │   │   │   ├── │   ├── 02_01_ns_python_launcher.pyw
+│   │   │   │   │   │   │   ├── 02 - First Button Working/
+│   │   │   │   │   │   │   ├── │   ├── 02_11_ns_python_launcher.pyw
+│   │   │   │   │   ├── 02_20_helper_scripts/
+│   │   │   │   │   ├── │   ├── 02_10_na_filepath_to_url.pyw
+│   │   │   │   │   ├── │   ├── 02_11_na_identify_filepath.pyw
+│   │   │   │   │   ├── │   ├── 02_12_na_open_typora.pyw
+│   │   │   │   │   │   ├── 01  I  Archive/
+│   │   │   │   │   │   │   ├── 02_11_ns_identify_filepath  I  Version 01/
+│   │   │   │   │   │   │   ├── │   ├── 02_11_ns_identify_filepath.pyw
+│   │   │   │   │   │   │   ├── 02_12_open_typora  I  Version 01/
+│   │   │   │   │   │   │   ├── │   ├── 02_12_open_typora.py
+│   │   │   │   │   │   ├── 02  I  File/
+│   │   │   │   │   │   ├── │   ├── 02_11_ns_identify_filepath.pyw
+│   │   │   │   │   │   ├── │   ├── 02_12_open_typora.pyw
+│   │   │   │   │   ├── 02_30_tools_text_scripts/
+│   │   │   │   │   ├── │   ├── 02_31_na_plt_create_text_file.pyw
+│   │   │   │   │   ├── │   ├── 02_32_na_plt_create_mardown_file.pyw
+│   │   │   │   │   ├── │   ├── 02_33_na_plt_create_html_file.pyw
+│   │   │   │   │   ├── 02_40_tools_image_scripts/
+│   │   │   │   │   ├── 02_80_ahk_script/
+│   │   │   │   │   ├── │   ├── 02_10_ns_python_launcher_ahk_script.ahk
+│   │   │   │   │   ├── 02_90_project-notes/
+│   │   │   │   │   ├── │   ├── 02_91_na_dashboard_notes.md
+│   │   │   │   │   ├── │   ├── 02_91_na_dashboard_notes.txt
+│   │   │   │   │   ├── │   ├── 02_91_na_python_dashboard_notes.md
+│   │   │   │   ├── 0.6  I  NA Dashboard  I  Two Page UI/
+│   │   │   │   │   ├── 02_00_assets_dependancies/
+│   │   │   │   │   ├── │   ├── 01_Logo_Noble_Architecture.png
+│   │   │   │   │   ├── 02_01_Index/
+│   │   │   │   │   ├── │   ├── 02_01_na_dashboard_index.json
+│   │   │   │   │   ├── 02_10_gui/
+│   │   │   │   │   ├── │   ├── 02_11_na_dashboard_gui.pyw
+│   │   │   │   │   ├── │   ├── 02_11_na_dashboard_gui_03.pyw
+│   │   │   │   │   ├── │   ├── 02_11_na_dashboard_gui_04.pyw
+│   │   │   │   │   ├── │   ├── 02_11_na_dashboard_gui_updated.pyw
+│   │   │   │   │   │   ├── 01  I  Archive/
+│   │   │   │   │   │   ├── │   ├── 02_11_ns_python_launcher.pyw
+│   │   │   │   │   │   │   ├── 0.1 - UI Only/
+│   │   │   │   │   │   │   ├── │   ├── 02_01_ns_python_launcher.pyw
+│   │   │   │   │   │   │   ├── 02 - First Button Working/
+│   │   │   │   │   │   │   ├── │   ├── 02_11_ns_python_launcher.pyw
+│   │   │   │   │   ├── 02_20_helper_scripts/
+│   │   │   │   │   ├── │   ├── 02_10_na_filepath_to_url.pyw
+│   │   │   │   │   ├── │   ├── 02_11_na_identify_filepath.pyw
+│   │   │   │   │   ├── │   ├── 02_12_na_open_typora.pyw
+│   │   │   │   │   │   ├── 01  I  Archive/
+│   │   │   │   │   │   │   ├── 02_11_ns_identify_filepath  I  Version 01/
+│   │   │   │   │   │   │   ├── │   ├── 02_11_ns_identify_filepath.pyw
+│   │   │   │   │   │   │   ├── 02_12_open_typora  I  Version 01/
+│   │   │   │   │   │   │   ├── │   ├── 02_12_open_typora.py
+│   │   │   │   │   │   ├── 02  I  File/
+│   │   │   │   │   │   ├── │   ├── 02_11_ns_identify_filepath.pyw
+│   │   │   │   │   │   ├── │   ├── 02_12_open_typora.pyw
+│   │   │   │   │   ├── 02_30_tools_text_scripts/
+│   │   │   │   │   ├── │   ├── 02_31_na_plt_create_text_file.pyw
+│   │   │   │   │   ├── │   ├── 02_32_na_plt_create_mardown_file.pyw
+│   │   │   │   │   ├── │   ├── 02_33_na_plt_create_html_file.pyw
+│   │   │   │   │   ├── 02_40_tools_image_scripts/
+│   │   │   │   │   ├── 02_80_ahk_script/
+│   │   │   │   │   ├── │   ├── 02_10_ns_python_launcher_ahk_script.ahk
+│   │   │   │   │   ├── 02_90_project-notes/
+│   │   │   │   │   ├── │   ├── 02_91_na_dashboard_notes.md
+│   │   │   │   │   ├── │   ├── 02_91_na_dashboard_notes.txt
+│   │   │   │   │   ├── │   ├── 02_91_na_python_dashboard_notes.md
+│   │   ├── NS03_01_NA_Dashboard/
+│   │   │   ├── 01_00_assets_dependancies/
+│   │   │   ├── │   ├── 01_Logo_Noble_Architecture.png
+│   │   │   ├── 02_01_Index/
+│   │   │   ├── │   ├── 02_01_na_dashboard_index.json
+│   │   │   ├── 02_05_json_library/
+│   │   │   ├── │   ├── 02_05_na_key_bindings.json
+│   │   │   ├── 02_10_gui/
+│   │   │   ├── │   ├── 02_10_na_dashboard_gui.pyw
+│   │   │   │   ├── 01  I  Archive/
+│   │   │   │   ├── │   ├── 02_11_na_dashboard_gui_04.pyw
+│   │   │   │   ├── │   ├── 02_11_ns_python_launcher.pyw
+│   │   │   │   │   ├── 0.1 - UI Only/
+│   │   │   │   │   ├── │   ├── 02_01_ns_python_launcher.pyw
+│   │   │   │   │   ├── 02 - First Button Working/
+│   │   │   │   │   ├── │   ├── 02_11_ns_python_launcher.pyw
+│   │   │   ├── 02_20_helper_scripts/
+│   │   │   ├── │   ├── 02_10_na_dashboard_helpers.py
+│   │   │   ├── │   ├── 02_10_na_filepath_to_url.pyw
+│   │   │   ├── │   ├── 02_11_na_identify_filepath.pyw
+│   │   │   ├── │   ├── 02_12_na_open_typora.pyw
+│   │   │   ├── │   ├── 02_21_na_dashboard_helpers.py
+│   │   │   │   ├── 01  I  Archive/
+│   │   │   │   │   ├── 02_11_ns_identify_filepath  I  Version 01/
+│   │   │   │   │   ├── │   ├── 02_11_ns_identify_filepath.pyw
+│   │   │   │   │   ├── 02_12_open_typora  I  Version 01/
+│   │   │   │   │   ├── │   ├── 02_12_open_typora.py
+│   │   │   │   ├── 02  I  File/
+│   │   │   │   ├── │   ├── 02_11_ns_identify_filepath.pyw
+│   │   │   │   ├── │   ├── 02_12_open_typora.pyw
+│   │   │   ├── 02_30_tools_text_scripts/
+│   │   │   ├── │   ├── 02_31_na_plt_create_text_file.pyw
+│   │   │   ├── │   ├── 02_32_na_plt_create_mardown_file.pyw
+│   │   │   ├── │   ├── 02_33_na_plt_create_html_file.pyw
+│   │   │   ├── 02_40_tools_image_scripts/
+│   │   │   ├── 02_80_ahk_script/
+│   │   │   ├── │   ├── 02_10_ns_python_launcher_ahk_script.ahk
+│   │   │   ├── 02_90_project-notes/
+│   │   │   ├── │   ├── 02_91_na_dashboard_notes.md
+│   │   │   ├── │   ├── 02_91_na_dashboard_notes.txt
+│   │   │   ├── │   ├── 02_91_na_python_dashboard_notes.md
+│   │   ├── NS03_02_Basic_Tools/
+│   │   │   ├── NS02_02_01_File_Tree_Mapper/
+│   │   │   ├── │   ├── ns02_02_01_file_tree_mapper.py
+│   │   │   ├── │   ├── NS02_02_01_NOTES_File_Tree_Mapper.txt
+│   │   ├── NS03_05_Spreadsheet_Tools_Python_Macros/
+│   │   │   ├── 01  I  Round Time 15 min/
+│   │   │   ├── │   ├── 01  I  Shortcut  I  Libre Office Scripts Folder.lnk
+│   │   │   ├── │   ├── 01_Round_time_to_15_min.py
+│   │   ├── NS03_80_Timesheet_Graphs_v0.1_DEV/
+│   │   ├── │   ├── 80  I  TESTING  I  Timesheet Graphs 23.py
+│   │   ├── │   ├── 80  I  TESTING  I  Timesheet Graphs.py
+│   │   ├── │   ├── Reader Bot - ! NEW! Spreadsheet Testing.html
+│   │   │   ├── Reader Bot - ! NEW! Spreadsheet Testing_files/
+│   │   │   ├── │   ├── api.js.download
+│   │   │   ├── │   ├── auth_warmup.html
+│   │   │   ├── │   ├── cb=gapi(1).loaded_0
+│   │   │   ├── │   ├── cb=gapi.loaded_0
+│   │   │   ├── │   ├── cb=gapi.loaded_1
+│   │   │   ├── │   ├── client.js.download
+│   │   │   ├── │   ├── css
+│   │   │   ├── │   ├── css(1)
+│   │   │   ├── │   ├── inner-frame-minified.html
+│   │   │   ├── │   ├── intermediate-frame-minified.html
+│   │   │   ├── │   ├── lazy.min.js.download
+│   │   │   ├── │   ├── m=view
+│   │   │   ├── │   ├── rs=AGEqA5lANshf7V_f3dvYSx3ifAc7yC4ikg
+│   │   │   ├── │   ├── saved_resource.html
+│   ├── NS06_Ruby_Library/
+│   ├── │   ├── 01  I  NS
+│   ├── │   ├── 01  I  ROUGH  I  Volume Calc Tool.rb
+│   ├── NS10_Auto_Hotkey/
+│   │   ├── 00  I  Inactive Scripts Archive/
+│   │   ├── 00  I  Shortcut  I  Auto Startup/
+│   │   ├── │   ├── 01  I  AHK Startup  I  NOTE_Name_Shortcuts_Like_This.lnk
+│   │   ├── │   ├── 01  I  SHORTCUT  I  App Data Startup Location.lnk
+│   │   ├── 01  I  Master Keyboard Remapping/
+│   │   ├── │   ├── 01  I  Master Keyboard Remapping.ahk
+│   │   │   ├── 01  I  Archive/
+│   │   │   │   ├── 0.1/
+│   │   │   │   ├── │   ├── 01  I  Master Keyboard Remapping.ahk
+│   │   │   │   ├── 1.1/
+│   │   │   │   ├── │   ├── 01  I  Master Keyboard Remapping.ahk
+│   ├── NS31_CORE_CSS_Library/
+│   │   ├── NS31_00_Archive/
+│   │   ├── NS31_01_STANDARD_CSS_Files/
+│   │   ├── │   ├── NA_Style_Sheet.css
+│   │   ├── NS31_02_STANDARD_CSS_Code_Blocks/
+│   │   ├── NS31_20_BACKUP_Typora_Themes/
+│   │   ├── │   ├── 04  I  CSS  I  Standard Table Style.css
+│   │   ├── │   ├── 10  I  Typora  I  noble-architecture-typora-theme_v3.css
+│   │   ├── │   ├── 10  I  Typora  I  noble-architecture-typora-theme_v4.css
+│   │   ├── │   ├── 10  I  Typora  I  noble-architecture-typora-theme_v5.css
+│   │   ├── │   ├── 10  I  Typora  I  noble-architecture-typora-theme_v6.css
+│   │   ├── │   ├── 10  I  Typora  I  noble-architecture-typora-theme_v7.css
+│   │   ├── │   ├── noble-architecture-specification-tables 1.css
+│   │   ├── │   ├── NS31_03_90_LINK_Local_AppData_Typora_Themes.lnk
+│   ├── NS32_CORE_HTML/
+│   │   ├── 01  I  Primary HTML Template/
+│   │   ├── │   ├── 01  I  Primary HTML Template  I  Version 1.1  .html
+│   │   ├── │   ├── 01  I  Primary HTML Template  I  Version 1.2  .html
+│   │   ├── │   ├── 01  I  Primary HTML Template  I  Version 2.0  .html
+│   │   ├── │   ├── 01  I  Primary HTML Template  I  Version 2.1  .html
+│   │   ├── │   ├── 01  I  Primary HTML Template  I  Version 2.2  .html
+│   │   │   ├── 01  I  Archive/
+│   │   │   │   ├── 01  I  Primary HTML Template  I  Version  I  1.0/
+│   │   │   │   ├── │   ├── 01  I  Primary HTML Template  I  Version 01.html
+│   │   │   │   ├── │   ├── 01  I  Primary HTML Template  I  Version 1.1  I  .html
+│   │   │   │   ├── 01  I  Primary HTML Template  I  Version  I  2.0/
+│   │   │   │   ├── │   ├── 01  I  Primary HTML Template  I  Version 2.2  .html
+│   │   ├── 50  I  Testing Branch/
+│   │   │   ├── 01  I  Password Protection  I  Prototype 01/
+│   │   │   ├── │   ├── 01  I  HTML  I  Password Page.html
+│   │   │   ├── 01  I  Password Protection  I  Prototype 02/
+│   │   │   ├── │   ├── 01  I  HTML  I  Password Page.html
+│   │   │   ├── │   ├── 01  I  HTML  I  Password Protected Memo.html
+│   │   │   ├── │   ├── 01  I  HTML  I  Password Protected Quote Link - v5.html
+│   │   │   ├── 02  I  Luke Quote/
+│   │   │   ├── │   ├── Hi.txt
+│   │   │   ├── │   ├── LP03 - 71 Central Ave - Luke Parker - Quotation   I  modify.html
+│   │   │   ├── │   ├── LP03 - 71 Central Ave - Luke Parker - Quotation (2).html
+│   │   ├── NS32_00_Archive/
+│   │   ├── NS32_01_STANDARD_HTML_Files/
+│   │   ├── │   ├── NS32_01_STANDARD_HTML_Template_v2.1.html
+│   │   ├── NS32_02_STANDARD_HTML_Code_Blocks/
+│   ├── NS33_CORE_JavaScript/
+│   │   ├── 01  I  PRELIM  I  Password Protected Document/
+│   │   ├── │   ├── 01  I  HTML  I  Password Page.html
+├── PR_Library_Personal/
+│   ├── PR01_Personal_Documents_Archive/
+│   ├── │   ├── 01  I  Finances Recording
+│   ├── PR02_Personal_Projects/
+│   ├── │   ├── Placeholder.md
+│   ├── XM01_Music_Projects/
+│   ├── │   ├── 10  I  Unsorted Music Notes.md
