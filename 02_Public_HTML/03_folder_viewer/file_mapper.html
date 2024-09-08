@@ -69,8 +69,8 @@
     let svg, root, link, node;
     let currentNestingLevel = 10;
 
-    // Fetch the JSON data from the server
-    fetch("ns02_02_01_file_tree_mapper.json")
+    // Fetch the JSON data from the correct path
+    fetch("file_trees.json")
         .then(response => response.json())
         .then(data => {
             const width = window.innerWidth;
@@ -230,6 +230,7 @@
         updateVisualization();
     });
 </script>
+
 
 </body>
 </html>
