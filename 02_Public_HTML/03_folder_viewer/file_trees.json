@@ -1,0 +1,2227 @@
+{
+    "name": "RE00_I_GitHub_Repo/",
+    "children": [
+        {
+            "name": "\u2502",
+            "children": []
+        },
+        {
+            "name": "\u2502",
+            "children": []
+        },
+        {
+            "name": "GN_Library_Common/",
+            "children": []
+        },
+        {
+            "name": "NA_Library_Noble_Architecture/",
+            "children": [
+                {
+                    "name": "  NA01_Core_Database/",
+                    "children": []
+                },
+                {
+                    "name": "  NA02_Project_Notes/",
+                    "children": [
+                        {
+                            "name": "    0000  I  Project Library  I  TEMPLATE/",
+                            "children": [
+                                {
+                                    "name": "      01  I  Archive/",
+                                    "children": []
+                                },
+                                {
+                                    "name": "      02  I  Project Notes/",
+                                    "children": []
+                                },
+                                {
+                                    "name": "      03  I  Specifications/",
+                                    "children": []
+                                },
+                                {
+                                    "name": "      04  I  Database & Spreadsheets/",
+                                    "children": []
+                                },
+                                {
+                                    "name": "      10  I  Local Folder Link/",
+                                    "children": []
+                                }
+                            ]
+                        },
+                        {
+                            "name": "    GA04  I  Project Library  I  Kirkstead Close/",
+                            "children": [
+                                {
+                                    "name": "      GA04  I  Kirkstead Close.md",
+                                    "children": [
+                                        {
+                                            "name": "      GA04 I Project Requirements.md",
+                                            "children": []
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "    KE03  I  Project Library  I  Brant Road/",
+                            "children": [
+                                {
+                                    "name": "      10  I  Local Folder Link.lnk",
+                                    "children": []
+                                },
+                                {
+                                    "name": "      01  I  Archive/",
+                                    "children": [
+                                        {
+                                            "name": "        Archived    Floor Specification (copy).txt",
+                                            "children": [
+                                                {
+                                                    "name": "        KE03_GF01  I  Floor Specification.txt",
+                                                    "children": []
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "name": "        Specifications  I  0.1/",
+                                            "children": [
+                                                {
+                                                    "name": "          KE03_GF01  I  Floor Specification.txt",
+                                                    "children": [
+                                                        {
+                                                            "name": "          KE03_RF01  I  Flat Roof Specification.txt",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "name": "          KE03_RG01  I  Rainwater Goods Specification.txt",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "name": "          KE03_RL01  I  Roof Light Specification.txt",
+                                                            "children": []
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "      02  I  Project Notes/",
+                                    "children": [
+                                        {
+                                            "name": "        KE03  I  Extra Notes & Research.txt",
+                                            "children": [
+                                                {
+                                                    "name": "        KE03  I  Production Notes.txt",
+                                                    "children": []
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "      03  I  Specifications/",
+                                    "children": [
+                                        {
+                                            "name": "        KE03_GF01  I  Floor Specification.txt",
+                                            "children": [
+                                                {
+                                                    "name": "        KE03_RF01  I  Flat Roof Specification.txt",
+                                                    "children": []
+                                                },
+                                                {
+                                                    "name": "        KE03_RG01  I  Rainwater Goods Specification.txt",
+                                                    "children": []
+                                                },
+                                                {
+                                                    "name": "        KE03_RL01  I  Roof Light Specification.txt",
+                                                    "children": []
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "      04  I  Database & Spreadsheets/",
+                                    "children": []
+                                },
+                                {
+                                    "name": "      05  I  Pricing Data/",
+                                    "children": [
+                                        {
+                                            "name": "        KE03  I  Rough BIM Data.txt",
+                                            "children": []
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "    RB04  I  Project Library  I  Pemberley House/",
+                            "children": [
+                                {
+                                    "name": "      RB04  I  Messages & Notes.md",
+                                    "children": []
+                                }
+                            ]
+                        },
+                        {
+                            "name": "    SB03  I  Project Library  I  Patterdale Close/",
+                            "children": [
+                                {
+                                    "name": "      SB03  I  Messages & Notes.md",
+                                    "children": [
+                                        {
+                                            "name": "      SB03 I Engineer Tender Email.txt",
+                                            "children": []
+                                        },
+                                        {
+                                            "name": "      SB03 I Project Details Library.txt",
+                                            "children": []
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "  NA03_Brand_Standards/",
+                    "children": [
+                        {
+                            "name": "    02_01  I  Master Json Schema/",
+                            "children": [
+                                {
+                                    "name": "      01  I  Json Schema Notes.txt",
+                                    "children": [
+                                        {
+                                            "name": "      01  I  Specification Key Json Notes.txt",
+                                            "children": []
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "    02_02  I  Json Library/",
+                            "children": []
+                        },
+                        {
+                            "name": "    02_05  I  Documentation Standards/",
+                            "children": []
+                        },
+                        {
+                            "name": "    02_06  I  Brand Style Guide/",
+                            "children": []
+                        },
+                        {
+                            "name": "    02_07  I  Markdown Note Standards/",
+                            "children": [
+                                {
+                                    "name": "      EX01  I  Standard  I  Example Notes Document Structure.txt",
+                                    "children": [
+                                        {
+                                            "name": "      EX02  I  Example  I  Current Memories.txt",
+                                            "children": []
+                                        },
+                                        {
+                                            "name": "      EX03  I  Approved Notes Example  I  Green Tea Guide.txt",
+                                            "children": []
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "  NA04_Document_Vault/",
+                    "children": [
+                        {
+                            "name": "    01  I  Software Licenses",
+                            "children": []
+                        }
+                    ]
+                },
+                {
+                    "name": "  NA05_Knowledge_Library/",
+                    "children": [
+                        {
+                            "name": "    02_01  I  Unsorted/",
+                            "children": []
+                        },
+                        {
+                            "name": "    02_02  I  Architectural Design/",
+                            "children": [
+                                {
+                                    "name": "      01  I  General Design Principals/",
+                                    "children": []
+                                },
+                                {
+                                    "name": "      02  I  Space Planning/",
+                                    "children": [
+                                        {
+                                            "name": "        02_01  I  Geo Location Notes.md",
+                                            "children": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "      03  I  Detail Specifications/",
+                                    "children": [
+                                        {
+                                            "name": "        03_01  I  Below Ground Masonry Notes.md",
+                                            "children": [
+                                                {
+                                                    "name": "        03_02  I  Luxury Vinyl Tile vs. Hardwood Flooring.md",
+                                                    "children": []
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "      04  I  Product Datasheets/",
+                                    "children": []
+                                }
+                            ]
+                        },
+                        {
+                            "name": "    02_03  I  Web Design/",
+                            "children": [
+                                {
+                                    "name": "      01  I  Online Resource Identifiers.md",
+                                    "children": []
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "  NA10_Web_Development/",
+                    "children": [
+                        {
+                            "name": "    11  I  Repo  I  Emails/",
+                            "children": [
+                                {
+                                    "name": "      02  I  General Update Memo  I  Unvalidated.html",
+                                    "children": [
+                                        {
+                                            "name": "      02  I  Subha Emailhtml.html",
+                                            "children": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "      02  I  Dynamic Email/",
+                                    "children": [
+                                        {
+                                            "name": "        01  I  Dynamic Letter  I  Unvalidated 2.html",
+                                            "children": [
+                                                {
+                                                    "name": "        01  I  Dynamic Letter  I  Unvalidated.html",
+                                                    "children": []
+                                                },
+                                                {
+                                                    "name": "        01  I  Dynamic Letter  I  Unvalidated.md",
+                                                    "children": []
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "    14  I  Repo  I  Portal  I  File Sharing/",
+                            "children": [
+                                {
+                                    "name": "      01  I  HTML  I  Password Protected Quote Link/",
+                                    "children": [
+                                        {
+                                            "name": "        01  I  HTML  I  Password Protected Quote Link.html",
+                                            "children": []
+                                        },
+                                        {
+                                            "name": "        01  I  Archive/",
+                                            "children": [
+                                                {
+                                                    "name": "          1.0/",
+                                                    "children": [
+                                                        {
+                                                            "name": "            01  I  HTML  I  Password Protected Quote Link.html",
+                                                            "children": []
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "name": "        GA04  Version/",
+                                            "children": [
+                                                {
+                                                    "name": "          01  I  HTML  I  Password Protected Quote Link.html",
+                                                    "children": []
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "    21  I  Portal Repo  I  Posts/",
+                            "children": [
+                                {
+                                    "name": "      01  I  GPT Instructions  I  Process Key Points/",
+                                    "children": [
+                                        {
+                                            "name": "        01  I  GPT Instructions  I  Process .md",
+                                            "children": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "      02  I Amy Post  I  Holiday Arrangements/",
+                                    "children": [
+                                        {
+                                            "name": "        01  I Amy Post  I  Holiday Arrangements.html",
+                                            "children": [
+                                                {
+                                                    "name": "        01  I Amy Post  I  Holiday Arrangements.md",
+                                                    "children": []
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "      03  I  NT03  I  Planning Update Post/",
+                                    "children": [
+                                        {
+                                            "name": "        03  I  NT03  I  Planning Update Post.html",
+                                            "children": [
+                                                {
+                                                    "name": "        03  I  NT03  I  Planning Update Post.md",
+                                                    "children": []
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "  NA90_Temporary_Notes/",
+                    "children": [
+                        {
+                            "name": "    01  I  Quick Notes.txt",
+                            "children": [
+                                {
+                                    "name": "    02  I  UNVALIDATED  I  Instructions Windows Voice.txt",
+                                    "children": []
+                                },
+                                {
+                                    "name": "    10  I  Json Guide Schema Details.txt",
+                                    "children": []
+                                },
+                                {
+                                    "name": "    10  I  ONGOING  I  Mardown  I  Diagram Research.txt",
+                                    "children": []
+                                },
+                                {
+                                    "name": "    EX01  I  NA  I  Note Starter",
+                                    "children": []
+                                },
+                                {
+                                    "name": "    SP01  I  Noble Architecture  I  Critical Reminders.txt",
+                                    "children": []
+                                },
+                                {
+                                    "name": "    SP01  I  Noble Architecture Quick Notes.txt",
+                                    "children": []
+                                },
+                                {
+                                    "name": "    VS01  I  VS Code Macro Notes.txt",
+                                    "children": []
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "NS_Library_NoodlSoft/",
+            "children": [
+                {
+                    "name": "  NS01_Core_Database/",
+                    "children": [
+                        {
+                            "name": "    NS01_01_MASTER_Index.txt",
+                            "children": []
+                        }
+                    ]
+                },
+                {
+                    "name": "  NS02_Knowledge Library/",
+                    "children": [
+                        {
+                            "name": "    NS03  I  Python Auto-Text.txt",
+                            "children": [
+                                {
+                                    "name": "    NS04  I  Guide To Regular Expression.txt",
+                                    "children": []
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "  NS03_Research_Notes/",
+                    "children": []
+                },
+                {
+                    "name": "  NS04_Chat_Bots/",
+                    "children": [
+                        {
+                            "name": "    NS02_00_Archive/",
+                            "children": []
+                        },
+                        {
+                            "name": "    NS02_01_Markdown Bot/",
+                            "children": [
+                                {
+                                    "name": "      01  I  GPT  I  Spelling & Grammar Checking.txt",
+                                    "children": [
+                                        {
+                                            "name": "      02  I  GPT  I  Write Portal Post.txt",
+                                            "children": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "      03  I  Markdown Bot References/",
+                                    "children": [
+                                        {
+                                            "name": "        03_01  I  GPT  I  Mardown Tools Bot.txt",
+                                            "children": [
+                                                {
+                                                    "name": "        03_02  I  Heading Examples.txt",
+                                                    "children": []
+                                                },
+                                                {
+                                                    "name": "        03_03  I  Example  I  Specification As Markdown Table.txt",
+                                                    "children": []
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "    NS02_05_Expert Architect/",
+                            "children": [
+                                {
+                                    "name": "      NS02_05_01_PROTOCOL_Bot_Expert Architect.txt",
+                                    "children": [
+                                        {
+                                            "name": "      NS02_05_02_EXAMPLE_For_Formatting Specifications.txt",
+                                            "children": []
+                                        },
+                                        {
+                                            "name": "      NS02_05_03_EXAMPLE_Specification_Table.txt",
+                                            "children": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "      01  I  Archive/",
+                                    "children": []
+                                }
+                            ]
+                        },
+                        {
+                            "name": "    NS02_06_Structured CSV Writer/",
+                            "children": [
+                                {
+                                    "name": "      04  I  Structured CSV Writer  I  GPT Bot.md",
+                                    "children": [
+                                        {
+                                            "name": "      05  I  Structured Mardown Table I  GPT Bot (copy).md",
+                                            "children": []
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "    NS02_21_Python Pro Developer/",
+                            "children": [
+                                {
+                                    "name": "      Usefull GPT Script For Python Software Engineering.txt",
+                                    "children": []
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "  NS05_Python_Library/",
+                    "children": [
+                        {
+                            "name": "    NS03_00_Archived_Projects/",
+                            "children": [
+                                {
+                                    "name": "      02  I  ARCHIVE  I  NS Python Launcher/",
+                                    "children": [
+                                        {
+                                            "name": "        0.3  I  Working With 3  I  Text File Types/",
+                                            "children": [
+                                                {
+                                                    "name": "          0.3.1/",
+                                                    "children": [
+                                                        {
+                                                            "name": "            02_00_assets_dependancies/",
+                                                            "children": [
+                                                                {
+                                                                    "name": "              01_Logo_Noble_Architecture.png",
+                                                                    "children": []
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            "name": "            02_10_gui/",
+                                                            "children": [
+                                                                {
+                                                                    "name": "              02_11_ns_python_launcher.pyw",
+                                                                    "children": []
+                                                                },
+                                                                {
+                                                                    "name": "              01  I  Archive/",
+                                                                    "children": [
+                                                                        {
+                                                                            "name": "                02_11_ns_python_launcher.pyw",
+                                                                            "children": []
+                                                                        },
+                                                                        {
+                                                                            "name": "                0.1 - UI Only/",
+                                                                            "children": [
+                                                                                {
+                                                                                    "name": "                  02_01_ns_python_launcher.pyw",
+                                                                                    "children": []
+                                                                                }
+                                                                            ]
+                                                                        },
+                                                                        {
+                                                                            "name": "                02 - First Button Working/",
+                                                                            "children": [
+                                                                                {
+                                                                                    "name": "                  02_11_ns_python_launcher.pyw",
+                                                                                    "children": []
+                                                                                }
+                                                                            ]
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            "name": "            02_20_helper_scripts/",
+                                                            "children": [
+                                                                {
+                                                                    "name": "              02_11_ns_identify_filepath.pyw",
+                                                                    "children": [
+                                                                        {
+                                                                            "name": "              02_12_open_typora.pyw",
+                                                                            "children": []
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "name": "              01  I  Archive/",
+                                                                    "children": [
+                                                                        {
+                                                                            "name": "                02_11_ns_identify_filepath  I  Version 01/",
+                                                                            "children": [
+                                                                                {
+                                                                                    "name": "                  02_11_ns_identify_filepath.pyw",
+                                                                                    "children": []
+                                                                                }
+                                                                            ]
+                                                                        },
+                                                                        {
+                                                                            "name": "                02_12_open_typora  I  Version 01/",
+                                                                            "children": [
+                                                                                {
+                                                                                    "name": "                  02_12_open_typora.py",
+                                                                                    "children": []
+                                                                                }
+                                                                            ]
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "name": "              02  I  Full Helper Scripts With Error Handling/",
+                                                                    "children": [
+                                                                        {
+                                                                            "name": "                02_11_ns_identify_filepath.pyw",
+                                                                            "children": [
+                                                                                {
+                                                                                    "name": "                02_12_open_typora.pyw",
+                                                                                    "children": []
+                                                                                }
+                                                                            ]
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            "name": "            02_30_tools_text_scripts/",
+                                                            "children": [
+                                                                {
+                                                                    "name": "              02_31_ns_plt_create_text_file.pyw",
+                                                                    "children": [
+                                                                        {
+                                                                            "name": "              02_32_ns_plt_create_mardown_file.pyw",
+                                                                            "children": []
+                                                                        },
+                                                                        {
+                                                                            "name": "              02_33_ns_plt_create_html_file.pyw",
+                                                                            "children": []
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            "name": "            02_40_tools_image_scripts/",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "name": "            02_80_ahk_script/",
+                                                            "children": [
+                                                                {
+                                                                    "name": "              02_10_ns_python_launcher_ahk_script.ahk",
+                                                                    "children": []
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "name": "          0.3.2/",
+                                                    "children": [
+                                                        {
+                                                            "name": "            02_00_assets_dependancies/",
+                                                            "children": [
+                                                                {
+                                                                    "name": "              01_Logo_Noble_Architecture.png",
+                                                                    "children": []
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            "name": "            02_10_gui/",
+                                                            "children": [
+                                                                {
+                                                                    "name": "              02_11_ns_python_launcher.pyw",
+                                                                    "children": [
+                                                                        {
+                                                                            "name": "              02_11_ns_python_launcher.pyw - Shortcut.lnk",
+                                                                            "children": []
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "name": "              01  I  Archive/",
+                                                                    "children": [
+                                                                        {
+                                                                            "name": "                02_11_ns_python_launcher.pyw",
+                                                                            "children": []
+                                                                        },
+                                                                        {
+                                                                            "name": "                0.1 - UI Only/",
+                                                                            "children": [
+                                                                                {
+                                                                                    "name": "                  02_01_ns_python_launcher.pyw",
+                                                                                    "children": []
+                                                                                }
+                                                                            ]
+                                                                        },
+                                                                        {
+                                                                            "name": "                02 - First Button Working/",
+                                                                            "children": [
+                                                                                {
+                                                                                    "name": "                  02_11_ns_python_launcher.pyw",
+                                                                                    "children": []
+                                                                                }
+                                                                            ]
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            "name": "            02_20_helper_scripts/",
+                                                            "children": [
+                                                                {
+                                                                    "name": "              02_11_ns_identify_filepath.pyw",
+                                                                    "children": [
+                                                                        {
+                                                                            "name": "              02_12_open_typora.pyw",
+                                                                            "children": []
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "name": "              01  I  Archive/",
+                                                                    "children": [
+                                                                        {
+                                                                            "name": "                02_11_ns_identify_filepath  I  Version 01/",
+                                                                            "children": [
+                                                                                {
+                                                                                    "name": "                  02_11_ns_identify_filepath.pyw",
+                                                                                    "children": []
+                                                                                }
+                                                                            ]
+                                                                        },
+                                                                        {
+                                                                            "name": "                02_12_open_typora  I  Version 01/",
+                                                                            "children": [
+                                                                                {
+                                                                                    "name": "                  02_12_open_typora.py",
+                                                                                    "children": []
+                                                                                }
+                                                                            ]
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "name": "              02  I  Full Helper Scripts With Error Handling/",
+                                                                    "children": [
+                                                                        {
+                                                                            "name": "                02_11_ns_identify_filepath.pyw",
+                                                                            "children": [
+                                                                                {
+                                                                                    "name": "                02_12_open_typora.pyw",
+                                                                                    "children": []
+                                                                                }
+                                                                            ]
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            "name": "            02_30_tools_text_scripts/",
+                                                            "children": [
+                                                                {
+                                                                    "name": "              02_31_ns_plt_create_text_file.pyw",
+                                                                    "children": [
+                                                                        {
+                                                                            "name": "              02_32_ns_plt_create_mardown_file.pyw",
+                                                                            "children": []
+                                                                        },
+                                                                        {
+                                                                            "name": "              02_33_ns_plt_create_html_file.pyw",
+                                                                            "children": []
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            "name": "            02_40_tools_image_scripts/",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "name": "            02_80_ahk_script/",
+                                                            "children": [
+                                                                {
+                                                                    "name": "              02_10_ns_python_launcher_ahk_script.ahk",
+                                                                    "children": []
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "name": "          0.3.3/",
+                                                    "children": [
+                                                        {
+                                                            "name": "            02_00_assets_dependancies/",
+                                                            "children": [
+                                                                {
+                                                                    "name": "              01_Logo_Noble_Architecture.png",
+                                                                    "children": []
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            "name": "            02_10_gui/",
+                                                            "children": [
+                                                                {
+                                                                    "name": "              02_11_ns_python_launcher - Copy.pyw",
+                                                                    "children": [
+                                                                        {
+                                                                            "name": "              02_11_ns_python_launcher.pyw",
+                                                                            "children": []
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "name": "              01  I  Archive/",
+                                                                    "children": [
+                                                                        {
+                                                                            "name": "                02_11_ns_python_launcher.pyw",
+                                                                            "children": []
+                                                                        },
+                                                                        {
+                                                                            "name": "                0.1 - UI Only/",
+                                                                            "children": [
+                                                                                {
+                                                                                    "name": "                  02_01_ns_python_launcher.pyw",
+                                                                                    "children": []
+                                                                                }
+                                                                            ]
+                                                                        },
+                                                                        {
+                                                                            "name": "                02 - First Button Working/",
+                                                                            "children": [
+                                                                                {
+                                                                                    "name": "                  02_11_ns_python_launcher.pyw",
+                                                                                    "children": []
+                                                                                }
+                                                                            ]
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            "name": "            02_20_helper_scripts/",
+                                                            "children": [
+                                                                {
+                                                                    "name": "              02_11_ns_identify_filepath.pyw",
+                                                                    "children": [
+                                                                        {
+                                                                            "name": "              02_12_open_typora.pyw",
+                                                                            "children": []
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "name": "              01  I  Archive/",
+                                                                    "children": [
+                                                                        {
+                                                                            "name": "                02_11_ns_identify_filepath  I  Version 01/",
+                                                                            "children": [
+                                                                                {
+                                                                                    "name": "                  02_11_ns_identify_filepath.pyw",
+                                                                                    "children": []
+                                                                                }
+                                                                            ]
+                                                                        },
+                                                                        {
+                                                                            "name": "                02_12_open_typora  I  Version 01/",
+                                                                            "children": [
+                                                                                {
+                                                                                    "name": "                  02_12_open_typora.py",
+                                                                                    "children": []
+                                                                                }
+                                                                            ]
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "name": "              02  I  Full Helper Scripts With Error Handling/",
+                                                                    "children": [
+                                                                        {
+                                                                            "name": "                02_11_ns_identify_filepath.pyw",
+                                                                            "children": [
+                                                                                {
+                                                                                    "name": "                02_12_open_typora.pyw",
+                                                                                    "children": []
+                                                                                }
+                                                                            ]
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            "name": "            02_30_tools_text_scripts/",
+                                                            "children": [
+                                                                {
+                                                                    "name": "              02_31_ns_plt_create_text_file.pyw",
+                                                                    "children": [
+                                                                        {
+                                                                            "name": "              02_32_ns_plt_create_mardown_file.pyw",
+                                                                            "children": []
+                                                                        },
+                                                                        {
+                                                                            "name": "              02_33_ns_plt_create_html_file.pyw",
+                                                                            "children": []
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            "name": "            02_40_tools_image_scripts/",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "name": "            02_80_ahk_script/",
+                                                            "children": [
+                                                                {
+                                                                    "name": "              02_10_ns_python_launcher_ahk_script.ahk",
+                                                                    "children": []
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "name": "        0.4  I  Working 03.09/",
+                                            "children": [
+                                                {
+                                                    "name": "          02  I  NS Python Launcher Dashboard/",
+                                                    "children": [
+                                                        {
+                                                            "name": "            02_/",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "name": "            02_00_assets_dependancies/",
+                                                            "children": [
+                                                                {
+                                                                    "name": "              01_Logo_Noble_Architecture.png",
+                                                                    "children": []
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            "name": "            02_10_gui/",
+                                                            "children": [
+                                                                {
+                                                                    "name": "              02_11_ns_python_launcher.pyw",
+                                                                    "children": []
+                                                                },
+                                                                {
+                                                                    "name": "              01  I  Archive/",
+                                                                    "children": [
+                                                                        {
+                                                                            "name": "                02_11_ns_python_launcher.pyw",
+                                                                            "children": []
+                                                                        },
+                                                                        {
+                                                                            "name": "                0.1 - UI Only/",
+                                                                            "children": [
+                                                                                {
+                                                                                    "name": "                  02_01_ns_python_launcher.pyw",
+                                                                                    "children": []
+                                                                                }
+                                                                            ]
+                                                                        },
+                                                                        {
+                                                                            "name": "                02 - First Button Working/",
+                                                                            "children": [
+                                                                                {
+                                                                                    "name": "                  02_11_ns_python_launcher.pyw",
+                                                                                    "children": []
+                                                                                }
+                                                                            ]
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            "name": "            02_20_helper_scripts/",
+                                                            "children": [
+                                                                {
+                                                                    "name": "              02_11_ns_identify_filepath.pyw",
+                                                                    "children": [
+                                                                        {
+                                                                            "name": "              02_12_open_typora.pyw",
+                                                                            "children": []
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "name": "              01  I  Archive/",
+                                                                    "children": [
+                                                                        {
+                                                                            "name": "                02_11_ns_identify_filepath  I  Version 01/",
+                                                                            "children": [
+                                                                                {
+                                                                                    "name": "                  02_11_ns_identify_filepath.pyw",
+                                                                                    "children": []
+                                                                                }
+                                                                            ]
+                                                                        },
+                                                                        {
+                                                                            "name": "                02_12_open_typora  I  Version 01/",
+                                                                            "children": [
+                                                                                {
+                                                                                    "name": "                  02_12_open_typora.py",
+                                                                                    "children": []
+                                                                                }
+                                                                            ]
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "name": "              02  I  Full Helper Scripts With Error Handling/",
+                                                                    "children": [
+                                                                        {
+                                                                            "name": "                02_11_ns_identify_filepath.pyw",
+                                                                            "children": [
+                                                                                {
+                                                                                    "name": "                02_12_open_typora.pyw",
+                                                                                    "children": []
+                                                                                }
+                                                                            ]
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            "name": "            02_30_tools_text_scripts/",
+                                                            "children": [
+                                                                {
+                                                                    "name": "              02_31_ns_plt_create_text_file.pyw",
+                                                                    "children": [
+                                                                        {
+                                                                            "name": "              02_32_ns_plt_create_mardown_file.pyw",
+                                                                            "children": []
+                                                                        },
+                                                                        {
+                                                                            "name": "              02_33_ns_plt_create_html_file.pyw",
+                                                                            "children": []
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            "name": "            02_40_tools_image_scripts/",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "name": "            02_80_ahk_script/",
+                                                            "children": [
+                                                                {
+                                                                    "name": "              02_10_ns_python_launcher_ahk_script.ahk",
+                                                                    "children": []
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "name": "        0.5  I  NS Python Launcher Dashboard/",
+                                            "children": [
+                                                {
+                                                    "name": "          02_00_assets_dependancies/",
+                                                    "children": [
+                                                        {
+                                                            "name": "            01_Logo_Noble_Architecture.png",
+                                                            "children": []
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "name": "          02_01_Index/",
+                                                    "children": [
+                                                        {
+                                                            "name": "            02_01_na_dashboard_index.json",
+                                                            "children": []
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "name": "          02_10_gui/",
+                                                    "children": [
+                                                        {
+                                                            "name": "            02_11_ns_python_launcher.pyw",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "name": "            01  I  Archive/",
+                                                            "children": [
+                                                                {
+                                                                    "name": "              02_11_ns_python_launcher.pyw",
+                                                                    "children": []
+                                                                },
+                                                                {
+                                                                    "name": "              0.1 - UI Only/",
+                                                                    "children": [
+                                                                        {
+                                                                            "name": "                02_01_ns_python_launcher.pyw",
+                                                                            "children": []
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "name": "              02 - First Button Working/",
+                                                                    "children": [
+                                                                        {
+                                                                            "name": "                02_11_ns_python_launcher.pyw",
+                                                                            "children": []
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "name": "          02_20_helper_scripts/",
+                                                    "children": [
+                                                        {
+                                                            "name": "            02_11_ns_identify_filepath.pyw",
+                                                            "children": [
+                                                                {
+                                                                    "name": "            02_12_open_typora.pyw",
+                                                                    "children": []
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            "name": "            01  I  Archive/",
+                                                            "children": [
+                                                                {
+                                                                    "name": "              02_12_open_typora  I  Version 01/",
+                                                                    "children": [
+                                                                        {
+                                                                            "name": "                02_12_open_typora.py",
+                                                                            "children": []
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            "name": "            02  I  Full Helper Scripts With Error Handling/",
+                                                            "children": [
+                                                                {
+                                                                    "name": "              02_11_ns_identify_filepath.pyw",
+                                                                    "children": [
+                                                                        {
+                                                                            "name": "              02_12_open_typora.pyw",
+                                                                            "children": []
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "name": "          02_30_tools_text_scripts/",
+                                                    "children": [
+                                                        {
+                                                            "name": "            02_31_ns_plt_create_text_file.pyw",
+                                                            "children": [
+                                                                {
+                                                                    "name": "            02_32_ns_plt_create_mardown_file.pyw",
+                                                                    "children": []
+                                                                },
+                                                                {
+                                                                    "name": "            02_33_ns_plt_create_html_file.pyw",
+                                                                    "children": []
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "name": "          02_40_tools_image_scripts/",
+                                                    "children": []
+                                                },
+                                                {
+                                                    "name": "          02_80_ahk_script/",
+                                                    "children": [
+                                                        {
+                                                            "name": "            02_10_ns_python_launcher_ahk_script.ahk",
+                                                            "children": []
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "name": "        0.6  I  NA Dashboard  I  6.1/",
+                                            "children": [
+                                                {
+                                                    "name": "          02_00_assets_dependancies/",
+                                                    "children": [
+                                                        {
+                                                            "name": "            01_Logo_Noble_Architecture.png",
+                                                            "children": []
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "name": "          02_01_Index/",
+                                                    "children": [
+                                                        {
+                                                            "name": "            02_01_na_dashboard_index.json",
+                                                            "children": []
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "name": "          02_10_gui/",
+                                                    "children": [
+                                                        {
+                                                            "name": "            02_11_na_dashboard_gui.pyw",
+                                                            "children": [
+                                                                {
+                                                                    "name": "            Hiya.html",
+                                                                    "children": []
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            "name": "            01  I  Archive/",
+                                                            "children": [
+                                                                {
+                                                                    "name": "              02_11_na_dashboard_gui_04.pyw",
+                                                                    "children": [
+                                                                        {
+                                                                            "name": "              02_11_ns_python_launcher.pyw",
+                                                                            "children": []
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "name": "              0.1 - UI Only/",
+                                                                    "children": [
+                                                                        {
+                                                                            "name": "                02_01_ns_python_launcher.pyw",
+                                                                            "children": []
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "name": "              02 - First Button Working/",
+                                                                    "children": [
+                                                                        {
+                                                                            "name": "                02_11_ns_python_launcher.pyw",
+                                                                            "children": []
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "name": "          02_20_helper_scripts/",
+                                                    "children": [
+                                                        {
+                                                            "name": "            02_10_na_filepath_to_url.pyw",
+                                                            "children": [
+                                                                {
+                                                                    "name": "            02_11_na_identify_filepath.pyw",
+                                                                    "children": []
+                                                                },
+                                                                {
+                                                                    "name": "            02_12_na_open_typora.pyw",
+                                                                    "children": []
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            "name": "            01  I  Archive/",
+                                                            "children": [
+                                                                {
+                                                                    "name": "              02_11_ns_identify_filepath  I  Version 01/",
+                                                                    "children": [
+                                                                        {
+                                                                            "name": "                02_11_ns_identify_filepath.pyw",
+                                                                            "children": []
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "name": "              02_12_open_typora  I  Version 01/",
+                                                                    "children": [
+                                                                        {
+                                                                            "name": "                02_12_open_typora.py",
+                                                                            "children": []
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            "name": "            02  I  File/",
+                                                            "children": [
+                                                                {
+                                                                    "name": "              02_11_ns_identify_filepath.pyw",
+                                                                    "children": [
+                                                                        {
+                                                                            "name": "              02_12_open_typora.pyw",
+                                                                            "children": []
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "name": "          02_30_tools_text_scripts/",
+                                                    "children": [
+                                                        {
+                                                            "name": "            02_31_na_plt_create_text_file.pyw",
+                                                            "children": [
+                                                                {
+                                                                    "name": "            02_32_na_plt_create_mardown_file.pyw",
+                                                                    "children": []
+                                                                },
+                                                                {
+                                                                    "name": "            02_33_na_plt_create_html_file.pyw",
+                                                                    "children": []
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "name": "          02_40_tools_image_scripts/",
+                                                    "children": []
+                                                },
+                                                {
+                                                    "name": "          02_80_ahk_script/",
+                                                    "children": [
+                                                        {
+                                                            "name": "            02_10_ns_python_launcher_ahk_script.ahk",
+                                                            "children": []
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "name": "          02_90_project-notes/",
+                                                    "children": [
+                                                        {
+                                                            "name": "            02_91_na_dashboard_notes.md",
+                                                            "children": [
+                                                                {
+                                                                    "name": "            02_91_na_dashboard_notes.txt",
+                                                                    "children": []
+                                                                },
+                                                                {
+                                                                    "name": "            02_91_na_python_dashboard_notes.md",
+                                                                    "children": []
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "name": "        0.6  I  NA Dashboard  I  Two Page UI/",
+                                            "children": [
+                                                {
+                                                    "name": "          02_00_assets_dependancies/",
+                                                    "children": [
+                                                        {
+                                                            "name": "            01_Logo_Noble_Architecture.png",
+                                                            "children": []
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "name": "          02_01_Index/",
+                                                    "children": [
+                                                        {
+                                                            "name": "            02_01_na_dashboard_index.json",
+                                                            "children": []
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "name": "          02_10_gui/",
+                                                    "children": [
+                                                        {
+                                                            "name": "            02_11_na_dashboard_gui.pyw",
+                                                            "children": [
+                                                                {
+                                                                    "name": "            02_11_na_dashboard_gui_03.pyw",
+                                                                    "children": []
+                                                                },
+                                                                {
+                                                                    "name": "            02_11_na_dashboard_gui_04.pyw",
+                                                                    "children": []
+                                                                },
+                                                                {
+                                                                    "name": "            02_11_na_dashboard_gui_updated.pyw",
+                                                                    "children": []
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            "name": "            01  I  Archive/",
+                                                            "children": [
+                                                                {
+                                                                    "name": "              02_11_ns_python_launcher.pyw",
+                                                                    "children": []
+                                                                },
+                                                                {
+                                                                    "name": "              0.1 - UI Only/",
+                                                                    "children": [
+                                                                        {
+                                                                            "name": "                02_01_ns_python_launcher.pyw",
+                                                                            "children": []
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "name": "              02 - First Button Working/",
+                                                                    "children": [
+                                                                        {
+                                                                            "name": "                02_11_ns_python_launcher.pyw",
+                                                                            "children": []
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "name": "          02_20_helper_scripts/",
+                                                    "children": [
+                                                        {
+                                                            "name": "            02_10_na_filepath_to_url.pyw",
+                                                            "children": [
+                                                                {
+                                                                    "name": "            02_11_na_identify_filepath.pyw",
+                                                                    "children": []
+                                                                },
+                                                                {
+                                                                    "name": "            02_12_na_open_typora.pyw",
+                                                                    "children": []
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            "name": "            01  I  Archive/",
+                                                            "children": [
+                                                                {
+                                                                    "name": "              02_11_ns_identify_filepath  I  Version 01/",
+                                                                    "children": [
+                                                                        {
+                                                                            "name": "                02_11_ns_identify_filepath.pyw",
+                                                                            "children": []
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "name": "              02_12_open_typora  I  Version 01/",
+                                                                    "children": [
+                                                                        {
+                                                                            "name": "                02_12_open_typora.py",
+                                                                            "children": []
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            "name": "            02  I  File/",
+                                                            "children": [
+                                                                {
+                                                                    "name": "              02_11_ns_identify_filepath.pyw",
+                                                                    "children": [
+                                                                        {
+                                                                            "name": "              02_12_open_typora.pyw",
+                                                                            "children": []
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "name": "          02_30_tools_text_scripts/",
+                                                    "children": [
+                                                        {
+                                                            "name": "            02_31_na_plt_create_text_file.pyw",
+                                                            "children": [
+                                                                {
+                                                                    "name": "            02_32_na_plt_create_mardown_file.pyw",
+                                                                    "children": []
+                                                                },
+                                                                {
+                                                                    "name": "            02_33_na_plt_create_html_file.pyw",
+                                                                    "children": []
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "name": "          02_40_tools_image_scripts/",
+                                                    "children": []
+                                                },
+                                                {
+                                                    "name": "          02_80_ahk_script/",
+                                                    "children": [
+                                                        {
+                                                            "name": "            02_10_ns_python_launcher_ahk_script.ahk",
+                                                            "children": []
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "name": "          02_90_project-notes/",
+                                                    "children": [
+                                                        {
+                                                            "name": "            02_91_na_dashboard_notes.md",
+                                                            "children": [
+                                                                {
+                                                                    "name": "            02_91_na_dashboard_notes.txt",
+                                                                    "children": []
+                                                                },
+                                                                {
+                                                                    "name": "            02_91_na_python_dashboard_notes.md",
+                                                                    "children": []
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "    NS03_01_NA_Dashboard/",
+                            "children": [
+                                {
+                                    "name": "      01_00_assets_dependancies/",
+                                    "children": [
+                                        {
+                                            "name": "        01_Logo_Noble_Architecture.png",
+                                            "children": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "      02_01_Index/",
+                                    "children": [
+                                        {
+                                            "name": "        02_01_na_dashboard_index.json",
+                                            "children": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "      02_05_json_library/",
+                                    "children": [
+                                        {
+                                            "name": "        02_05_na_key_bindings.json",
+                                            "children": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "      02_10_gui/",
+                                    "children": [
+                                        {
+                                            "name": "        02_10_na_dashboard_gui.pyw",
+                                            "children": []
+                                        },
+                                        {
+                                            "name": "        01  I  Archive/",
+                                            "children": [
+                                                {
+                                                    "name": "          02_11_na_dashboard_gui_04.pyw",
+                                                    "children": [
+                                                        {
+                                                            "name": "          02_11_ns_python_launcher.pyw",
+                                                            "children": []
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "name": "          0.1 - UI Only/",
+                                                    "children": [
+                                                        {
+                                                            "name": "            02_01_ns_python_launcher.pyw",
+                                                            "children": []
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "name": "          02 - First Button Working/",
+                                                    "children": [
+                                                        {
+                                                            "name": "            02_11_ns_python_launcher.pyw",
+                                                            "children": []
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "      02_20_helper_scripts/",
+                                    "children": [
+                                        {
+                                            "name": "        02_10_na_dashboard_helpers.py",
+                                            "children": [
+                                                {
+                                                    "name": "        02_10_na_filepath_to_url.pyw",
+                                                    "children": []
+                                                },
+                                                {
+                                                    "name": "        02_11_na_identify_filepath.pyw",
+                                                    "children": []
+                                                },
+                                                {
+                                                    "name": "        02_12_na_open_typora.pyw",
+                                                    "children": []
+                                                },
+                                                {
+                                                    "name": "        02_21_na_dashboard_helpers.py",
+                                                    "children": []
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "name": "        01  I  Archive/",
+                                            "children": [
+                                                {
+                                                    "name": "          02_11_ns_identify_filepath  I  Version 01/",
+                                                    "children": [
+                                                        {
+                                                            "name": "            02_11_ns_identify_filepath.pyw",
+                                                            "children": []
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "name": "          02_12_open_typora  I  Version 01/",
+                                                    "children": [
+                                                        {
+                                                            "name": "            02_12_open_typora.py",
+                                                            "children": []
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "name": "        02  I  File/",
+                                            "children": [
+                                                {
+                                                    "name": "          02_11_ns_identify_filepath.pyw",
+                                                    "children": [
+                                                        {
+                                                            "name": "          02_12_open_typora.pyw",
+                                                            "children": []
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "      02_30_tools_text_scripts/",
+                                    "children": [
+                                        {
+                                            "name": "        02_31_na_plt_create_text_file.pyw",
+                                            "children": [
+                                                {
+                                                    "name": "        02_32_na_plt_create_mardown_file.pyw",
+                                                    "children": []
+                                                },
+                                                {
+                                                    "name": "        02_33_na_plt_create_html_file.pyw",
+                                                    "children": []
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "      02_40_tools_image_scripts/",
+                                    "children": []
+                                },
+                                {
+                                    "name": "      02_80_ahk_script/",
+                                    "children": [
+                                        {
+                                            "name": "        02_10_ns_python_launcher_ahk_script.ahk",
+                                            "children": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "      02_90_project-notes/",
+                                    "children": [
+                                        {
+                                            "name": "        02_91_na_dashboard_notes.md",
+                                            "children": [
+                                                {
+                                                    "name": "        02_91_na_dashboard_notes.txt",
+                                                    "children": []
+                                                },
+                                                {
+                                                    "name": "        02_91_na_python_dashboard_notes.md",
+                                                    "children": []
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "    NS03_02_Basic_Tools/",
+                            "children": [
+                                {
+                                    "name": "      NS02_02_01_File_Tree_Mapper/",
+                                    "children": [
+                                        {
+                                            "name": "        ns02_02_01_file_tree_mapper.py",
+                                            "children": [
+                                                {
+                                                    "name": "        NS02_02_01_NOTES_File_Tree_Mapper.txt",
+                                                    "children": []
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "    NS03_05_Spreadsheet_Tools_Python_Macros/",
+                            "children": [
+                                {
+                                    "name": "      01  I  Round Time 15 min/",
+                                    "children": [
+                                        {
+                                            "name": "        01  I  Shortcut  I  Libre Office Scripts Folder.lnk",
+                                            "children": [
+                                                {
+                                                    "name": "        01_Round_time_to_15_min.py",
+                                                    "children": []
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "    NS03_80_Timesheet_Graphs_v0.1_DEV/",
+                            "children": [
+                                {
+                                    "name": "      80  I  TESTING  I  Timesheet Graphs 23.py",
+                                    "children": [
+                                        {
+                                            "name": "      80  I  TESTING  I  Timesheet Graphs.py",
+                                            "children": []
+                                        },
+                                        {
+                                            "name": "      Reader Bot - ! NEW! Spreadsheet Testing.html",
+                                            "children": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "      Reader Bot - ! NEW! Spreadsheet Testing_files/",
+                                    "children": [
+                                        {
+                                            "name": "        api.js.download",
+                                            "children": [
+                                                {
+                                                    "name": "        auth_warmup.html",
+                                                    "children": []
+                                                },
+                                                {
+                                                    "name": "        cb=gapi(1).loaded_0",
+                                                    "children": []
+                                                },
+                                                {
+                                                    "name": "        cb=gapi.loaded_0",
+                                                    "children": []
+                                                },
+                                                {
+                                                    "name": "        cb=gapi.loaded_1",
+                                                    "children": []
+                                                },
+                                                {
+                                                    "name": "        client.js.download",
+                                                    "children": []
+                                                },
+                                                {
+                                                    "name": "        css",
+                                                    "children": []
+                                                },
+                                                {
+                                                    "name": "        css(1)",
+                                                    "children": []
+                                                },
+                                                {
+                                                    "name": "        inner-frame-minified.html",
+                                                    "children": []
+                                                },
+                                                {
+                                                    "name": "        intermediate-frame-minified.html",
+                                                    "children": []
+                                                },
+                                                {
+                                                    "name": "        lazy.min.js.download",
+                                                    "children": []
+                                                },
+                                                {
+                                                    "name": "        m=view",
+                                                    "children": []
+                                                },
+                                                {
+                                                    "name": "        rs=AGEqA5lANshf7V_f3dvYSx3ifAc7yC4ikg",
+                                                    "children": []
+                                                },
+                                                {
+                                                    "name": "        saved_resource.html",
+                                                    "children": []
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "  NS06_Ruby_Library/",
+                    "children": [
+                        {
+                            "name": "    01  I  NS",
+                            "children": [
+                                {
+                                    "name": "    01  I  ROUGH  I  Volume Calc Tool.rb",
+                                    "children": []
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "  NS10_Auto_Hotkey/",
+                    "children": [
+                        {
+                            "name": "    00  I  Inactive Scripts Archive/",
+                            "children": []
+                        },
+                        {
+                            "name": "    00  I  Shortcut  I  Auto Startup/",
+                            "children": [
+                                {
+                                    "name": "      01  I  AHK Startup  I  NOTE_Name_Shortcuts_Like_This.lnk",
+                                    "children": [
+                                        {
+                                            "name": "      01  I  SHORTCUT  I  App Data Startup Location.lnk",
+                                            "children": []
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "    01  I  Master Keyboard Remapping/",
+                            "children": [
+                                {
+                                    "name": "      01  I  Master Keyboard Remapping.ahk",
+                                    "children": []
+                                },
+                                {
+                                    "name": "      01  I  Archive/",
+                                    "children": [
+                                        {
+                                            "name": "        0.1/",
+                                            "children": [
+                                                {
+                                                    "name": "          01  I  Master Keyboard Remapping.ahk",
+                                                    "children": []
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "name": "        1.1/",
+                                            "children": [
+                                                {
+                                                    "name": "          01  I  Master Keyboard Remapping.ahk",
+                                                    "children": []
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "  NS31_CORE_CSS_Library/",
+                    "children": [
+                        {
+                            "name": "    NS31_00_Archive/",
+                            "children": []
+                        },
+                        {
+                            "name": "    NS31_01_STANDARD_CSS_Files/",
+                            "children": [
+                                {
+                                    "name": "      NA_Style_Sheet.css",
+                                    "children": []
+                                }
+                            ]
+                        },
+                        {
+                            "name": "    NS31_02_STANDARD_CSS_Code_Blocks/",
+                            "children": []
+                        },
+                        {
+                            "name": "    NS31_20_BACKUP_Typora_Themes/",
+                            "children": [
+                                {
+                                    "name": "      04  I  CSS  I  Standard Table Style.css",
+                                    "children": [
+                                        {
+                                            "name": "      10  I  Typora  I  noble-architecture-typora-theme_v3.css",
+                                            "children": []
+                                        },
+                                        {
+                                            "name": "      10  I  Typora  I  noble-architecture-typora-theme_v4.css",
+                                            "children": []
+                                        },
+                                        {
+                                            "name": "      10  I  Typora  I  noble-architecture-typora-theme_v5.css",
+                                            "children": []
+                                        },
+                                        {
+                                            "name": "      10  I  Typora  I  noble-architecture-typora-theme_v6.css",
+                                            "children": []
+                                        },
+                                        {
+                                            "name": "      10  I  Typora  I  noble-architecture-typora-theme_v7.css",
+                                            "children": []
+                                        },
+                                        {
+                                            "name": "      noble-architecture-specification-tables 1.css",
+                                            "children": []
+                                        },
+                                        {
+                                            "name": "      NS31_03_90_LINK_Local_AppData_Typora_Themes.lnk",
+                                            "children": []
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "  NS32_CORE_HTML/",
+                    "children": [
+                        {
+                            "name": "    01  I  Primary HTML Template/",
+                            "children": [
+                                {
+                                    "name": "      01  I  Primary HTML Template  I  Version 1.1  .html",
+                                    "children": [
+                                        {
+                                            "name": "      01  I  Primary HTML Template  I  Version 1.2  .html",
+                                            "children": []
+                                        },
+                                        {
+                                            "name": "      01  I  Primary HTML Template  I  Version 2.0  .html",
+                                            "children": []
+                                        },
+                                        {
+                                            "name": "      01  I  Primary HTML Template  I  Version 2.1  .html",
+                                            "children": []
+                                        },
+                                        {
+                                            "name": "      01  I  Primary HTML Template  I  Version 2.2  .html",
+                                            "children": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "      01  I  Archive/",
+                                    "children": [
+                                        {
+                                            "name": "        01  I  Primary HTML Template  I  Version  I  1.0/",
+                                            "children": [
+                                                {
+                                                    "name": "          01  I  Primary HTML Template  I  Version 01.html",
+                                                    "children": [
+                                                        {
+                                                            "name": "          01  I  Primary HTML Template  I  Version 1.1  I  .html",
+                                                            "children": []
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "name": "        01  I  Primary HTML Template  I  Version  I  2.0/",
+                                            "children": [
+                                                {
+                                                    "name": "          01  I  Primary HTML Template  I  Version 2.2  .html",
+                                                    "children": []
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "    50  I  Testing Branch/",
+                            "children": [
+                                {
+                                    "name": "      01  I  Password Protection  I  Prototype 01/",
+                                    "children": [
+                                        {
+                                            "name": "        01  I  HTML  I  Password Page.html",
+                                            "children": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "      01  I  Password Protection  I  Prototype 02/",
+                                    "children": [
+                                        {
+                                            "name": "        01  I  HTML  I  Password Page.html",
+                                            "children": [
+                                                {
+                                                    "name": "        01  I  HTML  I  Password Protected Memo.html",
+                                                    "children": []
+                                                },
+                                                {
+                                                    "name": "        01  I  HTML  I  Password Protected Quote Link - v5.html",
+                                                    "children": []
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "      02  I  Luke Quote/",
+                                    "children": [
+                                        {
+                                            "name": "        Hi.txt",
+                                            "children": [
+                                                {
+                                                    "name": "        LP03 - 71 Central Ave - Luke Parker - Quotation   I  modify.html",
+                                                    "children": []
+                                                },
+                                                {
+                                                    "name": "        LP03 - 71 Central Ave - Luke Parker - Quotation (2).html",
+                                                    "children": []
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "    NS32_00_Archive/",
+                            "children": []
+                        },
+                        {
+                            "name": "    NS32_01_STANDARD_HTML_Files/",
+                            "children": [
+                                {
+                                    "name": "      NS32_01_STANDARD_HTML_Template_v2.1.html",
+                                    "children": []
+                                }
+                            ]
+                        },
+                        {
+                            "name": "    NS32_02_STANDARD_HTML_Code_Blocks/",
+                            "children": []
+                        }
+                    ]
+                },
+                {
+                    "name": "  NS33_CORE_JavaScript/",
+                    "children": [
+                        {
+                            "name": "    01  I  PRELIM  I  Password Protected Document/",
+                            "children": [
+                                {
+                                    "name": "      01  I  HTML  I  Password Page.html",
+                                    "children": []
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "PR_Library_Personal/",
+            "children": [
+                {
+                    "name": "  PR01_Personal_Documents_Archive/",
+                    "children": [
+                        {
+                            "name": "    01  I  Finances Recording",
+                            "children": []
+                        }
+                    ]
+                },
+                {
+                    "name": "  PR02_Personal_Projects/",
+                    "children": [
+                        {
+                            "name": "    Placeholder.md",
+                            "children": []
+                        }
+                    ]
+                },
+                {
+                    "name": "  XM01_Music_Projects/",
+                    "children": [
+                        {
+                            "name": "    10  I  Unsorted Music Notes.md",
+                            "children": []
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

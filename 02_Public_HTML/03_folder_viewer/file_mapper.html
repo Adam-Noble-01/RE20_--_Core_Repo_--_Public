@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced File System Mind Map with Nesting Control</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        #mind-map {
+            width: 100%;
+            height: 100%;
+        }
+
+        .node text {
+            pointer-events: none;
+            font: 12px sans-serif;
+        }
+
+        .folder {
+            fill: #ffd700;
+            stroke: #daa520;
+        }
+
+        .parent-folder {
+            stroke-width: 3px;
+        }
+
+        #nesting-control {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        #nesting-control label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        #nesting-control input {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<div id="mind-map"></div>
+<div id="nesting-control">
+    <label for="nesting-level">Nesting Level: <span id="nesting-value">All</span></label>
+    <input type="range" id="nesting-level" min="1" max="10" value="10">
+</div>
+
+<script src="https://d3js.org/d3.v6.min.js"></script>
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+<script>
+    let svg, root, link, node;
+    let currentNestingLevel = 10;
+
+    // Fetch the JSON data from the server
+    fetch("ns02_02_01_file_tree_mapper.json")
+        .then(response => response.json())
+        .then(data => {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+
+            svg = d3.select("#mind-map")
+                .append("svg")
+                .attr("width", width)
+                .attr("height", height)
+                .call(d3.zoom().on("zoom", zoomed))
+                .append("g");
+
+            root = d3.hierarchy(data);
+            updateVisualization();
+
+            // Set up nesting level control
+            const nestingControl = document.getElementById('nesting-level');
+            const nestingValue = document.getElementById('nesting-value');
+            nestingControl.max = root.height;
+            nestingControl.value = root.height;
+            currentNestingLevel = root.height;
+            nestingValue.textContent = currentNestingLevel;
+
+            nestingControl.addEventListener('input', function() {
+                currentNestingLevel = this.value;
+                nestingValue.textContent = currentNestingLevel == this.max ? 'All' : currentNestingLevel;
+                updateVisualization();
+            });
+        })
+        .catch(error => console.error("Error loading the JSON file:", error));
+
+    function updateVisualization() {
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+
+        // Clear previous visualization
+        svg.selectAll("*").remove();
+
+        // Filter nodes based on nesting level
+        const nodes = root.descendants().filter(d => d.depth < currentNestingLevel);
+        const links = root.links().filter(d => d.target.depth < currentNestingLevel);
+
+        // Assign colors to top-level folders
+        const colorScale = d3.scaleOrdinal(d3.schemeCategory10);
+        root.children.forEach((child, i) => {
+            child.color = colorScale(i);
+            assignColors(child);
+        });
+
+        const simulation = d3.forceSimulation(nodes)
+            .force("link", d3.forceLink(links).id(d => d.id).distance(100))
+            .force("charge", d3.forceManyBody().strength(-300))
+            .force("center", d3.forceCenter(width / 2, height / 2));
+
+        link = svg.append("g")
+            .selectAll("line")
+            .data(links)
+            .enter().append("line")
+            .attr("stroke", d => d.target.color)
+            .attr("stroke-opacity", d => Math.max(0.1, 1 - d.target.depth * 0.1))
+            .attr("stroke-width", d => Math.max(1, 5 - d.target.depth));
+
+        node = svg.append("g")
+            .selectAll("g")
+            .data(nodes)
+            .enter().append("g")
+            .attr("class", "node")
+            .call(drag(simulation));
+
+        // Differentiate between folders and files
+        node.each(function(d) {
+            const el = d3.select(this);
+            if (d.children || d._children) {
+                // Folder
+                el.append("rect")
+                    .attr("class", d => d.parent ? "folder" : "folder parent-folder")
+                    .attr("width", d => d.parent ? 20 : 30)
+                    .attr("height", d => d.parent ? 15 : 22)
+                    .attr("x", d => d.parent ? -10 : -15)
+                    .attr("y", d => d.parent ? -7.5 : -11)
+                    .attr("fill", d => d.color);
+            } else {
+                // File
+                el.append("circle")
+                    .attr("r", 5)
+                    .attr("fill", d => getFileColor(d.data.name));
+            }
+        });
+
+        node.append("text")
+            .attr("dy", ".35em")
+            .attr("x", d => d.children || d._children ? (d.parent ? -15 : -20) : 8)
+            .style("text-anchor", d => d.children || d._children ? "end" : "start")
+            .text(d => d.data.name);
+
+        simulation.on("tick", () => {
+            link
+                .attr("x1", d => d.source.x)
+                .attr("y1", d => d.source.y)
+                .attr("x2", d => d.target.x)
+                .attr("y2", d => d.target.y);
+
+            node
+                .attr("transform", d => `translate(${d.x},${d.y})`);
+        });
+    }
+
+    function zoomed(event) {
+        svg.attr("transform", event.transform);
+    }
+
+    function drag(simulation) {
+        function dragstarted(event) {
+            if (!event.active) simulation.alphaTarget(0.3).restart();
+            event.subject.fx = event.subject.x;
+            event.subject.fy = event.subject.y;
+        }
+
+        function dragged(event) {
+            event.subject.fx = event.x;
+            event.subject.fy = event.y;
+        }
+
+        function dragended(event) {
+            if (!event.active) simulation.alphaTarget(0);
+            event.subject.fx = null;
+            event.subject.fy = null;
+        }
+
+        return d3.drag()
+            .on("start", dragstarted)
+            .on("drag", dragged)
+            .on("end", dragended);
+    }
+
+    function getFileColor(filename) {
+        const extension = filename.split('.').pop().toLowerCase();
+        const colorMap = {
+            'js': '#f0db4f', 'py': '#3572A5', 'html': '#e34c26',
+            'css': '#563d7c', 'json': '#000000', 'txt': '#4a4a4a',
+            'md': '#083fa1'
+        };
+        return colorMap[extension] || '#7cb342';
+    }
+
+    function assignColors(node) {
+        if (node.children) {
+            node.children.forEach(child => {
+                child.color = node.color;
+                assignColors(child);
+            });
+        }
+    }
+
+    // Resize handler
+    window.addEventListener('resize', () => {
+        updateVisualization();
+    });
+</script>
+
+</body>
+</html>
