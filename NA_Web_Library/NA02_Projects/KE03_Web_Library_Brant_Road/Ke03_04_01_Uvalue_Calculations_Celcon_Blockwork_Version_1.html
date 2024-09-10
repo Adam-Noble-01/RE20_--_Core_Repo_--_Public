@@ -296,59 +296,49 @@
     
     /* #region  <-- - - - -  |  TABLE STYLE SETTINGS  | - - - - */
     
-    /* Table base styles */
+        /* TABLE STYLES */
+
+        /* Table base styles */
         table {
             width: 100%;
-            border-collapse: collapse;
+            border-collapse: collapse; 
         }
-    
-    /* Table headers */
+
+        /* Table headers */
         th {
-            background-color: rgb(245, 245, 245); /* Header row color */
-            font-family: 'Open Sans', sans-serif;
-            font-size: 12pt;
-            font-weight: 600;
+            background-color: rgb(245, 245, 245); 
+            font-weight: 500;
             color: rgb(85, 80, 65);
             padding: 8px;
-            text-align: left;
+            text-align: left; 
+            padding-left: 3px;
+            font-family: 'Open Sans', sans-serif; 
         }
-    
-    /* Table cells */
+
+        /* Table cells */
         td {
             background-color: inherit;
-            padding: 8px;
+            padding: 8px; 
             border: none;
             font-size: 11pt;
+            padding-left: 3px;
             color: rgb(60, 60, 60);
         }
-    
-    /* Even rows */
+
+        /* Even rows */
         tr:nth-child(even) {
             background-color: rgb(250, 250, 250);
             font-family: 'Open Sans', sans-serif;
-            padding: 8px;
+            padding: 8px; 
             font-size: 11pt;
+            padding-left: 3px;
             color: rgb(60, 60, 60);
         }
-    
-    /* Adjusting header tags to align with table headers */
+
+        /* Adjusting header tags to align with table headers */
         thead {
             display: table-header-group;
-            vertical-align: middle;
-            border-color: inherit;
-        }
-    
-    /* Row adjustments for better alignment and spacing */
-        tr {
-            margin: 0;
-            /* Remove default margins */
-            padding: 0;
-            /* Remove default paddings */
-        }
-    
-    /* Ensuring no outer borders for the table */
-        table {
-            border: none;
+            vertical-align: middle
         }
     
     /* #endregion  <-- - - - -  |  TABLE STYLE SETTINGS  | - - - - */
@@ -454,65 +444,54 @@
                     font-size: 8pt;
                     font-weight: 200;
                 }
-            }
+        
             /*Responsive Heading Settings*/
         
         /* #region  <-- - - - -  |  Responsive Table Style Settings  | - - - - */
         
-        /* Responsive Table base styles */
+        /* TABLE STYLES */
+
+        /* Table Responsive Base Styles */
         table {
-                width: 100%;
-                border-collapse: collapse;
-            }
-        
-        /* Responsive Table headers */
-            th {
-                background-color: rgb(245, 245, 245); /* Header row color */
-                font-family: 'Open Sans', sans-serif;
-                font-size: 9.5pt;
-                font-weight: 400;
-                color: rgb(85, 80, 65);
-                padding: 5px;
-                text-align: left;
-            }
-        
-        /* Responsive Table cells */
-            td {
-                background-color: inherit;
-                padding: 5px;
-                border: none;
-                font-size: 9pt;
-                color: rgb(60, 60, 60);
-            }
-        
-        /* Responsive Even rows */
-            tr:nth-child(even) {
-                background-color: rgb(250, 250, 250);
-                font-family: 'Open Sans', sans-serif;
-                padding: 3px;
-                font-size: 9pt;
-                color: rgb(60, 60, 60);
-            }
-        
-        /* Responsive Adjusting header tags to align with table headers */
-            thead {
-                display: table-header-group;
-                vertical-align: middle;
-                border-color: inherit;
-            }
-        
-        /* Responsive Row adjustments for better alignment and spacing */
-            tr {
-                margin: 0;
-                /* Remove default margins */
-                padding: 0;
-                /* Remove default paddings */
-            }
-        
-        /* Responsive Ensuring no outer borders for the table */
-            table {
-                border: none;
-            }
+            width: 100%;
+            border-collapse: collapse; 
+        }
+
+        /* Table Responsive headers */
+        th {
+            background-color: rgb(245, 245, 245); 
+            font-weight: 600;
+            color: rgb(85, 80, 65);
+            padding: 3px;
+            text-align: left; 
+            font-size: 9pt;
+            font-family: 'Open Sans', sans-serif; 
+        }
+
+        /* Table Responsive cells */
+        td {
+            background-color: inherit;
+            padding: 3px; 
+            border: none;
+            font-size: 9pt;
+            color: rgb(60, 60, 60);
+        }
+
+        /* Even Responsive rows */
+        tr:nth-child(even) {
+            background-color: rgb(250, 250, 250);
+            font-family: 'Open Sans', sans-serif;
+            padding: 3px; 
+            font-size: 9pt;
+            color: rgb(60, 60, 60);
+        }
+
+        /* Adjusting header tags to align with table headers */
+        thead {
+            display: table-header-group;
+            vertical-align: middle
+        }
+    }
         
         /* #endregion  <-- - - - -  |  Responsive Table Style Settings  | - - - - */
 
