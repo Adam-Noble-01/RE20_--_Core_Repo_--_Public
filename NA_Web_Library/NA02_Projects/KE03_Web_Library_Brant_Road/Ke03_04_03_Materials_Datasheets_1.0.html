@@ -1,0 +1,583 @@
+<!-- ------------------------------------------------------------------------------------------------------------------------ -->
+
+<!-- #region  <-- - - - -  |  HEAD SECTION  | - - - - -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Template">
+    <title>Template | Layout & Styling Template</title>
+</head>
+
+<!-- #endregion  <-- - - - -  |  HEAD SECTION  | - - - - -->
+
+
+<!-- ------------------------------------------------------------------------------------------------------------------------ -->
+
+
+<!-- #region  <-- - - - -  |  CSS STYLE SHEET  | - - - - -->
+
+    <style>
+    
+    /* #region  <-- - - - -  |  GLOBAL BODY STYLE SETTINGS  | - - - - */
+    
+        /* #region  .  .  . Body Style Settings .  .  . */
+        
+            body {
+                margin: 0;
+                padding: 0;
+                font-family: 'Open Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.4;
+                color: rgb(60, 60, 60);
+                overflow: y; /* NOTE: SCROLL BAR HIDDEN */
+            }
+        
+        /* #endregion  .  .  . Body Style Settings .  .  . */
+        
+        
+        /* #region  .  .  . Hidden Scroll Bar Settings .  .  . */
+            
+                /* For WebKit browsers (Chrome, Safari) */
+                ::-webkit-scrollbar {
+                    width: 0;
+                    height: 0;
+                }
+                
+                /* For Firefox */
+                * {
+                    scrollbar-width: none; /* Hides scrollbar in Firefox */
+                    scrollbar-color: transparent transparent; /* Ensures no scrollbar track or thumb */
+                }
+                
+                /* Optional for Edge and IE */
+                *::-ms-scrollbar {
+                    display: none;
+                }
+                
+        /* #endregion  .  .  . Hidden Scroll Bar Settings .  .  . */
+    
+    
+        /* #region  <-- - - - -  |  CUSTOM CLASSIFICATIONS & CONTAINERS  | - - - - */
+        
+            /* Centre the content and set a max width of 800px */
+                .container_box {
+                max-width: 900px;
+                background-color: rgb(253,253,253);
+                box-shadow: 0 0 10px rgba(26, 25, 25, 0.15);
+                margin: 50px auto;
+                padding-top: 30px;
+                padding-bottom: 100px;
+                padding-left: 70px;
+                padding-right: 75px;
+                min-height: 210%;
+                flex-direction: column;
+                justify-content: center;
+                box-sizing: border-box;
+                border-radius: 6px;
+            }
+        
+        /* #endregion  <-- - - - -  |  CUSTOM CLASSIFICATIONS & CONTAINERS  | - - - - */
+    
+    
+    /* #endregion  <-- - - - -  |  GLOBAL STYLE SETTINGS  | - - - - */
+    
+    
+    /* #region  <-- - - - -  |  GENERAL TEXT STYLE SETTINGS  | - - - - */
+    
+        /* Paragraphs */
+        p {
+            font-size: 11pt;
+            color: rgb(60, 60, 60);
+            margin-bottom: 20px;
+        }
+    
+        /* Global style for bold text */
+        b,
+        strong {
+            font-weight: 600;
+            color: rgb(85, 80, 65);
+            font-family: 'Open Sans', sans-serif;
+        }
+        /* Global style for italic text */
+
+        i, em {
+            font-style: italic;
+            color: rgb(100, 100, 100); 
+            font-size: 0.8em;
+            font-family: 'Open Sans', sans-serif;
+        }  
+    
+    /* #endregion  <-- - - - -  |  GENERAL TEXT STYLE SETTINGS  | - - - - */
+    
+    
+    /* #region  <-- - - - -  |  HEADING STYLE SETTINGS  | - - - - */
+    
+        h1 {
+            color: rgb(85, 80, 65);
+            font-family: 'Open Sans', sans-serif;
+            font-size: 26pt;
+            font-weight: 600;
+            margin-top: 40px;
+            margin-bottom: -5px;
+            line-height: 1;
+        }
+    
+        h2 {
+            color: rgb(85, 80, 65);
+            font-family: 'Open Sans', sans-serif;
+            font-size: 18pt;
+            font-weight: 600;
+            margin-top: 30px;
+            margin-bottom: -10px;
+            line-height: 1.2;
+        }
+    
+        h3 {
+            color: rgb(85, 80, 65);
+            font-family: 'Open Sans', sans-serif;
+            font-size: 14pt;
+            font-weight: 600;
+            margin-top: 35px;
+            margin-bottom: 8px;
+            line-height: 1.2;
+        }
+    
+        h4 {
+            color: rgb(85, 80, 65);
+            font-family: 'Open Sans', sans-serif;
+            font-size: 11pt;
+            font-weight: 600;
+            margin-top: 35px;
+            margin-bottom: 8px;
+            line-height: 1;
+        }
+    
+        h5 {
+            color: rgb(85, 80, 65);
+            font-family: 'Open Sans', sans-serif;
+            font-size: 11pt;
+            font-weight: 400;
+            margin-top: 10px;
+            margin-bottom: -20px;
+            line-height: 1;
+        }
+    
+        h6 {
+            color: rgb(120, 120, 120);
+            font-family: 'Open Sans', sans-serif;
+            font-weight: 400;
+            margin-top: 15px;
+            margin-bottom: -5px;
+            font-size: 10pt;
+        }
+    
+    /* #endregion  <-- - - - -  |  HEADING STYLE SETTINGS  | - - - - */
+    
+    
+    /* #region  <-- - - - -  |  LIST STYLES  | - - - - */
+    
+        /* #region  .  .  . Bullet Point Lists .  .  . */
+        ul {
+            list-style-type: none;
+            padding-left: 0px;
+            font-size: 11pt;
+            line-height: 1.5;
+        }
+    
+            ul li {
+                position: relative;
+                padding-left: 1.2em;
+                margin-bottom: 5px;
+                /* Adjusted for consistent spacing */
+            }
+    
+            ul li::before {
+                content: '\25A0';
+                position: absolute;
+                left: 3px;
+                color: rgb(125, 120, 105);
+                font-size: 8px; 
+                padding-top: 4.5px;
+                line-height: 1.5;
+        }
+    /* #endregion  .  .  . Bullet Point Lists .  .  . */
+    /* #region  .  .  . Nested Numbered Lists .  .  . */
+            ol {
+                list-style-type: none;
+                padding-left: 1.4em;
+                /* Increased padding for better alignment */
+                font-size: 11pt;
+                line-height: 1.5;
+                /* Ensures consistent line spacing */
+                margin-bottom: 15px;
+                /* Reduced margin to fix large gaps */
+                counter-reset: item;
+            }
+        
+            ol li {
+                padding-left: 0.5em;
+                /* Slightly increased padding for better spacing */
+                margin-bottom: 5px;
+                /* Adjusted for consistent spacing */
+                display: block;
+                position: relative;
+            }
+        
+            ol>li:before {
+                content: counters(item, ".") ". ";
+                counter-increment: item;
+                position: absolute;
+                left: -1.6em;
+                /* Fine-tuned positioning */
+                top: 0.1em;
+                /* Adjusted top to align with text */
+            }
+        
+            /* Second Level */
+            ol ol {
+                padding-left: 1.8em;
+                /* Increased padding for clarity */
+                margin-top: 5px;
+                margin-bottom: 5px;
+                line-height: 1.5;
+                /* Ensures consistent line spacing */
+            }
+        
+            ol ol>li:before {
+                content: counters(item, ".") " ";
+                left: -2.1em;
+                /* Adjusted positioning */
+                top: 0.1em;
+                /* Adjusted top to align with text */
+            }
+        
+            /* Third Level */
+            ol ol ol {
+                padding-left: 2.3em;
+                /* Adjusted padding for better alignment */
+                line-height: 1.5;
+                /* Ensures consistent line spacing */
+            }
+        
+            ol ol ol>li:before {
+                content: counter(item, lower-alpha) ". ";
+                left: -1.8em;
+                /* Adjusted positioning */
+                top: 0.1em;
+                /* Adjusted top to align with text */
+            }
+        
+            /* Ensure proper spacing and prevent text clash */
+            ol li ol li ol li {
+                padding-left: 0.6em;
+                /* Increased padding for clarity */
+                line-height: 1.5;
+            }
+        
+            /* Additional levels if needed */
+            ol ol ol ol {
+                padding-left: 2.8em;
+                /* Adjusted padding for clarity */
+                line-height: 1.5;
+            }
+        /* #endregion  .  .  . Nested Numbered Lists .  .  . */
+    
+    /* #endregion  <-- - - - -  |  LIST STYLES  | - - - - */
+    
+    
+    /* #region  <-- - - - -  |  HORIZONTAL LINES STYLE SETTINGS  | - - - - */
+    
+        hr {
+            border-top: 1px solid rgb(180, 180, 180);
+            margin-top: 40px;
+            margin-bottom: 0px;
+            margin-left: 10px;
+            margin-right: 20px;
+            opacity: 0.5;
+        }
+    
+    /* #endregion  <-- - - - -  |  HORIZONTAL LINE STYLE SETTINGS  | - - - - */
+    
+    
+    /* #region  <-- - - - -  |  TABLE STYLE SETTINGS  | - - - - */
+    
+        /* TABLE STYLES */
+
+        /* Table base styles */
+            .table-figure {
+            margin-left: 0;  /* Aligns the table with the left side of the container */
+            width: auto;     /* Ensures the table uses the available space dynamically */
+            padding-left: 0; /* Removes any default padding on the left */
+        }
+
+        /* Table base styles */
+        table {
+            width: 100%; /* Ensures the table spans the width of the container */
+            border-collapse: collapse;
+            margin-left: 0; /* Aligns the table itself to the left */
+        }
+
+        /* Table headers */
+        th {
+            background-color: rgb(245, 245, 245); 
+            font-weight: 500;
+            color: rgb(85, 80, 65);
+            padding: 8px;
+            text-align: left; 
+            padding-left: 3px;
+            font-family: 'Open Sans', sans-serif; 
+        }
+
+        /* Table cells */
+        td {
+            background-color: inherit;
+            padding: 8px; 
+            border: none;
+            font-size: 11pt;
+            padding-left: 3px;
+            color: rgb(60, 60, 60);
+        }
+
+        /* Even rows */
+        tr:nth-child(even) {
+            background-color: rgb(250, 250, 250);
+            font-family: 'Open Sans', sans-serif;
+            padding: 8px; 
+            font-size: 11pt;
+            padding-left: 3px;
+            color: rgb(60, 60, 60);
+        }
+
+        /* Adjusting header tags to align with table headers */
+        thead {
+            display: table-header-group;
+            vertical-align: middle
+        }
+    
+    /* #endregion  <-- - - - -  |  TABLE STYLE SETTINGS  | - - - - */
+    
+    
+    /* #region  <-- - - - -  |  MATH BLOCK ALIGNMENT  | - - - - */
+        .mathjax-block {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+    /* #endregion  <-- - - - -  |  MATH BLOCK ALIGNMENT  | - - - - */
+    
+    
+    </style>
+    
+    
+
+<!-- #endregion  <-- - - - -  |  CSS STYLE SHEET  | - - - - -->
+
+
+<!-- ------------------------------------------------------------------------------------------------------------------------ -->
+
+
+<!-- #region  <-- - - - -  |  RESPONSIVE STYLE ELEMENTS FOR MOBILE  | - - - - -->
+
+    <style>
+            @media (max-width: 768px) {
+                body {
+                    font-size: 5pt;
+                    margin-top: -10PX;
+                }
+            
+                .container_box {
+                    padding: 20px;
+                    padding-top: 10px;
+                    margin: 20px;
+                    margin-top: 20px;
+                    border-radius: 6px;
+                    }
+                    
+                    hr {
+                    border-top: 1px solid rgb(180, 180, 180);
+                    margin-top: 40px;
+                    margin-bottom: -20px;
+                    }
+                
+            /*  Responsive Paragraph Settings */
+                p {
+                    font-size: 10pt;
+                    margin-bottom: 15px;
+                }
+                
+                /* Global style for bold text */
+                b,
+                strong {
+                    font-weight: 600;
+                }
+            
+            /*Responsive Heading Settings*/
+                h1 {
+                    font-size: 16pt;
+                    line-height: 1;
+                    font-weight: 600;
+                    margin-top: 0.7em;
+                }
+                
+                h2 {
+                    font-size: 14pt;
+                    line-height: 1.0;
+                    font-weight: 600;
+                }
+                
+                h3 {
+                    font-size: 12pt;
+                    line-height: 1.0;
+                    font-weight: 600;
+                }
+                
+                h4 {
+                    font-size: 11pt;
+                    font-weight: 600;
+                    margin-top: 25px;
+                    margin-bottom: 10px;
+                    line-height: 1;
+                    font-weight: 600;
+                }
+                
+                h5 {
+                    font-size: 11pt;
+                    font-weight: 600;
+                    margin-top: 10px;
+                    margin-bottom: -20px;
+                    line-height: 1;
+                    font-weight: 600;
+                }
+                
+                h6 {
+                    font-weight: 400;
+                    margin-top: 20px;
+                    margin-bottom: -20px;
+                    font-size: 8pt;
+                    font-weight: 200;
+                }
+        
+            /*Responsive Heading Settings*/
+        
+        /* #region  <-- - - - -  |  Responsive Table Style Settings  | - - - - */
+        
+        /* TABLE STYLES */
+
+        /* Table Responsive Base Styles */
+        /* Table base styles */
+        .table-figure {
+            margin-left: 0;  /* Aligns the table with the left side of the container */
+            width: auto;     /* Ensures the table uses the available space dynamically */
+            padding-left: 0; /* Removes any default padding on the left */
+        }
+
+        /* Table base styles */
+        table {
+            width: 100%; /* Ensures the table spans the width of the container */
+            border-collapse: collapse;
+            margin-left: 0; /* Aligns the table itself to the left */
+        }
+
+        /* Table Responsive headers */
+        th {
+            background-color: rgb(245, 245, 245); 
+            font-weight: 600;
+            color: rgb(85, 80, 65);
+            padding: 3px;
+            text-align: left; 
+            font-size: 9pt;
+            font-family: 'Open Sans', sans-serif; 
+        }
+
+        /* Table Responsive cells */
+        td {
+            background-color: inherit;
+            padding: 3px; 
+            border: none;
+            font-size: 9pt;
+            color: rgb(60, 60, 60);
+        }
+
+        /* Even Responsive rows */
+        tr:nth-child(even) {
+            background-color: rgb(250, 250, 250);
+            font-family: 'Open Sans', sans-serif;
+            padding: 3px; 
+            font-size: 9pt;
+            color: rgb(60, 60, 60);
+        }
+
+        /* Adjusting header tags to align with table headers */
+        thead {
+            display: table-header-group;
+            vertical-align: middle
+        }
+    }
+        
+        /* #endregion  <-- - - - -  |  Responsive Table Style Settings  | - - - - */
+
+
+    /* #endregion  <-- - - - -  |  MATH BLOCK ALIGNMENT  | - - - - */
+    
+    </style>
+
+<!-- #endregion  <-- - - - -  |  RESPONSIVE STYLE ELEMENTS FOR MOBILE  | - - - - -->
+
+
+<!-- ------------------------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------------------------ -->
+
+
+
+<!-- #region  <-- - - - -  |  !!INSERT_CONTENT_HERE!!  | - - - - -->
+
+<body>
+    <div class="container_box">
+        
+        
+        <h1>Material Datasheets</h1>
+        <h6>KE03_04_03  I  Material Datasheets  |  Version 1</h6>
+        <hr />
+        <h2>Material Properties Selection</h2>
+        <p>The tables below outline the material properties used in calculating the required U-values for the project. These datasheets have been produced in response to the client&#39;s query, which was regarding which type of blockwork is best suited to meet thermal standards for the proposed extension. The data provided was sourced from manufacturers datasheets and technical references available online.</p>
+        <hr />
+        <h3>Datasheet | Knauf Dritherm 32 Ultimate Cavity Slab Insulation </h3>
+        <figure class='table-figure'><table>
+        <thead>
+        <tr><th>Attribute</th><th>Specification</th></tr></thead>
+        <tbody><tr><td>Brand / Product</td><td>Knauf  |  Dritherm 32 Ultimate</td></tr><tr><td>Product Type</td><td>Cavity Wall Insulation    <em>|    Designed for use within full fill 150 mm masonry cavity walls</em></td></tr><tr><td>Material</td><td>Glass Mineral Wool</td></tr><tr><td>Dimensions</td><td><em>Thickness  |</em>  150 mm      x      <em>Length  |</em>  1200 mm      x      <em>Height  |</em>  455 mm</td></tr><tr><td>Pack Coverage</td><td>2.18  <em>m²</em>   <em>4 Slabs</em></td></tr><tr><td>Weight Per m²</td><td>4.05  <em>kg / m²</em>      <em>|  Square Meterage defines the weight of the material as installed per wall area m²</em></td></tr><tr><td>Weight Per m³</td><td>27  <em>kg / m³</em>         <em>|  Cubic Meterage illustrates the density of the material</em></td></tr><tr><td>Lambda Value</td><td>0.032  <em>W/mK</em></td></tr><tr><td>R - Value</td><td>4.650  <em>m²K/W</em></td></tr><tr><td>Accreditations</td><td>Product Has BBA Certification  <em>(British Board of Agréement)</em></td></tr><tr><td>Standards Codes</td><td>Manufactured in accordance with BS EN 13162</td></tr><tr><td>Fire Rating</td><td>Euroclass A1   <em>(Non-combustible)</em></td></tr><tr><td>Additional Features</td><td>Water Repellent Coating  ,  ECOSE® Environmental Technology</td></tr><tr><td>Limitations</td><td>This product approved for use in buildings up to;  12m <em>(meters)</em>  tall.</td></tr></tbody>
+        </table></figure>
+        <hr />
+        <h3>Datasheet  |  Lightweight Celcon Standard Block</h3>
+        <figure class='table-figure'><table>
+        <thead>
+        <tr><th>Property</th><th>Value</th></tr></thead>
+        <tbody><tr><td>Brand / Product</td><td>Celcon |  Standard  <em>3.6N</em></td></tr><tr><td>Product Type</td><td>Lightweight Masonry Block</td></tr><tr><td>Material</td><td>Aerated Concrete   <em>|  Also referred  to as &quot;Aircrete&quot;</em></td></tr><tr><td>Compressive Strength</td><td>3.6 <em>N/mm²</em></td></tr><tr><td>Dimensions</td><td><em>Length  |</em>  440 mm      x      <em>Height  |</em>  215 mm      x      <em>Thickness  |</em>  100 mm</td></tr><tr><td>Lambda Value</td><td>0.150  <em>W/mK</em></td></tr><tr><td>R - Value</td><td>0.670 <em>m²K/W</em></td></tr><tr><td>Weight Per Unit</td><td>7  <em>kg / Block</em>       <em>|This is an approximate per induvial block</em></td></tr><tr><td>Weight Per m²</td><td>74  <em>kg / m²</em>        <em>|  Square Meterage defines the weight of the material as installed per wall area m²</em></td></tr><tr><td>Weight Per m³</td><td>600  <em>kg / m³</em>      <em>|  Cubic meterage illustrates the density of the material</em></td></tr><tr><td>Fire Rating</td><td>Euroclass A1   <em>(Non-combustible)</em></td></tr><tr><td>Certification</td><td>BBA Approved  <em>(British Board of Agréement)</em></td></tr><tr><td>Standards Codes</td><td>Manufactured in accordance with BS EN 771-4  <em>|  Specifications for units aerated concrete masonry units</em></td></tr><tr><td>Additional Features</td><td>Aircrete offers good thermal and acoustic performance, its also lightweight &amp; easy to handle</td></tr><tr><td>Limitations</td><td>Not suitable for direct load-bearing applications. For supporting structural members, blocks with higher density and strength may be required, as specified by the structural engineer.</td></tr></tbody>
+        </table></figure>
+        <hr />
+        <h3>Datasheet  |  Dense Concrete Block </h3>
+        <figure class='table-figure'><table>
+        <thead>
+        <tr><th>Property</th><th>Value</th></tr></thead>
+        <tbody><tr><td>Product Type</td><td>Concrete Block</td></tr><tr><td>Material</td><td>Solid Dense Concrete</td></tr><tr><td>Compressive Strength</td><td>7.3 <em>N/mm²</em></td></tr><tr><td>Dimensions</td><td><em>Length  |</em>  440 mm      x      <em>Height  |</em>  215 mm      x      <em>Thickness  |</em>  100 mm</td></tr><tr><td>Lambda Value</td><td>1.13  <em>W/mK</em></td></tr><tr><td>R - Value</td><td>0.088 <em>m²K/W</em></td></tr><tr><td>Weight Per Unit</td><td>19  <em>kg / Block</em>        <em>|  This is an approximate per induvial block</em></td></tr><tr><td>Weight Per m²</td><td>195  <em>kg / m²</em>          <em>|  Square Meterage defines the weight of the material as installed per wall area m²</em></td></tr><tr><td>Weight Per m³</td><td>1900  <em>kg / m²</em>        <em>|  Cubic meterage illustrates the density of the materia</em>l</td></tr><tr><td>Fire Rating</td><td>Euroclass A1   <em>(Non-combustible)</em></td></tr><tr><td>Standards Codes</td><td>Manufactured in accordance with BS EN 771-1  <em>|  Specifications for concrete masonry units</em></td></tr><tr><td>Additional Features</td><td>**Ideal for areas requiring critical structural strength, such as beneath load-bearing members.</td></tr></tbody>
+        </table></figure>
+        <p>&nbsp;</p>
+        <hr />
+        <h6>Revision Status  |  Version 1.1					Created By  |  Adam Noble						           Date Created  |  09/08/2024</h6>
+        
+        
+        
+        
+    </div>
+</body>
+</html>
+<!-- #endregion  <-- - - - -  |  !!INSERT_CONTENT_HERE!!  | - - - - -->
+
+
+
+<!-- ------------------------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------------------------ -->
