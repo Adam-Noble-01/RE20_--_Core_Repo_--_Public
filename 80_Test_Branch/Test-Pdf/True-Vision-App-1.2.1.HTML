@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="version" content="1.1.9">
+    <meta name="version_notes" content="Updated lighting and coordinates, disabled Babylon.js loading logo">
+    <title>True Vision 3D by Noble Architecture – Pre Beta Version</title>
+    <style>
+        /* BASIC RESET & LAYOUT */
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background: #f0f0f0;
+            overflow: hidden;
+            font-family: sans-serif;
+        }
+
+        #app-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            touch-action: none;
+        }
+
+        /* HEADER */
+        #header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            background: #fff;
+            border-bottom: 2px solid #555041;
+            display: flex;
+            align-items: center;
+            padding-left: 10px;
+            z-index: 9999;
+        }
+
+        #header img {
+            height: 40px;
+        }
+
+        #app-title {
+            margin-left: 15px;
+            font-size: 20px;
+            color: #555041;
+        }
+
+        /* TOOLBAR */
+        #toolbar {
+            position: absolute;
+            top: 50px;
+            left: 0;
+            width: 220px;
+            bottom: 30px;
+            background: #fff;
+            border-right: 2px solid #555041;
+            padding: 10px;
+            box-sizing: border-box;
+            z-index: 9998;
+            overflow-y: auto;
+        }
+
+        .tool-button {
+            display: block;
+            width: 100%;
+            margin-bottom: 8px;
+            padding: 10px;
+            background: #555041;
+            color: #fff;
+            text-align: center;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            border-radius: 3px;
+        }
+
+        .tool-button:hover {
+            opacity: 0.8;
+        }
+
+        #toolbar label {
+            margin-top: 10px;
+            display: block;
+            color: #555041;
+            font-size: 14px;
+        }
+
+        #sunTimeDisplay {
+            font-size: 12px;
+            color: #555041;
+            text-align: center;
+        }
+
+        /* CANVAS CONTAINER */
+        #canvas-container {
+            position: absolute;
+            top: 50px;
+            left: 220px;
+            right: 0;
+            bottom: 30px;
+            background: #ccc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #renderCanvas {
+            width: 100%;
+            height: 100%;
+            touch-action: none;
+            background: #fafafa;
+        }
+
+        /* LOADING OVERLAY */
+        #loading-overlay {
+            position: absolute;
+            top: 50px;
+            left: 220px;
+            right: 0;
+            bottom: 30px;
+            background: rgba(255, 255, 255, 0.9);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            z-index: 10000;
+            transition: opacity 0.3s ease;
+        }
+
+        #loading-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .spinner {
+            border: 8px solid #f3f3f3;
+            border-top: 8px solid #555041;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ERROR MESSAGE */
+        #error-message {
+            position: absolute;
+            top: 60px;
+            left: 240px;
+            right: 20px;
+            padding: 10px;
+            background: #ffe6e6;
+            border: 1px solid #ff0000;
+            color: #ff0000;
+            display: none;
+            z-index: 10001;
+        }
+
+        /* FOOTER */
+        #footer {
+            position: absolute;
+            bottom: 0;
+            left: 220px;
+            right: 0;
+            height: 30px;
+            background: #fff;
+            border-top: 1px solid #555041;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #555041;
+            z-index: 9999;
+        }
+    </style>
+</head>
+<body>
+    <div id="app-container">
+        <!-- HEADER WITH BRANDING -->
+        <div id="header">
+            <img src="https://raw.githubusercontent.com/Adam-Noble-01/RE10_I_GitHub_I_Public_Repo/main/10_NA_Web_Library/NA03_Brand_Assets/01_na_company_logo.png"
+                alt="Noble Architecture Logo">
+            <span id="app-title">True Vision 3D –  Pre Beta Version</span>
+        </div>
+
+        <!-- TOOLBAR -->
+        <div id="toolbar">
+            <button class="tool-button" id="resetViewBtn">Reset View</button>
+            <button class="tool-button" id="orbitModeBtn">Orbit Mode</button>
+            <button class="tool-button" id="flyModeBtn">Fly-Through Mode</button>
+            <label for="sunTimeSlider">Sun Time (09:00-15:00)</label>
+            <input type="range" id="sunTimeSlider" min="9" max="15" step="0.1" value="12"
+                style="width:100%; margin-top:5px;">
+            <p id="sunTimeDisplay">12:00</p>
+        </div>
+
+        <!-- CANVAS CONTAINER -->
+        <div id="canvas-container">
+            <canvas id="renderCanvas"></canvas>
+        </div>
+
+        <!-- LOADING OVERLAY -->
+        <div id="loading-overlay">
+            <div class="spinner"></div>
+            <p>Loading Model... Please Wait</p>
+        </div>
+
+        <!-- ERROR MESSAGE -->
+        <div id="error-message">
+            Failed to load the 3D model. Please check the file URL or try again later.
+        </div>
+
+        <!-- FOOTER -->
+        <div id="footer">
+            © Noble Architecture. All rights reserved.
+        </div>
+    </div>
+
+    <!-- Include Babylon.js and glTF loader -->
+    <script src="https://cdn.babylonjs.com/babylon.js"></script>
+    <script src="https://cdn.babylonjs.com/loaders/babylon.glTF2FileLoader.js"></script>
+    <script>
+        (function () {
+            // =====================================================
+            // CONFIGURABLE SETTINGS AND GLOBAL VARIABLES
+            // =====================================================
+            const GLOBAL_COORDINATES = {
+                latitude: 52.9449,   // Updated Nottingham, UK latitude
+                longitude: -1.2245   // Updated Nottingham, UK longitude
+            };
+            const PRINCIPAL_ELEVATION = "West";  // Options: "North", "South", "East", "West"
+            const GROUND_OFFSET = -1.25;           // Ground offset in metres
+            const CAMERA_OFFSET = 10;             // Additional offset for camera positioning
+
+            // Model URL (GLB format)
+            const modelURL = "https://raw.githubusercontent.com/Adam-Noble-01/RE10_I_GitHub_I_Public_Repo/main/80_Test_Branch/True-Vision-3D_-_Test-01/True-Vision-3D_-_Test-Model_-_1.1.1.glb";
+
+            // =====================================================
+            // UTILITY FUNCTIONS FOR SUN POSITION CALCULATIONS
+            // =====================================================
+            function computeSunAltitude(hour) {
+                let altitudeDeg;
+                if (hour <= 12) {
+                    altitudeDeg = 20 + (hour - 9) * (60 - 20) / (12 - 9);
+                } else {
+                    altitudeDeg = 60 - (hour - 12) * (60 - 30) / (15 - 12);
+                }
+                return altitudeDeg * (Math.PI / 180);
+            }
+
+            function computeSunAzimuth(hour) {
+                let azimuthDeg;
+                if (hour <= 12) {
+                    azimuthDeg = 110 + (hour - 9) * (180 - 110) / (12 - 9);
+                } else {
+                    azimuthDeg = 180 + (hour - 12) * (250 - 180) / (15 - 12);
+                }
+                let offset = 0;
+                switch (PRINCIPAL_ELEVATION) {
+                    case "North":
+                        offset = 0;
+                        break;
+                    case "East":
+                        offset = 90;
+                        break;
+                    case "South":
+                        offset = 180;
+                        break;
+                    case "West":
+                        offset = 270;
+                        break;
+                }
+                let adjustedAzimuth = (azimuthDeg + offset) % 360;
+                return adjustedAzimuth * (Math.PI / 180);
+            }
+
+            // =====================================================
+            // BABYLON.JS SCENE SETUP AND RENDERING
+            // =====================================================
+            const canvas = document.getElementById("renderCanvas");
+            const engine = new BABYLON.Engine(canvas, true, { preserveDrawingBuffer: true, stencil: true });
+            // Disable Babylon.js default loading screen
+            engine.loadingScreen = {
+                displayLoadingUI: function () { },
+                hideLoadingUI: function () { }
+            };
+            let scene, arcCamera, freeCamera, activeCamera, sunLight;
+
+            // DOM Elements
+            const loadingOverlay = document.getElementById("loading-overlay");
+            const errorMessage = document.getElementById("error-message");
+            const resetViewBtn = document.getElementById("resetViewBtn");
+            const orbitModeBtn = document.getElementById("orbitModeBtn");
+            const flyModeBtn = document.getElementById("flyModeBtn");
+            const sunTimeSlider = document.getElementById("sunTimeSlider");
+            const sunTimeDisplay = document.getElementById("sunTimeDisplay");
+
+            function createScene() {
+                scene = new BABYLON.Scene(engine);
+                // Enhance scene brightness and contrast
+                scene.imageProcessingConfiguration.exposure = 1.5;
+                scene.imageProcessingConfiguration.contrast = 1.2;
+                scene.imageProcessingConfiguration.toneMappingEnabled = true;
+                scene.clearColor = new BABYLON.Color4(0.94, 0.94, 0.94, 1);
+
+                // Create a directional light to represent the sun
+                sunLight = new BABYLON.DirectionalLight("sunLight", new BABYLON.Vector3(0, -1, 0), scene);
+                sunLight.position = new BABYLON.Vector3(20, 40, 20);
+                sunLight.intensity = 1.8;
+
+                // Create an ambient hemispheric light
+                let hemiLight = new BABYLON.HemisphericLight("hemiLight", new BABYLON.Vector3(0, 1, 0), scene);
+                hemiLight.intensity = 0.8;
+
+                // Create cameras
+                arcCamera = new BABYLON.ArcRotateCamera("arcCamera", BABYLON.Tools.ToRadians(45), BABYLON.Tools.ToRadians(60), 30, BABYLON.Vector3.Zero(), scene);
+                arcCamera.attachControl(canvas, true);
+                arcCamera.lowerRadiusLimit = 5;
+                arcCamera.upperRadiusLimit = 100;
+
+                freeCamera = new BABYLON.FreeCamera("freeCamera", new BABYLON.Vector3(0, 5, -20), scene);
+                freeCamera.attachControl(canvas, true);
+                freeCamera.speed = 0.5;
+                freeCamera.inertia = 0.1;
+                freeCamera.angularSensibility = 5000;
+
+                activeCamera = arcCamera;
+                scene.activeCamera = activeCamera;
+
+                // Create default environment with skybox and ground
+                let envOptions = {
+                    createSkybox: true,
+                    skyboxSize: 1000,
+                    skyboxColor: new BABYLON.Color3(0.9, 0.95, 1.0),
+                    createGround: true,
+                    groundSize: 1000,
+                    groundColor: new BABYLON.Color3(0.85, 0.87, 0.85)
+                };
+                let env = scene.createDefaultEnvironment(envOptions);
+                if (env.ground) {
+                    env.ground.position.y += GROUND_OFFSET;
+                    env.ground.receiveShadows = true;
+                }
+
+                // Set up shadow generator
+                let shadowGenerator = new BABYLON.ShadowGenerator(2048, sunLight);
+                shadowGenerator.useExponentialShadowMap = true;
+
+                // Load the 3D model
+                BABYLON.SceneLoader.Append("", modelURL, scene, function () {
+                    loadingOverlay.classList.add("hidden");
+                    scene.meshes.forEach(function (mesh) {
+                        if (mesh !== env.ground) {
+                            shadowGenerator.addShadowCaster(mesh, true);
+                        }
+                    });
+                    applyAutoMaterials();
+                }, null, function (scene, message, exception) {
+                    console.error("Error loading model:", message, exception);
+                    loadingOverlay.classList.add("hidden");
+                    errorMessage.style.display = "block";
+                });
+
+                // Initialise sun position using slider value
+                updateSunPosition(parseFloat(sunTimeSlider.value));
+
+                return scene;
+            }
+
+            // =====================================================
+            // AUTO MATERIAL HANDLING FUNCTION
+            // =====================================================
+            function applyAutoMaterials() {
+                scene.materials.forEach(function (mat) {
+                    let name = mat.name.toLowerCase();
+                    if (mat instanceof BABYLON.PBRMaterial) {
+                        mat.backFaceCulling = false;
+                    }
+                    if (name.indexOf("glass") !== -1) {
+                        if (mat instanceof BABYLON.PBRMaterial) {
+                            mat.alpha = 0.5;
+                            mat.transparencyMode = BABYLON.PBRMaterial.PBRMATERIAL_ALPHABLEND;
+                            mat.reflectivityColor = new BABYLON.Color3(0.9, 0.9, 0.9);
+                            mat.albedoColor = new BABYLON.Color3(0.8, 0.8, 0.9);
+                        }
+                    }
+                    else if (name.indexOf("metal") !== -1) {
+                        if (mat instanceof BABYLON.PBRMaterial) {
+                            mat.metallic = 1.0;
+                            mat.roughness = 0.2;
+                        }
+                    }
+                });
+            }
+
+            // =====================================================
+            // SUN POSITION UPDATE FUNCTION
+            // =====================================================
+            function updateSunPosition(selectedHour) {
+                const altitude = computeSunAltitude(selectedHour);
+                const azimuth = computeSunAzimuth(selectedHour);
+                const x = Math.cos(altitude) * Math.sin(azimuth);
+                const y = Math.sin(altitude);
+                const z = Math.cos(altitude) * Math.cos(azimuth);
+                sunLight.direction = new BABYLON.Vector3(-x, -y, -z);
+            }
+
+            // =====================================================
+            // INITIALISE SCENE AND RENDER LOOP
+            // =====================================================
+            scene = createScene();
+            engine.runRenderLoop(function () {
+                if (scene) {
+                    scene.render();
+                }
+            });
+            window.addEventListener("resize", function () {
+                engine.resize();
+            });
+
+            // =====================================================
+            // TOOLBAR EVENT LISTENERS
+            // =====================================================
+            function resetView() {
+                if (activeCamera === arcCamera) {
+                    arcCamera.setPosition(new BABYLON.Vector3(0, 10, -30 - CAMERA_OFFSET));
+                    arcCamera.setTarget(BABYLON.Vector3.Zero());
+                } else if (activeCamera === freeCamera) {
+                    freeCamera.position = new BABYLON.Vector3(0, 5, -20 - CAMERA_OFFSET);
+                    freeCamera.setTarget(BABYLON.Vector3.Zero());
+                }
+            }
+            resetViewBtn.addEventListener("click", resetView);
+
+            orbitModeBtn.addEventListener("click", function () {
+                if (activeCamera !== arcCamera) {
+                    activeCamera.detachControl(canvas);
+                    activeCamera = arcCamera;
+                    scene.activeCamera = activeCamera;
+                    activeCamera.attachControl(canvas, true);
+                    resetView();
+                }
+            });
+
+            flyModeBtn.addEventListener("click", function () {
+                if (activeCamera !== freeCamera) {
+                    activeCamera.detachControl(canvas);
+                    activeCamera = freeCamera;
+                    scene.activeCamera = activeCamera;
+                    activeCamera.attachControl(canvas, true);
+                    resetView();
+                }
+            });
+
+            sunTimeSlider.addEventListener("input", function () {
+                const selectedHour = parseFloat(sunTimeSlider.value);
+                const displayHour = Math.floor(selectedHour);
+                const displayMinutes = Math.round((selectedHour - displayHour) * 60);
+                const timeString = displayHour.toString().padStart(2, '0') + ":" + displayMinutes.toString().padStart(2, '0');
+                sunTimeDisplay.textContent = timeString;
+                updateSunPosition(selectedHour);
+            });
+        })();
+    </script>
+</body>
+</html>
