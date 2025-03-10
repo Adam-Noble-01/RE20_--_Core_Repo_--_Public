@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Plan Vision by Noble Architecture</title>
+    
+        <!-- Polyfill for older browsers (including Safari on Mojave) -->
+        <script src="https://cdn.jsdelivr.net/npm/core-js-bundle/minified.js"></script>
+    
+<!--
+================================================================================================================
+FILE DETAILS
+File Name   | plan-vision-web-application.html
+File Type   | HTML/CSS/JS Web Application
+Author      | Adam Noble – Noble Architecture
+================================================================================================================
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+SCRIPT DESCRIPTION
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+This HTML file serves as the main entry point for the Plan Vision web application.
+It integrates HTML, CSS and JavaScript to provide functionalities including:
+- A linear measurement tool for precise distance calculations.
+- An area measurement tool for computing polygon areas.
+- A PDF download feature allowing users to download formatted drawings.
+- Responsive design ensuring compatibility across various devices.
+Note:
+- The application loads a PNG image and a PDF file with the same base file name.
+- The dual-file approach was introduced in response to earlier issues on iOS where PDF-only
+- implementations led to memory constraints. The PNG handling ensures compatibility across
+- devices while the PDF file offers a formatted download.
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  
+ISSUES & LESSONS LEARNED  
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  
+
+- **Initial PDF-only approach caused performance and memory issues on iOS devices.**  
+- The integration of PNG image handling resolved these issues and improved cross-device compatibility.  
+- Maintaining two separate files (PNG and PDF) leverages the benefits of both in-app viewing and downloadable formatted documents.  
+
+- **Application failed to load due to missing root DOM element (`#app`).**  
+    - The script was executing before the DOM fully loaded, causing critical errors.  
+    - Resolved by ensuring the `#app` element exists before running JavaScript logic.  
+
+- **Full screen mode did not function properly in Google Sites embeds.**  
+    - Browsers restrict fullscreen access within iframes, affecting functionality.  
+    - Added fallback handling for unsupported fullscreen environments.  
+
+- **Mobile usability was initially poor due to lack of user guidance.**  
+    - The previous implementation displayed a static message instructing users to rotate their device.  
+    - This was replaced with a **dynamic tutorial animation** that visually introduces the tools menu.  
+
+- **Toolbar animation and menu visibility improvements were required.**  
+    - Initially, the toolbar left a grey margin when hidden, affecting canvas usability.  
+    - The toolbar was adjusted to overlay the canvas instead of affecting its dimensions.  
+
+- **Measurement tools needed UI refinement.**  
+    - Previously, the measurement tools' buttons were not intuitive for first-time users.  
+    - Added clear instructions and improved the visibility of the confirm/cancel buttons.  
+
+- **Device orientation detection required refinements.**  
+    - Early mobile detection logic only considered width constraints, missing certain tablets.  
+    - Implemented improved detection for **phones, tablets, and iPads**, ensuring proper UI scaling.  
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+FUTURE SCRIPT IMPROVEMENTS & IDEAS
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+- 1.3.0 Updates Planned
+  - List Improvemnets  . . .
+
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+22-Feb-2025 - v0.3.0  |  Basic functions tested across four client projects.
+                        |  Linear & area measurement tools, PDF download and dual-file (PNG/PDF) handling implemented.
+22-Feb-2025 - v0.2.1  |  Improved measurement scaling and initial compatibility fixes.
+10-Mar-2025 - v1.4.0  |  Major UI & Usability Enhancements
+                        - Mobile usability improvements implemented for phones, tablets, and iPads.  
+                        - Removed placeholder message for portrait mobile devices.  
+                        - **New tutorial animation:** Upon first launch, menu now opens briefly before retracting, followed by an arrow tooltip guiding users to the tools menu.  
+                        - **New Fullscreen Mode Button:** Added fullscreen toggle within the toolbar.  
+                        - **Fixed Menu Behaviour:** Ensured menu correctly overlays the drawing instead of affecting the canvas scale.  
+                        - Additional performance optimisations and minor bug fixes.  
+10-Mar-2025 - v1.4.3  |  Drawing Markers changed from circles (Dots At Node Points) changed to "+" Shaped Crossheirs for improved accuracy.
+
+??-???-2025 - v0.5.0  |  LIST FUTURE UPDATES HERE
+================================================================================================================
+-->
+
+
+    <style>
+        /* BASIC RESET & LAYOUT */
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background: #f0f0f0;
+            font-family: sans-serif;
+            overflow: hidden;
+        }
+
+        /* ROOT APP WRAPPER */
+        #app {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* MAIN APPLICATION CONTAINER */
+        #app-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            touch-action: none;
+        }
+
+        /* BRANDING HEADER */
+        #header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            background: #fff;
+            border-bottom: 2px solid #555041;
+            display: flex;
+            align-items: center;
+            z-index: 9999;
+            padding-left: 10px;
+        }
+
+        #header img {
+            height: 40px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            margin-right: 10px;
+            padding-right: 10px;
+            margin-left: auto;
+            padding-left: auto;
+            align-items: right;
+        }
+
+        #app-title {
+            margin-left: 15px;
+            font-size: 20px;
+            color: #555041;
+        }
+
+        /* HAMBURGER BUTTON TO TOGGLE TOOLBAR */
+        #toggleToolbarBtn {
+            margin-left: 5px;
+            font-size: 22px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #555041;
+        }
+
+        /* TOOLBAR */
+        #toolbar {
+            position: absolute;
+            top: 50px;
+            left: 0;
+            width: 220px;
+            height: calc(100% - 50px);
+            background: #fff;
+            border-right: 2px solid #555041;
+            padding: 10px;
+            box-sizing: border-box;
+            z-index: 9998;
+            overflow-y: auto;
+            transition: transform 0.3s ease;
+        }
+        #toolbar.collapsed {
+            transform: translateX(-220px); /* slide offscreen */
+        }
+
+        /* TOOL BUTTONS */
+        .tool-button {
+            display: block;
+            width: 100%;
+            margin-bottom: 8px;
+            padding: 10px;
+            background: #555041;
+            color: #fff;
+            text-align: center;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            border-radius: 3px;
+        }
+        .tool-button:hover {
+            opacity: 0.8;
+        }
+
+        #cancelToolBtn {
+            display: none;
+            background: #d9534f;
+        }
+        #cancelToolBtn:hover {
+            opacity: 0.8;
+        }
+
+        /* CONFIRM MEASUREMENT BUTTON */
+        #finishMeasurementBtn {
+            position: absolute;
+            z-index: 13000;
+            background: #5cb85c;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 8px 12px;
+            cursor: pointer;
+            display: none;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+            font-size: 14px;
+        }
+        #finishMeasurementBtn:hover {
+            opacity: 0.9;
+        }
+
+        /* CANVAS WRAPPER */
+        #canvas-container {
+            position: absolute;
+            top: 50px;
+            left: 0;
+            right: 0;
+            bottom: 30px;
+            overflow: hidden;
+            background: #ccc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            touch-action: none;
+        }
+
+        /* LOADING OVERLAY */
+        #loading-overlay {
+            position: absolute;
+            top: 50px;
+            left: 0;
+            right: 0;
+            bottom: 30px;
+            background: rgba(255, 255, 255, 0.9);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            z-index: 10000;
+            transition: opacity 0.3s ease;
+        }
+        #loading-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .loading-spinner {
+            border: 8px solid #f3f3f3;
+            border-top: 8px solid #555041;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+        @keyframes spin {
+            0%   { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* ERROR MESSAGE */
+        #error-message {
+            position: absolute;
+            top: 60px;
+            left: 20px;
+            right: 20px;
+            padding: 10px;
+            background: #ffe6e6;
+            border: 1px solid #ff0000;
+            color: #ff0000;
+            display: none;
+            z-index: 10001;
+        }
+
+        /* TOOL INSTRUCTIONS OVERLAY */
+        #tool-instructions-overlay {
+            position: absolute;
+            top: 50px;
+            left: 0;
+            right: 0;
+            bottom: 30px;
+            background: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            z-index: 12000;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        #tool-instructions-overlay.fade-out {
+            transition: opacity 1s ease;
+            opacity: 0;
+            pointer-events: none;
+        }
+        #tool-instructions-text {
+            font-size: 16px;
+            max-width: 400px;
+            margin: auto;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 8px;
+            white-space: pre-line;
+        }
+
+        /* MENU TUTORIAL OVERLAY */
+        #menu-tutorial-overlay {
+            position: absolute;
+            top: 60px; /* just below the header */
+            left: 10px;
+            display: none;
+            z-index: 13000;
+            pointer-events: none; /* so it doesn't block clicks if desired */
+        }
+        #menu-pointer-arrow {
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-bottom: 10px solid #d9534f;
+            margin-left: 15px;
+        }
+        #menu-tutorial-text {
+            background: #d9534f;
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 4px;
+            margin-top: 5px;
+            font-size: 14px;
+        }
+
+        /* FOOTER */
+        #footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 30px;
+            background: #fff;
+            border-top: 1px solid #555041;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: #86847d;
+            z-index: 9999;
+        }
+    </style>
+</head>
+
+<body>
+<div id="app">
+    <div id="app-container">
+
+        <!-- HEADER -->
+        <div id="header">
+            <button id="toggleToolbarBtn">&#9776;</button>
+            <span id="app-title" style="padding-left: 10px;">PlanVision
+                <span style="font-size: 12px; color: #656565;">- Testing Version 1.4.3 Beta</span>
+            </span>
+            <img src="https://raw.githubusercontent.com/Adam-Noble-01/RE10_I_GitHub_I_Public_Repo/main/10_NA_Web_Library/NA03_Brand_Assets/01_na_company_logo.png"
+                 alt="Noble Architecture Logo">
+        </div>
+
+        <!-- MENU TUTORIAL OVERLAY (arrow + message) -->
+        <div id="menu-tutorial-overlay">
+            <div id="menu-pointer-arrow"></div>
+            <!-- Updated text as requested -->
+            <div id="menu-tutorial-text">Press Here To Open / Hide The Tools Menu</div>
+        </div>
+
+        <!-- TOOLBAR -->
+        <div id="toolbar">
+            <button class="tool-button" id="resetViewBtn">Reset View</button>
+            <button class="tool-button" id="linearMeasureBtn">Linear Measurement</button>
+            <button class="tool-button" id="areaMeasureBtn">Area Measurement</button>
+            <button class="tool-button" id="clearMeasurementsBtn">Clear Measurements</button>
+            <button class="tool-button" id="cancelToolBtn">Cancel Tool</button>
+
+            <!-- PDF Download -->
+            <button class="tool-button" id="downloadPDFBtn">Download PDF</button>
+
+            <!-- Full Screen Button -->
+            <button class="tool-button" id="fullscreenBtn">Enter Full Screen</button>
+
+            <div style="margin-top:20px; font-size:12px; color:#555041;">
+                <strong>Measurements:</strong>
+                <div id="measureInfo" style="margin-top:5px;">No measurements yet.</div>
+            </div>
+        </div>
+
+        <!-- FINISH MEASUREMENT BUTTON (floating) -->
+        <button id="finishMeasurementBtn">Confirm</button>
+
+        <!-- CANVAS CONTAINER -->
+        <div id="canvas-container">
+            <canvas id="planCanvas"></canvas>
+        </div>
+
+        <!-- LOADING OVERLAY -->
+        <div id="loading-overlay">
+            <div class="loading-spinner"></div>
+            <p>Loading Your Vision… Please Wait</p>
+        </div>
+
+        <!-- ERROR MESSAGE -->
+        <div id="error-message">
+            Failed to load the plan image. Please try a different image or smaller size.
+        </div>
+
+        <!-- TOOL INSTRUCTIONS OVERLAY -->
+        <div id="tool-instructions-overlay">
+            <div id="tool-instructions-text"></div>
+        </div>
+
+        <!-- FOOTER -->
+        <div id="footer">
+            © 2025 Noble Architecture | All Rights Reserved
+        </div>
+    </div>
+</div>
+
+<script>
+(function() {
+    // =========================================================
+    // GLOBAL VARIABLES & CONSTANTS
+    // =========================================================
+
+    // Basic dimension constraints
+    const MIN_ZOOM = 0.1;
+    const MAX_ZOOM = 2;
+
+    // Rounding settings
+    const ROUND_DIMENSIONS_ENABLED = true;
+    const ROUNDING_INTERVAL = 5;
+
+    // Offsets for the confirm button near the last measurement point
+    const CONFIRM_BUTTON_OFFSET_X_PC = 10;
+    const CONFIRM_BUTTON_OFFSET_Y_PC = -10;
+    const CONFIRM_BUTTON_OFFSET_X_TOUCH = 10;
+    const CONFIRM_BUTTON_OFFSET_Y_TOUCH = -25;
+
+    // Plan Image & PDF
+    const PLAN_IMAGE_URL =
+        "https://raw.githubusercontent.com/Adam-Noble-01/RE10_I_GitHub_I_Public_Repo/main/80_Test_Branch/True-Vision-3D_-_Test-01/JH03_T02_D03_--_Elevations_--_Rev_D_1.3.2_.png";
+    const PDF_DOWNLOAD_URL =
+        "https://raw.githubusercontent.com/Adam-Noble-01/RE10_I_GitHub_I_Public_Repo/main/20_NA_Project_Portal_Client_Content/02_--_Projects_2025/GA06_--_Cloves-Wood/GA06_T02_D22_--_PD-Elevations-Drawing.pdf";
+
+    // DOM Elements
+    const planCanvas = document.getElementById("planCanvas");
+    const ctx = planCanvas.getContext("2d");
+    const loadingOverlay = document.getElementById("loading-overlay");
+    const errorMessage = document.getElementById("error-message");
+    const measureInfo = document.getElementById("measureInfo");
+    const cancelToolBtn = document.getElementById("cancelToolBtn");
+    const toolInstructionsOverlay = document.getElementById("tool-instructions-overlay");
+    const toolInstructionsText = document.getElementById("tool-instructions-text");
+    const finishBtn = document.getElementById("finishMeasurementBtn");
+    const menuTutorialOverlay = document.getElementById("menu-tutorial-overlay");
+    const toolbar = document.getElementById("toolbar");
+
+    // Toolbar toggling state
+    let isToolbarOpen = true;
+
+    // Device detection
+    const isTouchDevice = ("ontouchstart" in window) || navigator.maxTouchPoints > 0;
+    const markerRadius = isTouchDevice ? 12 : 8;
+    const baseLineWidth = isTouchDevice ? 3 : 2;
+
+    // Pan and Zoom
+    let offsetX = 0, offsetY = 0, zoomFactor = 1;
+    let isDragging = false, lastX = 0, lastY = 0;
+
+    // Pinch Zoom
+    let isPinching = false, pinchStartDist = 0, pinchStartZoom = 1, pinchMidpoint = { x: 0, y: 0 };
+
+    // Measurement Tools
+    let currentTool = null;
+    let measuringPoints = [];
+    let measurements = [];
+    let isLinearMeasuring = false;
+    let linearMeasurementLocked = false;
+
+    // Image loading & scale
+    let planImage = new Image();
+    let isImageLoaded = false;
+    let naturalImageWidth = 0;
+    let naturalImageHeight = 0;
+    let scaleMetresPerPixel = 0;
+
+    // Instruction flags
+    let hasShownLinearInstructions = false;
+    let hasShownAreaInstructions = false;
+
+    // =========================================================
+    // INITIALISATION
+    // =========================================================
+    function init() {
+        // Confirm #app is present
+        const appRoot = document.getElementById("app");
+        if (!appRoot) {
+            console.error("Root element #app is missing from the DOM. App cannot initialise.");
+            return;
+        }
+
+        resizeCanvas();
+        loadPlanImage(PLAN_IMAGE_URL, () => {
+            isImageLoaded = true;
+            loadingOverlay.classList.add("hidden");
+            resetView();
+            handleInitialTutorialFlow();
+            renderLoop();
+        });
+        attachEventListeners();
+    }
+
+    // =========================================================
+    // FIRST-LOAD TUTORIAL FLOW
+    // =========================================================
+    function handleInitialTutorialFlow() {
+        if (isMobileOrTabletPortrait()) {
+            // STEP 1: Show menu open immediately
+            toolbar.classList.remove("collapsed");
+            isToolbarOpen = true;
+
+            // STEP 2: After 1 second, retract the menu
+            setTimeout(() => {
+                toolbar.classList.add("collapsed");
+                isToolbarOpen = false;
+
+                // STEP 3: Show the tooltip after a small delay
+                setTimeout(() => {
+                    menuTutorialOverlay.style.display = "block";
+                }, 300);
+
+            }, 1000);
+        }
+    }
+
+    function isMobileOrTabletPortrait() {
+        const maxTabletWidth = 1024;
+        return (window.innerWidth <= maxTabletWidth) && isPortrait();
+    }
+
+    function isPortrait() {
+        if (window.screen.orientation && window.screen.orientation.type) {
+            return window.screen.orientation.type.startsWith("portrait");
+        }
+        return window.innerHeight > window.innerWidth;
+    }
+
+    // =========================================================
+    // IMAGE LOADING
+    // =========================================================
+    function loadPlanImage(url, onSuccess) {
+        planImage.crossOrigin = "anonymous";
+        planImage.onload = () => {
+            naturalImageWidth = planImage.naturalWidth;
+            naturalImageHeight = planImage.naturalHeight;
+            onSuccess();
+        };
+        planImage.onerror = () => {
+            console.error("Failed to load plan image:", url);
+            loadingOverlay.classList.add("hidden");
+            errorMessage.style.display = "block";
+        };
+        planImage.src = url;
+    }
+
+    // =========================================================
+    // RENDER LOOP
+    // =========================================================
+    function renderLoop() {
+        if (!isImageLoaded) return;
+        requestAnimationFrame(renderLoop);
+
+        ctx.clearRect(0, 0, planCanvas.width, planCanvas.height);
+        ctx.save();
+        ctx.translate(offsetX, offsetY);
+        ctx.scale(zoomFactor, zoomFactor);
+        ctx.drawImage(planImage, 0, 0);
+        ctx.restore();
+
+        // Draw completed measurements
+        measurements.forEach(m => {
+            if (m.type === "linear") {
+                drawLine(m.points, "blue");
+                drawMarkers(m.points, "blue");
+                drawLineLabel(m.points, m.distanceMM, "blue");
+            } else if (m.type === "area") {
+                drawPolygon(m.points, "rgba(255,0,0,0.2)", "red");
+                drawMarkers(m.points, "red");
+                drawAreaLabel(m);
+                drawEdgeLabels(m.points, "red");
+            }
+        });
+
+        // In-progress linear measurement
+        if (currentTool === "linear" && isLinearMeasuring) {
+            if (measuringPoints.length === 2) {
+                drawLine(measuringPoints, "green");
+                drawMarkers(measuringPoints, "green");
+            } else if (measuringPoints.length === 1) {
+                drawMarkers(measuringPoints, "green");
+            }
+        }
+
+        // In-progress area measurement
+        if (currentTool === "area" && measuringPoints.length > 0) {
+            drawOpenPolygon(measuringPoints, "red");
+            drawMarkers(measuringPoints, "red");
+        }
+
+        // Confirm button position
+        adjustConfirmButtonPosition();
+    }
+
+    // =========================================================
+    // DRAWING TOOLS FUNCTIONS
+    // =========================================================
+        function drawLine(points, strokeStyle) {
+        if (points.length < 2) return;
+        ctx.save();
+        ctx.translate(offsetX, offsetY);
+        ctx.scale(zoomFactor, zoomFactor);
+        ctx.strokeStyle = strokeStyle;
+        ctx.lineWidth = (baseLineWidth * 0.50) / zoomFactor;    // <-- CONFIG | Set line width For Measurements
+        ctx.beginPath();
+        ctx.moveTo(points[0].x, points[0].y);
+        ctx.lineTo(points[1].x, points[1].y);
+        ctx.stroke();
+        ctx.restore();
+    }
+
+    // ----------------------------------------
+    // FUNCTION |  NODE MARKER CROSSHEIRS
+    // ----------------------------------------
+
+    function drawMarkers(points, colour) {
+        ctx.save();
+        ctx.translate(offsetX, offsetY);
+        ctx.scale(zoomFactor, zoomFactor);
+        // Use the provided colour for stroke and set 75% opacity
+        ctx.strokeStyle = colour;
+        ctx.globalAlpha = 0.75;
+        // Set a line width that scales with the zoom level
+        ctx.lineWidth = 1 / zoomFactor;
+        let doubleRadius = markerRadius * 2;
+        points.forEach(pt => {
+            ctx.beginPath();
+            // Draw horizontal line with double the radius
+            ctx.moveTo(pt.x - doubleRadius, pt.y);
+            ctx.lineTo(pt.x + doubleRadius, pt.y);
+            // Draw vertical line with double the radius
+            ctx.moveTo(pt.x, pt.y - doubleRadius);
+            ctx.lineTo(pt.x, pt.y + doubleRadius);
+            ctx.stroke();
+        });
+        ctx.restore();
+    }
+
+        function drawPolygon(points, fillStyle, strokeStyle) {
+        if (points.length < 3) return;
+        ctx.save();
+        ctx.translate(offsetX, offsetY);
+        ctx.scale(zoomFactor, zoomFactor);
+        ctx.fillStyle = fillStyle;
+        ctx.strokeStyle = strokeStyle;
+        // Set line width to 75% of the baseLineWidth
+        ctx.lineWidth = (baseLineWidth * 0.50) / zoomFactor;    // <-- CONFIG | Set line width For Area Polygons
+        ctx.beginPath();
+        ctx.moveTo(points[0].x, points[0].y);
+        for (let i = 1; i < points.length; i++) {
+            ctx.lineTo(points[i].x, points[i].y);
+        }
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+        ctx.restore();
+    }
+
+        function drawOpenPolygon(points, strokeStyle) {
+        if (points.length < 2) return;
+        ctx.save();
+        ctx.translate(offsetX, offsetY);
+        ctx.scale(zoomFactor, zoomFactor);
+        ctx.strokeStyle = strokeStyle;
+        // Set line width to 75% of the baseLineWidth
+        ctx.lineWidth = (baseLineWidth * 0.50) / zoomFactor;    // <-- CONFIG | Set line width For Area Polygons
+        ctx.beginPath();
+        ctx.moveTo(points[0].x, points[0].y);
+        for (let i = 1; i < points.length; i++) {
+            ctx.lineTo(points[i].x, points[i].y);
+        }
+        ctx.stroke();
+        ctx.restore();
+    }
+
+
+    function drawLineLabel(points, distMM, colour) {
+        if (points.length < 2) return;
+        const [A, B] = points;
+        const mid = { x: (A.x + B.x) / 2, y: (A.y + B.y) / 2 };
+        drawTextLabel(mid, distMM + " mm", colour);
+    }
+
+    function drawAreaLabel(areaObj) {
+        const c = polygonCentroid(areaObj.points);
+        drawTextLabel(c, areaObj.areaM2 + " m²", "red");
+    }
+
+    function drawEdgeLabels(points, colour) {
+        if (points.length < 2) return;
+        ctx.save();
+        ctx.translate(offsetX, offsetY);
+        ctx.scale(zoomFactor, zoomFactor);
+        ctx.fillStyle = colour;
+        ctx.font = (14 / zoomFactor) + "px sans-serif";    // <-- CONFIG | Font Sizes For Polygon Edges
+        const offsetVal = 10 / zoomFactor;
+        for (let i = 0; i < points.length; i++) {
+            const p1 = points[i];
+            const p2 = points[(i + 1) % points.length];
+            const mid = { x: (p1.x + p2.x) / 2, y: (p1.y + p2.y) / 2 };
+            let lengthPx = dist(p1, p2);
+            let lengthMm = lengthPx * scaleMetresPerPixel * 1000;
+            if (ROUND_DIMENSIONS_ENABLED) {
+                lengthMm = Math.round(lengthMm / ROUNDING_INTERVAL) * ROUNDING_INTERVAL;
+            } else {
+                lengthMm = Math.round(lengthMm);
+            }
+            ctx.fillText(lengthMm + " mm", mid.x + offsetVal, mid.y - offsetVal);
+        }
+        ctx.restore();
+    }
+
+    function drawTextLabel(pos, text, colour) {
+        ctx.save();
+        ctx.translate(offsetX, offsetY);
+        ctx.scale(zoomFactor, zoomFactor);
+        ctx.fillStyle = colour;
+        ctx.font = (18 / zoomFactor) + "px sans-serif";
+        const offsetVal = 10 / zoomFactor;
+        ctx.fillText(text, pos.x + offsetVal, pos.y - offsetVal);
+        ctx.restore();
+    }
+
+    // =========================================================
+    // MEASUREMENT CALCULATIONS
+    // =========================================================
+    function dist(a, b) {
+        return Math.hypot(b.x - a.x, b.y - a.y);
+    }
+
+    function polygonCentroid(pts) {
+        let xSum = 0, ySum = 0;
+        pts.forEach(p => { xSum += p.x; ySum += p.y; });
+        return { x: xSum / pts.length, y: ySum / pts.length };
+    }
+
+    function polygonArea(pts) {
+        let area = 0;
+        for (let i = 0; i < pts.length; i++) {
+            const j = (i + 1) % pts.length;
+            area += (pts[i].x * pts[j].y) - (pts[j].x * pts[i].y);
+        }
+        return Math.abs(area / 2);
+    }
+
+    function toPlanCoords(x, y) {
+        return {
+            x: (x - offsetX) / zoomFactor,
+            y: (y - offsetY) / zoomFactor
+        };
+    }
+
+    function finalizeMeasurement(type) {
+        if (type === "linear" && measuringPoints.length === 2) {
+            const [start, end] = measuringPoints;
+            const pxDist = dist(start, end);
+            const rawMm = pxDist * scaleMetresPerPixel * 1000;
+            let mmDist = ROUND_DIMENSIONS_ENABLED
+                ? Math.round(rawMm / ROUNDING_INTERVAL) * ROUNDING_INTERVAL
+                : Math.round(rawMm);
+
+            measurements.push({
+                type: "linear",
+                points: [start, end],
+                distanceMM: mmDist
+            });
+            measuringPoints = [];
+            isLinearMeasuring = false;
+            linearMeasurementLocked = false;
+            updateMeasureInfo();
+            hideCancelTool();
+            currentTool = null;
+            planCanvas.style.cursor = "default";
+        }
+        else if (type === "area" && measuringPoints.length > 2) {
+            const areaPx2 = polygonArea(measuringPoints);
+            const areaM2 = (areaPx2 * scaleMetresPerPixel * scaleMetresPerPixel).toFixed(2);
+
+            measurements.push({
+                type: "area",
+                points: [...measuringPoints],
+                areaM2: areaM2
+            });
+            measuringPoints = [];
+            updateMeasureInfo();
+            hideCancelTool();
+            currentTool = null;
+            planCanvas.style.cursor = "default";
+        }
+    }
+
+    // =========================================================
+    // EVENT LISTENERS & INTERACTION
+    // =========================================================
+    function attachEventListeners() {
+        // Toolbar toggle
+        document.getElementById("toggleToolbarBtn").addEventListener("click", toggleToolbar);
+
+        // PDF download
+        document.getElementById("downloadPDFBtn").addEventListener("click", () => {
+            const link = document.createElement("a");
+            link.href = PDF_DOWNLOAD_URL;
+            link.download = "PlanVision-Drawing.pdf";
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+
+        // Fullscreen
+        const fullscreenBtn = document.getElementById("fullscreenBtn");
+        if (fullscreenBtn) {
+            fullscreenBtn.addEventListener("click", () => {
+                // NOTE: Some embedded contexts (e.g. Google Sites) may block fullscreen.
+                if (!document.fullscreenElement) {
+                    document.documentElement.requestFullscreen()
+                        .then(() => {
+                            fullscreenBtn.textContent = "Exit Full Screen";
+                        })
+                        .catch(err => {
+                            console.warn("Fullscreen request failed:", err);
+                        });
+                } else {
+                    document.exitFullscreen()
+                        .then(() => {
+                            fullscreenBtn.textContent = "Enter Full Screen";
+                        })
+                        .catch(err => {
+                            console.warn("Exit Fullscreen failed:", err);
+                        });
+                }
+            });
+        }
+
+        // Canvas interactions
+        planCanvas.addEventListener("mousedown", onMouseDown);
+        planCanvas.addEventListener("mousemove", onMouseMove);
+        planCanvas.addEventListener("mouseup", onMouseUp);
+        planCanvas.addEventListener("wheel", onWheel, { passive: false });
+        planCanvas.addEventListener("touchstart", onTouchStart, { passive: false });
+        planCanvas.addEventListener("touchmove", onTouchMove, { passive: false });
+        planCanvas.addEventListener("touchend", onTouchEnd);
+        planCanvas.addEventListener("touchcancel", onTouchEnd);
+
+        // Window resize
+        window.addEventListener("resize", onResize);
+
+        // Tool buttons
+        document.getElementById("resetViewBtn").addEventListener("click", resetView);
+        document.getElementById("linearMeasureBtn").addEventListener("click", () => setTool("linear"));
+        document.getElementById("areaMeasureBtn").addEventListener("click", () => setTool("area"));
+        document.getElementById("clearMeasurementsBtn").addEventListener("click", clearMeasurements);
+        cancelToolBtn.addEventListener("click", cancelTool);
+
+        finishBtn.addEventListener("click", () => {
+            if (currentTool === "linear") {
+                finalizeMeasurement("linear");
+            } else if (currentTool === "area") {
+                finalizeMeasurement("area");
+            }
+        });
+    }
+
+    function toggleToolbar() {
+        // If the tooltip is showing, hide it
+        if (menuTutorialOverlay.style.display === "block") {
+            menuTutorialOverlay.style.display = "none";
+        }
+
+        // Prevent toggling while a measurement tool is active
+        if (currentTool) {
+            return;
+        }
+        isToolbarOpen = !isToolbarOpen;
+        if (isToolbarOpen) {
+            toolbar.classList.remove("collapsed");
+        } else {
+            toolbar.classList.add("collapsed");
+        }
+    }
+
+    // Mouse events
+    function onMouseDown(e) {
+        if (currentTool === "linear") {
+            const pos = toPlanCoords(e.offsetX, e.offsetY);
+            if (!measuringPoints.length) {
+                measuringPoints.push(pos);
+                isLinearMeasuring = true;
+                linearMeasurementLocked = false;
+            } else if (!linearMeasurementLocked) {
+                measuringPoints[1] = pos;
+                linearMeasurementLocked = true;
+            }
+            return;
+        }
+        if (currentTool === "area") {
+            const pos = toPlanCoords(e.offsetX, e.offsetY);
+            measuringPoints.push(pos);
+            return;
+        }
+        // Default: Pan
+        isDragging = true;
+        lastX = e.clientX;
+        lastY = e.clientY;
+    }
+
+    function onMouseMove(e) {
+        if (currentTool === "linear" && isLinearMeasuring && !linearMeasurementLocked) {
+            const pos = toPlanCoords(e.offsetX, e.offsetY);
+            if (measuringPoints.length === 1) {
+                measuringPoints.push(pos);
+            } else {
+                const start = measuringPoints[0];
+                // Snap if near vertical/horizontal (within ~10°)
+                const dx = pos.x - start.x;
+                const dy = pos.y - start.y;
+                const angleDeg = Math.abs(Math.atan2(dy, dx) * (180 / Math.PI));
+                if (angleDeg < 10) {
+                    pos.y = start.y;
+                } else if (Math.abs(angleDeg - 90) < 10) {
+                    pos.x = start.x;
+                }
+                measuringPoints[1] = pos;
+            }
+            return;
+        }
+        if (isDragging && currentTool !== "linear" && currentTool !== "area") {
+            const dx = e.clientX - lastX;
+            const dy = e.clientY - lastY;
+            offsetX += dx;
+            offsetY += dy;
+            lastX = e.clientX;
+            lastY = e.clientY;
+        }
+    }
+
+    function onMouseUp(e) {
+        isDragging = false;
+    }
+
+    function onWheel(e) {
+        e.preventDefault();
+        const zoomChange = e.deltaY * -0.001;
+        applyZoom(zoomChange, e.offsetX, e.offsetY);
+    }
+
+    // Touch events
+    function onTouchStart(e) {
+        if (e.touches.length === 1) {
+            const t = e.touches[0];
+            const rect = planCanvas.getBoundingClientRect();
+            onMouseDown({
+                offsetX: t.clientX - rect.left,
+                offsetY: t.clientY - rect.top,
+                clientX: t.clientX,
+                clientY: t.clientY
+            });
+        } else if (e.touches.length === 2) {
+            isPinching = true;
+            pinchStartDist = touchDistance(e.touches[0], e.touches[1]);
+            pinchMidpoint = touchMidpoint(e.touches[0], e.touches[1]);
+            pinchStartZoom = zoomFactor;
+        }
+    }
+
+    function onTouchMove(e) {
+        if (isPinching && e.touches.length === 2) {
+            e.preventDefault();
+            const newDist = touchDistance(e.touches[0], e.touches[1]);
+            const zoomDiff = (newDist - pinchStartDist) * 0.005;
+            const newZoom = pinchStartZoom + zoomDiff;
+
+            const rect = planCanvas.getBoundingClientRect();
+            const midX = pinchMidpoint.x - rect.left;
+            const midY = pinchMidpoint.y - rect.top;
+            setZoom(newZoom, midX, midY);
+        } else if (e.touches.length === 1 && !isPinching) {
+            const t = e.touches[0];
+            const rect = planCanvas.getBoundingClientRect();
+            onMouseMove({
+                clientX: t.clientX,
+                clientY: t.clientY,
+                offsetX: t.clientX - rect.left,
+                offsetY: t.clientY - rect.top
+            });
+        }
+    }
+
+    function onTouchEnd(e) {
+        if (e.touches.length < 2) {
+            isPinching = false;
+        }
+        isDragging = false;
+    }
+
+    // =========================================================
+    // VIEW & SCALE CONTROLS
+    // =========================================================
+    function applyZoom(delta, cx, cy) {
+        let newZoom = zoomFactor + delta;
+        setZoom(newZoom, cx, cy);
+    }
+
+    function setZoom(z, cx, cy) {
+        if (z < MIN_ZOOM) z = MIN_ZOOM;
+        if (z > MAX_ZOOM) z = MAX_ZOOM;
+        const wx = (cx - offsetX) / zoomFactor;
+        const wy = (cy - offsetY) / zoomFactor;
+        zoomFactor = z;
+        offsetX = cx - wx * zoomFactor;
+        offsetY = cy - wy * zoomFactor;
+    }
+
+    function resizeCanvas() {
+        planCanvas.width = window.innerWidth;
+        planCanvas.height = window.innerHeight - 50 - 30;
+    }
+
+    function resetView() {
+        const cw = planCanvas.width;
+        const ch = planCanvas.height;
+        const iw = planImage.width;
+        const ih = planImage.height;
+
+        // Zoom to fit
+        zoomFactor = Math.min(cw / iw, ch / ih);
+        offsetX = (cw - iw * zoomFactor) / 2;
+        offsetY = (ch - ih * zoomFactor) / 2;
+
+        // Example scale logic
+        const realWidthMM = 840.93;
+        const drawnWidthPx = naturalImageWidth;
+        const scaleRatio = 100;
+        const mmPerPixel = realWidthMM / drawnWidthPx;
+        scaleMetresPerPixel = (mmPerPixel * scaleRatio) / 1000;
+
+        clearMeasurements();
+    }
+
+    // =========================================================
+    // TOOL & MEASUREMENT HANDLING
+    // =========================================================
+    function setTool(toolName) {
+        currentTool = toolName;
+        measuringPoints = [];
+
+        if (toolName === "linear") {
+            planCanvas.style.cursor = "crosshair";
+            isLinearMeasuring = false;
+            linearMeasurementLocked = false;
+            showCancelTool();
+            showToolInstructions("linear");
+        } else if (toolName === "area") {
+            planCanvas.style.cursor = "default";
+            showCancelTool();
+            showToolInstructions("area");
+        } else {
+            planCanvas.style.cursor = "default";
+            hideCancelTool();
+        }
+    }
+
+    function cancelTool() {
+        currentTool = null;
+        measuringPoints = [];
+        isLinearMeasuring = false;
+        linearMeasurementLocked = false;
+        hideCancelTool();
+        planCanvas.style.cursor = "default";
+    }
+
+    function clearMeasurements() {
+        measurements = [];
+        measuringPoints = [];
+        updateMeasureInfo();
+        cancelTool();
+    }
+
+    function showCancelTool() {
+        cancelToolBtn.style.display = "block";
+    }
+
+    function hideCancelTool() {
+        cancelToolBtn.style.display = "none";
+    }
+
+    function updateMeasureInfo() {
+        if (!measurements.length) {
+            measureInfo.innerHTML = "No measurements yet.";
+            return;
+        }
+        let txt = "";
+        measurements.forEach((m, i) => {
+            if (m.type === "linear") {
+                txt += `Measurement ${i + 1} (Line): ${m.distanceMM} mm<br/>`;
+            } else if (m.type === "area") {
+                txt += `Measurement ${i + 1} (Area): ${m.areaM2} m²<br/>`;
+            }
+        });
+        measureInfo.innerHTML = txt;
+    }
+
+    function adjustConfirmButtonPosition() {
+        if (!finishBtn || !currentTool) {
+            finishBtn.style.display = "none";
+            return;
+        }
+        if ((currentTool === "linear" || currentTool === "area") && measuringPoints.length > 0) {
+            finishBtn.style.display = "block";
+            const lastPt = measuringPoints[measuringPoints.length - 1];
+            const sx = (lastPt.x * zoomFactor) + offsetX;
+            const sy = (lastPt.y * zoomFactor) + offsetY;
+
+            if (isTouchDevice) {
+                finishBtn.style.left = (sx + CONFIRM_BUTTON_OFFSET_X_TOUCH) + "px";
+                finishBtn.style.top = (sy + CONFIRM_BUTTON_OFFSET_Y_TOUCH) + "px";
+            } else {
+                finishBtn.style.left = (sx + CONFIRM_BUTTON_OFFSET_X_PC) + "px";
+                finishBtn.style.top = (sy + CONFIRM_BUTTON_OFFSET_Y_PC) + "px";
+            }
+        } else {
+            finishBtn.style.display = "none";
+        }
+    }
+
+    // =========================================================
+    // TOOL INSTRUCTIONS
+    // =========================================================
+    function showToolInstructions(tool) {
+        if (tool === "linear" && !hasShownLinearInstructions) {
+            hasShownLinearInstructions = true;
+            toolInstructionsText.innerText =
+                "LINEAR TOOL:\n\n" +
+                "This Tool Functions As A Tape Measure\n" +
+                " \n" +
+                "1. Click to set the starting point.\n" +
+                "2. Click and drag the dimension line\n" +
+                "3. Press 'Confirm' to finalise or 'Cancel Tool' to exit.";
+            displayInstructionsOverlay();
+        }
+        if (tool === "area" && !hasShownAreaInstructions) {
+            hasShownAreaInstructions = true;
+            toolInstructionsText.innerText =
+                "AREA TOOL:\n\n" +
+                "1. Click each corner in turn.\n" +
+                "2. Press 'Confirm' to close the shape.\n" +
+                "3. Use 'Cancel Tool' to exit without finishing.";
+            displayInstructionsOverlay();
+        }
+    }
+
+    function displayInstructionsOverlay() {
+    toolInstructionsOverlay.style.display = "flex";
+    
+    // Define the dismiss function to handle both click and timeout dismissal.
+    function dismissOverlay() {
+        clearTimeout(timeoutId);
+        toolInstructionsOverlay.classList.add("fade-out");
+        setTimeout(() => {
+            toolInstructionsOverlay.style.display = "none";
+            toolInstructionsOverlay.classList.remove("fade-out");
+            toolInstructionsOverlay.removeEventListener("click", dismissOverlay);
+        }, 1000);
+    }
+    toolInstructionsOverlay.addEventListener("click", dismissOverlay);
+    var timeoutId = setTimeout(() => {
+        dismissOverlay();
+    }, 3000);    // <-- 4 Seconds Auto-Dismiss Message Timeout
+}
+
+    // =========================================================
+    // TOUCH HELPERS
+    // =========================================================
+    function touchDistance(t1, t2) {
+        return Math.hypot(t2.clientX - t1.clientX, t2.clientY - t1.clientY);
+    }
+
+    function touchMidpoint(t1, t2) {
+        return {
+            x: (t1.clientX + t2.clientX) / 2,
+            y: (t1.clientY + t2.clientY) / 2
+        };
+    }
+
+    // =========================================================
+    // RESIZE
+    // =========================================================
+    function onResize() {
+        resizeCanvas();
+    }
+
+    // Start the app
+    init();
+})();
+</script>
+</body>
+</html>
