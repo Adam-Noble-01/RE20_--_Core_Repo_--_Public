@@ -1,13 +1,16 @@
 {
     "json-file-metadata": {
-        "file-name"         :  "JH03_-_DATA_-_Document-Library.json",
-        "author"            :  "Adam Noble - Noble Architecture",
-        "file-created"      :  "14-Mar-2025",
-        "file-type"         :  "Project Specific Documentation Link Library",
-        "key-required"      :  "FALSE",
-        "key-note"          :  "Public Repo File - Sensitive Data Omitted ",
-        "file-description"  :  "This JSON file stores Noble Architecture project file documentation links in a single locations and ensures quick retrieval.",
-        "windows-dir-path"  :  "D:\\RE20_--_Core_Repo_--_Public\\RE20_21_--_NA_FILES_-_Project_Portal_Client_Content\\02_--_Projects_2025\\JH03_--_Romer-Cottage\\JH03_-_DATA_-_Document-Library.json"
+        "file-name"                 :  "JH03_-_DATA_-_Document-Library.json",
+        "author"                    :  "Adam Noble - Noble Architecture",
+        "file-created"              :  "14-Mar-2025",
+        "file-type"                 :  "Project Specific Documentation Link Library",
+        "key-required"              :  "FALSE",
+        "key-note"                  :  "Public Repo File - Sensitive Data Omitted ",
+        "file-description"          :  "This JSON file stores Noble Architecture project file documentation links in a single locations and ensures quick retrieval.",
+            "this-json-doc-link"    : {
+                "windows-dir-path"  :   "D:\\RE20_--_Core_Repo_--_Public\\RE20_21_--_NA_FILES_-_Project_Portal_Client_Content\\02_--_Projects_2025\\JH03_--_Romer-Cottage\\JH03_-_DATA_-_Document-Library.json",
+                "github-link-url"   :   "https://raw.githubusercontent.com/Adam-Noble-01/RE20_--_Core_Repo_--_Public/main/RE20_21_--_NA_FILES_-_Project_Portal_Client_Content/02_--_Projects_2025/JH03_--_Romer-Cottage/JH03_-_DATA_-_Document-Library.json"
+            }
     },
     "noble-architecture-projects": {
         "jh03-romer-cottage": {
