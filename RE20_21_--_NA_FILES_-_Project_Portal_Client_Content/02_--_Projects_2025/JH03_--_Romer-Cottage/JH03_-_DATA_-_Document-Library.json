@@ -24,9 +24,9 @@
             "project-address-postcode"     :    "ST18 0DT",
             "project-general-notes-01"     :    "NIL",
             "project-portal-links":{
-                "portal-url-home"          :    "https://sites.google.com/view/sm03--project-portal/home",
-                "portal-url-planvision"    :    "https://sites.google.com/view/sm03--project-portal/planvision-drawings-app",
-                "portal-url-truevision"    :    "https://sites.google.com/view/sm03--project-portal/truevision-drawings-app"
+                "portal-url-home"          :    "https://sites.google.com/view/jh03-project-portal/home",
+                "portal-url-planvision"    :    "https://sites.google.com/view/jh03-project-portal/planvision-drawings-app",
+                "portal-url-truevision"    :    "https://sites.google.com/view/jh03-project-portal/truevision-drawings-app"
             }
         },  
         "project-documentation":{
