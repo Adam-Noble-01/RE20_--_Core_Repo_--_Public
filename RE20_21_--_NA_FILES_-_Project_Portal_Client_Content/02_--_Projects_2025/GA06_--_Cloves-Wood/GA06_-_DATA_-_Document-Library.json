@@ -26,8 +26,8 @@
             "project-general-notes-01"     :    "NIL",
             "project-portal-links":{
                 "portal-url-home"          :    "https://sites.google.com/view/ga06-project-portal/home",
-                "portal-url-planvision"    :    "https://sites.google.com/view/ga06-project-portal/planvision-drawings-app",
-                "portal-url-truevision"    :    "https://sites.google.com/view/ga06-project-portal/truevision-drawings-app"
+                "portal-url-planvision"    :    "https://sites.google.com/view/ga06-project-portal/planvision-app",
+                "portal-url-truevision"    :    "https://sites.google.com/view/ga06-project-portal/truevision-app"
             }
         },  
         "project-documentation":{
