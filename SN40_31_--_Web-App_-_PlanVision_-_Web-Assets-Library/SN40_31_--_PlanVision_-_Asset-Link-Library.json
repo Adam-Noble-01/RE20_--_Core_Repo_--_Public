@@ -18,9 +18,10 @@
     ],
     "assets": {
         "images_png": {
-            "app_logo": "https://github.com/username/repo-name/raw/main/assets/images/logo.png",
+            "na-brand-logo": "https://raw.githubusercontent.com/Adam-Noble-01/RE20_--_Core_Repo_--_Public/main/RE20_22_--_NA_FILES_--_Brand-Assets-Web-Library/RE20_22_01_-_FILES_-_Noble-Architecture_-_Core-Brand-Image-Assets/RE20_22_01_01_-_PNG_-_NA_Company_Logo.png",
             "icon_toolbar": "https://cdn.example.com/assets/icons/toolbar-icon.png",
-            "placeholder_drawing": "https://github.com/username/repo-name/raw/main/assets/images/drawing-placeholder.png"
+            "placeholder_drawing-a1-format"  :  "https://raw.githubusercontent.com/Adam-Noble-01/RE20_--_Core_Repo_--_Public/main/RE20_22_--_NA_FILES_--_Brand-Assets-Web-Library/RE20_22_04_-_FILES_-_Noble-Architecture_-_Placeholder-Files/RE20_22_04_01-_Placeholder-Drawing_-_A1-Format.png",
+            "placeholder_drawing-a2-format"  :  "https://raw.githubusercontent.com/Adam-Noble-01/RE20_--_Core_Repo_--_Public/main/RE20_22_--_NA_FILES_--_Brand-Assets-Web-Library/RE20_22_04_-_FILES_-_Noble-Architecture_-_Placeholder-Files/RE20_22_04_01-_Placeholder-Drawing_-_A2-Format.png"
         },
         "fonts": {
             "caveat_regular": "https://github.com/username/repo-name/raw/main/assets/fonts/Caveat-Regular.ttf",
