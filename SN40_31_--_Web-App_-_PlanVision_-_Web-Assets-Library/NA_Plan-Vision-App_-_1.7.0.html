@@ -1,0 +1,3994 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>PlanVision |  Noble Architecture</title>
+
+    <!-- Polyfill Conditional Loader
+        -----------------------------------------------------------------------------------------------------
+        - This script checks if the browser supports modern JavaScript features (e.g. Promise).
+            - If native support is missing (common in older iOS devices), it dynamically loads the
+            - core-js-bundle polyfill from a CDN to supply the missing functionality. On newer devices
+            - that already support these features, the polyfill is not loaded, ensuring optimal performance.
+    ----------------------------------------------------------------------------------------------------- -->
+        <script>
+            (function() {
+            // Feature detection: Check if 'Promise' is supported by the browser
+            if (typeof Promise === "undefined") {
+                // If not supported, dynamically load the core-js polyfill
+                var polyfillScript = document.createElement("script");
+                polyfillScript.src = "https://cdn.jsdelivr.net/npm/core-js-bundle/minified.js";
+                polyfillScript.onload = function() {
+                console.log("Polyfill loaded successfully.");
+                };
+                document.head.appendChild(polyfillScript);
+            } else {
+                console.log("Native support detected; polyfill not needed.");
+            }
+            })();
+        </script>
+
+
+<!--
+================================================================================================================
+FILE DETAILS
+File Name   | Noble-Architecture_-_Plan-Vision-App_-_1.5.1.html
+File Type   | HTML/CSS/JS Web Application
+Author      | Adam Noble – Noble Architecture
+================================================================================================================
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+SCRIPT DESCRIPTION
+
+This HTML file serves as the main entry point for the Plan Vision web application.
+It integrates HTML, CSS and JavaScript to provide functionalities including:
+- A linear measurement tool for precise distance calculations.
+- An area measurement tool for computing polygon areas.
+- A PDF download feature allowing users to download formatted drawings.
+- Responsive design ensuring compatibility across various devices.
+- Dynamic loading of drawing data via a remote JSON configuration file
+Note:
+- The application loads a PNG image and a PDF file with the same base file name.
+- The dual-file approach was introduced in response to earlier issues on iOS where PDF-only
+- implementations led to memory constraints. The PNG handling ensures compatibility across
+- devices while the PDF file offers a formatted download.
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  
+ISSUES & LESSONS LEARNED  
+
+- Initial PDF-only approach caused performance and memory issues on iOS devices.  
+    - The integration of PNG image handling resolved these issues and improved cross-device compatibility.  
+    - Maintaining two separate files (PNG and PDF) leverages the benefits of both in-app viewing and downloadable formatted documents.  
+
+- Application failed to load due to missing root DOM element (`#app`).  
+    - The script was executing before the DOM fully loaded, causing critical errors.  
+    - Resolved by ensuring the `#app` element exists before running JavaScript logic.  
+
+- Full screen mode did not function properly in Google Sites embeds.  
+    - Browsers restrict fullscreen access within iframes, affecting functionality.  
+    - Added fallback handling for unsupported fullscreen environments.  
+
+- Mobile usability was initially poor due to lack of user guidance.  
+    - The previous implementation displayed a static message instructing users to rotate their device.  
+    - This was replaced with a dynamic tutorial animation that visually introduces the tools menu.  
+
+- Toolbar animation and menu visibility improvements were required.  
+    - Initially, the toolbar left a grey margin when hidden, affecting canvas usability.  
+    - The toolbar was adjusted to overlay the canvas instead of affecting its dimensions.  
+
+- Measurement tools needed UI refinement.  
+    - Previously, the measurement tools' buttons were not intuitive for first-time users.  
+    - Added clear instructions and improved the visibility of the confirm/cancel buttons.  
+
+- Device orientation detection required refinements.  
+    - Early mobile detection logic only considered width constraints, missing certain tablets.  
+    - Implemented improved detection for phones, tablets, and iPads, ensuring proper UI scaling.  
+
+- Initial PDF-only approach caused performance and memory issues on iOS; integrating PNG resolved these issues.
+- Early loading errors were resolved by ensuring the #app element exists before JavaScript execution.
+- Fullscreen mode was adjusted for better functionality in embedded contexts.
+- Mobile usability was enhanced with dynamic tutorial animations and improved toolbar handling.
+- UI refinements were made for measurement tools, and device orientation detection was improved for better scaling across phones, tablets, and iPads.
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+DYNAMIC LOADING FROM REMOTE JSON CONFIGURATION FILE
+
+JSON Functionality Overview  
+- Dynamically loads drawing data by fetching a JSON file from a remote source.  
+- Expects a nested JSON structure under "na-project-data-library" → "project-documentation" → "project-drawings"; missing keys trigger error messages.  
+- Dynamically creates toolbar buttons for each drawing entry (ignoring template placeholders) to allow selection of multiple drawings.  
+- Updates the PDF download link dynamically based on the selected drawing's metadata, including generating a filename derived from the drawing name.  
+- Implements asynchronous loading (using async/await) to ensure a non-blocking user interface during data retrieval and image loading.  
+- Incorporates extensive error checking and logging to aid in debugging and maintain robust functionality.  
+- Improves maintainability and scalability compared to hardcoded URLs, addressing previous iOS issues by enabling efficient handling of multiple drawings.
+
+JSON Keys and Their Roles  
+- "na-project-data-library"  
+    -> Root container for all project-related data.  
+    - "project-documentation"  
+        -> Nested under the root; contains documentation details including drawings.  
+        - "project-drawings"  
+            -> Nested under "project-documentation"; holds individual drawing entries.  
+                - Drawing Entry Keys (each key starting with "drawing-"):  
+                - "file-name"  
+                    -> Specifies the drawing file's name; template entries (marked as `{{TEMPLATE_-_ENTRY_-_TO_-_COPY_-_DO_-_NOT_-_DELETE}}`) are ignored.  
+                - "document-name"  
+                    -> Provides the display name for the drawing, used as the label on toolbar buttons.  
+                - "document-links"  
+                    -> Contains URLs for drawing assets:  
+                    - "png--github-link-url"  
+                        -> URL to load the drawing image (PNG) onto the canvas.  
+                    - "pdf--github-link-url"  
+                        -> URL for the downloadable PDF version of the drawing.
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+VISUAL JSON HIERARCHY TREE
+
+    na-project-data-library  
+    └── project-documentation  
+      └── project-drawings  
+        ├── drawing-001  
+        │  ├── file-name  
+        │  ├── document-name  
+        │  └── document-links  
+        │    ├── png--github-link-url  
+        │    └── pdf--github-link-url  
+        └── drawing-002 …  
+
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+FUTURE SCRIPT IMPROVEMENTS & IDEAS
+
+- 1.3.0 Updates Planned
+  - List Improvemnets  . . .
+
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
+
+22-Feb-2025 - v0.2.0  |  Basic functions tested across four client projects.
+22-Feb-2025 - v0.2.1  |  Linear & area measurement tools, PDF download and dual-file (PNG/PDF) handling implemented.
+22-Feb-2025 - v0.3.1  |  Improved measurement scaling and initial compatibility fixes.
+
+10-Mar-2025 - v1.4.0  |  MAJOR UI & USABILITY ENHANCEMENTS
+                    - Mobile usability improvements implemented for phones, tablets, and iPads.  
+                    - Removed placeholder message for portrait mobile devices.  
+                    - New tutorial animation: Upon first launch, menu now opens briefly before retracting, followed by an arrow tooltip guiding users to the tools menu.  
+                    - New Fullscreen Mode Button: Added fullscreen toggle within the toolbar.  
+                    - Fixed Menu Behaviour: Ensured menu correctly overlays the drawing instead of affecting the canvas scale.  
+                    - Additional performance optimisations and minor bug fixes.  
+10-Mar-2025 - v1.4.1  |  Drawing Markers changed from circles (Dots At Node Points) changed to "+" Shaped Crossheirs for improved accuracy.
+
+16-Mar-2025 - v1.5.0  |  MAJOR RELEASE UPDATE - DYNAMIC LOADING & FEATURE UPDATES
+                    - Introduced dynamic loading of drawing data by fetching a JSON file from a remote source.
+                    - Expects a nested JSON structure under "na-project-data-library" → "project-documentation" → "project-drawings".
+                    - Each drawing entry (keys starting with "drawing-") includes:
+                        - "file-name": The name of the drawing file (template entries are ignored).
+                        - "document-name": The display name used for toolbar buttons.
+                        - "document-links": Contains asset URLs for:
+                            - "png--github-link-url": The URL for the PNG image used on the canvas.
+                            - "pdf--github-link-url": The URL for the downloadable PDF version.
+                    - Dynamically creates toolbar buttons for each drawing, allowing users to select from multiple drawings.
+                    - Updates the PDF download link dynamically based on the selected drawing's metadata, generating filenames from the drawing name.
+                    - Implements asynchronous loading (using async/await) for JSON data and images to ensure a smooth, non-blocking user experience.
+                    - Includes extensive error checking and logging to aid in debugging and maintain robust functionality.
+                    - Adds a conditional polyfill loader that only loads the core-js-bundle if modern JavaScript features 
+                        - (e.g. Promise) are missing—ensuring compatibility with older iOS devices while avoiding unnecessary overhead on newer devices.
+16-Mar-2025 - v1.5.5  | TOOL ADDED -RECTANGULAR MEASUREMENT TOOL
+                    - Introduced a new "Rectangle Measurement" tool to complement the existing linear and area measurement functionalities.
+                    - Real-time rectangle drawing: Users can click and drag to define a rectangle, with the shape updating dynamically as the mouse moves, enhancing fluidity and usability compared to earlier static implementations.
+                    - Orthogonal snapping: Automatically aligns the rectangle to horizontal or vertical axes (within 15° tolerance) for precise, clean measurements, mirroring the linear tool's snapping behavior.
+                    - Area calculation: Computes and displays the area in square meters (m²) based on the scaled canvas dimensions, consistent with the app's measurement system.
+                        Implementation Details:
+                        - Added `isRectDragging` state variable to track active dragging, paired with `isRectMeasuring` for tool activation.
+                        - Modified `onMouseDown`, `onMouseMove`, and `onMouseUp` event handlers to support click-and-drag workflow: `mousedown` sets the start point, `mousemove` updates the end point with snapping, and `mouseup` finalizes the shape pending confirmation.
+                        - Enhanced `renderLoop` to draw the rectangle preview in real-time using `drawRectangle` with a semi-transparent fill for better visibility during interaction.
+                        - Integrated into `finalizeMeasurement` to save the rectangle's area and points upon clicking "Confirm," resetting states appropriately.
+                        User Experience Improvements:
+                        - Added instructional overlay for first-time use, explaining the click-and-drag process and confirmation step.
+                        - Set cursor to "crosshair" during tool use for intuitive feedback, aligning with the linear tool's UX.
+                        - Resolved fluidity issues reported in prior versions by ensuring continuous updates during mouse movement, making it feel as responsive as the linear tool.
+                        - Tested across desktop and touch devices, with adjustments to `onTouchStart` and `onTouchMove` for seamless mobile support.
+16-Mar-2025 - v1.5.6  | RENDER EFFECT ADDED
+                        - Added a subtle shadow effect creating the illusion of paper drawing plan.
+                        - Sets drop shadow properties for the drawing.
+
+16-Mar-2025 - v1.5.8  | Updated Rectangular Measurement Tool
+                        - Added measurements to the rectangle.
+                        - Measurements are displayed next to the rectangle.
+
+
+25-Mar-2025 - v1.6.0  |  MAJOR RELEASE UPDATE
+                    - Markup Drawing Tools
+                        - Creates a new nested toolset allowing architects to markup drawings with freehand notes and drawings.
+                        - Switches the default toolset to a markup focused palette.
+                        - Differenciates itself stylewise by using a technical pen like line style.
+                        - Introduces a hand sketched style easily recognisable to architects and users of the drawings.
+                            - Ensuring its clear it is a different marked up plan version and not the original drawing.
+                    - New Tool Accessed From Toolbar
+                    - Replaces the standard measuring and drawing selection toolset with a different tools pallete
+                    - User can toggle between the two toolsets
+                    - The markup toolset includes the following tools:
+                        - Markup freehand pen tool
+                        - Text Box Creation - Uses a Handwriting font to write the text
+                        - Arrow Pen Drawing Tool
+                            - Spline Based Arrow Drawing Tool
+                            - Uses a sketchy line style
+                            - Uses a transparent fill
+                            - Feels like a technical pen hand sketched
+                            - Arrowheads are created at the end of the arrow line.
+                        - Freehand Arrow Drawing Tool
+                            - Spline Based Arrow Drawing Tool
+                            - Uses a sketchy line style
+                            - Uses a transparent fill
+                            - Feels like a technical pen hand sketched
+                            - Arrowheads are created at the end of the arrow line.
+                        - Rectangle Drawing Tool
+                            - Polygon Drawing Tool
+                            - Uses a sketchy line style
+                            - Uses a transparent fill
+                            - Feels like a technical pen hand sketched
+                        - Circle Drawing Tool
+                            - Uses a sketchy line style
+                            - Feels like a technical pen hand sketched
+                        - Polygon Drawing Tool
+                            - Uses a sketchy line style
+                            - Uses a transparent fill
+                            - Feels like a technical pen hand sketched
+
+25-Mar-2025 - v1.6.1  |  UI LAYOUT IMPROVEMENTS
+                    - Reorganised toolbar layout for better usability:
+                        - Moved "Select Drawing" section to the top of the toolbar
+                        - Added clear section dividers with headers
+                        - Reordered sections to follow logical workflow:
+                            1. Select Drawing
+                            2. View & Export
+                            3. Measuring Tools
+                            4. Drawing & Markup
+                    - Added spacer after drawing selection for improved visual separation
+                    - Enhanced toolbar section visibility management when switching between measuring and markup tools
+
+25-Mar-2025 - v1.6.6  |  UI LAYOUT FIXES & INTERACTIVE IMPROVEMENTS
+                    - Fixed color swatch layout issues when revisiting markup tools:
+                        - Properly resets flexbox container properties
+                        - Ensures color swatches maintain grid layout regardless of menu state
+                    - Improved handle positioning during canvas manipulation:
+                        - Handles now correctly track with their elements when zooming
+                        - Control points properly follow elements when panning
+                        - Selection handles remain accurately positioned after view reset
+                    - Added copy and paste functionality for markup elements:
+                        - Press Ctrl+C to copy any selected element
+                        - Press Ctrl+V to paste at current mouse position
+                        - Smart positioning automatically centers pasted elements
+                        - Consecutive pastes are slightly offset to avoid overlap
+                        - Works with all element types (shapes, text, arrows, freehand)
+                        - Shows brief visual feedback when copying elements
+                        - Pasted elements are automatically selected for immediate editing
+
+??-???-2025 - v1.8.0  |  LIST FUTURE UPDATES HERE
+                    - 
+                    - 
+
+??-???-2025 - v1.7.0  |  LIST FUTURE UPDATES HERE
+                    - 
+                    - 
+
+=======================================================================================================================
+-->
+
+    <style>
+        /* BASIC RESET & LAYOUT */
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background: #f5f5f5;
+            font-family: sans-serif;
+            overflow: hidden;
+        }
+
+        /* ROOT APP WRAPPER */
+        #app {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* MAIN APPLICATION CONTAINER */
+        #app-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            touch-action: none;
+        }
+
+        /* BRANDING HEADER */
+        #header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            background: #fff;
+            border-bottom: 2px solid #555041;
+            display: flex;
+            align-items: center;
+            z-index: 9999;
+            padding-left: 10px;
+        }
+
+        #header img {
+            height: 40px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            margin-right: 10px;
+            padding-right: 10px;
+            margin-left: auto;
+            padding-left: auto;
+            align-items: right;
+        }
+
+        #app-title {
+            margin-left: 15px;
+            font-size: 20px;
+            color: #555041;
+        }
+
+        /* HAMBURGER BUTTON TO TOGGLE TOOLBAR */
+        #toggleToolbarBtn {
+            margin-left: 5px;
+            font-size: 22px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #555041;
+        }
+
+        /* TOOLBAR */
+        #toolbar {
+            position: absolute;
+            top: 50px;
+            left: 0;
+            width: 220px;
+            height: calc(100% - 50px);
+            background: #fff;
+            border-right: 2px solid #555041;
+            padding: 10px;
+            box-sizing: border-box;
+            z-index: 9998;
+            overflow-y: auto;
+            transition: transform 0.3s ease;
+        }
+        #toolbar.collapsed {
+            transform: translateX(-220px); /* slide offscreen */
+        }
+
+        /* TOOL BUTTONS */
+        .tool-button {
+            display: block;
+            width: 100%;
+            margin-bottom: 8px;
+            padding: 10px;
+            background: #555041;
+            color: #fff;
+            text-align: center;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            border-radius: 3px;
+        }
+        .tool-button:hover {
+            opacity: 0.8;
+        }
+
+        .menu_-_drawing-button-container {
+            margin-top          :            20px;
+            margin-bottom       :            10px;
+        }
+
+        .menu_-_drawing-button-header-text {
+            font-family         : 'Open Sans', sans-serif;
+            font-size           :            12pt;
+            color               :       #555041;
+            padding-top      :               20px;
+            padding-bottom      :            10px;
+        }
+
+
+
+
+        #cancelToolBtn {
+            display: none;
+            background: #d9534f;
+        }
+        #cancelToolBtn:hover {
+            opacity: 0.8;
+        }
+
+        /* CONFIRM MEASUREMENT BUTTON */
+        #finishMeasurementBtn {
+            position: absolute;
+            z-index: 13000;
+            background: #5cb85c;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 8px 12px;
+            cursor: pointer;
+            display: none;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+            font-size: 14px;
+        }
+        #finishMeasurementBtn:hover {
+            opacity: 0.9;
+        }
+
+
+        /* - - -  - - - -  PLAN CANVAS STYLES - - - - - - -  */
+        /* - Canvas Wrapper                                  */
+        #canvas_-_canvas-container {
+            position: absolute;
+            top: 50px;
+            left: 0;
+            right: 0;
+            bottom: 0px;
+            overflow: hidden;
+            background: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            touch-action: none;
+            z-index: 9996;
+        }
+
+        /* - - - - - - - - - - - - - - - - - - - - - - - - */
+
+        /* LOADING OVERLAY */
+        #loading-overlay {
+            position: absolute;
+            top: 50px;
+            left: 0;
+            right: 0;
+            bottom: 30px;
+            background: rgba(255, 255, 255, 0.9);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            z-index: 10000;
+            transition: opacity 0.3s ease;
+        }
+        #loading-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .loading-spinner {
+            border: 8px solid #f3f3f3;
+            border-top: 8px solid #555041;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+        @keyframes spin {
+            0%   { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* ERROR MESSAGE */
+        #error-message {
+            position: absolute;
+            top: 60px;
+            left: 20px;
+            right: 20px;
+            padding: 10px;
+            background: #ffe6e6;
+            border: 1px solid #ff0000;
+            color: #ff0000;
+            display: none;
+            z-index: 10001;
+        }
+
+        /* TOOL INSTRUCTIONS OVERLAY */
+        #tool-instructions-overlay {
+            position: absolute;
+            top: 50px;
+            left: 0;
+            right: 0;
+            bottom: 30px;
+            background: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            z-index: 12000;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        #tool-instructions-overlay.fade-out {
+            transition: opacity 1s ease;
+            opacity: 0;
+            pointer-events: none;
+        }
+        #tool-instructions-text {
+            font-size: 16px;
+            max-width: 400px;
+            margin: auto;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 8px;
+            white-space: pre-line;
+        }
+
+        /* MENU TUTORIAL OVERLAY */
+        #menu-tutorial-overlay {
+            position: absolute;
+            top: 60px; /* just below the header */
+            left: 10px;
+            display: none;
+            z-index: 13000;
+            pointer-events: none; /* so it doesn't block clicks if desired */
+        }
+        #menu-pointer-arrow {
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-bottom: 10px solid #d9534f;
+            margin-left: 15px;
+        }
+        #menu-tutorial-text {
+            background: #d9534f;
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 4px;
+            margin-top: 5px;
+            font-size: 14px;
+        }
+
+        /* FOOTER */
+        #footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: #fff;
+            border-top: 1px solid #555041;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: #86847d;
+            z-index: 12000;
+        }
+
+        /* 
+        ====================================================================
+        MARKUP TOOLSET MODULE - CSS STYLES
+        - These styles support the markup drawing toolset introduced in v1.6.0
+        - Includes technical pen sketchy line styles and hand-drawn aesthetics
+        ==================================================================== 
+        */
+        
+        /* Toolset Toggle Button */
+        #toggleMarkupToolsetBtn {
+            display: block;
+            width: 100%;
+            margin-bottom: 8px;
+            padding: 10px;
+            background: #555041;
+            color: #fff;
+            text-align: center;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            border-radius: 3px;
+        }
+        
+        /* Markup Tools Container */
+        #markup-toolset {
+            display: none; /* Initially hidden */
+            margin-top: 10px;
+        }
+        
+        /* Color Picker Styling */
+        #markupColorInput {
+            display: block;
+            width: 100%;
+            margin-bottom: 8px;
+            height: 40px;
+            border: none;
+            cursor: pointer;
+        }
+        
+        /* Arrow Tool Specific Styles */
+        .control-point {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #fff;
+            border: 2px solid #555041;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            cursor: move;
+            z-index: 10000;
+        }
+
+        .handle-point {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: #4287f5;
+            border: 1px solid #2c5aa0;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            cursor: pointer;
+            z-index: 9990;
+        }
+
+        .handle-line {
+            position: absolute;
+            height: 1px;
+            background: #a0a0a0;
+            z-index: 9980;
+            pointer-events: none;
+        }
+        
+        /* Canvas cursor styles */
+        #planCanvas.markup-pencil {
+            cursor: crosshair;
+        }
+        
+        #planCanvas.markup-eraser {
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="5" stroke="black" stroke-width="1" fill="white"/></svg>'), auto;
+        }
+        
+        #planCanvas.markup-arrow-start {
+            cursor: cell;
+        }
+        
+        #planCanvas.markup-arrow-end {
+            cursor: crosshair;
+        }
+        
+        #planCanvas.markup-arrow-edit {
+            cursor: default;
+        }
+        
+        #planCanvas.markup-text {
+            cursor: text;
+        }
+        
+        #planCanvas.markup-shape {
+            cursor: crosshair;
+        }
+
+        /* Text Entry Dialog */
+        #markup-text-dialog {
+            position: absolute;
+            z-index: 13000;
+            background: white;
+            border: 1px solid #555041;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            display: none;
+        }
+        
+        #markup-text-input {
+            width: 100%;
+            font-family: 'Comic Sans MS', cursive, sans-serif; /* Handwriting font */
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+        
+        .markup-dialog-buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .markup-dialog-button {
+            padding: 5px 10px;
+            background: #555041;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        /* End of Markup Toolset Module CSS */
+
+        /* Color Picker Styling */
+        .color-palette {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-bottom: 10px;
+            max-width: 200px; /* Limit width to create 4x4 grid */
+        }
+        
+        .color-swatch {
+            width: 45px;
+            height: 45px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        
+        .color-swatch.active {
+            border-color: #555041;
+        }
+
+        /* Selection Tool Styles */
+        .selection-handle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: white;
+            border: 2px solid #555041;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            cursor: move;
+            z-index: 10000;
+        }
+
+        #planCanvas.markup-selection {
+            cursor: default;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div id="app-container">
+        <!-- HEADER -->
+        <div id="header">
+            <button id="toggleToolbarBtn">☰</button>
+            <span id="app-title" style="padding-left: 10px;">PlanVision
+                <span style="font-size: 12px; color: #656565;">- Testing Version 1.5.6 Beta</span>
+            </span>
+            <img src="https://raw.githubusercontent.com/Adam-Noble-01/RE10_I_GitHub_I_Public_Repo/main/RE20_22_--_NA_FILES_--_Brand-Assets-Web-Library/RE20_22_01_-_FILES_-_Noble-Architecture_-_Core-Brand-Image-Assets/RE20_22_01_01_-_PNG_-_NA_Company_Logo.png"
+            alt="Noble Architecture Logo">
+        </div>
+
+        <!-- MENU TUTORIAL OVERLAY (arrow + message) -->
+        <div id="menu-tutorial-overlay">
+            <div id="menu-pointer-arrow"></div>
+            <div id="menu-tutorial-text">Press Here To Open / Hide The Tools Menu</div>
+        </div>
+
+        <!-- TOOLBAR -->
+        <div id="toolbar">
+            <div style="margin-top: -15px;"></div>
+            <!-- Drawing selection section will be inserted here dynamically -->
+            
+            <div class="menu_-_drawing-button-header-text">View & Export</div>
+            <button class="tool-button" id="downloadPDFBtn">Download PDF</button>
+            <button class="tool-button" id="resetViewBtn">Reset View</button>
+
+            <div class="menu_-_drawing-button-header-text">Measuring Tools</div>
+            <button class="tool-button" id="linearMeasureBtn">Linear Measurement</button>
+            <button class="tool-button" id="rectMeasureBtn">Rectangle Measurement</button>
+            <button class="tool-button" id="areaMeasureBtn">Area Measurement</button>
+            <button class="tool-button" id="clearMeasurementsBtn">Clear Measurements</button>
+            <button class="tool-button" id="cancelToolBtn">Cancel Tool</button>
+
+            <div class="menu_-_drawing-button-header-text">Drawing Markup Tools</div>
+            <button class="tool-button" id="toggleMarkupToolsetBtn">Activate Markup Tools</button>
+            
+            <!-- Markup Toolset Container - Initially Hidden -->
+            <div id="markup-toolset">
+                <div class="menu_-_drawing-button-header-text">Markup Tools</div>
+                <button class="tool-button" id="markupSelectionBtn">Selection Tool</button>
+                <button class="tool-button" id="markupPencilBtn">Pen Tool</button>
+                <button class="tool-button" id="markupEraserBtn">Eraser Tool</button>
+                <button class="tool-button" id="markupArrowBtn">Arrow Tool</button>
+                <button class="tool-button" id="markupTextBtn">Text Box</button>
+                <button class="tool-button" id="markupRectBtn">Rectangle Tool</button>
+                <button class="tool-button" id="markupCircleBtn">Circle Tool</button>
+                <button class="tool-button" id="markupPolygonBtn">Polygon Tool</button>
+                
+                <div class="menu_-_drawing-button-header-text">Line Width</div>
+                <div style="display:flex; align-items:center; margin-bottom: 10px;">
+                    <span style="margin-right:10px; color:#555041;">Size:</span>
+                    <input type="range" id="markupLineWidthSlider" min="2" max="20" value="11" style="flex-grow:1;">
+                </div>
+
+                <div class="menu_-_drawing-button-header-text">Colour Selection</div>
+                <div class="color-palette">
+                    <div class="color-swatch active" data-color="#960000" style="background-color: #960000;"></div>
+                    <div class="color-swatch" data-color="#252596" style="background-color: #252596;"></div>
+                    <div class="color-swatch" data-color="#333333" style="background-color: #333333;"></div>
+                    <div class="color-swatch" data-color="#57965c" style="background-color: #57965c;"></div>
+                    <div class="color-swatch" data-color="#333333" style="background-color: #5b5b5b;"></div>
+                    <div class="color-swatch" data-color="#FFFFFF" style="background-color: #FFFFFF; border: 1px solid #CCCCCC;"></div>
+                </div>
+                
+                <div class="menu_-_drawing-button-header-text">Actions</div>
+                <div style="display:flex; justify-content:space-between; margin-bottom: 8px;">
+                    <button class="tool-button" id="markupUndoBtn" style="width:48%;">↩ Undo</button>
+                    <button class="tool-button" id="markupRedoBtn" style="width:48%;">Redo ↪</button>
+                </div>
+                <button class="tool-button" id="markupClearBtn">Clear Markup</button>
+                <button class="tool-button" id="markupSaveBtn">Save Markup Image</button>
+                <button class="tool-button" id="returnToMeasuringBtn">Return to Measuring Tools</button>
+            </div>
+            <!-- End of Markup Toolset Module HTML -->
+
+            <div style="margin-top:20px; font-size:12px; color:#555041;">
+                <strong>Measurements:</strong>
+                <div id="measureInfo" style="margin-top:5px;">No measurements yet.</div>
+            </div>
+        </div>
+
+        <!-- FINISH MEASUREMENT BUTTON (floating) -->
+        <button id="finishMeasurementBtn">Confirm</button>
+
+        <!-- CANVAS CONTAINER -->
+        <div id="canvas-container">
+            <canvas id="planCanvas"></canvas>
+        </div>
+
+        <!-- LOADING OVERLAY -->
+        <div id="loading-overlay">
+            <div class="loading-spinner"></div>
+            <p>Loading Your Vision… Please Wait</p>
+        </div>
+
+        <!-- ERROR MESSAGE -->
+        <div id="error-message">
+            Failed to load the plan image. Please try a different image or smaller size.
+        </div>
+
+        <!-- TOOL INSTRUCTIONS OVERLAY -->
+        <div id="tool-instructions-overlay">
+            <div id="tool-instructions-text"></div>
+        </div>
+
+        <!-- 
+        ====================================================================
+        MARKUP TOOLSET MODULE - TEXT ENTRY DIALOG
+        - For creating text annotations with architectural handwriting style
+        ==================================================================== 
+        -->
+        <div id="markup-text-dialog">
+            <textarea id="markup-text-input" placeholder="Enter text here..." rows="4"></textarea>
+            <div class="markup-dialog-buttons">
+                <button class="markup-dialog-button" id="markup-text-cancel">Cancel</button>
+                <button class="markup-dialog-button" id="markup-text-confirm">Add Text</button>
+            </div>
+        </div>
+        <!-- End of Markup Toolset Module Text Dialog -->
+
+        <!-- FOOTER -->
+        <div id="footer">
+            © 2025 Noble Architecture | All Rights Reserved
+        </div>
+    </div>
+</div>
+
+<script>
+(function() {
+    // =========================================================
+    // GLOBAL VARIABLES & CONSTANTS
+    // =========================================================
+    const MIN_ZOOM = 0.1;
+    const MAX_ZOOM = 2;
+    const ROUND_DIMENSIONS_ENABLED = true;
+    const ROUNDING_INTERVAL = 5;
+    const CONFIRM_BUTTON_OFFSET_X_PC = 10;
+    const CONFIRM_BUTTON_OFFSET_Y_PC = -10;
+    const CONFIRM_BUTTON_OFFSET_X_TOUCH = 10;
+    const CONFIRM_BUTTON_OFFSET_Y_TOUCH = -25;
+
+    const planCanvas = document.getElementById("planCanvas");
+    const ctx = planCanvas.getContext("2d");
+    const loadingOverlay = document.getElementById("loading-overlay");
+    const errorMessage = document.getElementById("error-message");
+    const measureInfo = document.getElementById("measureInfo");
+    const cancelToolBtn = document.getElementById("cancelToolBtn");
+    const toolInstructionsOverlay = document.getElementById("tool-instructions-overlay");
+    const toolInstructionsText = document.getElementById("tool-instructions-text");
+    const finishBtn = document.getElementById("finishMeasurementBtn");
+    const menuTutorialOverlay = document.getElementById("menu-tutorial-overlay");
+    const toolbar = document.getElementById("toolbar");
+
+    let isToolbarOpen = true;
+    const isTouchDevice = ("ontouchstart" in window) || navigator.maxTouchPoints > 0;
+    const markerRadius = isTouchDevice ? 36 : 24;                                           // <-- This is the size of the marker on the drawing
+    const baseLineWidth = isTouchDevice ? 3 : 2;
+
+    let offsetX = 0, offsetY = 0, zoomFactor = 1;
+    let isDragging = false, lastX = 0, lastY = 0;
+    let isPinching = false, pinchStartDist = 0, pinchStartZoom = 1, pinchMidpoint = { x: 0, y: 0 };
+    let currentTool = null;
+    let measuringPoints = [];
+    let measurements = [];
+    let isLinearMeasuring = false;
+    let linearMeasurementLocked = false;
+    let isRectMeasuring = false;
+    let isRectDragging = false;     // Add this near isRectMeasuring
+    let rectStartPoint = null;
+
+
+    let planImage = new Image();
+    planImage.crossOrigin = "anonymous";
+    let isImageLoaded = false;
+    let naturalImageWidth = 0;
+    let naturalImageHeight = 0;
+    let scaleMetresPerPixel = 0;
+
+    let hasShownLinearInstructions = false;
+    let hasShownAreaInstructions = false;
+
+    // =========================================================
+    // MARKUP TOOLSET MODULE - GLOBAL VARIABLES
+    // =========================================================
+    // Added in v1.6.0 to support drawing and markup functionality
+    let isMarkupToolsetActive = false;
+    let currentMarkupTool = 'pencil';
+    let markupColor = '#960000';  // Changed default color to #960000
+    let markupLineWidth = 4;
+    let markupPaths = [];
+    let currentMarkupPath = null;
+    
+    // Selection tool specific variables
+    let selectedElement = null;
+    let isMovingElement = false;
+    let moveStartPosition = null;
+    let selectionHandles = [];
+    let moveOffset = { x: 0, y: 0 };
+    
+    // Arrow tool specific variables
+    let arrowState = 'idle'; // idle, start, end, edit
+    let currentArrow = null;
+    let activeControlPoint = null;
+    let controlPoints = [];
+    let handlePoints = [];
+    
+    // Shape tool variables
+    let isShapeDrawing = false;
+    let shapeStartPoint = null;
+    let currentShape = null;
+    
+    // Text tool variables
+    let isTextPlacing = false;
+    let textPlacementPoint = null;
+    let editingTextElement = null; // Track the text element being edited
+    
+    // Technical pen properties for sketchy look
+    const sketchiness = 0.5; // 0 = clean, 1 = very sketchy
+    const pressureVariation = 0.2; // Line width variation
+    // End of Markup Toolset Module Variables
+
+    // =========================================================
+    // JSON AND DRAWING MANAGEMENT FUNCTIONS
+    // =========================================================
+
+    // Fetch drawings data from JSON configuration file //
+    async function fetchDrawings() {
+        const JSON_URL = "https://raw.githubusercontent.com/Adam-Noble-01/RE20_--_Core_Repo_--_Public/main/RE20_21_--_NA_FILES_-_Project_Portal_Client_Content/02_--_Projects_2025/GA06_--_Cloves-Wood/GA06_-_DATA_-_Document-Library.json";
+        try {
+            const response = await fetch(JSON_URL);
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            const data = await response.json();
+            console.log("Fetched data:", data); // Log the raw data for debugging
+
+            // Check for the existence of each nested level
+            if (!data["na-project-data-library"]) {
+                throw new Error("Missing 'na-project-data-library' in JSON");
+            }
+            console.log("na-project-data-library:", data["na-project-data-library"]);
+
+            if (!data["na-project-data-library"]["project-documentation"]) {
+                throw new Error("Missing 'project-documentation' in JSON");
+            }
+            console.log("project-documentation:", data["na-project-data-library"]["project-documentation"]);
+
+            if (!data["na-project-data-library"]["project-documentation"]["project-drawings"]) {
+                throw new Error("Missing 'project-drawings' in JSON");
+            }
+            console.log("project-drawings:", data["na-project-data-library"]["project-documentation"]["project-drawings"]);
+
+            const drawings = data["na-project-data-library"]["project-documentation"]["project-drawings"];
+            return drawings;
+        } catch (error) {
+            console.error("Error fetching JSON:", error.message);
+            displayError("Failed to load drawing data: " + error.message);
+            return null;
+        }
+    }
+
+    // FUNCTION |  Create Dynamic buttons for each drawing in the toolbar   //
+    // - Uses Project Specific Json File To Assign Menu Buttons             //
+    // - Buttons used for selecting between & loading different drawings    //
+    function createDrawingButtons(drawings) {
+        // Create header element for drawing section
+        const header = document.createElement("div");
+        header.className = "menu_-_drawing-button-header-text";
+        header.textContent = "Select Drawing";
+
+        // Create a separate container for the drawing buttons
+        const buttonContainer = document.createElement("div");
+        buttonContainer.className = "drawing-button-container";
+
+        // Get the toolbar element
+        const toolbar = document.getElementById("toolbar");
+        
+        // Insert at the beginning of the toolbar
+        if (toolbar.firstChild) {
+            toolbar.insertBefore(buttonContainer, toolbar.firstChild);
+            toolbar.insertBefore(header, buttonContainer);
+        } else {
+            toolbar.appendChild(header);
+            toolbar.appendChild(buttonContainer);
+        }
+
+        // Add a spacer after the drawing buttons
+        const spacer = document.createElement("div");
+        spacer.style.marginBottom = "20px";
+        buttonContainer.after(spacer);
+
+        // Iterate over drawing entries and create buttons
+        for (const key in drawings) {
+            if (key.startsWith("drawing-") && drawings[key]["file-name"] !== "{{TEMPLATE_-_ENTRY_-_TO_-_COPY_-_DO_-_NOT_-_DELETE}}") {
+                const button = document.createElement("button");
+                button.className = "tool-button";
+                button.textContent = drawings[key]["document-name"];
+                button.addEventListener("click", () => loadDrawing(drawings[key]));
+                buttonContainer.appendChild(button);
+            }
+        }
+    }
+
+
+
+    // Load a specific drawing's image and update download link //
+    async function loadDrawing(drawing) {
+        showLoading();
+        try {
+            const pngUrl = drawing["document-links"]["png--github-link-url"];
+            const pdfUrl = drawing["document-links"]["pdf--github-link-url"];
+            const documentName = drawing["document-name"];
+            await loadPlanImage(pngUrl);
+            isImageLoaded = true;
+            resetView();
+            updateDownloadLink(pdfUrl, documentName);
+        } catch (error) {
+            console.error("Error loading drawing:", error);
+            displayError("Failed to load the selected drawing.");
+        } finally {
+            hideLoading();
+        }
+    }
+
+    // Load the plan image asynchronously //
+    function loadPlanImage(url) {
+        return new Promise((resolve, reject) => {
+            planImage.onload = () => {
+                naturalImageWidth = planImage.naturalWidth;
+                naturalImageHeight = planImage.naturalHeight;
+                resolve();
+            };
+            planImage.onerror = () => {
+                reject(new Error("Failed to load plan image: " + url));
+            };
+            planImage.src = url;
+        });
+    }
+
+    // Update the PDF download button with the current drawing's link //
+    function updateDownloadLink(pdfUrl, documentName) {
+        const downloadBtn = document.getElementById("downloadPDFBtn");
+        downloadBtn.onclick = () => {
+            const link = document.createElement("a");
+            link.href = pdfUrl;
+            link.download = documentName.replace(/ /g, "-") + ".pdf";
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        };
+    }
+
+    // Show the loading overlay //
+    function showLoading() {
+        loadingOverlay.classList.remove("hidden");
+    }
+
+    // Hide the loading overlay //
+    function hideLoading() {
+        loadingOverlay.classList.add("hidden");
+    }
+
+    // Display an error message to the user //
+    function displayError(message) {
+        errorMessage.textContent = message;
+        errorMessage.style.display = "block";
+    }
+
+    // =========================================================
+    // INITIALISATION
+    // =========================================================
+    async function init() {
+        const appRoot = document.getElementById("app");
+        if (!appRoot) {
+            console.error("Root element #app is missing from the DOM. App cannot initialise.");
+            return;
+        }
+
+        resizeCanvas();
+        const drawings = await fetchDrawings();
+        if (drawings) {
+            createDrawingButtons(drawings);
+            const firstDrawingKey = Object.keys(drawings).find(
+                key => key.startsWith("drawing-") && drawings[key]["file-name"] !== "{{TEMPLATE_-_ENTRY_-_TO_-_COPY_-_DO_-_NOT_-_DELETE}}"
+            );
+            if (firstDrawingKey) {
+                await loadDrawing(drawings[firstDrawingKey]);
+            }
+        }
+        attachEventListeners();
+        handleInitialTutorialFlow();
+        renderLoop();
+    }
+
+    // =========================================================
+    // FIRST-LOAD TUTORIAL FLOW
+    // =========================================================
+    function handleInitialTutorialFlow() {
+        if (isMobileOrTabletPortrait()) {
+            // STEP 1: Show menu open immediately
+            toolbar.classList.remove("collapsed");
+            isToolbarOpen = true;
+
+            // STEP 2: After 1 second, retract the menu
+            setTimeout(() => {
+                toolbar.classList.add("collapsed");
+                isToolbarOpen = false;
+
+                // STEP 3: Show the tooltip after a small delay
+                setTimeout(() => {
+                    menuTutorialOverlay.style.display = "block";
+                }, 300);
+
+            }, 1000);
+        }
+    }
+
+    function isMobileOrTabletPortrait() {
+        const maxTabletWidth = 1024;
+        return (window.innerWidth <= maxTabletWidth) && isPortrait();
+    }
+
+    function isPortrait() {
+        if (window.screen.orientation && window.screen.orientation.type) {
+            return window.screen.orientation.type.startsWith("portrait");
+        }
+        return window.innerHeight > window.innerWidth;
+    }
+
+    // =========================================================
+    // RENDER LOOP
+    // =========================================================
+    function renderLoop() {
+        if (!isImageLoaded) return;
+        requestAnimationFrame(renderLoop);
+
+        ctx.clearRect(0, 0, planCanvas.width, planCanvas.height);
+        ctx.save();
+        ctx.translate(offsetX, offsetY);
+        ctx.scale(zoomFactor, zoomFactor);
+
+        // - - - -  RENDER EFFECT |  Drop Shadow Effect Under Drawing  - - - -
+            // Added v1.5.7. - 16-Mar-2025
+            //   -  Sets drop shadow properties for the drawing
+            //   -  Creates a subtle shadow effect creating the illusion of paper plan
+            ctx.shadowColor            =     "rgba(\
+                                            0,0,0, \
+                                            0.2\)" ;
+                ctx.shadowBlur         =         10;
+                ctx.shadowOffsetX      =          5;
+                ctx.shadowOffsetY      =          5;
+        // - - - - - - - - - - - - - - - - -- - - - - - - - - - - - - - - - - -
+
+        ctx.drawImage(planImage, 0, 0);
+        ctx.restore();
+
+        // Draw markup paths if any
+        if (isMarkupToolsetActive || markupPaths.length > 0) {
+            drawAllMarkupPaths(ctx);
+        }
+
+        // Draw measurement tools and results
+        measurements.forEach(m => {
+            if (m.type === "linear") {
+                drawLine(m.points, "blue");
+                drawMarkers(m.points, "blue");
+                drawLineLabel(m.points, m.distanceMM, "blue");
+            } else if (m.type === "area") {
+                drawPolygon(m.points, "rgba(255,0,0,0.2)", "red");
+                drawMarkers(m.points, "red");
+                drawAreaLabel(m);
+                drawEdgeLabels(m.points, "red");
+            } else if (m.type === "rectangle") {
+                drawRectangle(m.points[0], m.points[1], "blue", "rgba(0,0,255,0.2)");
+                drawMarkers(m.points, "blue");
+                drawRectLabel(m.points[0], m.points[1]);
+            }
+        });
+
+        if (currentTool === "linear" && isLinearMeasuring) {
+            if (measuringPoints.length === 2) {
+                drawLine(measuringPoints, "green");
+                drawMarkers(measuringPoints, "green");
+            } else if (measuringPoints.length === 1) {
+                drawMarkers(measuringPoints, "green");
+            }
+        }
+
+        if (currentTool === "area" && measuringPoints.length > 0) {
+            drawOpenPolygon(measuringPoints, "red");
+            drawMarkers(measuringPoints, "red");
+        }
+
+        if (currentTool === "rectangle" && isRectMeasuring && measuringPoints.length === 2) {
+            drawRectangle(measuringPoints[0], measuringPoints[1], "blue");
+            drawMarkers(measuringPoints, "blue");
+        } else if (currentTool === "rectangle" && measuringPoints.length === 1) {
+            drawMarkers(measuringPoints, "blue");
+        }
+
+        adjustConfirmButtonPosition();
+    }
+
+    // =========================================================
+    // DRAWING TOOLS FUNCTIONS
+    // =========================================================
+    function drawLine(points, strokeStyle) {
+        if (points.length < 2) return;
+        ctx.save();
+        ctx.translate(offsetX, offsetY);
+        ctx.scale(zoomFactor, zoomFactor);
+        ctx.strokeStyle = strokeStyle;
+        ctx.lineWidth = (baseLineWidth * 0.50) / zoomFactor;
+        ctx.beginPath();
+        ctx.moveTo(points[0].x, points[0].y);
+        ctx.lineTo(points[1].x, points[1].y);
+        ctx.stroke();
+        ctx.restore();
+    }
+
+    function drawMarkers(points, colour) {
+        ctx.save();
+        ctx.translate(offsetX, offsetY);
+        ctx.scale(zoomFactor, zoomFactor);
+        ctx.strokeStyle = colour;
+        ctx.globalAlpha = 0.75;
+        ctx.lineWidth = 1 / zoomFactor;
+        let doubleRadius = markerRadius * 2;
+        points.forEach(pt => {
+            ctx.beginPath();
+            ctx.moveTo(pt.x - doubleRadius, pt.y);
+            ctx.lineTo(pt.x + doubleRadius, pt.y);
+            ctx.moveTo(pt.x, pt.y - doubleRadius);
+            ctx.lineTo(pt.x, pt.y + doubleRadius);
+            ctx.stroke();
+        });
+        ctx.restore();
+    }
+
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    // FUNCTION |  Draw Rectangle Measurement Tool
+
+    function drawRectangle(start, end, strokeStyle, fillStyle = null) {
+        ctx.save();
+        ctx.translate(offsetX, offsetY);
+        ctx.scale(zoomFactor, zoomFactor);
+        ctx.strokeStyle = strokeStyle;
+        ctx.lineWidth = (baseLineWidth * 0.50) / zoomFactor;
+        
+        const width = end.x - start.x;
+        const height = end.y - start.y;
+        
+        ctx.beginPath();
+        ctx.rect(start.x, start.y, width, height);
+        
+        if (fillStyle) {
+            ctx.fillStyle = fillStyle;
+            ctx.fill();
+        }
+        ctx.stroke();
+        ctx.restore();
+    }
+
+    function drawRectLabel(start, end) {
+        const widthPx = Math.abs(end.x - start.x);
+        const heightPx = Math.abs(end.y - start.y);
+        const widthMm = Math.round(widthPx * scaleMetresPerPixel * 1000);
+        const heightMm = Math.round(heightPx * scaleMetresPerPixel * 1000);
+        const areaM2 = (widthPx * heightPx * scaleMetresPerPixel * scaleMetresPerPixel).toFixed(2);
+        const mid = { 
+            x: (start.x + end.x) / 2, 
+            y: (start.y + end.y) / 2 
+        };
+        drawTextLabel(mid, `${areaM2} m²`, "blue");
+        
+        // Draw width label
+        const widthMid = {
+            x: (start.x + end.x) / 2,
+            y: Math.min(start.y, end.y) - 10 / zoomFactor
+        };
+        drawTextLabel(widthMid, `${widthMm} mm`, "blue");
+        
+        // Draw height label
+        const heightMid = {
+            x: Math.max(start.x, end.x) + 10 / zoomFactor,
+            y: (start.y + end.y) / 2
+        };
+        drawTextLabel(heightMid, `${heightMm} mm`, "blue");
+    }
+
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    // FUNCTION |  Draw Poligonal Measurement Tool
+
+    function drawPolygon(points, fillStyle, strokeStyle) {
+        if (points.length < 3) return;
+        ctx.save();
+        ctx.translate(offsetX, offsetY);
+        ctx.scale(zoomFactor, zoomFactor);
+        ctx.fillStyle = fillStyle;
+        ctx.strokeStyle = strokeStyle;
+        ctx.lineWidth = (baseLineWidth * 0.50) / zoomFactor;
+        ctx.beginPath();
+        ctx.moveTo(points[0].x, points[0].y);
+        for (let i = 1; i < points.length; i++) {
+            ctx.lineTo(points[i].x, points[i].y);
+        }
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+        ctx.restore();
+    }
+
+    function drawOpenPolygon(points, strokeStyle) {
+        if (points.length < 2) return;
+        ctx.save();
+        ctx.translate(offsetX, offsetY);
+        ctx.scale(zoomFactor, zoomFactor);
+        ctx.strokeStyle = strokeStyle;
+        ctx.lineWidth = (baseLineWidth * 0.50) / zoomFactor;
+        ctx.beginPath();
+        ctx.moveTo(points[0].x, points[0].y);
+        for (let i = 1; i < points.length; i++) {
+            ctx.lineTo(points[i].x, points[i].y);
+        }
+        ctx.stroke();
+        ctx.restore();
+    }
+
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    // FUNCTION |  Apply Line Label
+    function drawLineLabel(points, distMM, colour) {
+        if (points.length < 2) return;
+        const [A, B] = points;
+        const mid = { x: (A.x + B.x) / 2, y: (A.y + B.y) / 2 };
+        drawTextLabel(mid, distMM + " mm", colour);
+    }
+
+    function drawAreaLabel(areaObj) {
+        const c = polygonCentroid(areaObj.points);
+        drawTextLabel(c, areaObj.areaM2 + " m²", "red");
+    }
+
+    function drawEdgeLabels(points, colour) {
+        if (points.length < 2) return;
+        ctx.save();
+        ctx.translate(offsetX, offsetY);
+        ctx.scale(zoomFactor, zoomFactor);
+        ctx.fillStyle = colour;
+        ctx.font = (14 / zoomFactor) + "px sans-serif";
+        const offsetVal = 10 / zoomFactor;
+        for (let i = 0; i < points.length; i++) {
+            const p1 = points[i];
+            const p2 = points[(i + 1) % points.length];
+            const mid = { x: (p1.x + p2.x) / 2, y: (p1.y + p2.y) / 2 };
+            let lengthPx = dist(p1, p2);
+            let lengthMm = lengthPx * scaleMetresPerPixel * 1000;
+            if (ROUND_DIMENSIONS_ENABLED) {
+                lengthMm = Math.round(lengthMm / ROUNDING_INTERVAL) * ROUNDING_INTERVAL;
+            } else {
+                lengthMm = Math.round(lengthMm);
+            }
+            ctx.fillText(lengthMm + " mm", mid.x + offsetVal, mid.y - offsetVal);
+        }
+        ctx.restore();
+    }
+
+    function drawTextLabel(pos, text, colour) {
+        ctx.save();
+        ctx.translate(offsetX, offsetY);
+        ctx.scale(zoomFactor, zoomFactor);
+        ctx.fillStyle = colour;
+        ctx.font = (18 / zoomFactor) + "px sans-serif";
+        const offsetVal = 10 / zoomFactor;
+        ctx.fillText(text, pos.x + offsetVal, pos.y - offsetVal);
+        ctx.restore();
+    }
+
+    // =========================================================
+    // MEASUREMENT CALCULATIONS
+    // =========================================================
+    function dist(a, b) {
+        return Math.hypot(b.x - a.x, b.y - a.y);
+    }
+
+    function polygonCentroid(pts) {
+        let xSum = 0, ySum = 0;
+        pts.forEach(p => { xSum += p.x; ySum += p.y; });
+        return { x: xSum / pts.length, y: ySum / pts.length };
+    }
+
+    function polygonArea(pts) {
+        let area = 0;
+        for (let i = 0; i < pts.length; i++) {
+            const j = (i + 1) % pts.length;
+            area += (pts[i].x * pts[j].y) - (pts[j].x * pts[i].y);
+        }
+        return Math.abs(area / 2);
+    }
+
+    function toPlanCoords(x, y) {
+        return {
+            x: (x - offsetX) / zoomFactor,
+            y: (y - offsetY) / zoomFactor
+        };
+    }
+
+    function finalizeMeasurement(type) {
+        if (type === "linear" && measuringPoints.length === 2) {
+            const [start, end] = measuringPoints;
+            const pxDist = dist(start, end);
+            const rawMm = pxDist * scaleMetresPerPixel * 1000;
+            let mmDist = ROUND_DIMENSIONS_ENABLED
+                ? Math.round(rawMm / ROUNDING_INTERVAL) * ROUNDING_INTERVAL
+                : Math.round(rawMm);
+
+            measurements.push({
+                type: "linear",
+                points: [start, end],
+                distanceMM: mmDist
+            });
+            measuringPoints = [];
+            isLinearMeasuring = false;
+            linearMeasurementLocked = false;
+            updateMeasureInfo();
+            hideCancelTool();
+            currentTool = null;
+            planCanvas.style.cursor = "default";
+        } else if (type === "area" && measuringPoints.length > 2) {
+            const areaPx2 = polygonArea(measuringPoints);
+            const areaM2 = (areaPx2 * scaleMetresPerPixel * scaleMetresPerPixel).toFixed(2);
+
+            measurements.push({
+                type: "area",
+                points: [...measuringPoints],
+                areaM2: areaM2
+            });
+            measuringPoints = [];
+            updateMeasureInfo();
+            hideCancelTool();
+            currentTool = null;
+            planCanvas.style.cursor = "default";
+        } else if (type === "rectangle" && measuringPoints.length === 2) {
+            const widthPx = Math.abs(measuringPoints[1].x - measuringPoints[0].x);
+            const heightPx = Math.abs(measuringPoints[1].y - measuringPoints[0].y);
+            const widthMm = ROUND_DIMENSIONS_ENABLED
+                ? Math.round((widthPx * scaleMetresPerPixel * 1000) / ROUNDING_INTERVAL) * ROUNDING_INTERVAL
+                : Math.round(widthPx * scaleMetresPerPixel * 1000);
+            const heightMm = ROUND_DIMENSIONS_ENABLED
+                ? Math.round((heightPx * scaleMetresPerPixel * 1000) / ROUNDING_INTERVAL) * ROUNDING_INTERVAL
+                : Math.round(heightPx * scaleMetresPerPixel * 1000);
+            const areaPx2 = widthPx * heightPx;
+            const areaM2 = (areaPx2 * scaleMetresPerPixel * scaleMetresPerPixel).toFixed(2);
+
+            measurements.push({
+                type: "rectangle",
+                points: [...measuringPoints],
+                widthMm: widthMm,
+                heightMm: heightMm,
+                areaM2: areaM2
+            });
+            measuringPoints = [];
+            isRectMeasuring = false;
+            updateMeasureInfo();
+            hideCancelTool();
+            currentTool = null;
+            planCanvas.style.cursor = "default";
+        }
+    }  
+
+    // =========================================================
+    // EVENT LISTENERS & INTERACTION
+    // =========================================================
+
+
+    function attachEventListeners() {
+        document.getElementById("toggleToolbarBtn").addEventListener("click", toggleToolbar);
+
+        const fullscreenBtn = document.getElementById("fullscreenBtn");
+        if (fullscreenBtn) {
+            fullscreenBtn.addEventListener("click", () => {
+                if (!document.fullscreenElement) {
+                    document.documentElement.requestFullscreen()
+                        .then(() => fullscreenBtn.textContent = "Exit Full Screen")
+                        .catch(err => console.warn("Fullscreen request failed:", err));
+                } else {
+                    document.exitFullscreen()
+                        .then(() => fullscreenBtn.textContent = "Enter Full Screen")
+                        .catch(err => console.warn("Exit Fullscreen failed:", err));
+                }
+            });
+        }
+
+        planCanvas.addEventListener("mousedown", onMouseDown);
+        planCanvas.addEventListener("mousemove", onMouseMove);
+        planCanvas.addEventListener("mouseup", onMouseUp);
+        planCanvas.addEventListener("wheel", onWheel, { passive: false });
+        planCanvas.addEventListener("touchstart", onTouchStart, { passive: false });
+        planCanvas.addEventListener("touchmove", onTouchMove, { passive: false });
+        planCanvas.addEventListener("touchend", onTouchEnd);
+        planCanvas.addEventListener("touchcancel", onTouchEnd);
+
+        // Add keyboard event listener for markup tools
+        window.addEventListener("keydown", onKeyDown);
+
+        window.addEventListener("resize", onResize);
+
+        document.getElementById("resetViewBtn").addEventListener("click", resetView);
+        document.getElementById("linearMeasureBtn").addEventListener("click", () => setTool("linear"));
+        document.getElementById("rectMeasureBtn").addEventListener("click", () => setTool("rectangle"));
+        document.getElementById("areaMeasureBtn").addEventListener("click", () => setTool("area"));
+        document.getElementById("clearMeasurementsBtn").addEventListener("click", clearMeasurements);
+        cancelToolBtn.addEventListener("click", cancelTool);
+
+        finishBtn.addEventListener("click", () => {
+            if (currentTool === "linear") finalizeMeasurement("linear");
+            else if (currentTool === "area") finalizeMeasurement("area");
+            else if (currentTool === "rectangle") finalizeMeasurement("rectangle");
+        });
+
+        // =========================================================
+        // MARKUP TOOLSET MODULE - EVENT LISTENERS
+        // =========================================================
+        // Toggle between standard and markup toolsets
+        document.getElementById("toggleMarkupToolsetBtn").addEventListener("click", toggleMarkupToolset);
+        document.getElementById("returnToMeasuringBtn").addEventListener("click", returnToMeasuringTools);
+        
+        // Markup tool buttons
+        document.getElementById("markupSelectionBtn").addEventListener("click", () => setMarkupTool("selection"));
+        document.getElementById("markupPencilBtn").addEventListener("click", () => setMarkupTool("pencil"));
+        document.getElementById("markupEraserBtn").addEventListener("click", () => setMarkupTool("eraser"));
+        document.getElementById("markupArrowBtn").addEventListener("click", () => setMarkupTool("arrow"));
+        document.getElementById("markupTextBtn").addEventListener("click", () => setMarkupTool("text"));
+        document.getElementById("markupRectBtn").addEventListener("click", () => setMarkupTool("rectangle"));
+        document.getElementById("markupCircleBtn").addEventListener("click", () => setMarkupTool("circle"));
+        document.getElementById("markupPolygonBtn").addEventListener("click", () => setMarkupTool("polygon"));
+        
+        // Color palette selection
+        document.querySelectorAll('.color-swatch').forEach(swatch => {
+            swatch.addEventListener('click', (e) => {
+                document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
+                e.target.classList.add('active');
+                markupColor = e.target.dataset.color;
+            });
+        });
+        
+        document.getElementById("markupLineWidthSlider").addEventListener("input", (e) => {
+            markupLineWidth = parseInt(e.target.value);
+        });
+        
+        // Action buttons
+        document.getElementById("markupClearBtn").addEventListener("click", clearMarkup);
+        document.getElementById("markupSaveBtn").addEventListener("click", saveMarkupImage);
+        
+        // Text dialog buttons
+        document.getElementById("markup-text-cancel").addEventListener("click", cancelTextEntry);
+        document.getElementById("markup-text-confirm").addEventListener("click", confirmTextEntry);
+        // End of Markup Toolset Module Event Listeners
+
+        // Undo/Redo buttons
+        document.getElementById("markupUndoBtn").addEventListener("click", undoMarkupAction);
+        document.getElementById("markupRedoBtn").addEventListener("click", redoMarkupAction);
+    }
+
+    
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    // FUNCTION |  Toggles Visibility Of The Tools Menu (Toolbar)
+
+    function toggleToolbar() {
+        if (menuTutorialOverlay.style.display === "block") {
+            menuTutorialOverlay.style.display = "none";
+        }
+        if (currentTool) return;
+        isToolbarOpen = !isToolbarOpen;
+        toolbar.classList.toggle("collapsed", !isToolbarOpen);
+    }
+
+
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+    // FUNCTION |  Handles Mouse Movement For Measurement Tools & Panning
+
+    function onMouseMove(e) {
+        // Handle markup tools if active
+        if (isMarkupToolsetActive) {
+            const pos = toPlanCoords(e.offsetX, e.offsetY);
+
+            if (currentMarkupTool === 'selection' && isMovingElement && selectedElement) {
+                // Move the selected element
+                moveElement(selectedElement, pos);
+                return;
+            } 
+            else if (currentMarkupTool === 'pencil' && currentMarkupPath) {
+                // Add point to the current path
+                currentMarkupPath.points.push(pos);
+                return;
+            }
+            else if (currentMarkupTool === 'eraser') {
+                // For eraser, check for intersections with existing paths
+                const eraserRadius = markupLineWidth; // Increased eraser size for better usability
+                if (detectAndEraseElements(pos, eraserRadius)) {
+                    saveMarkupState(); // Save state after erasing
+                }
+                return;
+            }
+            else if (currentMarkupTool === 'arrow' && arrowState === 'end') {
+                // Update arrow end point when defining
+                currentArrow.endPoint = pos;
+                
+                // Calculate control points for curve
+                const midX = (currentArrow.startPoint.x + currentArrow.endPoint.x) / 2;
+                const midY = (currentArrow.startPoint.y + currentArrow.endPoint.y) / 2;
+                const dx = currentArrow.endPoint.x - currentArrow.startPoint.x;
+                const dy = currentArrow.endPoint.y - currentArrow.startPoint.y;
+                const perpX = -dy / 4; // Perpendicular offset
+                const perpY = dx / 4;
+                
+                currentArrow.control1 = { x: midX + perpX, y: midY + perpY };
+                currentArrow.control2 = { x: midX - perpX, y: midY - perpY };
+                return;
+            } 
+            else if (currentMarkupTool === 'arrow' && arrowState === 'edit' && activeControlPoint) {
+                // Update the active control point
+                if (activeControlPoint.type === 'start') {
+                    currentArrow.startPoint = pos;
+                } else if (activeControlPoint.type === 'end') {
+                    currentArrow.endPoint = pos;
+                } else if (activeControlPoint.type === 'control1') {
+                    currentArrow.control1 = pos;
+                } else if (activeControlPoint.type === 'control2') {
+                    currentArrow.control2 = pos;
+                }
+                
+                // Update control points visually
+                updateControlPointPositions();
+                return;
+            }
+            else if (['rectangle', 'circle'].includes(currentMarkupTool) && isShapeDrawing) {
+                // Update the end point of shape while dragging
+                currentShape.endPoint = pos;
+                return;
+            }
+            
+            return;
+        }
+        
+        // Standard measurement tools handling
+        if (currentTool === "linear" && isLinearMeasuring) {
+            const pos = toPlanCoords(e.offsetX, e.offsetY);
+            if (measuringPoints.length === 1) measuringPoints.push(pos);
+            else {
+                const start = measuringPoints[0];
+                const dx = pos.x - start.x;
+                const dy = pos.y - start.y;
+                const angleDeg = Math.abs(Math.atan2(dy, dx) * (180 / Math.PI));
+                if (angleDeg < 15 || angleDeg > 165) {
+                    pos.y = start.y;
+                } else if (Math.abs(angleDeg - 90) < 15) {
+                    pos.x = start.x;
+                }
+                measuringPoints[1] = pos;
+            }
+            return;
+        }
+        if (currentTool === "rectangle" && isRectMeasuring && isRectDragging) {
+            const pos = toPlanCoords(e.offsetX, e.offsetY);
+            const start = measuringPoints[0];
+            const dx = pos.x - start.x;
+            const dy = pos.y - start.y;
+            const angleDeg = Math.abs(Math.atan2(dy, dx) * (180 / Math.PI));
+            // Optional snapping to 0° or 90° (like Shift key in drawing apps)
+            if (angleDeg < 15 || angleDeg > 165) {
+                pos.y = start.y; // Snap to horizontal
+            } else if (Math.abs(angleDeg - 90) < 15) {
+                pos.x = start.x; // Snap to vertical
+            }
+
+            if (measuringPoints.length === 1) {
+                measuringPoints.push(pos);
+            } else {
+                measuringPoints[1] = pos;
+            }
+            return;
+        }
+        if (isDragging && currentTool !== "linear" && currentTool !== "area") {
+            const dx = e.clientX - lastX;
+            const dy = e.clientY - lastY;
+            offsetX += dx;
+            offsetY += dy;
+            lastX = e.clientX;
+            lastY = e.clientY;
+            
+            // Update handle positions after panning
+            updateAllHandlePositions();
+        }
+    }
+
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+    // FUNCTION |  Handles Mouse Click Events For Measurement Tools & Dragging
+        
+    function onMouseDown(e) {
+        // Handle markup tools if active
+        if (isMarkupToolsetActive) {
+            const pos = toPlanCoords(e.offsetX, e.offsetY);
+
+            if (currentMarkupTool === 'selection') {
+                // Clear any previous selection
+                if (!e.shiftKey) {
+                    clearSelection();
+                }
+                
+                // Try to select an element at the clicked position
+                const element = findElementAt(pos);
+                if (element) {
+                    selectElement(element);
+                    
+                    // Prepare for moving if the element is clicked (not a handle)
+                    isMovingElement = true;
+                    moveStartPosition = pos;
+                    
+                    // Calculate offset from element position for smoother dragging
+                    if (element.tool === 'pencil') {
+                        // For paths, use the first point as reference
+                        moveOffset = {
+                            x: element.points[0].x - pos.x,
+                            y: element.points[0].y - pos.y
+                        };
+                    } else if (element.tool === 'text') {
+                        moveOffset = {
+                            x: element.position.x - pos.x,
+                            y: element.position.y - pos.y
+                        };
+                    } else if (element.tool === 'arrow') {
+                        moveOffset = {
+                            x: element.startPoint.x - pos.x,
+                            y: element.startPoint.y - pos.y
+                        };
+                    } else if (['rectangle', 'circle'].includes(element.tool)) {
+                        moveOffset = {
+                            x: element.startPoint.x - pos.x,
+                            y: element.startPoint.y - pos.y
+                        };
+                    }
+                }
+                return;
+            }
+            
+            // If any other tool is selected, clear the selection
+            if (currentMarkupTool !== 'selection') {
+                clearSelection();
+            }
+            
+            // Continue with existing tool handling...
+            if (currentMarkupTool === 'pencil') {
+                currentMarkupPath = {
+                    tool: 'pencil',
+                    color: markupColor,
+                    lineWidth: markupLineWidth,
+                    points: [pos]
+                };
+                return;
+            }
+            else if (currentMarkupTool === 'eraser') {
+                // Start erasing from this position
+                const eraserRadius = markupLineWidth / 2;
+                detectAndEraseElements(pos, eraserRadius);
+                return;
+            }
+            else if (currentMarkupTool === 'arrow') {
+                if (arrowState === 'idle') {
+                    // Start a new arrow
+                    currentArrow = {
+                        tool: 'arrow',
+                        color: markupColor,
+                        lineWidth: markupLineWidth,
+                        startPoint: pos,
+                        endPoint: pos,
+                        control1: pos,
+                        control2: pos
+                    };
+                    arrowState = 'end';
+                    planCanvas.classList.remove('markup-arrow-start');
+                    planCanvas.classList.add('markup-arrow-end');
+                    return;
+                } 
+                else if (arrowState === 'edit') {
+                    // Check if a control point was clicked
+                    for (const point of controlPoints) {
+                        // Get the screen position of this control point
+                        const screenX = point.x;
+                        const screenY = point.y;
+                        
+                        // Convert cursor position to screen coordinates
+                        const cursorScreenX = pos.x * zoomFactor + offsetX;
+                        const cursorScreenY = pos.y * zoomFactor + offsetY;
+                        
+                        // Calculate distance in screen pixels
+                        const dx = screenX - cursorScreenX;
+                        const dy = screenY - cursorScreenY;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        
+                        // Use a fixed pixel distance for easier selection regardless of zoom
+                        if (distance < 20) { // 20 pixel hit radius
+                            activeControlPoint = point;
+                            return;
+                        }
+                    }
+                    
+                    // If no control point was clicked, start a new arrow
+                    clearArrowControls();
+                    currentArrow = {
+                        tool: 'arrow',
+                        color: markupColor,
+                        lineWidth: markupLineWidth,
+                        startPoint: pos,
+                        endPoint: pos,
+                        control1: pos,
+                        control2: pos
+                    };
+                    arrowState = 'end';
+                    planCanvas.classList.remove('markup-arrow-edit');
+                    planCanvas.classList.add('markup-arrow-end');
+                    return;
+                }
+            }
+            else if (currentMarkupTool === 'text') {
+                // Check if we clicked on an existing text element first
+                const existingTextElement = findTextElementAt(pos);
+                if (existingTextElement) {
+                    // Start editing the existing text
+                    editingTextElement = existingTextElement;
+                    textPlacementPoint = existingTextElement.position;
+                    isTextPlacing = true;
+                    showTextDialog(e.clientX, e.clientY, existingTextElement.text);
+                } else {
+                    // Create a new text element
+                    isTextPlacing = true;
+                    textPlacementPoint = pos;
+                    editingTextElement = null;
+                    showTextDialog(e.clientX, e.clientY);
+                }
+                return;
+            }
+            else if (['rectangle', 'circle', 'polygon'].includes(currentMarkupTool)) {
+                if (!isShapeDrawing) {
+                    // Start drawing a new shape
+                    shapeStartPoint = pos;
+                    
+                    if (currentMarkupTool === 'polygon' && currentShape && currentShape.points.length > 0) {
+                        // For polygon, add a new point to the existing shape
+                        currentShape.points.push(pos);
+                    } else {
+                        // Create a new shape object
+                        currentShape = {
+                            tool: currentMarkupTool,
+                            color: markupColor,
+                            lineWidth: markupLineWidth,
+                            startPoint: pos,
+                            endPoint: pos
+                        };
+                        
+                        if (currentMarkupTool === 'polygon') {
+                            currentShape.points = [pos];
+                        }
+                    }
+                    
+                    isShapeDrawing = true;
+                    return;
+                }
+                else if (currentMarkupTool === 'polygon') {
+                    // For polygon, just add another point
+                    currentShape.points.push(pos);
+                    return;
+                }
+            }
+            
+            return;
+        }
+        
+        // Standard measurement tools handling
+        if (currentTool === "linear") {
+            const pos = toPlanCoords(e.offsetX, e.offsetY);
+            if (!measuringPoints.length) {
+                measuringPoints.push(pos);
+                isLinearMeasuring = true;
+                linearMeasurementLocked = false;
+            } else if (!linearMeasurementLocked) {
+                const start = measuringPoints[0];
+                const dx = pos.x - start.x;
+                const dy = pos.y - start.y;
+                const angleDeg = Math.abs(Math.atan2(dy, dx) * (180 / Math.PI));
+                if (angleDeg < 15 || angleDeg > 165) {
+                    pos.y = start.y;
+                } else if (Math.abs(angleDeg - 90) < 15) {
+                    pos.x = start.x;
+                }
+                measuringPoints[1] = pos;
+                linearMeasurementLocked = true;
+            }
+            return;
+        }
+        if (currentTool === "area") {
+            measuringPoints.push(toPlanCoords(e.offsetX, e.offsetY));
+            return;
+        }
+        if (currentTool === "rectangle") {
+            const pos = toPlanCoords(e.offsetX, e.offsetY);
+            if (!isRectMeasuring) {
+                measuringPoints = [pos];
+                isRectMeasuring = true;
+                isRectDragging = true; // Start dragging immediately
+            }
+            return;
+        }
+        isDragging = true;
+        lastX = e.clientX;
+        lastY = e.clientY;
+    }
+
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    // FUNCTION |  Draws Measurement Lines & Orthogonal Snap Indicators On Canvas
+    function drawLine(points, strokeStyle) {                                        // ← Draws measurement lines on canvas
+        if (points.length < 2) return;                                              // ← Ensure two points exist before drawing
+        ctx.save();                                                                  
+        ctx.translate(offsetX, offsetY);                                            
+        ctx.scale(zoomFactor, zoomFactor);                                          
+        ctx.strokeStyle = strokeStyle;                                              
+        ctx.lineWidth = (baseLineWidth * 0.50) / zoomFactor;                        
+        
+        ctx.beginPath();                                                            
+        ctx.moveTo(points[0].x, points[0].y);                                       
+        ctx.lineTo(points[1].x, points[1].y);                                       
+        ctx.stroke();                                                               
+        
+        const dx = points[1].x - points[0].x;                                       // ← Calculate horizontal difference
+        const dy = points[1].y - points[0].y;                                       // ← Calculate vertical difference
+        
+        if (dy === 0 || dx === 0) {                                                 // ← If line is perfectly horizontal/vertical
+            const indicatorSize = 5 / zoomFactor;                                   
+            ctx.fillStyle = strokeStyle;                                            
+            ctx.fillRect(points[0].x - indicatorSize/2, points[0].y - indicatorSize/2, indicatorSize, indicatorSize); // ← Add square marker
+            ctx.fillRect(points[1].x - indicatorSize/2, points[1].y - indicatorSize/2, indicatorSize, indicatorSize); // ← Add square marker
+        }
+        
+        ctx.restore();                                                              
+    }
+
+
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    // FUNCTION |  Mouse Interactions Tool Controls & Behaviour Functions
+
+    function onMouseUp(e) {
+        // Handle markup tools if active
+        if (isMarkupToolsetActive && currentMarkupTool) {
+            if (currentMarkupTool === 'selection' && isMovingElement) {
+                // Finalize the move
+                isMovingElement = false;
+                moveStartPosition = null;
+                
+                // Save state after moving an element
+                if (selectedElement) {
+                    saveMarkupState();
+                }
+                return;
+            }
+            else if ((currentMarkupTool === 'pencil' || currentMarkupTool === 'eraser') && currentMarkupPath) {
+                // Finalize the path
+                markupPaths.push(currentMarkupPath);
+                saveMarkupState(); // Save state after adding a new path
+                currentMarkupPath = null;
+                return;
+            }
+            else if (currentMarkupTool === 'arrow' && arrowState === 'end') {
+                // Finalize arrow creation
+                arrowState = 'edit';
+                markupPaths.push(currentArrow);
+                saveMarkupState(); // Save state after creating an arrow
+                updateControlPointPositions();
+                planCanvas.classList.remove('markup-arrow-end');
+                planCanvas.classList.add('markup-arrow-edit');
+                return;
+            }
+            else if (currentMarkupTool === 'arrow' && arrowState === 'edit') {
+                activeControlPoint = null;
+                return;
+            }
+            else if (['rectangle', 'circle'].includes(currentMarkupTool) && isShapeDrawing) {
+                // Finalize the shape
+                markupPaths.push(currentShape);
+                saveMarkupState(); // Save state after creating a shape
+                isShapeDrawing = false;
+                currentShape = null;
+                return;
+            }
+            else if (currentMarkupTool === 'polygon' && isShapeDrawing && e.ctrlKey) {
+                // Finalize polygon on Ctrl+click
+                markupPaths.push(currentShape);
+                saveMarkupState(); // Save state after creating a polygon
+                isShapeDrawing = false;
+                currentShape = null;
+                return;
+            }
+            return;
+        }
+        
+        // Standard tools handling
+        if (currentTool === "rectangle" && isRectMeasuring && isRectDragging) {
+            const pos = toPlanCoords(e.offsetX, e.offsetY);
+            const start = measuringPoints[0];
+            const dx = pos.x - start.x;
+            const dy = pos.y - start.y;
+            const angleDeg = Math.abs(Math.atan2(dy, dx) * (180 / Math.PI));
+
+            // Apply snapping on release
+            if (angleDeg < 15 || angleDeg > 165) {
+                pos.y = start.y;
+            } else if (Math.abs(angleDeg - 90) < 15) {
+                pos.x = start.x;
+            }
+
+            if (measuringPoints.length === 1) {
+                measuringPoints.push(pos);
+            } else {
+                measuringPoints[1] = pos;
+            }
+            isRectDragging = false; // Stop dragging, but keep isRectMeasuring true
+            return;
+        }
+        isDragging = false;
+    }
+
+
+    function onWheel(e) {
+        e.preventDefault();
+        const zoomChange = e.deltaY * -0.001;
+        applyZoom(zoomChange, e.offsetX, e.offsetY);
+        
+        // Update handle positions after zooming
+        updateAllHandlePositions();
+    }
+
+
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    // FUNCTION |  Touch Interactions Tool Controls & Behaviour Functions
+
+    // Replace the incomplete touch section with this complete version
+    function onTouchStart(e) {
+        if (e.touches.length === 1) {
+            const t = e.touches[0];
+            const rect = planCanvas.getBoundingClientRect();
+            const touchEvent = {
+                offsetX: t.clientX - rect.left,
+                offsetY: t.clientY - rect.top,
+                clientX: t.clientX,
+                clientY: t.clientY,
+                // Add standard mouse event properties
+                preventDefault: () => e.preventDefault(),
+                stopPropagation: () => e.stopPropagation(),
+                ctrlKey: e.ctrlKey || false
+            };
+            onMouseDown(touchEvent);
+        } else if (e.touches.length === 2) {
+            isPinching = true;
+            pinchStartDist = touchDistance(e.touches[0], e.touches[1]);
+            pinchMidpoint = touchMidpoint(e.touches[0], e.touches[1]);
+            pinchStartZoom = zoomFactor;
+        }
+    }
+
+    function onTouchMove(e) {
+        if (isPinching && e.touches.length === 2) {
+            e.preventDefault();
+            const newDist = touchDistance(e.touches[0], e.touches[1]);
+            const zoomDiff = (newDist - pinchStartDist) * 0.005;
+            const newZoom = pinchStartZoom + zoomDiff;
+            const rect = planCanvas.getBoundingClientRect();
+            const midX = pinchMidpoint.x - rect.left;
+            const midY = pinchMidpoint.y - rect.top;
+            setZoom(newZoom, midX, midY);
+            
+            // Update handle positions after zooming
+            updateAllHandlePositions();
+        } else if (e.touches.length === 1 && !isPinching) {
+            const t = e.touches[0];
+            const rect = planCanvas.getBoundingClientRect();
+            const touchEvent = {
+                clientX: t.clientX,
+                clientY: t.clientY,
+                offsetX: t.clientX - rect.left,
+                offsetY: t.clientY - rect.top,
+                // Add standard mouse event properties
+                preventDefault: () => e.preventDefault(),
+                stopPropagation: () => e.stopPropagation(),
+                ctrlKey: e.ctrlKey || false
+            };
+            onMouseMove(touchEvent);
+        }
+    }
+
+    function onTouchEnd(e) {
+        if (e.touches.length === 0) {
+            // Create a touch end event
+            const touchEvent = {
+                clientX: lastX, // Use the last known position
+                clientY: lastY,
+                offsetX: lastX - planCanvas.getBoundingClientRect().left,
+                offsetY: lastY - planCanvas.getBoundingClientRect().top,
+                // Add standard mouse event properties
+                preventDefault: () => e.preventDefault(),
+                stopPropagation: () => e.stopPropagation(),
+                ctrlKey: e.ctrlKey || false
+            };
+            onMouseUp(touchEvent);
+        }
+        if (e.touches.length < 2) isPinching = false;
+        isDragging = false;
+    }
+
+    // =========================================================
+    // VIEW & SCALE CONTROLS
+    // =========================================================
+    function applyZoom(delta, cx, cy) {
+        let newZoom = zoomFactor + delta;
+        setZoom(newZoom, cx, cy);
+    }
+
+    function setZoom(z, cx, cy) {
+        if (z < MIN_ZOOM) z = MIN_ZOOM;
+        if (z > MAX_ZOOM) z = MAX_ZOOM;
+        const wx = (cx - offsetX) / zoomFactor;
+        const wy = (cy - offsetY) / zoomFactor;
+        zoomFactor = z;
+        offsetX = cx - wx * zoomFactor;
+        offsetY = cy - wy * zoomFactor;
+    }
+
+    function resizeCanvas() {
+        planCanvas.width = window.innerWidth;
+        planCanvas.height = window.innerHeight + 10;    // ← Updated To Top Cropping At Bottom
+    }
+
+    function resetView() {
+        const cw = planCanvas.width;
+        const ch = planCanvas.height;
+        const iw = planImage.width;
+        const ih = planImage.height;
+
+        zoomFactor = Math.min(cw / iw, ch / ih) * 0.85;    // ← Updated To Show Whole Drawing When Loaded
+        offsetX = (cw - iw * zoomFactor) / 2;
+        offsetY = (ch - ih * zoomFactor) / 2;
+
+        // ----------------------------------------------------------------------------------------
+        // MEASUREMENT SCALE & ACCURACY
+        // ----------------------------------------------------------------------------------------
+        // - Defines The Scale Conversion From Pixels To Real-World Millimetres.  
+        // - Ensures All Measurements Remain Accurate Regardless Of Zoom Level.  
+        // - Critical To The Correct Functioning Of The Measuring Tools.  
+
+
+        const realWidthMM = 840.93;                              // ← Real-World Width Of The Drawing In Millimetres  
+        const drawnWidthPx = naturalImageWidth;                  // ← Native Image Width In Pixels (From The Plan Image)  
+        const scaleRatio =  50;                                  // ← Standard Scaling Factor Applied For Consistency  
+        const mmPerPixel = realWidthMM / drawnWidthPx;           // ← Millimetres Represented Per Pixel  
+        scaleMetresPerPixel = (mmPerPixel * scaleRatio) / 1000;  // ← Final Conversion To Metres-Per-Pixel Scale  
+
+        // ----------------------------------------------------------------------------------------
+
+
+        clearMeasurements();
+        
+        // Update handle positions after resetting view
+        updateAllHandlePositions();
+    }
+
+    // =========================================================
+    // TOOL & MEASUREMENT HANDLING
+    // =========================================================
+    function setTool(toolName) {
+        currentTool = toolName;
+        measuringPoints = [];
+
+        if (toolName === "linear") {
+            planCanvas.style.cursor = "crosshair";
+            isLinearMeasuring = false;
+            linearMeasurementLocked = false;
+            showCancelTool();
+            showToolInstructions("linear");
+        } else if (toolName === "area") {
+            planCanvas.style.cursor = "default";
+            showCancelTool();
+            showToolInstructions("area");
+        } else if (toolName === "rectangle") {
+            planCanvas.style.cursor = "crosshair";
+            isRectMeasuring = false;
+            showCancelTool();
+            showToolInstructions("rectangle");
+        } else {
+            planCanvas.style.cursor = "default";
+            hideCancelTool();
+        }
+    }
+
+    function cancelTool() {
+        currentTool = null;
+        measuringPoints = [];
+        isLinearMeasuring = false;
+        linearMeasurementLocked = false;
+        isRectMeasuring = false;
+        isRectDragging = false;
+        hideCancelTool();
+        planCanvas.style.cursor = "default";
+    }
+
+    function clearMeasurements() {
+        measurements = [];
+        measuringPoints = [];
+        updateMeasureInfo();
+        cancelTool();
+    }
+
+    function showCancelTool() {
+        cancelToolBtn.style.display = "block";
+    }
+
+    function hideCancelTool() {
+        cancelToolBtn.style.display = "none";
+    }
+
+    function updateMeasureInfo() {
+        if (!measurements.length) {
+            measureInfo.innerHTML = "No measurements yet.";
+            return;
+        }
+        let txt = "";
+        measurements.forEach((m, i) => {
+            if (m.type === "linear") {
+                txt += `Measurement ${i + 1} (Line): ${m.distanceMM} mm<br/>`;
+            } else if (m.type === "area") {
+                txt += `Measurement ${i + 1} (Area): ${m.areaM2} m²<br/>`;
+            } else if (m.type === "rectangle") {
+                txt += `Measurement ${i + 1} (Rectangle): ${m.widthMm} mm × ${m.heightMm} mm = ${m.areaM2} m²<br/>`;
+            }
+        });
+        measureInfo.innerHTML = txt;
+    }
+
+    function adjustConfirmButtonPosition() {
+        if (!finishBtn || !currentTool) {
+            finishBtn.style.display = "none";
+            return;
+        }
+        if ((currentTool === "linear" || currentTool === "area" || currentTool === "rectangle") && measuringPoints.length > 0) {
+            finishBtn.style.display = "block";
+            const lastPt = measuringPoints[measuringPoints.length - 1];
+            const sx = (lastPt.x * zoomFactor) + offsetX;
+            const sy = (lastPt.y * zoomFactor) + offsetY;
+
+            if (isTouchDevice) {
+                finishBtn.style.left = (sx + CONFIRM_BUTTON_OFFSET_X_TOUCH) + "px";
+                finishBtn.style.top = (sy + CONFIRM_BUTTON_OFFSET_Y_TOUCH) + "px";
+            } else {
+                finishBtn.style.left = (sx + CONFIRM_BUTTON_OFFSET_X_PC) + "px";
+                finishBtn.style.top = (sy + CONFIRM_BUTTON_OFFSET_Y_PC) + "px";
+            }
+        } else {
+            finishBtn.style.display = "none";
+        }
+    }
+
+    // =========================================================
+    // TOOL INSTRUCTIONS
+    // =========================================================
+    function showToolInstructions(tool) {
+        if (tool === "linear" && !hasShownLinearInstructions) {
+            hasShownLinearInstructions = true;
+            toolInstructionsText.innerText =
+                "LINEAR TOOL:\n\n" +
+                "This Tool Functions As A Tape Measure\n" +
+                " \n" +
+                "1. Click to set the starting point.\n" +
+                "2. Click and drag the dimension line\n" +
+                "3. Press 'Confirm' to finalise or 'Cancel Tool' to exit.";
+            displayInstructionsOverlay();
+        }
+        if (tool === "area" && !hasShownAreaInstructions) {
+            hasShownAreaInstructions = true;
+            toolInstructionsText.innerText =
+                "AREA TOOL:\n\n" +
+                "1. Click each corner in turn.\n" +
+                "2. Press 'Confirm' to close the shape.\n" +
+                "3. Use 'Cancel Tool' to exit without finishing.";
+            displayInstructionsOverlay();
+        }
+        if (tool === "rectangle" && !hasShownAreaInstructions) { // Moved outside
+            hasShownAreaInstructions = true; // Using same flag for simplicity
+            toolInstructionsText.innerText =
+                "RECTANGLE TOOL:\n\n" +
+                "1. Click and drag diagonally to draw a rectangle.\n" +
+                "2. Release to set the size.\n" +
+                "3. Press 'Confirm' to finalise or 'Cancel Tool' to exit.";
+            displayInstructionsOverlay();
+        }
+    }
+
+    function displayInstructionsOverlay() {
+        toolInstructionsOverlay.style.display = "flex";
+        function dismissOverlay() {
+            clearTimeout(timeoutId);
+            toolInstructionsOverlay.classList.add("fade-out");
+            setTimeout(() => {
+                toolInstructionsOverlay.style.display = "none";
+                toolInstructionsOverlay.classList.remove("fade-out");
+                toolInstructionsOverlay.removeEventListener("click", dismissOverlay);
+            }, 1000);
+        }
+        toolInstructionsOverlay.addEventListener("click", dismissOverlay);
+        var timeoutId = setTimeout(dismissOverlay, 3000);
+    }
+
+    // =========================================================
+    // TOUCH HELPERS
+    // =========================================================
+    function touchDistance(t1, t2) {
+        return Math.hypot(t2.clientX - t1.clientX, t2.clientY - t1.clientY);
+    }
+
+    function touchMidpoint(t1, t2) {
+        return {
+            x: (t1.clientX + t2.clientX) / 2,
+            y: (t1.clientY + t2.clientY) / 2
+        };
+    }
+
+    // =========================================================
+    // RESIZE
+    // =========================================================
+    function onResize() {
+        resizeCanvas();
+        
+        // Update handle positions after resize
+        updateAllHandlePositions();
+    }
+
+    // =========================================================
+    // MARKUP TOOLSET MODULE - FUNCTIONS
+    // =========================================================
+    
+    // Toggle between standard measurement tools and markup tools
+    function toggleMarkupToolset() {
+        isMarkupToolsetActive = true;
+        
+        // Reset any inline styles on the color palette and swatches to ensure proper layout
+        const colorPalette = document.querySelector('.color-palette');
+        if (colorPalette) {
+            // Reset flex layout on the container
+            colorPalette.style.display = 'flex';
+            colorPalette.style.flexWrap = 'wrap';
+            
+            // Reset any inline styles on individual swatches
+            colorPalette.querySelectorAll('.color-swatch').forEach(swatch => {
+                // Preserve only the background-color inline style
+                const bgColor = swatch.style.backgroundColor;
+                const isActive = swatch.classList.contains('active');
+                const border = swatch.style.border; // Preserve border for white color
+                
+                // Clear all inline styles
+                swatch.removeAttribute('style');
+                
+                // Re-apply only what's needed
+                swatch.style.backgroundColor = bgColor;
+                if (border && bgColor === 'rgb(255, 255, 255)') {
+                    swatch.style.border = '1px solid #CCCCCC';
+                }
+            });
+        }
+        
+        // Show markup tools container
+        document.getElementById("markup-toolset").style.display = "block";
+        
+        // Set default line width to 50% of slider range
+        const slider = document.getElementById("markupLineWidthSlider");
+        markupLineWidth = parseInt(slider.value);
+        
+        // Hide measurement tools section visual elements AND other menu sections
+        document.querySelectorAll(".menu_-_drawing-button-header-text").forEach(header => {
+            // Hide "Select Drawing" section
+            if (header.textContent === "Select Drawing" || 
+                header.textContent === "View & Export" || 
+                header.textContent === "Measuring Tools" || 
+                header.textContent === "Drawing Markup Tools") {
+                header.style.display = "none";
+                let nextElem = header.nextElementSibling;
+                while (nextElem && !nextElem.classList.contains("menu_-_drawing-button-header-text")) {
+                    if (nextElem.id !== "cancelToolBtn" && nextElem.id !== "markup-toolset") {
+                        nextElem.style.display = "none";
+                    }
+                    nextElem = nextElem.nextElementSibling;
+                }
+            }
+        });
+        
+        // Hide the drawing-button-container if it exists
+        const drawingButtonContainer = document.querySelector(".drawing-button-container");
+        if (drawingButtonContainer) {
+            drawingButtonContainer.style.display = "none";
+        }
+        
+        // Also hide any spacer elements
+        const spacers = document.querySelectorAll("[style*='margin-bottom: 20px']");
+        spacers.forEach(spacer => {
+            spacer.style.display = "none";
+        });
+        
+        // Update markup toggle button
+        document.getElementById("toggleMarkupToolsetBtn").style.display = "none";
+        
+        // Reset any active measuring tools
+        cancelTool();
+        
+        // Set default markup tool
+        setMarkupTool("pencil");
+    }
+    
+    // Return to standard measuring tools
+    function returnToMeasuringTools() {
+        isMarkupToolsetActive = false;
+        
+        // Hide markup tools container
+        document.getElementById("markup-toolset").style.display = "none";
+        
+        // Show ALL main sections again
+        document.querySelectorAll(".menu_-_drawing-button-header-text").forEach(header => {
+            // Show all section headers
+            header.style.display = "block";
+            
+            // Show all elements under each header
+            let nextElem = header.nextElementSibling;
+            while (nextElem && !nextElem.classList.contains("menu_-_drawing-button-header-text")) {
+                if (nextElem.id !== "cancelToolBtn" && nextElem.id !== "markup-toolset") {
+                    nextElem.style.display = "block";
+                }
+                nextElem = nextElem.nextElementSibling;
+            }
+        });
+        
+        // Show the drawing-button-container if it exists
+        const drawingButtonContainer = document.querySelector(".drawing-button-container");
+        if (drawingButtonContainer) {
+            drawingButtonContainer.style.display = "block";
+        }
+        
+        // Also show any spacer elements
+        const spacers = document.querySelectorAll("[style*='margin-bottom: 20px']");
+        spacers.forEach(spacer => {
+            spacer.style.display = "block";
+        });
+        
+        // Show markup toggle button
+        document.getElementById("toggleMarkupToolsetBtn").style.display = "block";
+        
+        // Reset markup tools
+        clearArrowControls();
+        currentMarkupTool = null;
+        
+        // Reset cursor
+        planCanvas.className = "";
+    }
+    
+    // Set the active markup tool
+    function setMarkupTool(tool) {
+        currentMarkupTool = tool;
+        
+        // Reset state variables
+        currentMarkupPath = null;
+        isShapeDrawing = false;
+        shapeStartPoint = null;
+        currentShape = null;
+        isTextPlacing = false;
+        textPlacementPoint = null;
+        
+        // Reset arrow-specific variables if changing from arrow tool
+        if (currentMarkupTool !== 'arrow') {
+            clearArrowControls();
+            arrowState = 'idle';
+        }
+        
+        // Clear any selection if not switching to selection tool
+        if (tool !== 'selection') {
+            clearSelection();
+        }
+        
+        // Update cursor based on selected tool
+        planCanvas.className = "";
+        if (tool === 'selection') {
+            planCanvas.classList.add('markup-selection');
+            showMarkupInstructions('selection');
+        } else if (tool === 'pencil') {
+            planCanvas.classList.add('markup-pencil');
+            showMarkupInstructions('pencil');
+        } else if (tool === 'eraser') {
+            planCanvas.classList.add('markup-eraser');
+            showMarkupInstructions('eraser');
+        } else if (tool === 'arrow') {
+            planCanvas.classList.add('markup-arrow-start');
+            showMarkupInstructions('arrow');
+        } else if (tool === 'text') {
+            planCanvas.classList.add('markup-text');
+            showMarkupInstructions('text');
+        } else if (['rectangle', 'circle'].includes(tool)) {
+            planCanvas.classList.add('markup-shape');
+            showMarkupInstructions(tool);
+        } else if (tool === 'polygon') {
+            planCanvas.classList.add('markup-shape');
+            showMarkupInstructions('polygon');
+        }
+        
+        // Highlight active tool button
+        document.querySelectorAll("#markup-toolset .tool-button").forEach(btn => {
+            if (btn.id === `markup${tool.charAt(0).toUpperCase() + tool.slice(1)}Btn`) {
+                btn.style.opacity = 1;
+            } else {
+                btn.style.opacity = 0.8;
+            }
+        });
+    }
+    
+    // Clear all markup drawings
+    function clearMarkup() {
+        if (confirm('Are you sure you want to clear all markup drawings?')) {
+            saveMarkupState(); // Save state before clearing
+            markupPaths = [];
+            clearArrowControls();
+            updateUndoRedoButtons(); // Update button states
+        }
+    }
+    
+    // Save markup image with drawings
+    function saveMarkupImage() {
+        // Hide control points for clean download
+        clearArrowControls();
+        
+        // Create a temporary canvas to save the image with drawings
+        const tempCanvas = document.createElement('canvas');
+        tempCanvas.width = planCanvas.width;
+        tempCanvas.height = planCanvas.height;
+        const tempCtx = tempCanvas.getContext('2d');
+        
+        // Draw the plan image
+        tempCtx.save();
+        tempCtx.translate(offsetX, offsetY);
+        tempCtx.scale(zoomFactor, zoomFactor);
+        tempCtx.drawImage(planImage, 0, 0);
+        tempCtx.restore();
+        
+        // Draw all markup paths
+        drawAllMarkupPaths(tempCtx);
+        
+        // Create a download link
+        const link = document.createElement('a');
+        link.download = 'planvision-markup.png';
+        link.href = tempCanvas.toDataURL('image/png');
+        link.click();
+    }
+    
+    // Text entry functions
+    function showTextDialog(x, y, initialText = '') {
+        const dialog = document.getElementById('markup-text-dialog');
+        dialog.style.left = x + 'px';
+        dialog.style.top = y + 'px';
+        dialog.style.display = 'block';
+        const textInput = document.getElementById('markup-text-input');
+        textInput.value = initialText;
+        textInput.focus();
+        
+        // Select all text when editing
+        if (initialText) {
+            textInput.select();
+        }
+    }
+    
+    function cancelTextEntry() {
+        document.getElementById('markup-text-dialog').style.display = 'none';
+        isTextPlacing = false;
+        textPlacementPoint = null;
+        editingTextElement = null;
+        
+        // Reset button text back to "Add Text" for next time
+        document.getElementById('markup-text-confirm').textContent = 'Add Text';
+    }
+    
+    function confirmTextEntry() {
+        const text = document.getElementById('markup-text-input').value.trim();
+        if (text && textPlacementPoint) {
+            
+            // Save state before making changes
+            saveMarkupState();
+            
+            if (editingTextElement) {
+                // Update existing text element
+                editingTextElement.text = text;
+                // Other properties remain the same (color, lineWidth, position)
+            } else {
+                // Create new text element
+                markupPaths.push({
+                    tool: 'text',
+                    text: text,
+                    position: textPlacementPoint,
+                    color: markupColor,
+                    lineWidth: markupLineWidth
+                });
+            }
+            
+            document.getElementById('markup-text-dialog').style.display = 'none';
+            isTextPlacing = false;
+            textPlacementPoint = null;
+            editingTextElement = null;
+            
+            // Reset button text back to "Add Text" for next time
+            document.getElementById('markup-text-confirm').textContent = 'Add Text';
+        }
+    }
+    
+    // Arrow control points management
+    function clearArrowControls() {
+        // Remove any existing control points from DOM
+        document.querySelectorAll('.control-point, .handle-point, .handle-line').forEach(element => {
+            element.remove();
+        });
+        
+        controlPoints = [];
+        handlePoints = [];
+        activeControlPoint = null;
+        currentArrow = null;
+    }
+    
+    function createControlPoint(x, y, type) {
+        const point = document.createElement('div');
+        point.className = type.includes('control') ? 'handle-point' : 'control-point';
+        point.style.left = `${x}px`;
+        point.style.top = `${y}px`;
+        point.dataset.type = type;
+        
+        document.getElementById('canvas-container').appendChild(point);
+        
+        const pointObj = { element: point, x, y, type };
+        controlPoints.push(pointObj);
+        
+        if (type.includes('control')) {
+            handlePoints.push(pointObj);
+        }
+        
+        return pointObj;
+    }
+    
+    function createHandleLine(x1, y1, x2, y2) {
+        const line = document.createElement('div');
+        line.className = 'handle-line';
+        
+        // Calculate line properties
+        const length = Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
+        const angle = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
+        
+        // Position and rotate the line
+        line.style.width = `${length}px`;
+        line.style.left = `${x1}px`;
+        line.style.top = `${y1}px`;
+        line.style.transformOrigin = '0 0';
+        line.style.transform = `rotate(${angle}deg)`;
+        
+        document.getElementById('canvas-container').appendChild(line);
+        
+        return line;
+    }
+    
+    function updateControlPointPositions() {
+        if (!currentArrow || arrowState !== 'edit') return;
+        
+        // Clear existing control points
+        clearArrowControls();
+        
+        // Apply canvas transform to arrow points to get screen positions
+        const startX = currentArrow.startPoint.x * zoomFactor + offsetX;
+        const startY = currentArrow.startPoint.y * zoomFactor + offsetY;
+        const endX = currentArrow.endPoint.x * zoomFactor + offsetX;
+        const endY = currentArrow.endPoint.y * zoomFactor + offsetY;
+        const control1X = currentArrow.control1.x * zoomFactor + offsetX;
+        const control1Y = currentArrow.control1.y * zoomFactor + offsetY;
+        const control2X = currentArrow.control2.x * zoomFactor + offsetX;
+        const control2Y = currentArrow.control2.y * zoomFactor + offsetY;
+        
+        // Create control points for editing
+        createControlPoint(startX, startY, 'start');
+        createControlPoint(endX, endY, 'end');
+        createControlPoint(control1X, control1Y, 'control1');
+        createControlPoint(control2X, control2Y, 'control2');
+        
+        // Create handle lines
+        createHandleLine(startX, startY, control1X, control1Y);
+        createHandleLine(endX, endY, control2X, control2Y);
+    }
+    
+    // Draw all markup paths on the given context
+    function drawAllMarkupPaths(context) {
+        // First draw the non-selected elements
+        markupPaths.forEach(path => {
+            const isSelected = path === selectedElement;
+            
+            if (!isSelected) {
+                if (path.tool === 'arrow') {
+                    drawArrow(context, path);
+                } else if (path.tool === 'text') {
+                    drawText(context, path);
+                } else if (path.tool === 'rectangle') {
+                    drawSketchyRectangle(context, path);
+                } else if (path.tool === 'circle') {
+                    drawSketchyCircle(context, path);
+                } else if (path.tool === 'polygon') {
+                    drawSketchyPolygon(context, path);
+                } else {
+                    drawSketchyPath(context, path);
+                }
+            }
+        });
+        
+        // Then draw the selected element with highlight
+        if (selectedElement) {
+            // Save context to restore after drawing
+            context.save();
+            context.translate(offsetX, offsetY);
+            context.scale(zoomFactor, zoomFactor);
+            
+            // Draw highlight/outline around the selected element
+            if (selectedElement.tool === 'pencil') {
+                // Draw a wider stroke behind the path
+                context.lineWidth = selectedElement.lineWidth + 6;
+                context.strokeStyle = 'rgba(255, 255, 100, 0.5)';
+                context.lineCap = 'round';
+                context.lineJoin = 'round';
+                
+                context.beginPath();
+                context.moveTo(selectedElement.points[0].x, selectedElement.points[0].y);
+                for (let i = 1; i < selectedElement.points.length; i++) {
+                    context.lineTo(selectedElement.points[i].x, selectedElement.points[i].y);
+                }
+                context.stroke();
+            } else if (selectedElement.tool === 'rectangle') {
+                // Draw a highlight around the rectangle
+                context.lineWidth = selectedElement.lineWidth + 6;
+                context.strokeStyle = 'rgba(255, 255, 100, 0.5)';
+                
+                const x = selectedElement.startPoint.x;
+                const y = selectedElement.startPoint.y;
+                const width = selectedElement.endPoint.x - selectedElement.startPoint.x;
+                const height = selectedElement.endPoint.y - selectedElement.startPoint.y;
+                
+                context.strokeRect(x, y, width, height);
+            } else if (selectedElement.tool === 'circle') {
+                // Draw a highlight around the circle
+                const centerX = (selectedElement.startPoint.x + selectedElement.endPoint.x) / 2;
+                const centerY = (selectedElement.startPoint.y + selectedElement.endPoint.y) / 2;
+                const radiusX = Math.abs(selectedElement.endPoint.x - selectedElement.startPoint.x) / 2;
+                const radiusY = Math.abs(selectedElement.endPoint.y - selectedElement.startPoint.y) / 2;
+                
+                context.lineWidth = selectedElement.lineWidth + 6;
+                context.strokeStyle = 'rgba(255, 255, 100, 0.5)';
+                
+                context.beginPath();
+                context.ellipse(centerX, centerY, radiusX, radiusY, 0, 0, Math.PI * 2);
+                context.stroke();
+            } else if (selectedElement.tool === 'text') {
+                // Draw a highlight rectangle around text
+                const textWidth = selectedElement.text.length * (selectedElement.lineWidth * 10);
+                const textHeight = selectedElement.lineWidth * 20;
+                
+                context.fillStyle = 'rgba(255, 255, 100, 0.2)';
+                context.fillRect(
+                    selectedElement.position.x - 5,
+                    selectedElement.position.y - textHeight,
+                    textWidth + 10,
+                    textHeight + 10
+                );
+            } else if (selectedElement.tool === 'arrow') {
+                // Draw a highlight around the arrow
+                context.lineWidth = selectedElement.lineWidth + 6;
+                context.strokeStyle = 'rgba(255, 255, 100, 0.5)';
+                context.lineCap = 'round';
+                context.lineJoin = 'round';
+                
+                context.beginPath();
+                context.moveTo(selectedElement.startPoint.x, selectedElement.startPoint.y);
+                context.bezierCurveTo(
+                    selectedElement.control1.x, selectedElement.control1.y,
+                    selectedElement.control2.x, selectedElement.control2.y,
+                    selectedElement.endPoint.x, selectedElement.endPoint.y
+                );
+                context.stroke();
+            } else if (selectedElement.tool === 'polygon' && selectedElement.points) {
+                // Draw a highlight around the polygon
+                context.lineWidth = selectedElement.lineWidth + 6;
+                context.strokeStyle = 'rgba(255, 255, 100, 0.5)';
+                
+                context.beginPath();
+                context.moveTo(selectedElement.points[0].x, selectedElement.points[0].y);
+                for (let i = 1; i < selectedElement.points.length; i++) {
+                    context.lineTo(selectedElement.points[i].x, selectedElement.points[i].y);
+                }
+                context.closePath();
+                context.stroke();
+            }
+            
+            context.restore();
+            
+            // Draw the actual element on top
+            if (selectedElement.tool === 'arrow') {
+                drawArrow(context, selectedElement);
+            } else if (selectedElement.tool === 'text') {
+                drawText(context, selectedElement);
+            } else if (selectedElement.tool === 'rectangle') {
+                drawSketchyRectangle(context, selectedElement);
+            } else if (selectedElement.tool === 'circle') {
+                drawSketchyCircle(context, selectedElement);
+            } else if (selectedElement.tool === 'polygon') {
+                drawSketchyPolygon(context, selectedElement);
+            } else {
+                drawSketchyPath(context, selectedElement);
+            }
+        }
+        
+        // Draw current path if in progress
+        if (currentMarkupPath) {
+            if (currentMarkupPath.tool === 'arrow') {
+                drawArrow(context, currentMarkupPath);
+            } else {
+                drawSketchyPath(context, currentMarkupPath);
+            }
+        }
+        
+        // Draw current shape if in progress
+        if (isShapeDrawing && currentShape) {
+            if (currentShape.tool === 'rectangle') {
+                drawSketchyRectangle(context, currentShape);
+            } else if (currentShape.tool === 'circle') {
+                drawSketchyCircle(context, currentShape);
+            } else if (currentShape.tool === 'polygon') {
+                drawSketchyPolygon(context, currentShape);
+            }
+        }
+    }
+    
+    // Draw a sketchy-looking path (for pencil and eraser)
+    function drawSketchyPath(context, path) {
+        context.save();
+        context.translate(offsetX, offsetY);
+        context.scale(zoomFactor, zoomFactor);
+        context.lineWidth = path.lineWidth;
+        context.strokeStyle = path.color;
+        context.lineCap = 'round';
+        context.lineJoin = 'round';
+
+        context.beginPath();
+        context.moveTo(path.points[0].x, path.points[0].y);
+        for (let i = 1; i < path.points.length; i++) {
+            context.lineTo(path.points[i].x, path.points[i].y);
+        }
+        context.stroke();
+        context.restore();
+    }
+    
+    // Draw an arrow on the context
+    function drawArrow(context, arrow) {
+        context.save();
+        context.translate(offsetX, offsetY);
+        context.scale(zoomFactor, zoomFactor);
+        context.strokeStyle = arrow.color;
+        context.lineWidth = arrow.lineWidth;
+        context.lineCap = 'round';
+        context.lineJoin = 'round';
+        
+        // Draw the arrow shaft with bezier curve
+        context.beginPath();
+        context.moveTo(arrow.startPoint.x, arrow.startPoint.y);
+        context.bezierCurveTo(
+            arrow.control1.x, arrow.control1.y,
+            arrow.control2.x, arrow.control2.y,
+            arrow.endPoint.x, arrow.endPoint.y
+        );
+        context.stroke();
+        
+        // Calculate the direction of the arrow head from the bezier curve's end tangent
+        const endX = arrow.endPoint.x;
+        const endY = arrow.endPoint.y;
+        const dx = arrow.endPoint.x - arrow.control2.x;
+        const dy = arrow.endPoint.y - arrow.control2.y;
+        const angle = Math.atan2(dy, dx);
+        
+        // Arrow head size based on line width (doubled)
+        const arrowSize = arrow.lineWidth * 8;
+        
+        // Draw the arrow head with hand-drawn style
+        context.beginPath();
+        context.moveTo(endX, endY);
+        // First arrow line
+        const head1X = endX - arrowSize * Math.cos(angle - Math.PI/6);
+        const head1Y = endY - arrowSize * Math.sin(angle - Math.PI/6);
+        context.lineTo(head1X, head1Y);
+        
+        // Redraw for "sketchy" effect
+        context.moveTo(endX + Math.random() * 0.5, endY + Math.random() * 0.5);
+        context.lineTo(head1X + Math.random() * 0.5, head1Y + Math.random() * 0.5);
+        
+        // Second arrow line
+        context.moveTo(endX, endY);
+        const head2X = endX - arrowSize * Math.cos(angle + Math.PI/6);
+        const head2Y = endY - arrowSize * Math.sin(angle + Math.PI/6);
+        context.lineTo(head2X, head2Y);
+        
+        // Redraw for "sketchy" effect
+        context.moveTo(endX + Math.random() * 0.5, endY + Math.random() * 0.5);
+        context.lineTo(head2X + Math.random() * 0.5, head2Y + Math.random() * 0.5);
+        
+        context.stroke();
+        context.restore();
+    }
+    
+    // Draw text
+    function drawText(context, textObj) {
+        context.save();
+        context.translate(offsetX, offsetY);
+        context.scale(zoomFactor, zoomFactor);
+        context.fillStyle = textObj.color;
+        
+        // Use handwriting-style font (doubled size)
+        const fontSizeInPx = textObj.lineWidth * 20;
+        context.font = `${fontSizeInPx}px 'Comic Sans MS', cursive, sans-serif`;
+        
+        // Split text into lines
+        const lines = textObj.text.split('\n');
+        const lineHeight = fontSizeInPx * 1.2;
+        
+        // Draw each line
+        lines.forEach((line, i) => {
+            context.fillText(line, textObj.position.x, textObj.position.y + (i * lineHeight));
+        });
+        
+        context.restore();
+    }
+    
+    // Draw a sketchy rectangle
+    function drawSketchyRectangle(context, rect) {
+        context.save();
+        context.translate(offsetX, offsetY);
+        context.scale(zoomFactor, zoomFactor);
+        context.strokeStyle = rect.color;
+        context.lineWidth = rect.lineWidth;
+        
+        const x = rect.startPoint.x;
+        const y = rect.startPoint.y;
+        const width = rect.endPoint.x - rect.startPoint.x;
+        const height = rect.endPoint.y - rect.startPoint.y;
+        
+        // Draw the four sides with slight variations for sketchy effect (doubled jitter)
+        const jitter = rect.lineWidth * 0.6;
+        
+        // Top line
+        context.beginPath();
+        context.moveTo(x + Math.random() * jitter, y + Math.random() * jitter);
+        context.lineTo(x + width + Math.random() * jitter, y + Math.random() * jitter);
+        context.stroke();
+        
+        // Right line
+        context.beginPath();
+        context.moveTo(x + width + Math.random() * jitter, y + Math.random() * jitter);
+        context.lineTo(x + width + Math.random() * jitter, y + height + Math.random() * jitter);
+        context.stroke();
+        
+        // Bottom line
+        context.beginPath();
+        context.moveTo(x + width + Math.random() * jitter, y + height + Math.random() * jitter);
+        context.lineTo(x + Math.random() * jitter, y + height + Math.random() * jitter);
+        context.stroke();
+        
+        // Left line
+        context.beginPath();
+        context.moveTo(x + Math.random() * jitter, y + height + Math.random() * jitter);
+        context.lineTo(x + Math.random() * jitter, y + Math.random() * jitter);
+        context.stroke();
+        
+        context.restore();
+    }
+    
+    // Draw a sketchy circle
+    function drawSketchyCircle(context, circle) {
+        context.save();
+        context.translate(offsetX, offsetY);
+        context.scale(zoomFactor, zoomFactor);
+        context.strokeStyle = circle.color;
+        context.lineWidth = circle.lineWidth;
+        
+        const centerX = (circle.startPoint.x + circle.endPoint.x) / 2;
+        const centerY = (circle.startPoint.y + circle.endPoint.y) / 2;
+        const radiusX = Math.abs(circle.endPoint.x - circle.startPoint.x) / 2;
+        const radiusY = Math.abs(circle.endPoint.y - circle.startPoint.y) / 2;
+        
+        // Draw a slightly imperfect ellipse
+        context.beginPath();
+        for (let angle = 0; angle <= Math.PI * 2; angle += Math.PI / 32) {
+            const jitter = circle.lineWidth * 0.2 * (Math.random() - 0.5);
+            const x = centerX + (radiusX + jitter) * Math.cos(angle);
+            const y = centerY + (radiusY + jitter) * Math.sin(angle);
+            
+            if (angle === 0) {
+                context.moveTo(x, y);
+            } else {
+                context.lineTo(x, y);
+            }
+        }
+        context.closePath();
+        context.stroke();
+        
+        context.restore();
+    }
+    
+    // Draw a sketchy polygon
+    function drawSketchyPolygon(context, polygon) {
+        if (polygon.points.length < 2) return;
+        
+        context.save();
+        context.translate(offsetX, offsetY);
+        context.scale(zoomFactor, zoomFactor);
+        context.strokeStyle = polygon.color;
+        context.lineWidth = polygon.lineWidth;
+        
+        // Draw each line segment with jitter
+        for (let i = 0; i < polygon.points.length; i++) {
+            const p1 = polygon.points[i];
+            const p2 = polygon.points[(i + 1) % polygon.points.length];
+            
+            const jitter = polygon.lineWidth * 0.2;
+            
+            context.beginPath();
+            context.moveTo(p1.x + Math.random() * jitter, p1.y + Math.random() * jitter);
+            context.lineTo(p2.x + Math.random() * jitter, p2.y + Math.random() * jitter);
+            context.stroke();
+        }
+        
+        context.restore();
+    }
+    // End of Markup Toolset Module Functions
+
+    // =========================================================
+    // MARKUP TOOLSET MODULE - GLOBAL VARIABLES
+    // =========================================================
+    // Undo/Redo history management
+    let markupHistory = [];
+    let markupRedoStack = [];
+    let maxHistoryLength = 20; // Limit history size
+
+    // =========================================================
+    // MARKUP TOOLSET MODULE - FUNCTIONS
+    // =========================================================
+    // Save current state to history
+    function saveMarkupState() {
+        // Deep clone the markup paths array
+        const currentState = JSON.parse(JSON.stringify(markupPaths));
+        
+        // Add to history, keep history at manageable size
+        markupHistory.push(currentState);
+        if (markupHistory.length > maxHistoryLength) {
+            markupHistory.shift(); // Remove oldest item
+        }
+        
+        // Clear redo stack when a new action is performed
+        markupRedoStack = [];
+        
+        // Update button states
+        updateUndoRedoButtons();
+    }
+    
+    // Undo the last markup action
+    function undoMarkupAction() {
+        if (markupHistory.length > 0) {
+            // Save current state to redo stack
+            const currentState = JSON.parse(JSON.stringify(markupPaths));
+            markupRedoStack.push(currentState);
+            
+            // Get previous state
+            const previousState = markupHistory.pop();
+            
+            // Apply previous state
+            markupPaths = previousState;
+            
+            // Update button states
+            updateUndoRedoButtons();
+            
+            // Redraw
+            clearArrowControls();
+            renderLoop();
+        }
+    }
+    
+    // Redo a previously undone action
+    function redoMarkupAction() {
+        if (markupRedoStack.length > 0) {
+            // Save current state to history
+            const currentState = JSON.parse(JSON.stringify(markupPaths));
+            markupHistory.push(currentState);
+            
+            // Get redo state
+            const redoState = markupRedoStack.pop();
+            
+            // Apply redo state
+            markupPaths = redoState;
+            
+            // Update button states
+            updateUndoRedoButtons();
+            
+            // Redraw
+            clearArrowControls();
+            renderLoop();
+        }
+    }
+    
+    // Update undo/redo button states (enable/disable)
+    function updateUndoRedoButtons() {
+        const undoBtn = document.getElementById("markupUndoBtn");
+        const redoBtn = document.getElementById("markupRedoBtn");
+        
+        // Set opacity to indicate if button is usable
+        undoBtn.style.opacity = markupHistory.length > 0 ? 1 : 0.5;
+        redoBtn.style.opacity = markupRedoStack.length > 0 ? 1 : 0.5;
+    }
+
+    // Start the app
+    init();
+
+    // Handle keyboard events for markup tools
+    function onKeyDown(e) {
+        // Only handle keys when markup tools are active
+        if (!isMarkupToolsetActive) return;
+        
+        if (e.key === 'Escape') {
+            // Cancel current operation
+            if (currentMarkupPath) {
+                currentMarkupPath = null;
+            }
+            else if (currentMarkupTool === 'arrow' && arrowState !== 'idle') {
+                clearArrowControls();
+                arrowState = 'idle';
+                planCanvas.className = '';
+                planCanvas.classList.add('markup-arrow-start');
+            }
+            else if (isShapeDrawing) {
+                isShapeDrawing = false;
+                currentShape = null;
+            }
+            else if (isTextPlacing) {
+                cancelTextEntry();
+            }
+        }
+        else if (e.key === 'Enter') {
+            // Complete polygon if drawing one
+            if (currentMarkupTool === 'polygon' && isShapeDrawing && currentShape && currentShape.points.length >= 3) {
+                markupPaths.push(currentShape);
+                isShapeDrawing = false;
+                currentShape = null;
+            }
+            else if (isTextPlacing) {
+                confirmTextEntry();
+            }
+        }
+        else if (e.key === 'Delete' || e.key === 'Backspace') {
+            // Delete the selected element if selection tool is active
+            if (currentMarkupTool === 'selection' && selectedElement) {
+                deleteSelectedElement();
+                e.preventDefault(); // Prevent browser back navigation on backspace
+                return;
+            }
+        }
+        // Copy functionality - Ctrl+C
+        else if (e.key === 'c' && e.ctrlKey && selectedElement) {
+            copySelectedElement();
+            e.preventDefault(); // Prevent default browser copy
+        }
+        // Paste functionality - Ctrl+V
+        else if (e.key === 'v' && e.ctrlKey && clipboardElement) {
+            pasteElement(e);
+            e.preventDefault(); // Prevent default browser paste
+        }
+    }
+
+    // Show instructions for markup tools
+    function showMarkupInstructions(tool) {
+        const instructionsElement = document.getElementById('instructions-text');
+        let instructionsText = '';
+
+        switch (tool) {
+            case 'pencil':
+                instructionsText = 
+                    "MARKUP PEN TOOL:\n\n" +
+                    "• Click and drag to draw freehand lines\n" +
+                    "• Lines have a sketchy technical pen appearance\n" +
+                    "• Use the color picker and line width slider to adjust style";
+                break;
+            case 'eraser':
+                instructionsText = 
+                    "MARKUP ERASER TOOL:\n\n" +
+                    "• Touch or click and drag over drawn elements to erase them\n" +
+                    "• All elements (lines, shapes, text) that you touch will be deleted\n" +
+                    "• Use the line width slider to adjust eraser size";
+                break;
+            case 'arrow':
+                instructionsText = 
+                    "MARKUP ARROW TOOL:\n\n" +
+                    "• Click to set arrow start point\n" +
+                    "• Move and click to place arrow end point\n" +
+                    "• Drag control points to adjust curve\n" +
+                    "• Press Escape to cancel";
+                break;
+            case 'text':
+                instructionsText = 
+                    "MARKUP TEXT TOOL:\n\n" +
+                    "• Click where you want to place text\n" +
+                    "• Type your note in the dialog box\n" +
+                    "• Press Add Text to confirm or Cancel to exit\n" +
+                    "• Text appears in a handwriting-style font";
+                break;
+            case 'rectangle':
+                instructionsText = 
+                    "MARKUP RECTANGLE TOOL:\n\n" +
+                    "• Click and drag to draw a rectangle\n" +
+                    "• Release to finish the shape\n" +
+                    "• Rectangle has a hand-sketched appearance\n" +
+                    "• Press Escape to cancel";
+                break;
+            case 'circle':
+                instructionsText = 
+                    "MARKUP CIRCLE TOOL:\n\n" +
+                    "• Click and drag to draw a circle/ellipse\n" +
+                    "• Drag outward from center to set size\n" +
+                    "• Release to finish the shape\n" +
+                    "• Press Escape to cancel";
+                break;
+            case 'polygon':
+                instructionsText = 
+                    "MARKUP POLYGON TOOL:\n\n" +
+                    "• Click to place each vertex of the polygon\n" +
+                    "• Press Enter to complete the shape\n" +
+                    "• Press Ctrl+Click to finish the shape at cursor\n" +
+                    "• Press Escape to cancel";
+                break;
+            case 'selection':
+                instructionsText = 
+                    "SELECTION TOOL:\n\n" +
+                    "• Click on any markup element to select it\n" +
+                    "• Click and drag to move the selected element\n" +
+                    "• Press Delete key to remove the selected element\n" +
+                    "• Click on text to edit existing text";
+                break;
+        }
+
+        instructionsElement.innerText = instructionsText;
+    }
+
+    // Add this new function for detecting and erasing elements
+    function detectAndEraseElements(position, radius) {
+        const eraserRadiusSquared = radius * radius;
+        let erasedAny = false;
+        const originalLength = markupPaths.length;
+        
+        // Filter markup paths to keep only those that don't intersect with the eraser
+        markupPaths = markupPaths.filter(path => {
+            // Check if eraser intersects with this path
+            if (path.tool === 'pencil') {
+                // For freehand paths, check if any point is within eraser radius
+                for (let i = 0; i < path.points.length; i++) {
+                    const dx = path.points[i].x - position.x;
+                    const dy = path.points[i].y - position.y;
+                    const distanceSquared = dx * dx + dy * dy;
+                    
+                    if (distanceSquared <= eraserRadiusSquared) {
+                        erasedAny = true;
+                        return false; // Remove this path
+                    }
+                }
+            } 
+            else if (path.tool === 'arrow') {
+                // For arrows, check start and end points and control points
+                const pointsToCheck = [
+                    path.startPoint,
+                    path.endPoint,
+                    path.control1,
+                    path.control2
+                ];
+                
+                for (const point of pointsToCheck) {
+                    const dx = point.x - position.x;
+                    const dy = point.y - position.y;
+                    const distanceSquared = dx * dx + dy * dy;
+                    
+                    if (distanceSquared <= eraserRadiusSquared) {
+                        erasedAny = true;
+                        return false; // Remove this path
+                    }
+                }
+            }
+            else if (path.tool === 'rectangle') {
+                // Check if eraser is near any corner or edge
+                const corners = [
+                    { x: path.startPoint.x, y: path.startPoint.y },
+                    { x: path.endPoint.x, y: path.startPoint.y },
+                    { x: path.startPoint.x, y: path.endPoint.y },
+                    { x: path.endPoint.x, y: path.endPoint.y }
+                ];
+                
+                for (const corner of corners) {
+                    const dx = corner.x - position.x;
+                    const dy = corner.y - position.y;
+                    const distanceSquared = dx * dx + dy * dy;
+                    
+                    if (distanceSquared <= eraserRadiusSquared) {
+                        erasedAny = true;
+                        return false; // Remove this path
+                    }
+                }
+                
+                // Check if eraser is on edges
+                const edges = [
+                    {p1: {x: path.startPoint.x, y: path.startPoint.y}, p2: {x: path.endPoint.x, y: path.startPoint.y}},
+                    {p1: {x: path.endPoint.x, y: path.startPoint.y}, p2: {x: path.endPoint.x, y: path.endPoint.y}},
+                    {p1: {x: path.endPoint.x, y: path.endPoint.y}, p2: {x: path.startPoint.x, y: path.endPoint.y}},
+                    {p1: {x: path.startPoint.x, y: path.endPoint.y}, p2: {x: path.startPoint.x, y: path.startPoint.y}}
+                ];
+                
+                for (const edge of edges) {
+                    if (distToSegment(position, edge.p1, edge.p2) <= radius) {
+                        erasedAny = true;
+                        return false; // Remove this path
+                    }
+                }
+            } 
+            else if (path.tool === 'circle') {
+                // Check if eraser is near circle boundary or inside
+                const centerX = (path.startPoint.x + path.endPoint.x) / 2;
+                const centerY = (path.startPoint.y + path.endPoint.y) / 2;
+                const radiusX = Math.abs(path.endPoint.x - path.startPoint.x) / 2;
+                const radiusY = Math.abs(path.endPoint.y - path.startPoint.y) / 2;
+                
+                // Simple approximation for ellipse - use average radius
+                const avgRadius = (radiusX + radiusY) / 2;
+                const dx = centerX - position.x;
+                const dy = centerY - position.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                
+                if (Math.abs(distance - avgRadius) <= radius || distance <= avgRadius) {
+                    erasedAny = true;
+                    return false;
+                }
+            }
+            else if (path.tool === 'polygon' && path.points) {
+                // Check if eraser is near any vertex or edge of polygon
+                for (let i = 0; i < path.points.length; i++) {
+                    const p1 = path.points[i];
+                    const p2 = path.points[(i + 1) % path.points.length];
+                    
+                    // Check vertices
+                    const dx = p1.x - position.x;
+                    const dy = p1.y - position.y;
+                    const distanceSquared = dx * dx + dy * dy;
+                    
+                    if (distanceSquared <= eraserRadiusSquared) {
+                        erasedAny = true;
+                        return false; // Remove this path
+                    }
+                    
+                    // Check edges
+                    if (distToSegment(position, p1, p2) <= radius) {
+                        erasedAny = true;
+                        return false; // Remove this path
+                    }
+                }
+            }
+            else if (path.tool === 'text') {
+                // Check if eraser is near text position
+                const dx = path.position.x - position.x;
+                const dy = path.position.y - position.y;
+                const distanceSquared = dx * dx + dy * dy;
+                
+                // Make text easier to select by using a larger hit area
+                if (distanceSquared <= eraserRadiusSquared * 4) {
+                    erasedAny = true;
+                    return false; // Remove this path
+                }
+            }
+            
+            return true; // Keep this path
+        });
+        
+        if (erasedAny) {
+            // Redraw if we erased anything
+            renderLoop();
+        }
+        
+        return erasedAny && originalLength > markupPaths.length;
+    }
+
+    // Helper function to calculate distance from point to a line segment
+    function distToSegment(p, v, w) {
+        const l2 = dist(v, w) * dist(v, w);
+        if (l2 === 0) return dist(p, v);
+        
+        let t = ((p.x - v.x) * (w.x - v.x) + (p.y - v.y) * (w.y - v.y)) / l2;
+        t = Math.max(0, Math.min(1, t));
+        
+        const projectPoint = {
+            x: v.x + t * (w.x - v.x),
+            y: v.y + t * (w.y - v.y)
+        };
+        
+        return dist(p, projectPoint);
+    }
+
+    // Add function to find text element at a specific position
+    function findTextElementAt(position) {
+        // Search through markup paths for text elements near the position
+        for (let i = markupPaths.length - 1; i >= 0; i--) {  // Start from newest elements
+            const path = markupPaths[i];
+            if (path.tool === 'text') {
+                // Calculate distance from click to text position
+                const dx = path.position.x - position.x;
+                const dy = path.position.y - position.y;
+                
+                // Use a larger hit area for text to make selection easier
+                // Estimate width based on text length
+                const textWidth = path.text.length * (path.lineWidth * 5);
+                const textHeight = path.lineWidth * 20;
+                
+                // Check if position is within text bounding box
+                // Note: Text is positioned at bottom-left, so mostly extends upward from the position point
+                if (position.x >= path.position.x - 5 && 
+                    position.x <= path.position.x + textWidth + 5 &&
+                    position.y >= path.position.y - textHeight - 5 && 
+                    position.y <= path.position.y + 5) {
+                    return path;
+                }
+                
+                // Also include a radius check for clicking near the text position point
+                const hitRadius = Math.max(30, path.lineWidth * 10);
+                if (dx*dx + dy*dy <= hitRadius*hitRadius) {
+                    return path;
+                }
+            }
+        }
+        return null;
+    }
+
+    // Find any element at the given position
+    function findElementAt(position) {
+        // First check for text elements as they should be easier to select
+        const textElement = findTextElementAt(position);
+        if (textElement) return textElement;
+        
+        // Search through all markup paths in reverse order (to select the top-most element first)
+        for (let i = markupPaths.length - 1; i >= 0; i--) {
+            const path = markupPaths[i];
+            
+            if (path.tool === 'pencil') {
+                // For pencil paths, check if any point is near the position
+                for (let j = 0; j < path.points.length; j++) {
+                    const dx = path.points[j].x - position.x;
+                    const dy = path.points[j].y - position.y;
+                    const distanceSquared = dx * dx + dy * dy;
+                    
+                    if (distanceSquared <= (path.lineWidth * 3) * (path.lineWidth * 3)) {
+                        return path;
+                    }
+                }
+            } else if (path.tool === 'arrow') {
+                // For arrows, check curve proximity using multiple sample points
+                const startPoint = path.startPoint;
+                const endPoint = path.endPoint;
+                const control1 = path.control1;
+                const control2 = path.control2;
+                
+                // Sample points along the bezier curve
+                for (let t = 0; t <= 1; t += 0.05) {
+                    const samplePoint = sampleBezierPoint(startPoint, control1, control2, endPoint, t);
+                    const dx = samplePoint.x - position.x;
+                    const dy = samplePoint.y - position.y;
+                    const distanceSquared = dx * dx + dy * dy;
+                    
+                    if (distanceSquared <= (path.lineWidth * 5) * (path.lineWidth * 5)) {
+                        return path;
+                    }
+                }
+            } else if (path.tool === 'rectangle') {
+                // Check if position is on the rectangle's perimeter
+                const edges = [
+                    {p1: {x: path.startPoint.x, y: path.startPoint.y}, p2: {x: path.endPoint.x, y: path.startPoint.y}},
+                    {p1: {x: path.endPoint.x, y: path.startPoint.y}, p2: {x: path.endPoint.x, y: path.endPoint.y}},
+                    {p1: {x: path.endPoint.x, y: path.endPoint.y}, p2: {x: path.startPoint.x, y: path.endPoint.y}},
+                    {p1: {x: path.startPoint.x, y: path.endPoint.y}, p2: {x: path.startPoint.x, y: path.startPoint.y}}
+                ];
+                
+                for (const edge of edges) {
+                    if (distToSegment(position, edge.p1, edge.p2) <= path.lineWidth * 3) {
+                        return path;
+                    }
+                }
+            } else if (path.tool === 'circle') {
+                // Check if position is near the circle perimeter
+                const centerX = (path.startPoint.x + path.endPoint.x) / 2;
+                const centerY = (path.startPoint.y + path.endPoint.y) / 2;
+                const radiusX = Math.abs(path.endPoint.x - path.startPoint.x) / 2;
+                const radiusY = Math.abs(path.endPoint.y - path.startPoint.y) / 2;
+                
+                // Distance to center
+                const dx = position.x - centerX;
+                const dy = position.y - centerY;
+                
+                // Normalize to unit circle
+                const normalizedX = dx / radiusX;
+                const normalizedY = dy / radiusY;
+                const normalizedDist = Math.sqrt(normalizedX * normalizedX + normalizedY * normalizedY);
+                
+                // Check if position is close to the perimeter
+                if (Math.abs(normalizedDist - 1) <= 0.15) {
+                    return path;
+                }
+            } else if (path.tool === 'polygon' && path.points) {
+                // Check if position is near any edge of the polygon
+                for (let j = 0; j < path.points.length; j++) {
+                    const p1 = path.points[j];
+                    const p2 = path.points[(j + 1) % path.points.length];
+                    
+                    if (distToSegment(position, p1, p2) <= path.lineWidth * 3) {
+                        return path;
+                    }
+                }
+            }
+        }
+        
+        return null;
+    }
+
+    // Select an element
+    function selectElement(element) {
+        selectedElement = element;
+        
+        // If it's a text element and we're in selection mode, open the text editor
+        if (element.tool === 'text' && currentMarkupTool === 'selection') {
+            editingTextElement = element;
+            textPlacementPoint = element.position;
+            isTextPlacing = true;
+            
+            // Calculate screen position for the dialog
+            const screenX = Math.max(20, element.position.x * zoomFactor + offsetX);
+            const screenY = Math.max(20, element.position.y * zoomFactor + offsetY - 100); // Position above the text
+            
+            // Make sure the dialog is visible and correctly positioned
+            const dialog = document.getElementById('markup-text-dialog');
+            dialog.style.left = screenX + 'px';
+            dialog.style.top = screenY + 'px';
+            dialog.style.display = 'block';
+            
+            // Set the text and focus the input
+            const textInput = document.getElementById('markup-text-input');
+            textInput.value = element.text || '';
+            textInput.focus();
+            textInput.select();
+            
+            // Ensure the dialog button says "Update Text" instead of "Add Text"
+            document.getElementById('markup-text-confirm').textContent = 'Update Text';
+        }
+        
+        // Create selection handles based on the element type
+        createSelectionHandles(element);
+    }
+
+    // Clear the current selection
+    function clearSelection() {
+        selectedElement = null;
+        clearSelectionHandles();
+    }
+
+    // Create visual handles around the selected element
+    function createSelectionHandles(element) {
+        clearSelectionHandles();
+        
+        // Create different handles based on element type
+        if (element.tool === 'pencil') {
+            // For pencil paths, just create a highlight effect in drawAllMarkupPaths
+        } else if (element.tool === 'text') {
+            // For text, create a handle at the position
+            const handle = document.createElement('div');
+            handle.className = 'selection-handle';
+            handle.style.left = (element.position.x * zoomFactor + offsetX) + 'px';
+            handle.style.top = (element.position.y * zoomFactor + offsetY) + 'px';
+            document.getElementById('canvas-container').appendChild(handle);
+            selectionHandles.push(handle);
+        } else if (element.tool === 'rectangle') {
+            // For rectangles, create handles at the corners
+            const corners = [
+                { x: element.startPoint.x, y: element.startPoint.y },
+                { x: element.endPoint.x, y: element.startPoint.y },
+                { x: element.startPoint.x, y: element.endPoint.y },
+                { x: element.endPoint.x, y: element.endPoint.y }
+            ];
+            
+            corners.forEach(corner => {
+                const handle = document.createElement('div');
+                handle.className = 'selection-handle';
+                handle.style.left = (corner.x * zoomFactor + offsetX) + 'px';
+                handle.style.top = (corner.y * zoomFactor + offsetY) + 'px';
+                document.getElementById('canvas-container').appendChild(handle);
+                selectionHandles.push(handle);
+            });
+        } else if (element.tool === 'circle') {
+            // For circles, create handles at key points
+            const centerX = (element.startPoint.x + element.endPoint.x) / 2;
+            const centerY = (element.startPoint.y + element.endPoint.y) / 2;
+            const radiusX = Math.abs(element.endPoint.x - element.startPoint.x) / 2;
+            const radiusY = Math.abs(element.endPoint.y - element.startPoint.y) / 2;
+            
+            const points = [
+                { x: centerX - radiusX, y: centerY },
+                { x: centerX + radiusX, y: centerY },
+                { x: centerX, y: centerY - radiusY },
+                { x: centerX, y: centerY + radiusY }
+            ];
+            
+            points.forEach(point => {
+                const handle = document.createElement('div');
+                handle.className = 'selection-handle';
+                handle.style.left = (point.x * zoomFactor + offsetX) + 'px';
+                handle.style.top = (point.y * zoomFactor + offsetY) + 'px';
+                document.getElementById('canvas-container').appendChild(handle);
+                selectionHandles.push(handle);
+            });
+        } else if (element.tool === 'arrow') {
+            // For arrows, we can reuse the control points system
+            updateControlPointPositions();
+        } else if (element.tool === 'polygon' && element.points) {
+            // For polygons, create handles at each vertex
+            element.points.forEach(point => {
+                const handle = document.createElement('div');
+                handle.className = 'selection-handle';
+                handle.style.left = (point.x * zoomFactor + offsetX) + 'px';
+                handle.style.top = (point.y * zoomFactor + offsetY) + 'px';
+                document.getElementById('canvas-container').appendChild(handle);
+                selectionHandles.push(handle);
+            });
+        }
+    }
+
+    // Clear all selection handles
+    function clearSelectionHandles() {
+        selectionHandles.forEach(handle => {
+            if (handle && handle.parentNode) {
+                handle.parentNode.removeChild(handle);
+            }
+        });
+        selectionHandles = [];
+        
+        // Clear arrow controls if they're visible
+        clearArrowControls();
+    }
+
+    // Move the selected element to a new position
+    function moveElement(element, newPosition) {
+        if (!element) return;
+        
+        const dx = newPosition.x - moveStartPosition.x;
+        const dy = newPosition.y - moveStartPosition.y;
+        
+        if (element.tool === 'pencil') {
+            // Move all points in the path
+            for (let i = 0; i < element.points.length; i++) {
+                element.points[i].x += dx;
+                element.points[i].y += dy;
+            }
+        } else if (element.tool === 'text') {
+            // Move the text position
+            element.position.x += dx;
+            element.position.y += dy;
+        } else if (element.tool === 'arrow') {
+            // Move all control points of the arrow
+            element.startPoint.x += dx;
+            element.startPoint.y += dy;
+            element.endPoint.x += dx;
+            element.endPoint.y += dy;
+            element.control1.x += dx;
+            element.control1.y += dy;
+            element.control2.x += dx;
+            element.control2.y += dy;
+            
+            // If this is the currently edited arrow, update its control points display
+            if (element === currentArrow && arrowState === 'edit') {
+                updateControlPointPositions();
+            }
+        } else if (['rectangle', 'circle'].includes(element.tool)) {
+            // Move both corners of the shape
+            element.startPoint.x += dx;
+            element.startPoint.y += dy;
+            element.endPoint.x += dx;
+            element.endPoint.y += dy;
+        } else if (element.tool === 'polygon' && element.points) {
+            // Move all points of the polygon
+            for (let i = 0; i < element.points.length; i++) {
+                element.points[i].x += dx;
+                element.points[i].y += dy;
+            }
+        }
+        
+        // Update the start position for the next move
+        moveStartPosition = newPosition;
+        
+        // Update handle positions
+        createSelectionHandles(element);
+    }
+
+    // Delete the currently selected element
+    function deleteSelectedElement() {
+        if (!selectedElement) return;
+        
+        // Save state before deletion
+        saveMarkupState();
+        
+        // Find and remove the selected element from markupPaths
+        const index = markupPaths.indexOf(selectedElement);
+        if (index !== -1) {
+            markupPaths.splice(index, 1);
+        }
+        
+        // Clear selection
+        clearSelection();
+    }
+
+    // Sample a point on a Bezier curve at parameter t
+    function sampleBezierPoint(p0, p1, p2, p3, t) {
+        const oneMinusT = 1 - t;
+        const oneMinusTSquared = oneMinusT * oneMinusT;
+        const oneMinusTCubed = oneMinusTSquared * oneMinusT;
+        const tSquared = t * t;
+        const tCubed = tSquared * t;
+        
+        return {
+            x: oneMinusTCubed * p0.x + 3 * oneMinusTSquared * t * p1.x + 3 * oneMinusT * tSquared * p2.x + tCubed * p3.x,
+            y: oneMinusTCubed * p0.y + 3 * oneMinusTSquared * t * p1.y + 3 * oneMinusT * tSquared * p2.y + tCubed * p3.y
+        };
+    }
+
+    // First, let's add a new function to update handle positions whenever the canvas transform changes
+    function updateAllHandlePositions() {
+        // Update selection handles
+        if (selectedElement) {
+            createSelectionHandles(selectedElement);
+        }
+        
+        // Update arrow control points
+        if (currentMarkupTool === 'arrow' && arrowState === 'edit' && currentArrow) {
+            updateControlPointPositions();
+        }
+    }
+
+    // Add clipboard variables to the existing markup toolset variables section
+    let clipboardElement = null; // Stores the copied element
+    let pasteOffset = { x: 20, y: 20 }; // Default offset for pasted elements
+    let consecutivePastes = 0; // Counter for consecutive pastes to offset multiple pastes
+
+    // Function to copy the selected element
+    function copySelectedElement() {
+        if (!selectedElement) return;
+        
+        // Deep clone the selected element
+        clipboardElement = JSON.parse(JSON.stringify(selectedElement));
+        
+        // Reset consecutive pastes counter
+        consecutivePastes = 0;
+        
+        // Visual feedback (optional)
+        showCopyFeedback();
+    }
+
+    // Function to paste the copied element
+    function pasteElement(e) {
+        if (!clipboardElement) return;
+        
+        // Save state before pasting
+        saveMarkupState();
+        
+        // Create a deep clone of the clipboard element
+        const newElement = JSON.parse(JSON.stringify(clipboardElement));
+        
+        // Get mouse position if available, otherwise use view center
+        let targetPos;
+        if (e.clientX !== undefined && e.clientY !== undefined) {
+            const rect = planCanvas.getBoundingClientRect();
+            targetPos = toPlanCoords(e.clientX - rect.left, e.clientY - rect.top);
+        } else {
+            // Default to center of visible area if no mouse position
+            targetPos = {
+                x: (planCanvas.width / 2 - offsetX) / zoomFactor,
+                y: (planCanvas.height / 2 - offsetY) / zoomFactor
+            };
+        }
+        
+        // Calculate incremental offset for consecutive pastes
+        const currentOffset = {
+            x: pasteOffset.x + (consecutivePastes * 10),
+            y: pasteOffset.y + (consecutivePastes * 10)
+        };
+        
+        // Increment counter for next paste
+        consecutivePastes++;
+        
+        // Depending on the type of element, adjust position
+        if (newElement.tool === 'pencil' && newElement.points) {
+            // Calculate original bounding box
+            let minX = Infinity, minY = Infinity;
+            for (const point of clipboardElement.points) {
+                minX = Math.min(minX, point.x);
+                minY = Math.min(minY, point.y);
+            }
+            
+            // Offset all points
+            for (let i = 0; i < newElement.points.length; i++) {
+                // Move to target position + offset
+                newElement.points[i].x = newElement.points[i].x - minX + targetPos.x + currentOffset.x / zoomFactor;
+                newElement.points[i].y = newElement.points[i].y - minY + targetPos.y + currentOffset.y / zoomFactor;
+            }
+        } 
+        else if (newElement.tool === 'text') {
+            // Move text to new position
+            newElement.position = {
+                x: targetPos.x + currentOffset.x / zoomFactor,
+                y: targetPos.y + currentOffset.y / zoomFactor
+            };
+        }
+        else if (newElement.tool === 'arrow') {
+            // Calculate the original arrow's bounding box center
+            const originalCenterX = (clipboardElement.startPoint.x + clipboardElement.endPoint.x) / 2;
+            const originalCenterY = (clipboardElement.startPoint.y + clipboardElement.endPoint.y) / 2;
+            
+            // Calculate vector from original center to each point
+            const vectors = {
+                startPoint: {
+                    x: clipboardElement.startPoint.x - originalCenterX,
+                    y: clipboardElement.startPoint.y - originalCenterY
+                },
+                endPoint: {
+                    x: clipboardElement.endPoint.x - originalCenterX,
+                    y: clipboardElement.endPoint.y - originalCenterY
+                },
+                control1: {
+                    x: clipboardElement.control1.x - originalCenterX,
+                    y: clipboardElement.control1.y - originalCenterY
+                },
+                control2: {
+                    x: clipboardElement.control2.x - originalCenterX,
+                    y: clipboardElement.control2.y - originalCenterY
+                }
+            };
+            
+            // Apply vectors to new position
+            newElement.startPoint = {
+                x: targetPos.x + vectors.startPoint.x + currentOffset.x / zoomFactor,
+                y: targetPos.y + vectors.startPoint.y + currentOffset.y / zoomFactor
+            };
+            newElement.endPoint = {
+                x: targetPos.x + vectors.endPoint.x + currentOffset.x / zoomFactor,
+                y: targetPos.y + vectors.endPoint.y + currentOffset.y / zoomFactor
+            };
+            newElement.control1 = {
+                x: targetPos.x + vectors.control1.x + currentOffset.x / zoomFactor,
+                y: targetPos.y + vectors.control1.y + currentOffset.y / zoomFactor
+            };
+            newElement.control2 = {
+                x: targetPos.x + vectors.control2.x + currentOffset.x / zoomFactor,
+                y: targetPos.y + vectors.control2.y + currentOffset.y / zoomFactor
+            };
+        }
+        else if (newElement.tool === 'rectangle' || newElement.tool === 'circle') {
+            // Calculate width and height of the original shape
+            const width = clipboardElement.endPoint.x - clipboardElement.startPoint.x;
+            const height = clipboardElement.endPoint.y - clipboardElement.startPoint.y;
+            
+            // Position the new shape at the target position
+            newElement.startPoint = {
+                x: targetPos.x + currentOffset.x / zoomFactor,
+                y: targetPos.y + currentOffset.y / zoomFactor
+            };
+            newElement.endPoint = {
+                x: targetPos.x + width + currentOffset.x / zoomFactor,
+                y: targetPos.y + height + currentOffset.y / zoomFactor
+            };
+        }
+        else if (newElement.tool === 'polygon' && newElement.points) {
+            // Calculate original bounding box
+            let minX = Infinity, minY = Infinity;
+            for (const point of clipboardElement.points) {
+                minX = Math.min(minX, point.x);
+                minY = Math.min(minY, point.y);
+            }
+            
+            // Offset all points
+            for (let i = 0; i < newElement.points.length; i++) {
+                // Move to target position + offset
+                newElement.points[i].x = newElement.points[i].x - minX + targetPos.x + currentOffset.x / zoomFactor;
+                newElement.points[i].y = newElement.points[i].y - minY + targetPos.y + currentOffset.y / zoomFactor;
+            }
+        }
+        
+        // Add the new element to the markup paths
+        markupPaths.push(newElement);
+        
+        // Select the newly pasted element
+        selectedElement = newElement;
+        createSelectionHandles(newElement);
+        
+        // Update the canvas
+        renderLoop();
+    }
+    
+    // Function to show visual feedback when copying
+    function showCopyFeedback() {
+        // Create a temporary message element
+        const feedback = document.createElement('div');
+        feedback.textContent = 'Element copied';
+        feedback.style.position = 'absolute';
+        feedback.style.top = '60px';
+        feedback.style.left = '50%';
+        feedback.style.transform = 'translateX(-50%)';
+        feedback.style.background = 'rgba(0, 0, 0, 0.7)';
+        feedback.style.color = 'white';
+        feedback.style.padding = '10px 20px';
+        feedback.style.borderRadius = '5px';
+        feedback.style.zIndex = '10000';
+        feedback.style.pointerEvents = 'none';
+        
+        // Add to DOM
+        document.body.appendChild(feedback);
+        
+        // Remove after a short delay
+        setTimeout(() => {
+            feedback.style.opacity = '0';
+            feedback.style.transition = 'opacity 0.5s';
+            setTimeout(() => document.body.removeChild(feedback), 500);
+        }, 1500);
+    }
+})();
+</script>
+</body>
+</html>
