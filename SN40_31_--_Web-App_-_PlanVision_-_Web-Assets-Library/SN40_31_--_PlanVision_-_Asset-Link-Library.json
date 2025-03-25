@@ -25,8 +25,7 @@
         },
         "fonts": {
             "caveat_regular"       :  "GitHub Raw URL: https://raw.githubusercontent.com/Adam-Noble-01/RE20_--_Core_Repo_--_Public/main/RE20_22_--_NA_FILES_--_Brand-Assets-Web-Library/RE20_22_03_-_FILES_-_Noble-Architecture_-_Fronts-and-type-files/21_-_Handwritten_-_Caveat-Regular/Caveat-Regular.ttf",
-            "caveat_bold"          :  "https://github.com/username/repo-name/raw/main/assets/fonts/Caveat-Bold.ttf",
-            "architects_daughter"  :  "https://cdn.example.com/assets/fonts/ArchitectsDaughter-Regular.ttf"
+            "caveat_semi-bold"     :  "GitHub Raw URL: https://raw.githubusercontent.com/Adam-Noble-01/RE20_--_Core_Repo_--_Public/main/RE20_22_--_NA_FILES_--_Brand-Assets-Web-Library/RE20_22_03_-_FILES_-_Noble-Architecture_-_Fronts-and-type-files/23_-_Handwritten_-_Caveat-Semi-Bold/Caveat-SemiBold.ttf"
         },
         "code_snippets": {
             "drawing_canvas"       :  "PLACEHOLDER_-_ADD_ACTUAL_URL_IN_FUTURE_HERE",
