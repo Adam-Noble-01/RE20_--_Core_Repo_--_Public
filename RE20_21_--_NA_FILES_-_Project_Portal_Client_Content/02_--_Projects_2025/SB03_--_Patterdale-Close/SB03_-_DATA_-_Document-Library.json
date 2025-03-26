@@ -26,8 +26,8 @@
             "project-general-notes-01"     :    "NIL",
             "project-portal-links":{
                 "portal-url-home"          :    "https://sites.google.com/view/sb03-project-portal-02/home",
-                "portal-url-planvision"    :    "https://sites.google.com/view/sb03-project-portal-02/planvision-app/planvision-web-app",
-                "portal-url-truevision"    :    "https://sites.google.com/view/sb03-project-portal-02/truevision-app/truevision-web-app"
+                "portal-url-planvision"    :    "https://sites.google.com/view/sb03-project-portal-02/planvision-app",
+                "portal-url-truevision"    :    "https://sites.google.com/view/sb03-project-portal-02/truevision-web-app"
             }
         },  
         "project-documentation":{
