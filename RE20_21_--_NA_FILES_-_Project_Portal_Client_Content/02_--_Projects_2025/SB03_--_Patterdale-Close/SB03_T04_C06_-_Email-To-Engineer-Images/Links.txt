@@ -1,0 +1,58 @@
+```Links
+-----------------------------------------------------------
+PNG FILE :  SB03_T04_C06_-_Site-Request-01
+-----------------------------------------------------------
+
+FILE NAME
+SB03_T04_C06_-_Site-Request-01.png
+
+LOCAL PATH
+D:\RE20_--_Core_Repo_--_Public\RE20_21_--_NA_FILES_-_Project_Portal_Client_Content\02_--_Projects_2025\SB03_--_Patterdale-Close\SB03_T04_C06_-_Email-To-Engineer-Images\SB03_T04_C06_-_Site-Request-01.png
+
+LOCAL PATH - - (JSON VERSION)
+D:\\RE20_--_Core_Repo_--_Public\\RE20_21_--_NA_FILES_-_Project_Portal_Client_Content\\02_--_Projects_2025\\SB03_--_Patterdale-Close\\SB03_T04_C06_-_Email-To-Engineer-Images\\SB03_T04_C06_-_Site-Request-01.png
+
+GITHUB RAW URL
+https://raw.githubusercontent.com/Adam-Noble-01/RE20_--_Core_Repo_--_Public/main/RE20_21_--_NA_FILES_-_Project_Portal_Client_Content/02_--_Projects_2025/SB03_--_Patterdale-Close/SB03_T04_C06_-_Email-To-Engineer-Images/SB03_T04_C06_-_Site-Request-01.png
+
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+PNG FILE :  SB03_T04_C06_-_Site-Request-02
+-----------------------------------------------------------
+
+FILE NAME
+SB03_T04_C06_-_Site-Request-02.png
+
+LOCAL PATH
+D:\RE20_--_Core_Repo_--_Public\RE20_21_--_NA_FILES_-_Project_Portal_Client_Content\02_--_Projects_2025\SB03_--_Patterdale-Close\SB03_T04_C06_-_Email-To-Engineer-Images\SB03_T04_C06_-_Site-Request-02.png
+
+LOCAL PATH - - (JSON VERSION)
+D:\\RE20_--_Core_Repo_--_Public\\RE20_21_--_NA_FILES_-_Project_Portal_Client_Content\\02_--_Projects_2025\\SB03_--_Patterdale-Close\\SB03_T04_C06_-_Email-To-Engineer-Images\\SB03_T04_C06_-_Site-Request-02.png
+
+GITHUB RAW URL
+https://raw.githubusercontent.com/Adam-Noble-01/RE20_--_Core_Repo_--_Public/main/RE20_21_--_NA_FILES_-_Project_Portal_Client_Content/02_--_Projects_2025/SB03_--_Patterdale-Close/SB03_T04_C06_-_Email-To-Engineer-Images/SB03_T04_C06_-_Site-Request-02.png
+
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+PNG FILE :  SB03_T04_C06_-_Site-Request-03
+-----------------------------------------------------------
+
+FILE NAME
+SB03_T04_C06_-_Site-Request-03.png
+
+LOCAL PATH
+D:\RE20_--_Core_Repo_--_Public\RE20_21_--_NA_FILES_-_Project_Portal_Client_Content\02_--_Projects_2025\SB03_--_Patterdale-Close\SB03_T04_C06_-_Email-To-Engineer-Images\SB03_T04_C06_-_Site-Request-03.png
+
+LOCAL PATH - - (JSON VERSION)
+D:\\RE20_--_Core_Repo_--_Public\\RE20_21_--_NA_FILES_-_Project_Portal_Client_Content\\02_--_Projects_2025\\SB03_--_Patterdale-Close\\SB03_T04_C06_-_Email-To-Engineer-Images\\SB03_T04_C06_-_Site-Request-03.png
+
+GITHUB RAW URL
+https://raw.githubusercontent.com/Adam-Noble-01/RE20_--_Core_Repo_--_Public/main/RE20_21_--_NA_FILES_-_Project_Portal_Client_Content/02_--_Projects_2025/SB03_--_Patterdale-Close/SB03_T04_C06_-_Email-To-Engineer-Images/SB03_T04_C06_-_Site-Request-03.png
+
+-----------------------------------------------------------
+
+
+```
+

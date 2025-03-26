@@ -237,10 +237,6 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
                         - Circle Drawing Tool
                             - Uses a sketchy line style
                             - Feels like a technical pen hand sketched
-                        - Polygon Drawing Tool
-                            - Uses a sketchy line style
-                            - Uses a transparent fill
-                            - Feels like a technical pen hand sketched
 
 25-Mar-2025 - v1.6.1  |  UI LAYOUT IMPROVEMENTS
                     - Reorganised toolbar layout for better usability:
@@ -325,6 +321,42 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
                         - Improved the confirmation button behavior and positioning
                         - Added proper cleanup of measurement states after completion
 
+26-Mar-2025 - v1.7.3  |  MARKUP TOOLS INTERFACE IMPROVEMENTS
+                    - Added dedicated cancel button for markup tools:
+                        - Created clear method to exit any active marking tool
+                        - Positioned below drawing tools for consistent interface layout
+                        - Button only appears when a specific tool is selected
+                        - Styled with red background for easy identification
+                    - Fixed object handles persistence issue:
+                        - Resolved problem where yellow selection dots remained visible after tool change
+                        - Improved handle cleanup during tool transitions
+                        - Enhanced selection state management
+                    - Enhanced markup tools interface:
+                        - Unified button styling to match main menu appearance
+                        - Corrected hover states and colour consistency
+                        - No tool selected by default to enable panning
+                        - Added ESC key functionality to cancel active operations
+                        - Implemented automatic tool cancellation when returning to main menu
+                    - Optimized tool activation logic:
+                        - Ensured markup tools only usable while markup menu is open
+                        - Improved tool state tracking and reset procedures
+                        - Fixed cursor style transitions between tools
+
+26-Mar-2025 - v1.7.4  |  RECTANGULAR FILL MARKUP TOOL ADDED
+                    - Enhanced rectangle tool capabilities:
+                        - Added filled rectangle option with 20% opacity fill
+                        - Separated rectangle and filled rectangle buttons for clarity
+                        - Unified drawing mechanics between both rectangle types
+                        - Fixed click-and-drag functionality for consistent operation
+                    - Improved visual appearance:
+                        - Increased line opacity from 0.8 to 0.9 for better visibility
+                        - Enhanced reinforcement strokes from 0.3 to 0.5 opacity
+                        - Reduced transparency variations for more consistent appearance
+                    - Refined tool usability:
+                        - Added specific instructions for filled rectangle tool
+                        - Improved tool selection feedback for filled rectangle
+                        - Fixed issues with tool state management
+                        
 ??-???-2025 - v1.8.0  |  LIST FUTURE UPDATES HERE
 
 =======================================================================================================================
@@ -466,9 +498,21 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
             cursor: pointer;
             font-size: 14px;
             border-radius: 3px;
+            transition: all 0.2s ease; /* Changed from 'opacity' to 'all' to cover both color and opacity */
         }
         .tool-button:hover {
             opacity: 0.8;
+            background-color: #555041; /* Ensure hover doesn't change the background */
+        }
+
+        /* Ensure all tool buttons, including markup tools, use the same styling */
+        #markup-toolset .tool-button {
+            background: #555041;
+            color: #fff;
+        }
+        #markup-toolset .tool-button:hover {
+            opacity: 0.8;
+            background-color: #555041; /* Ensure hover doesn't change the background */
         }
 
         .menu_-_drawing-button-container {
@@ -889,8 +933,10 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
                 <button class="tool-button" id="markupEraserBtn">Eraser Tool</button>
                 <button class="tool-button" id="markupArrowBtn">Arrow Tool</button>
                 <button class="tool-button" id="markupTextBtn">Text Box</button>
-                <button class="tool-button" id="markupRectBtn">Rectangle Tool</button>
+                <button class="tool-button" id="markupRectBtn">Rectangle</button>
+                <button class="tool-button" id="markupFilledRectBtn">Filled Rectangle</button>
                 <button class="tool-button" id="markupCircleBtn">Circle Tool</button>
+                <button class="tool-button" id="cancelMarkupToolBtn" style="display: none; background: #d9534f;">Cancel Current Tool</button>
                 
                 <div class="menu_-_drawing-button-header-text">Line Width</div>
                 <div style="display:flex; align-items:center; margin-bottom: 10px;">
@@ -1832,7 +1878,9 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
         document.getElementById("markupArrowBtn").addEventListener("click", () => setMarkupTool("arrow"));
         document.getElementById("markupTextBtn").addEventListener("click", () => setMarkupTool("text"));
         document.getElementById("markupRectBtn").addEventListener("click", () => setMarkupTool("rectangle"));
+        document.getElementById("markupFilledRectBtn").addEventListener("click", () => setMarkupTool("filled-rectangle"));
         document.getElementById("markupCircleBtn").addEventListener("click", () => setMarkupTool("circle"));
+        document.getElementById("cancelMarkupToolBtn").addEventListener("click", cancelMarkupTool);
         
         // Color palette selection
         document.querySelectorAll('.color-swatch').forEach(swatch => {
@@ -1937,7 +1985,7 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
                 
                 return;
             }
-            else if (currentMarkupTool === 'rectangle' && isShapeDrawing && currentShape) {
+            else if ((currentMarkupTool === 'rectangle' || currentMarkupTool === 'filled-rectangle') && isShapeDrawing && currentShape) {
                 // Update the end point of the rectangle
                 currentShape.endPoint = pos;
                 return;
@@ -2190,7 +2238,7 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
                 }
                 return;
             }
-            else if (currentMarkupTool === 'rectangle') {
+            else if (currentMarkupTool === 'rectangle' || currentMarkupTool === 'filled-rectangle') {
                 if (!isShapeDrawing) {
                     // Start drawing a new rectangle
                     isShapeDrawing = true;
@@ -2199,7 +2247,8 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
                         color: markupColor,
                         lineWidth: markupLineWidth,
                         startPoint: pos,
-                        endPoint: pos
+                        endPoint: pos,
+                        filled: currentMarkupTool === 'filled-rectangle'
                     };
                     return;
                 }
@@ -2643,6 +2692,15 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
             });
         }
         
+        // Reset all markup tool buttons to their default style
+        document.querySelectorAll("#markup-toolset .tool-button").forEach(btn => {
+            if (btn.id !== 'cancelMarkupToolBtn') {
+                // Remove any inline styles that might override the CSS
+                btn.style.opacity = '';
+                btn.style.backgroundColor = '';
+            }
+        });
+        
         // Show markup tools container
         document.getElementById("markup-toolset").style.display = "block";
         
@@ -2678,12 +2736,22 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
         // Reset any active measuring tools
         cancelTool();
         
-        // Set default markup tool
-        setMarkupTool("pencil");
+        // Reset any active markup tool to ensure no tool is selected by default
+        cancelMarkupTool();
+        
+        // Reset cursor to default hand so user can pan around first
+        planCanvas.className = "";
+        currentMarkupTool = null;
+        
+        // Hide the cancel markup tool button since no tool is active
+        document.getElementById('cancelMarkupToolBtn').style.display = 'none';
     }
     
     // Return to standard measuring tools
     function returnToMeasuringTools() {
+        // Cancel any active markup tool first
+        cancelMarkupTool();
+        
         isMarkupToolsetActive = false;
         
         // Hide markup tools container
@@ -2715,16 +2783,22 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
         // Show markup toggle button
         document.getElementById("toggleMarkupToolsetBtn").style.display = "block";
         
-        // Reset markup tools
-        clearArrowControls();
-        currentMarkupTool = null;
-        
         // Reset cursor
         planCanvas.className = "";
     }
     
     // Set the active markup tool
     function setMarkupTool(tool) {
+        // If no tool is selected (null), cancel the tool
+        if (tool === null) {
+            cancelMarkupTool();
+            return;
+        }
+        
+        // Show the cancel button only when a tool is selected
+        document.getElementById('cancelMarkupToolBtn').style.display = 'block';
+        document.getElementById('cancelMarkupToolBtn').style.backgroundColor = '#d9534f'; // Keep the cancel button red
+        
         currentMarkupTool = tool;
         
         // Reset state variables
@@ -2763,19 +2837,32 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
         } else if (tool === 'text') {
             planCanvas.classList.add('markup-text');
             showMarkupInstructions('text');
-        } else if (['rectangle', 'circle'].includes(tool)) {
+        } else if (['rectangle', 'filled-rectangle', 'circle'].includes(tool)) {
             planCanvas.classList.add('markup-shape');
             showMarkupInstructions(tool);
         }
         
-        // Highlight active tool button
+        // Reset all button styling first by removing any inline styles
         document.querySelectorAll("#markup-toolset .tool-button").forEach(btn => {
-            if (btn.id === `markup${tool.charAt(0).toUpperCase() + tool.slice(1)}Btn`) {
-                btn.style.opacity = 1;
-            } else {
-                btn.style.opacity = 0.8;
+            if (btn.id !== 'cancelMarkupToolBtn') {
+                btn.style.opacity = '';
+                btn.style.backgroundColor = '';
             }
         });
+        
+        // Then highlight only the active tool button with a slightly darker color
+        const activeToolButton = document.getElementById(`markup${tool.charAt(0).toUpperCase() + tool.slice(1)}Btn`);
+        if (activeToolButton) {
+            activeToolButton.style.opacity = '1';
+            activeToolButton.style.backgroundColor = '#403c30'; // Slightly darker to indicate selection
+        } else if (tool === 'filled-rectangle') {
+            // Special case for filled-rectangle since the button ID doesn't match the tool name pattern
+            const filledRectButton = document.getElementById('markupFilledRectBtn');
+            if (filledRectButton) {
+                filledRectButton.style.opacity = '1';
+                filledRectButton.style.backgroundColor = '#403c30';
+            }
+        }
     }
     
     // Clear all markup drawings
@@ -3423,6 +3510,12 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
         const width = rect.endPoint.x - rect.startPoint.x;
         const height = rect.endPoint.y - rect.startPoint.y;
         
+        // Draw fill if filled property is true
+        if (rect.filled) {
+            context.fillStyle = rect.color + '33'; // Add 20% opacity (33 in hex)
+            context.fillRect(x, y, width, height);
+        }
+        
         // Use a deterministic seed for randomness based on the rectangle's properties
         // This prevents flickering by ensuring we get the same "random" values each render
         if (!rect.seed) {
@@ -3464,7 +3557,7 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
             rect.lineWidth, rect.color, rect.seed.left);
         
         // Add reinforcement marks at corners for technical pen effect
-        context.globalAlpha = 0.8; // Increased from 0.6 to 0.8 to further reduce transparency
+        context.globalAlpha = 0.9; // Increased from 0.8 to 0.9 to further reduce transparency
         const cornerLength = rect.lineWidth * 2.5;
         
         // Top-left corner reinforcement
@@ -3779,7 +3872,7 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
         context.moveTo(startX + offsetX, startY + offsetY);
         
         // Add some wobble to the reinforcement line
-        const wobblePts = 3;
+        const wobblePts = 8;
         for (let i = 1; i <= wobblePts; i++) {
             const t = i / (wobblePts + 1);
             const wobbleX = startX + dx * t + offsetX + jitter * (pseudoRandom(seed + 10 + i) - 0.5);
@@ -3854,7 +3947,7 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
         if (length > lineWidth * 8) {
             // Add a lighter reinforcement stroke along the line
             context.beginPath();
-            context.globalAlpha = 0.3;
+            context.globalAlpha = 0.5; // Increased from 0.3 to 0.5 for less transparency
             context.lineWidth = lineWidth * 0.6;
             
             // Pick random section of the line to reinforce
@@ -3988,6 +4081,10 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
             else if (isTextPlacing) {
                 cancelTextEntry();
             }
+            else {
+                // No specific operation in progress, cancel the whole tool
+                cancelMarkupTool();
+            }
         }
         else if (e.key === 'Enter') {
             // Complete polygon if drawing one
@@ -4069,6 +4166,13 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
                     "• Click and drag to create a rectangle\\n" +
                     "• Use the selection tool to move or resize after creating\\n" +
                     "• Rectangle edges have a sketchy hand-drawn appearance";
+                break;
+            case 'filled-rectangle':
+                instructionsText = 
+                    "MARKUP FILLED RECTANGLE TOOL:\\n\\n" +
+                    "• Click and drag to create a filled rectangle\\n" +
+                    "• The fill will be 20% opacity of the selected colour\\n" +
+                    "• Use the selection tool to move or resize after creating";
                 break;
             case 'circle':
                 instructionsText = 
@@ -4445,6 +4549,12 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
     function clearSelection() {
         selectedElement = null;
         clearSelectionHandles();
+        
+        // Remove any selection handles container
+        const handleContainer = document.getElementById('selection-handles');
+        if (handleContainer) {
+            handleContainer.remove();
+        }
     }
 
     // Create visual handles around the selected element
@@ -4528,7 +4638,8 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
 
     // Clear all selection handles
     function clearSelectionHandles() {
-        selectionHandles.forEach(handle => {
+        // Remove any existing selection handles from DOM
+        document.querySelectorAll('.selection-handle').forEach(handle => {
             if (handle && handle.parentNode) {
                 handle.parentNode.removeChild(handle);
             }
@@ -5041,7 +5152,7 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
                 saveMarkupState();
                 return;
             }
-            else if (currentMarkupTool === 'rectangle' && isShapeDrawing && currentShape) {
+            else if ((currentMarkupTool === 'rectangle' || currentMarkupTool === 'filled-rectangle') && isShapeDrawing && currentShape) {
                 // Finalize rectangle
                 if (Math.abs(currentShape.endPoint.x - currentShape.startPoint.x) > 5 && 
                     Math.abs(currentShape.endPoint.y - currentShape.startPoint.y) > 5) {
@@ -5138,6 +5249,43 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
             points.push(sampleBezierPoint(p0, p1, p2, p3, t));
         }
         return points;
+    }
+
+    // Function to cancel markup tools
+    // Added v1.7.3.
+    function cancelMarkupTool() {
+        // Reset state variables for all markup tools
+        currentMarkupPath = null;
+        isShapeDrawing = false;
+        shapeStartPoint = null;
+        currentShape = null;
+        isTextPlacing = false;
+        textPlacementPoint = null;
+        
+        // Reset arrow-specific variables
+        clearArrowControls();
+        arrowState = 'idle';
+        
+        // Clear any selection and handles
+        clearSelection();
+        
+        // Hide the cancel button
+        document.getElementById('cancelMarkupToolBtn').style.display = 'none';
+        
+        // Reset cursor
+        planCanvas.className = '';
+        
+        // No active tool
+        currentMarkupTool = null;
+
+        // Reset all button styling to default - remove inline styles completely
+        document.querySelectorAll("#markup-toolset .tool-button").forEach(btn => {
+            if (btn.id !== 'cancelMarkupToolBtn') {
+                // Clear inline styles to let CSS take over
+                btn.style.opacity = '';
+                btn.style.backgroundColor = '';
+            }
+        });
     }
 })();
 </script>
