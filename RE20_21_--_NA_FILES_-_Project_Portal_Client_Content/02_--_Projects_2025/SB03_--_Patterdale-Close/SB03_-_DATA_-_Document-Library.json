@@ -1,6 +1,6 @@
 {"na-project-data-library":{
         "file-metadata":{
-            "file-name"                 :    "GA06_-_DATA_-_Document-Library.json",
+            "file-name"                 :    "SB03_-_DATA_-_Document-Library.json",
             "file-type"                 :    ".json",
             "file-purpose"              :    "Project Specific Documentation Link Library",
             "file-description"          :    "This JSON file stores Noble Architecture project file documentation links in a single location and ensures quick retrieval.",
@@ -9,67 +9,71 @@
             "file-key-required"         :    "FALSE",
             "file-key-note"             :    "Public Repo File - Sensitive Data Omitted",
             "file-links":{
-                "windows-dir-path"      :    "D:\\RE20_--_Core_Repo_--_Public\\RE20_21_--_NA_FILES_-_Project_Portal_Client_Content\\02_--_Projects_2025\\GA06_--_Cloves-Wood\\GA06_-_DATA_-_Document-Library.json",
-                "github-link-url"       :    "https://raw.githubusercontent.com/Adam-Noble-01/RE20_--_Core_Repo_--_Public/main/RE20_21_--_NA_FILES_-_Project_Portal_Client_Content/02_--_Projects_2025/GA06_--_Cloves-Wood/GA06_-_DATA_-_Document-Library.json"
+                "windows-dir-path"      :    "D:\\RE20_--_Core_Repo_--_Public\\RE20_21_--_NA_FILES_-_Project_Portal_Client_Content\\02_--_Projects_2025\\SB03_--_Patterdale-Close\\SB03_-_DATA_-_Document-Library.json",
+                "github-link-url"       :    "https://raw.githubusercontent.com/Adam-Noble-01/RE20_--_Core_Repo_--_Public/main/RE20_21_--_NA_FILES_-_Project_Portal_Client_Content/02_--_Projects_2025/SB03_--_Patterdale-Close/SB03_-_DATA_-_Document-Library.json"
             }
         },
         "project-details":{
-            "project-name-nickname"        :    "GA06 | Cloves Wood",
-            "project-name-string"          :    "GA06_--_Cloves-Wood",
-            "project-address--house"       :    "Cloves Wood -  - DE7 6DG",
-            "project-address--house-no"    :    "NIL",
-            "project-address-street"       :    "Main Road",
-            "project-address-town"         :    "Morley",
-            "project-address-city"         :    "Derby",
-            "project-address-county"       :    "Derbyshire",
-            "project-address-postcode"     :    "DE7 6DG",
+            "project-name-nickname"        :    "SB03 | Patterdale Close",
+            "project-name-string"          :    "SB03_--_Patterdale-Close",
+            "project-address--house"       :    "Patterdale Close",
+            "project-address--house-no"    :    "10 ",
+            "project-address-street"       :    "Patterdale Close",
+            "project-address-town"         :    "Gamston",
+            "project-address-city"         :    "Nottingham",
+            "project-address-county"       :    "Nottinghamshire",
+            "project-address-postcode"     :    "NG2 6PW",
             "project-general-notes-01"     :    "NIL",
             "project-portal-links":{
-                "portal-url-home"          :    "https://sites.google.com/view/ga06-project-portal/home",
-                "portal-url-planvision"    :    "https://sites.google.com/view/ga06-project-portal/planvision-app/planvision-web-app",
-                "portal-url-truevision"    :    "https://sites.google.com/view/ga06-project-portal/truevision-app/truevision-web-app"
+                "portal-url-home"          :    "https://sites.google.com/view/sb03-project-portal-02/home",
+                "portal-url-planvision"    :    "https://sites.google.com/view/sb03-project-portal-02/planvision-app/planvision-web-app",
+                "portal-url-truevision"    :    "https://sites.google.com/view/sb03-project-portal-02/truevision-app/truevision-web-app"
             }
         },  
         "project-documentation":{
             "project-drawings":{
                 "drawing-01"               :    {
-                    "file-name"            :    "GA06_T02_D22_--_PD-Elevations-Drawing.pdf",
-                    "added-to-register"    :    "22-Mar-2025",
-                    "document-type"         :   "Drawing",
-                    "document-name"         :   "Elevations Drawing",
+                    "file-name"            :    "SB03_T03_D10_--_Technical-Plan_-_Ground-Floor.pdf",
+                    "added-to-register"    :    "26-Mar-2025",
+                    "document-type"        :    "Drawing",
+                    "document-name"        :    "Technical Plan Drawing",
                     "document-scale"       :    "1:50",
-                    "document-status"      :    "Planning Phase Drawing",
+                    "document-status"      :    "Construction Phase Drawing",
                     "document-notes"       :    "NIL",
                     "document-revisions"   :    {
-                        "revision-a"        :   "24-02-2025",
+                        "revision-a"       :    "26-Mar-2025",
                         "revision-b"       :    "NIL",
                         "revision-c"       :    "NIL",
                         "revision-d"       :    "NIL",
                         "revision-e"       :    "NIL"
                     },
                     "document-links":{
-                        "png--windows-dir-path"    :    "D:\\RE20_--_Core_Repo_--_Public\\RE20_21_--_NA_FILES_-_Project_Portal_Client_Content\\02_--_Projects_2025\\GA06_--_Cloves-Wood\\GA06_T02_D22_--_PD-Elevations-Drawing.png",
-                        "pdf--windows-dir-path"    :    "D:\\RE20_--_Core_Repo_--_Public\\RE20_21_--_NA_FILES_-_Project_Portal_Client_Content\\02_--_Projects_2025\\GA06_--_Cloves-Wood\\GA06_T02_D22_--_PD-Elevations-Drawing.pdf",
-                        "png--github-link-url"     :    "https://raw.githubusercontent.com/Adam-Noble-01/RE20_--_Core_Repo_--_Public/main/RE20_21_--_NA_FILES_-_Project_Portal_Client_Content/02_--_Projects_2025/GA06_--_Cloves-Wood/GA06_T02_D22_--_PD-Elevations-Drawing.png",
-                        "pdf--github-link-url"     :    "https://raw.githubusercontent.com/Adam-Noble-01/RE20_--_Core_Repo_--_Public/main/RE20_21_--_NA_FILES_-_Project_Portal_Client_Content/02_--_Projects_2025/GA06_--_Cloves-Wood/GA06_T02_D22_--_PD-Elevations-Drawing.pdf"
+                        "png--windows-dir-path"    :    "D:\\RE20_--_Core_Repo_--_Public\\RE20_21_--_NA_FILES_-_Project_Portal_Client_Content\\02_--_Projects_2025\\SB03_--_Patterdale-Close\\SB03_T03_D10_--_Technical-Plan_-_Ground-Floor.png",
+                        "pdf--windows-dir-path"    :    "D:\\RE20_--_Core_Repo_--_Public\\RE20_21_--_NA_FILES_-_Project_Portal_Client_Content\\02_--_Projects_2025\\SB03_--_Patterdale-Close\\SB03_T03_D10_--_Technical-Plan_-_Ground-Floor.pdf",
+                        "png--github-link-url"     :    "https://raw.githubusercontent.com/Adam-Noble-01/RE20_--_Core_Repo_--_Public/main/RE20_21_--_NA_FILES_-_Project_Portal_Client_Content/02_--_Projects_2025/SB03_--_Patterdale-Close/SB03_T03_D10_--_Technical-Plan_-_Ground-Floor.png",
+                        "pdf--github-link-url"     :    "https://raw.githubusercontent.com/Adam-Noble-01/RE20_--_Core_Repo_--_Public/main/RE20_21_--_NA_FILES_-_Project_Portal_Client_Content/02_--_Projects_2025/SB03_--_Patterdale-Close/SB03_T03_D10_--_Technical-Plan_-_Ground-Floor.pdf"
                     }
                 },
-                "drawing-02":{
-                    "file-name"             :    "GA06_T02_D11_--_PD-Site-Plans.pdf",
-                    "added-to-register"    :    "22-Mar-2025",
-                    "document-type"         :    "Drawing",
-                    "document-name"         :    "Site Plan Drawing",
-                    "document-scale"        :    "1:500",
-                    "document-status"       :    "Planning Phase Drawing",
-                    "document-notes"        :    "NIL",
-                    "document-revisions":{
-                        "revision-a"        :    "24-02-2025"
+                "drawing-02"               :    {
+                    "file-name"            :    "SB03_T03_D20_--_Technical-Plan_-_First-Floor.pdf",
+                    "added-to-register"    :    "26-Mar-2025",
+                    "document-type"        :    "Drawing",
+                    "document-name"        :    "Technical Plan Drawing",
+                    "document-scale"       :    "1:50",
+                    "document-status"      :    "Construction Phase Drawing",
+                    "document-notes"       :    "NIL",
+                    "document-revisions"   :    {
+                        "revision-a"       :    "26-Mar-2025",
+                        "revision-b"       :    "NIL",
+                        "revision-c"       :    "NIL",
+                        "revision-d"       :    "NIL",
+                        "revision-e"       :    "NIL"
                     },
                     "document-links":{
-                        "png--windows-dir-path"    :    "D:\\RE20_--_Core_Repo_--_Public\\RE20_21_--_NA_FILES_-_Project_Portal_Client_Content\\02_--_Projects_2025\\GA06_--_Cloves-Wood\\GA06_T02_D11_--_PD-Site-Plans.png",
-                        "pdf--windows-dir-path"    :    "D:\\RE20_--_Core_Repo_--_Public\\RE20_21_--_NA_FILES_-_Project_Portal_Client_Content\\02_--_Projects_2025\\GA06_--_Cloves-Wood\\GA06_T02_D11_--_PD-Site-Plans.pdf",
-                        "png--github-link-url"     :    "https://raw.githubusercontent.com/Adam-Noble-01/RE20_--_Core_Repo_--_Public/main/RE20_21_--_NA_FILES_-_Project_Portal_Client_Content/02_--_Projects_2025/GA06_--_Cloves-Wood/GA06_T02_D11_--_PD-Site-Plans.png",
-                        "pdf--github-link-url"     :    "https://raw.githubusercontent.com/Adam-Noble-01/RE20_--_Core_Repo_--_Public/main/RE20_21_--_NA_FILES_-_Project_Portal_Client_Content/02_--_Projects_2025/GA06_--_Cloves-Wood/GA06_T02_D11_--_PD-Site-Plans.pdf"
+                        "png--windows-dir-path"    :    "D:\\RE20_--_Core_Repo_--_Public\\RE20_21_--_NA_FILES_-_Project_Portal_Client_Content\\02_--_Projects_2025\\SB03_--_Patterdale-Close\\SB03_T03_D20_--_Technical-Plan_-_First-Floor.png",
+                        "pdf--windows-dir-path"    :    "D:\\RE20_--_Core_Repo_--_Public\\RE20_21_--_NA_FILES_-_Project_Portal_Client_Content\\02_--_Projects_2025\\SB03_--_Patterdale-Close\\SB03_T03_D20_--_Technical-Plan_-_First-Floor.pdf",
+                        "png--github-link-url"     :    "https://raw.githubusercontent.com/Adam-Noble-01/RE20_--_Core_Repo_--_Public/main/RE20_21_--_NA_FILES_-_Project_Portal_Client_Content/02_--_Projects_2025/SB03_--_Patterdale-Close/SB03_T03_D20_--_Technical-Plan_-_First-Floor.png",
+                        "pdf--github-link-url"     :    "https://raw.githubusercontent.com/Adam-Noble-01/RE20_--_Core_Repo_--_Public/main/RE20_21_--_NA_FILES_-_Project_Portal_Client_Content/02_--_Projects_2025/SB03_--_Patterdale-Close/SB03_T03_D20_--_Technical-Plan_-_First-Floor.pdf"
                     }
                 },
                 "drawing-03"    :    {
@@ -78,7 +82,7 @@
                     "document-name"        :    "Drawing",
                     "document-type"        :    "Elevations Drawing",
                     "document-scale"       :    "1:50",
-                    "document-status"      :    "Planning Phase Drawing",
+                    "document-status"      :    "Construction Phase Drawing",
                     "document-notes"       :    "NIL",
                     "document-revisions"   :    {
                         "revision-a"       :    "{{ENTER_DATE}}",
