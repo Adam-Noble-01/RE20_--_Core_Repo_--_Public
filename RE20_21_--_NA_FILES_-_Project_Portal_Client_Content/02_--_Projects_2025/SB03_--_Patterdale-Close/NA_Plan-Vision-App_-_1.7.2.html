@@ -2413,9 +2413,16 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
         // - Defines The Scale Conversion From Pixels To Real-World Millimetres.  
         // - Ensures All Measurements Remain Accurate Regardless Of Zoom Level.  
         // - Critical To The Correct Functioning Of The Measuring Tools.  
+            // ----------------------------------------------------------------------------------------
+            // A-SERIES PAPER SIZES (MM)
+            // ----------------------------------------------------------------------------------------
+            // A1 Paper |  841 × 594 mm
+            // A2 Paper |  594 × 420 mm
+            // A3 Paper |  420 × 297 mm
+            // A4 Paper |  297 × 210 mm
 
 
-        const realWidthMM = 840.93;                              // ← Real-World Width Of The Drawing In Millimetres  
+        const realWidthMM = 594;                                 // ← Real-World Width Of The Drawing In Millimetres  
         const drawnWidthPx = naturalImageWidth;                  // ← Native Image Width In Pixels (From The Plan Image)  
         const scaleRatio =  50;                                  // ← Standard Scaling Factor Applied For Consistency  
         const mmPerPixel = realWidthMM / drawnWidthPx;           // ← Millimetres Represented Per Pixel  
