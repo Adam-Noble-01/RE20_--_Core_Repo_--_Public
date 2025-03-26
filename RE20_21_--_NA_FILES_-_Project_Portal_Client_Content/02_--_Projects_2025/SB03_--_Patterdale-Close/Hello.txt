@@ -1,0 +1,128 @@
+-----------------------------------------------------------
+JSON FILE :  SB03_-_DATA_-_Document-Library
+-----------------------------------------------------------
+
+FILE NAME
+
+
+LOCAL PATH
+D:\RE20_--_Core_Repo_--_Public\RE20_21_--_NA_FILES_-_Project_Portal_Client_Content\02_--_Projects_2025\\SB03_-_DATA_-_Document-Library.json
+
+LOCAL PATH - - (JSON VERSION)
+D:\\RE20_--_Core_Repo_--_Public\\RE20_21_--_NA_FILES_-_Project_Portal_Client_Content\\02_--_Projects_2025\\SB03_--_Patterdale-Close\\SB03_-_DATA_-_Document-Library.json
+
+GITHUB RAW URL
+https://raw.githubusercontent.com/Adam-Noble-01/RE20_--_Core_Repo_--_Public/main/RE20_21_--_NA_FILES_-_Project_Portal_Client_Content/02_--_Projects_2025/SB03_--_Patterdale-Close/SB03_-_DATA_-_Document-Library.json
+
+-----------------------------------------------------------
+
+
+-----------------------------------------------------------
+PDF FILE :  SB03_T02_D41_--_Foundations-Setting-Out-Plan
+-----------------------------------------------------------
+
+FILE NAME
+SB03_T02_D41_--_Foundations-Setting-Out-Plan.pdf
+
+LOCAL PATH
+D:\RE20_--_Core_Repo_--_Public\RE20_21_--_NA_FILES_-_Project_Portal_Client_Content\02_--_Projects_2025\SB03_--_Patterdale-Close\SB03_T02_D41_--_Foundations-Setting-Out-Plan.pdf
+
+LOCAL PATH - - (JSON VERSION)
+D:\\RE20_--_Core_Repo_--_Public\\RE20_21_--_NA_FILES_-_Project_Portal_Client_Content\\02_--_Projects_2025\\SB03_--_Patterdale-Close\\SB03_T02_D41_--_Foundations-Setting-Out-Plan.pdf
+
+GITHUB RAW URL
+https://raw.githubusercontent.com/Adam-Noble-01/RE20_--_Core_Repo_--_Public/main/RE20_21_--_NA_FILES_-_Project_Portal_Client_Content/02_--_Projects_2025/SB03_--_Patterdale-Close/SB03_T02_D41_--_Foundations-Setting-Out-Plan.pdf
+
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+PNG FILE :  SB03_T02_D41_--_Foundations-Setting-Out-Plan
+-----------------------------------------------------------
+
+FILE NAME
+SB03_T02_D41_--_Foundations-Setting-Out-Plan.png
+
+LOCAL PATH
+D:\RE20_--_Core_Repo_--_Public\RE20_21_--_NA_FILES_-_Project_Portal_Client_Content\02_--_Projects_2025\SB03_--_Patterdale-Close\SB03_T02_D41_--_Foundations-Setting-Out-Plan.png
+
+LOCAL PATH - - (JSON VERSION)
+D:\\RE20_--_Core_Repo_--_Public\\RE20_21_--_NA_FILES_-_Project_Portal_Client_Content\\02_--_Projects_2025\\SB03_--_Patterdale-Close\\SB03_T02_D41_--_Foundations-Setting-Out-Plan.png
+
+GITHUB RAW URL
+https://raw.githubusercontent.com/Adam-Noble-01/RE20_--_Core_Repo_--_Public/main/RE20_21_--_NA_FILES_-_Project_Portal_Client_Content/02_--_Projects_2025/SB03_--_Patterdale-Close/SB03_T02_D41_--_Foundations-Setting-Out-Plan.png
+
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+PDF FILE :  SB03_T03_D10_--_Technical-Plan_-_Ground-Floor
+-----------------------------------------------------------
+
+FILE NAME
+
+
+LOCAL PATH
+D:\RE20_--_Core_Repo_--_Public\RE20_21_--_NA_FILES_-_Project_Portal_Client_Content\02_--_Projects_2025\SB03_--_Patterdale-Close\SB03_T03_D10_--_Technical-Plan_-_Ground-Floor.pdf
+
+LOCAL PATH - - (JSON VERSION)
+D:\\RE20_--_Core_Repo_--_Public\\RE20_21_--_NA_FILES_-_Project_Portal_Client_Content\\02_--_Projects_2025\\SB03_--_Patterdale-Close\\SB03_T03_D10_--_Technical-Plan_-_Ground-Floor.pdf
+
+GITHUB RAW URL
+https://raw.githubusercontent.com/Adam-Noble-01/RE20_--_Core_Repo_--_Public/main/RE20_21_--_NA_FILES_-_Project_Portal_Client_Content/02_--_Projects_2025/SB03_--_Patterdale-Close/SB03_T03_D10_--_Technical-Plan_-_Ground-Floor.pdf
+
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+PDF FILE :  SB03_T03_D20_--_Technical-Plan_-_First-Floor
+-----------------------------------------------------------
+
+FILE NAME
+SB03_T03_D20_--_Technical-Plan_-_First-Floor.pdf
+
+LOCAL PATH
+D:\RE20_--_Core_Repo_--_Public\RE20_21_--_NA_FILES_-_Project_Portal_Client_Content\02_--_Projects_2025\SB03_--_Patterdale-Close\SB03_T03_D20_--_Technical-Plan_-_First-Floor.pdf
+
+LOCAL PATH - - (JSON VERSION)
+D:\\RE20_--_Core_Repo_--_Public\\RE20_21_--_NA_FILES_-_Project_Portal_Client_Content\\02_--_Projects_2025\\SB03_--_Patterdale-Close\\SB03_T03_D20_--_Technical-Plan_-_First-Floor.pdf
+
+GITHUB RAW URL
+https://raw.githubusercontent.com/Adam-Noble-01/RE20_--_Core_Repo_--_Public/main/RE20_21_--_NA_FILES_-_Project_Portal_Client_Content/02_--_Projects_2025/SB03_--_Patterdale-Close/SB03_T03_D20_--_Technical-Plan_-_First-Floor.pdf
+
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+PNG FILE :  SB03_T03_D20_--_Technical-Plan_-_First-Floor
+-----------------------------------------------------------
+
+FILE NAME
+SB03_T03_D20_--_Technical-Plan_-_First-Floor.png
+
+LOCAL PATH
+D:\RE20_--_Core_Repo_--_Public\RE20_21_--_NA_FILES_-_Project_Portal_Client_Content\02_--_Projects_2025\SB03_--_Patterdale-Close\SB03_T03_D20_--_Technical-Plan_-_First-Floor.png
+
+LOCAL PATH - - (JSON VERSION)
+D:\\RE20_--_Core_Repo_--_Public\\RE20_21_--_NA_FILES_-_Project_Portal_Client_Content\\02_--_Projects_2025\\SB03_--_Patterdale-Close\\SB03_T03_D20_--_Technical-Plan_-_First-Floor.png
+
+GITHUB RAW URL
+https://raw.githubusercontent.com/Adam-Noble-01/RE20_--_Core_Repo_--_Public/main/RE20_21_--_NA_FILES_-_Project_Portal_Client_Content/02_--_Projects_2025/SB03_--_Patterdale-Close/SB03_T03_D20_--_Technical-Plan_-_First-Floor.png
+
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+PNG FILE :  SB03_T03_D20_--_Technical-Plan_-_Ground-Floor
+-----------------------------------------------------------
+
+FILE NAME
+SB03_T03_D20_--_Technical-Plan_-_Ground-Floor.png
+
+LOCAL PATH
+D:\RE20_--_Core_Repo_--_Public\RE20_21_--_NA_FILES_-_Project_Portal_Client_Content\02_--_Projects_2025\SB03_--_Patterdale-Close\SB03_T03_D20_--_Technical-Plan_-_Ground-Floor.png
+
+LOCAL PATH - - (JSON VERSION)
+D:\\RE20_--_Core_Repo_--_Public\\RE20_21_--_NA_FILES_-_Project_Portal_Client_Content\\02_--_Projects_2025\\SB03_--_Patterdale-Close\\SB03_T03_D20_--_Technical-Plan_-_Ground-Floor.png
+
+GITHUB RAW URL
+https://raw.githubusercontent.com/Adam-Noble-01/RE20_--_Core_Repo_--_Public/main/RE20_21_--_NA_FILES_-_Project_Portal_Client_Content/02_--_Projects_2025/SB03_--_Patterdale-Close/SB03_T03_D20_--_Technical-Plan_-_Ground-Floor.png
+
+-----------------------------------------------------------
+
+
