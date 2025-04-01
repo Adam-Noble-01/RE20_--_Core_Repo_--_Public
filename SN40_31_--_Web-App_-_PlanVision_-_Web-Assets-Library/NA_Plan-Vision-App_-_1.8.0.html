@@ -1344,7 +1344,8 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
 
     // Updated v1.8.0. - Enhanced JSON validation and drawing data loading
     async function fetchDrawings() {
-        const JSON_URL = "https://raw.githubusercontent.com/Adam-Noble-01/RE20_--_Core_Repo_--_Public/main/SN40_31_--_Web-App_-_PlanVision_-_Web-Assets-Library/SN40_32_--_PlanVision_-_Placeholder-Testing-Assets/NA06_-_DATA_-_Document-Library.json";
+        // Updated v1.8.0. - Changed from GitHub URL to local example file
+        const JSON_URL = "https://raw.githubusercontent.com/Adam-Noble-01/RE20_--_Core_Repo_--_Public/main/SN40_31_--_Web-App_-_PlanVision_-_Web-Assets-Library/SN40_-_DATA_-_Document-Library_-_EXAMPLE.json";
         try {
             const response = await fetch(JSON_URL);
             if (!response.ok) {
@@ -1913,6 +1914,7 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
         };
     }
 
+    // Updated v1.8.0. - Fixed measurement functionality
     function finalizeMeasurement(type) {
         if (type === "linear" && measuringPoints.length === 2) {
             const [start, end] = measuringPoints;
@@ -1924,8 +1926,8 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
 
             // Get current scale for display
             const currentDrawing = getCurrentDrawingData();
-            const scaleText = currentDrawing ? ` (${currentDrawing["document-scale"]})` : '';
-
+            
+            // Add to measurements array
             measurements.push({
                 type: "linear",
                 points: JSON.parse(JSON.stringify(measuringPoints)),
@@ -1944,14 +1946,16 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
             
             // Hide confirm button after finalizing
             finishBtn.style.display = "none";
+            
+            // Force a render update
+            renderLoop();
         } else if (type === "area" && measuringPoints.length > 2) {
             const areaPx2 = polygonArea(measuringPoints);
             const areaM2 = (areaPx2 * scaleMetresPerPixel * scaleMetresPerPixel).toFixed(2);
 
             // Get current scale for display
             const currentDrawing = getCurrentDrawingData();
-            const scaleText = currentDrawing ? ` (${currentDrawing["document-scale"]})` : '';
-
+            
             measurements.push({
                 type: "area",
                 points: JSON.parse(JSON.stringify(measuringPoints)),
@@ -1968,6 +1972,9 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
             
             // Hide confirm button
             finishBtn.style.display = "none";
+            
+            // Force a render update
+            renderLoop();
         } else if (type === "rectangle" && measuringPoints.length === 2) {
             const widthPx = Math.abs(measuringPoints[1].x - measuringPoints[0].x);
             const heightPx = Math.abs(measuringPoints[1].y - measuringPoints[0].y);
@@ -1982,8 +1989,7 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
 
             // Get current scale for display
             const currentDrawing = getCurrentDrawingData();
-            const scaleText = currentDrawing ? ` (${currentDrawing["document-scale"]})` : '';
-
+            
             measurements.push({
                 type: "rectangle",
                 points: JSON.parse(JSON.stringify(measuringPoints)),
@@ -2004,6 +2010,9 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
             
             // Hide confirm button
             finishBtn.style.display = "none";
+            
+            // Force a render update
+            renderLoop();
         }
     }  
 
