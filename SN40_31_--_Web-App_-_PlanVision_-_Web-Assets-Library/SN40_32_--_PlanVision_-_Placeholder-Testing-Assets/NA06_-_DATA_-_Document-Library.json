@@ -16,18 +16,18 @@
     "project-details":{
         "project-name-nickname"        :    "NA06 | App Testing",
         "project-name-string"          :    "NA06_--_App-Testing",
-        "project-address--house"       :    "Cloves Wood",
-        "project-address--house-no"    :    "NIL",
-        "project-address-street"       :    "Main Road",
-        "project-address-town"         :    "Morley",
-        "project-address-city"         :    "Derby",
-        "project-address-county"       :    "Derbyshire",
-        "project-address-postcode"     :    "DE7 6DG",
+        "project-address--house"       :    "123",
+        "project-address--house-no"    :    "Test House",
+        "project-address-street"       :    "Test Street",
+        "project-address-town"         :    "Test Town",
+        "project-address-city"         :    "Test City",
+        "project-address-county"       :    "Testshire",
+        "project-address-postcode"     :    "TE3 5ST",
         "project-general-notes-01"     :    "NIL",
         "project-portal-links":{
-            "portal-url-home"          :    "https://sites.google.com/view/ga06-project-portal/home",
-            "portal-url-planvision"    :    "https://sites.google.com/view/ga06-project-portal/planvision-app/planvision-web-app",
-            "portal-url-truevision"    :    "https://sites.google.com/view/ga06-project-portal/truevision-app/truevision-web-app"
+            "portal-url-home"          :    "https://sites.google.com/view/NA06-project-portal/home",
+            "portal-url-planvision"    :    "https://sites.google.com/view/NA06-project-portal/planvision-web-app",
+            "portal-url-truevision"    :    "https://sites.google.com/view/NA06-project-portal/truevision-web-app"
         }
     },  
     "project-documentation":{
@@ -80,6 +80,7 @@
                 "document-name"        :    "Drawing",
                 "document-type"        :    "Elevations Drawing",
                 "document-scale"       :    "1:50",
+                "document-size"        :    "A1",
                 "document-status"      :    "Planning Phase Drawing",
                 "document-notes"       :    "NIL",
                 "document-revisions"   :    {

@@ -1145,6 +1145,32 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
     let hasShownLinearInstructions = false;
     let hasShownAreaInstructions = false;
 
+    // Added v1.8.0. - Paper size dimensions in millimeters
+    const PAPER_SIZES = {
+        "A0": { width: 841, height: 1189 },
+        "A1": { width: 594, height: 841 },
+        "A2": { width: 420, height: 594 },
+        "A3": { width: 297, height: 420 },
+        "A4": { width: 210, height: 297 }
+    };
+
+    // Added v1.8.0. - Scale ratios mapping
+    const SCALE_RATIOS = {
+        "1:1": 1,
+        "1:2": 2,
+        "1:5": 5,
+        "1:10": 10,
+        "1:20": 20,
+        "1:25": 25,
+        "1:30": 30,
+        "1:50": 50,
+        "1:100": 100,
+        "1:200": 200,
+        "1:500": 500,
+        "1:1250": 1250,
+        "1:2500": 2500
+    };
+
     // =========================================================
     // ASSET LIBRARY MANAGEMENT FUNCTIONS
     // =========================================================
@@ -1316,9 +1342,9 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
     // JSON AND DRAWING MANAGEMENT FUNCTIONS
     // =========================================================
 
-    // Fetch drawings data from JSON configuration file //
+    // Updated v1.8.0. - Enhanced JSON validation and drawing data loading
     async function fetchDrawings() {
-        const JSON_URL = "https://raw.githubusercontent.com/Adam-Noble-01/RE20_--_Core_Repo_--_Public/main/RE20_21_--_NA_FILES_-_Project_Portal_Client_Content/02_--_Projects_2025/GA06_--_Cloves-Wood/GA06_-_DATA_-_Document-Library.json";
+        const JSON_URL = "https://raw.githubusercontent.com/Adam-Noble-01/RE20_--_Core_Repo_--_Public/main/SN40_31_--_Web-App_-_PlanVision_-_Web-Assets-Library/SN40_32_--_PlanVision_-_Placeholder-Testing-Assets/NA06_-_DATA_-_Document-Library.json";
         try {
             const response = await fetch(JSON_URL);
             if (!response.ok) {
@@ -1327,7 +1353,7 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
             const data = await response.json();
             console.log("Fetched data:", data);
 
-            // Check for the existence of each nested level
+            // Added v1.8.0. - Validate required JSON structure
             if (!data["na-project-data-library"]) {
                 throw new Error("Missing 'na-project-data-library' in JSON");
             }
@@ -1344,6 +1370,21 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
             console.log("project-drawings:", data["na-project-data-library"]["project-documentation"]["project-drawings"]);
 
             const drawings = data["na-project-data-library"]["project-documentation"]["project-drawings"];
+            
+            // Added v1.8.0. - Validate drawing entries
+            Object.entries(drawings).forEach(([key, drawing]) => {
+                if (key.startsWith("drawing-") && drawing["file-name"] !== "{{TEMPLATE_-_ENTRY_-_TO_-_COPY_-_DO_-_NOT_-_DELETE}}") {
+                    // Validate document size
+                    if (!drawing["document-size"] || !PAPER_SIZES[drawing["document-size"]]) {
+                        console.warn(`Invalid or missing document size for drawing: ${drawing["document-name"]}`);
+                    }
+                    // Validate document scale
+                    if (!drawing["document-scale"] || !SCALE_RATIOS[drawing["document-scale"]]) {
+                        console.warn(`Invalid or missing document scale for drawing: ${drawing["document-name"]}`);
+                    }
+                }
+            });
+
             return drawings;
         } catch (error) {
             console.error("Error fetching JSON:", error.message);
@@ -1415,6 +1456,9 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
             await loadPlanImage(pngUrl);
             isImageLoaded = true;
 
+            // Calculate and set scale based on document size and scale
+            updateDrawingScale(documentSize, documentScale);
+
             // Reset view which will now use the document size and scale from JSON
             resetView();
 
@@ -1431,14 +1475,37 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
         }
     }
 
-    // New function to update document info display
+    // Updated v1.8.0. - Enhanced document info display
     function updateDocumentInfo(size, scale) {
         const infoDiv = document.getElementById('measureInfo');
         if (infoDiv) {
-            let info = '';
-            if (size) info += `Paper Size: ${size}<br>`;
-            if (scale) info += `Scale: ${scale}`;
-            if (!info) info = 'No measurements yet.';
+            let info = '<strong>Drawing Information:</strong><br>';
+            
+            if (size && PAPER_SIZES[size]) {
+                const paperSize = PAPER_SIZES[size];
+                info += `Paper Size: ${size} (${paperSize.width}mm × ${paperSize.height}mm)<br>`;
+            }
+            
+            if (scale && SCALE_RATIOS[scale]) {
+                info += `Scale: ${scale}<br>`;
+            }
+            
+            if (measurements.length === 0) {
+                info += '<br>No measurements yet.';
+            } else {
+                info += '<br><strong>Measurements:</strong><br>';
+                measurements.forEach((m, i) => {
+                    const scaleText = m.scale ? ` (${m.scale})` : '';
+                    if (m.type === "linear") {
+                        info += `Line ${i + 1}: ${m.distanceMM} mm${scaleText}<br>`;
+                    } else if (m.type === "area") {
+                        info += `Area ${i + 1}: ${m.areaM2} m²${scaleText}<br>`;
+                    } else if (m.type === "rectangle") {
+                        info += `Rectangle ${i + 1}: ${m.widthMm} × ${m.heightMm} mm = ${m.areaM2} m²${scaleText}<br>`;
+                    }
+                });
+            }
+            
             infoDiv.innerHTML = info;
         }
     }
@@ -5483,6 +5550,26 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
                 btn.style.backgroundColor = '';
             }
         });
+    }
+
+    // Added v1.8.0. - New function to calculate and set drawing scale
+    function updateDrawingScale(documentSize, documentScale) {
+        if (!documentSize || !documentScale) return;
+
+        const paperSize = PAPER_SIZES[documentSize];
+        const scaleRatio = SCALE_RATIOS[documentScale];
+
+        if (!paperSize || !scaleRatio) return;
+
+        // Calculate scale based on paper width and image width
+        const realWidthMM = paperSize.width;
+        const drawnWidthPx = naturalImageWidth;
+        const mmPerPixel = realWidthMM / drawnWidthPx;
+        
+        // Set global scale factor (converts to metres)
+        scaleMetresPerPixel = (mmPerPixel * scaleRatio) / 1000;
+
+        console.log(`Drawing scale set to ${documentScale} (${scaleMetresPerPixel} metres per pixel)`);
     }
 })();
 </script>
