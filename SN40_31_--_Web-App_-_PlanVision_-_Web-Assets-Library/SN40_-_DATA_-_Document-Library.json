@@ -1,11 +1,11 @@
 {
     "na-project-data-library": {
         "file-metadata": {
-            "file-name": "GA06_-_DATA_-_Document-Library.json",
+            "file-name": "SN40_-_DATA_-_Document-Library.json",
             "file-type": ".json",
             "file-purpose": "Project Specific Documentation Link Library",
             "file-description": "This JSON file stores Noble Architecture project file documentation links in a single location and ensures quick retrieval.",
-            "file-created": "22-Mar-2025",
+            "file-created": "01-Apr-2025",
             "file-author": "Adam Noble - Noble Architecture",
             "file-key-required": "FALSE",
             "file-key-note": "Public Repo File - Sensitive Data Omitted",
@@ -15,20 +15,20 @@
             }
         },
         "project-details": {
-            "project-name-nickname": "GA06 | Cloves Wood",
-            "project-name-string": "GA06_--_Cloves-Wood",
+            "project-name-nickname": "NA06 | Placeholder Json File",
+            "project-name-string": "NA06_--_Placeholder-Json-File",
             "project-address--house": "Cloves Wood",
-            "project-address--house-no": "NIL",
-            "project-address-street": "Main Road",
-            "project-address-town": "Morley",
-            "project-address-city": "Derby",
-            "project-address-county": "Derbyshire",
-            "project-address-postcode": "DE7 6DG",
+            "project-address--house-no": "123",
+            "project-address-street": "Capybara Close",
+            "project-address-town": "Capyville",
+            "project-address-city": "Capyton",
+            "project-address-county": "Capyshire",
+            "project-address-postcode": "CY3 B4A",
             "project-general-notes-01": "NIL",
             "project-portal-links": {
-                "portal-url-home": "https://sites.google.com/view/ga06-project-portal/home",
-                "portal-url-planvision": "https://sites.google.com/view/ga06-project-portal/planvision-app/planvision-web-app",
-                "portal-url-truevision": "https://sites.google.com/view/ga06-project-portal/truevision-app/truevision-web-app"
+                "portal-url-home": "https://sites.google.com/view/na06-project-portal/home",
+                "portal-url-planvision": "https://sites.google.com/view/na06-project-portal/planvision-web-app",
+                "portal-url-truevision": "https://sites.google.com/view/na06-project-portal/truevision-web-app"
             }
         },
         "project-documentation": {
@@ -76,8 +76,8 @@
                     "added-to-register": "01/04/2025",
                     "document-type": "Drawing",
                     "document-name": "Floor Plans",
-                    "document-scale": "NIL",
-                    "document-size": "NIL",
+                    "document-scale": "1:100",
+                    "document-size": "A1",
                     "document-status": "Planning Phase Drawing",
                     "document-notes": "NIL",
                     "document-revisions": {
@@ -95,8 +95,8 @@
                     "added-to-register": "01/04/2025",
                     "document-type": "Drawing",
                     "document-name": "Elevations",
-                    "document-scale": "NIL",
-                    "document-size": "NIL",
+                    "document-scale": "1:100",
+                    "document-size": "A1",
                     "document-status": "Planning Phase Drawing",
                     "document-notes": "NIL",
                     "document-revisions": {
