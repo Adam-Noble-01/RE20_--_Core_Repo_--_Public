@@ -1,3 +1,14 @@
 {
-	"folders": []
+    "folders": [
+        {
+            "path": "."
+        },
+        {
+            "path": "D:\\RE20_--_Core_Repo_--_Public\\SN40_31_--_Web-App_-_PlanVision_-_Web-Assets-Library"
+        }
+    ],
+    "settings": {
+        "security.workspace.trust.enabled": false,
+        "git.enabled": false
+    }
 }

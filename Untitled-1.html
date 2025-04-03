@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Noble Audio Studio - v0.2.0</title>
+    <style>
+        /*
+      ------------------------------------------------------
+      BASIC GLOBAL STYLES
+      ------------------------------------------------------
+    */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+            background: #2c2c2c;
+            /* Dark, studio-like background */
+            color: #fff;
+        }
+
+        .daw-container {
+            padding: 1rem;
+        }
+
+        h1,
+        h2 {
+            margin: 0.5rem 0;
+        }
+
+        /*
+      ------------------------------------------------------
+      TRANSPORT / DAW CONTROLS
+      ------------------------------------------------------
+    */
+        .daw-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .transport-button,
+        .toggle-808-button,
+        .toggle-synth-button,
+        .toggle-bass-synth-button {
+            padding: 0.5rem 1rem;
+            background: #555;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+
+        .transport-button:hover,
+        .toggle-808-button:hover,
+        .toggle-synth-button:hover,
+        .toggle-bass-synth-button:hover {
+            background: #777;
+        }
+
+        .looper-select,
+        .tempo-input,
+        .synth-key-select,
+        .bass-synth-key-select {
+            padding: 0.5rem;
+            font-size: 1rem;
+            border: none;
+            border-radius: 4px;
+            outline: none;
+        }
+
+        /*
+      ------------------------------------------------------
+      DRUM MACHINE
+      ------------------------------------------------------
+    */
+        .drum-machine-container {
+            padding: 1rem;
+            border-top: 2px solid #444;
+            display: none;
+            /* Hidden by default until toggled */
+            margin-bottom: 1rem;
+        }
+
+        .instrument-row {
+            margin-bottom: 1rem;
+        }
+
+        .instrument-label {
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .drum-machine-grid {
+            display: grid;
+            grid-template-columns: repeat(16, minmax(40px, 1fr));
+            gap: 0.5rem;
+        }
+
+        .step-button {
+            background: #333;
+            border: 2px solid #999;
+            width: 40px;
+            height: 40px;
+            border-radius: 4px;
+            cursor: pointer;
+            position: relative;
+            transition: background 0.2s, filter 0.2s;
+            touch-action: none;
+        }
+
+        .step-button.active {
+            background: #ff4;
+            box-shadow: 0 0 10px #ff4;
+        }
+
+        /*
+      ------------------------------------------------------
+      MAIN SYNTH
+      ------------------------------------------------------
+    */
+        .synth-container {
+            padding: 1rem;
+            border-top: 2px solid #444;
+            display: none;
+            /* Hidden by default until toggled */
+            margin-bottom: 1rem;
+        }
+
+        .synth-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .synth-grid-container {
+            margin-top: 1rem;
+            overflow-x: auto;
+        }
+
+        .synth-grid {
+            display: grid;
+            grid-template-columns: repeat(16, minmax(40px, 1fr));
+            grid-template-rows: repeat(8, 40px);
+            gap: 0.5rem;
+        }
+
+        .synth-button {
+            background: #333;
+            border: 2px solid #999;
+            border-radius: 4px;
+            cursor: pointer;
+            position: relative;
+            transition: background 0.2s, filter 0.2s;
+            touch-action: none;
+        }
+
+        .synth-button.active {
+            background: #4f4;
+            box-shadow: 0 0 10px #4f4;
+        }
+
+        /*
+      ------------------------------------------------------
+      bass SYNTH (LOW OCTAVE)
+      ------------------------------------------------------
+    */
+        .bass-synth-container {
+            padding: 1rem;
+            border-top: 2px solid #444;
+            display: none;
+            /* Hidden by default until toggled */
+            margin-bottom: 1rem;
+        }
+
+        .bass-synth-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .bass-synth-grid-container {
+            margin-top: 1rem;
+            overflow-x: auto;
+        }
+
+        .bass-synth-grid {
+            display: grid;
+            grid-template-columns: repeat(16, minmax(40px, 1fr));
+            grid-template-rows: repeat(8, 40px);
+            gap: 0.5rem;
+        }
+
+        .bass-synth-button {
+            background: #333;
+            border: 2px solid #999;
+            border-radius: 4px;
+            cursor: pointer;
+            position: relative;
+            transition: background 0.2s, filter 0.2s;
+            touch-action: none;
+        }
+
+        .bass-synth-button.active {
+            background: #f33;
+            box-shadow: 0 0 10px #f33;
+        }
+
+        /*
+      ------------------------------------------------------
+      GLOBAL XY OVERLAY
+      ------------------------------------------------------
+    */
+        .xy-overlay {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border: 2px dashed #fff;
+            border-radius: 50%;
+            pointer-events: none;
+            display: none;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+        }
+
+        .xy-crosshair {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 2px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.5);
+            transform: translate(-50%, -50%);
+        }
+
+        .xy-crosshair::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: -98px;
+            width: 200px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.5);
+            transform: translate(0, -50%);
+        }
+    </style>
+</head>
+<body>
+    <div class="daw-container">
+        <h1>Noble Audio Studio</h1>
+        <h2>- v0.2.0</h2>
+
+        <!-- TRANSPORT CONTROLS -->
+        <div class="daw-controls">
+            <button class="transport-button" id="playBtn">Play</button>
+            <button class="transport-button" id="pauseBtn">Pause</button>
+            <button class="transport-button" id="stopBtn">Stop</button>
+
+            <!-- Looper -->
+            <label for="looperSelect">Loop:</label>
+            <select class="looper-select" id="looperSelect">
+                <option value="1">1 bar</option>
+                <option value="2">2 bars</option>
+                <option value="4">4 bars</option>
+                <option value="8">8 bars</option>
+                <option value="16">16 bars</option>
+            </select>
+
+            <!-- Tempo -->
+            <label for="tempoInput">Tempo:</label>
+            <input class="tempo-input" type="number" id="tempoInput" value="120" />
+        </div>
+
+        <!-- TOGGLE DRUM MACHINE -->
+        <button class="toggle-808-button" id="toggleDrumBtn">Load TR-808</button>
+        <div class="drum-machine-container" id="drumMachine">
+            <h2>TR-808 Style Drum Machine</h2>
+            <!-- Kick -->
+            <div class="instrument-row" data-instrument="kick">
+                <div class="instrument-label">Kick</div>
+                <div class="drum-machine-grid" id="kickGrid"></div>
+            </div>
+            <!-- Snare -->
+            <div class="instrument-row" data-instrument="snare">
+                <div class="instrument-label">Snare</div>
+                <div class="drum-machine-grid" id="snareGrid"></div>
+            </div>
+            <!-- Hat -->
+            <div class="instrument-row" data-instrument="hat">
+                <div class="instrument-label">Hat</div>
+                <div class="drum-machine-grid" id="hatGrid"></div>
+            </div>
+            <!-- Tom -->
+            <div class="instrument-row" data-instrument="tom">
+                <div class="instrument-label">Tom</div>
+                <div class="drum-machine-grid" id="tomGrid"></div>
+            </div>
+            <!-- Ride -->
+            <div class="instrument-row" data-instrument="ride">
+                <div class="instrument-label">Ride</div>
+                <div class="drum-machine-grid" id="rideGrid"></div>
+            </div>
+        </div>
+
+        <!-- TOGGLE MAIN SYNTH -->
+        <button class="toggle-synth-button" id="toggleSynthBtn">Load Synth</button>
+        <div class="synth-container" id="synthContainer">
+            <div class="synth-header">
+                <h2>Basic Synth (Scale Grid)</h2>
+                <label for="synthKeySelect">Key:</label>
+                <select id="synthKeySelect" class="synth-key-select">
+                    <option value="C">C Major</option>
+                    <option value="D">D Major</option>
+                    <option value="E">E Major</option>
+                    <option value="G">G Major</option>
+                </select>
+            </div>
+            <div class="synth-grid-container">
+                <div class="synth-grid" id="synthGrid"></div>
+            </div>
+        </div>
+
+        <!-- TOGGLE bass SYNTH (LOW OCTAVE) -->
+        <button class="toggle-bass-synth-button" id="togglebassSynthBtn">Load bass Synth</button>
+        <div class="bass-synth-container" id="bassSynthContainer">
+            <div class="bass-synth-header">
+                <h2>bass Synth (Low Octave)</h2>
+                <label for="bassSynthKeySelect">Key:</label>
+                <select id="bassSynthKeySelect" class="bass-synth-key-select">
+                    <option value="C">C Major</option>
+                    <option value="D">D Major</option>
+                    <option value="E">E Major</option>
+                    <option value="G">G Major</option>
+                </select>
+            </div>
+            <div class="bass-synth-grid-container">
+                <div class="bass-synth-grid" id="bassSynthGrid"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- GLOBAL XY OVERLAY FOR LONG-PRESS DRAG -->
+    <div class="xy-overlay" id="xyOverlay">
+        <div class="xy-crosshair"></div>
+    </div>
+
+    <script>
+        //----------------------------------------------------------------------------------
+        // GLOBAL VARIABLES & AUDIO SETUP
+        //----------------------------------------------------------------------------------
+        let audioContext;
+        let isPlaying = false;
+        let isPaused = false;
+        let nextStepTime = 0;
+        let currentStep = 0;
+        let schedulerTimer;
+
+        const totalStepsInBar = 16; // 16 steps = 1 bar
+        let loopBars = 1;           // number of bars to loop
+        let tempo = 120;            // default tempo
+
+        // DRUM MACHINE: each instrument (kick, snare, hat, tom, ride) has 16 steps
+        const patterns = {
+            kick: [],
+            snare: [],
+            hat: [],
+            tom: [],
+            ride: []
+        };
+
+        // MAIN SYNTH: 8 scale degrees x 16 steps
+        let synthKey = 'C';
+        const synthNotes = [];
+        const synthPattern = [];
+
+        // bass SYNTH: also 8 scale degrees x 16 steps, but lower octave
+        let bassSynthKey = 'C';
+        const bassSynthNotes = [];
+        const bassSynthPattern = [];
+
+        // Instrument references (drum)
+        const instrumentIds = ['kickGrid', 'snareGrid', 'hatGrid', 'tomGrid', 'rideGrid'];
+        const instrumentNames = ['kick', 'snare', 'hat', 'tom', 'ride'];
+
+        //----------------------------------------------------------------------------------
+        // DOM ELEMENTS
+        //----------------------------------------------------------------------------------
+        const playBtn = document.getElementById('playBtn');
+        const pauseBtn = document.getElementById('pauseBtn');
+        const stopBtn = document.getElementById('stopBtn');
+        const looperSelect = document.getElementById('looperSelect');
+        const tempoInput = document.getElementById('tempoInput');
+        const toggleDrumBtn = document.getElementById('toggleDrumBtn');
+        const drumMachine = document.getElementById('drumMachine');
+        const toggleSynthBtn = document.getElementById('toggleSynthBtn');
+        const synthContainer = document.getElementById('synthContainer');
+        const synthKeySelect = document.getElementById('synthKeySelect');
+        const synthGrid = document.getElementById('synthGrid');
+        const togglebassSynthBtn = document.getElementById('togglebassSynthBtn');
+        const bassSynthContainer = document.getElementById('bassSynthContainer');
+        const bassSynthKeySelect = document.getElementById('bassSynthKeySelect');
+        const bassSynthGrid = document.getElementById('bassSynthGrid');
+        const xyOverlay = document.getElementById('xyOverlay');
+
+        let drumMachineVisible = false;
+        let synthVisible = false;
+        let bassSynthVisible = false;
+
+        // Long press threshold (ms)
+        const LONG_PRESS_THRESHOLD = 200;
+
+        // XY overlay centre
+        let overlayCenterX = 0;
+        let overlayCenterY = 0;
+
+        //----------------------------------------------------------------------------------
+        // INITIAL SETUP FUNCTION
+        //----------------------------------------------------------------------------------
+        function init() {
+            // Create 16 steps for each drum instrument
+            instrumentNames.forEach((inst) => {
+                for (let i = 0; i < totalStepsInBar; i++) {
+                    patterns[inst].push({
+                        active: false,
+                        velocity: 1.0,
+                        length: 0.5
+                    });
+                }
+            });
+            buildDrumMachineUI();
+
+            // Main synth: define scale, pattern, and UI
+            defineSynthScale(synthKey);
+            buildSynthPattern();
+            buildSynthUI();
+
+            // bass synth: define scale, pattern, and UI
+            definebassSynthScale(bassSynthKey);
+            buildbassSynthPattern();
+            buildbassSynthUI();
+
+
+        }
+
+        //----------------------------------------------------------------------------------
+        // DRUM MACHINE UI
+        //----------------------------------------------------------------------------------
+        function buildDrumMachineUI() {
+            instrumentIds.forEach((gridId, idx) => {
+                const gridEl = document.getElementById(gridId);
+                const instrument = instrumentNames[idx];
+
+                for (let step = 0; step < totalStepsInBar; step++) {
+                    const button = document.createElement('button');
+                    button.classList.add('step-button');
+                    button.dataset.instrument = instrument;
+                    button.dataset.step = step;
+
+                    let pressTimer;
+                    let isLongPress = false;
+
+                    const onPointerDown = (e) => {
+                        e.preventDefault();
+                        isLongPress = false;
+                        pressTimer = setTimeout(() => {
+                            isLongPress = true;
+                            showXYOverlay(e.clientX, e.clientY);
+                        }, LONG_PRESS_THRESHOLD);
+                        button.setPointerCapture(e.pointerId);
+                    };
+
+                    const onPointerMove = (e) => {
+                        if (isLongPress) {
+                            handleXYDragDrum(button, instrument, step, e.clientX, e.clientY);
+                        }
+                    };
+
+                    const onPointerUp = (e) => {
+                        clearTimeout(pressTimer);
+                        if (!isLongPress) {
+                            quickToggleDrum(button, instrument, step);
+                        } else {
+                            hideXYOverlay();
+                        }
+                        button.releasePointerCapture(e.pointerId);
+                    };
+
+                    const onPointerCancel = (e) => {
+                        clearTimeout(pressTimer);
+                        hideXYOverlay();
+                        button.releasePointerCapture(e.pointerId);
+                    };
+
+                    button.addEventListener('pointerdown', onPointerDown);
+                    button.addEventListener('pointermove', onPointerMove);
+                    button.addEventListener('pointerup', onPointerUp);
+                    button.addEventListener('pointercancel', onPointerCancel);
+
+                    gridEl.appendChild(button);
+                }
+            });
+        }
+
+        function quickToggleDrum(button, instrument, step) {
+            const stepObj = patterns[instrument][step];
+            stepObj.active = !stepObj.active;
+
+            if (stepObj.active) {
+                stepObj.velocity = 1.0;
+                stepObj.length = 0.5;
+                button.classList.add('active');
+                button.style.filter = 'brightness(1.0)';
+            } else {
+                button.classList.remove('active');
+                button.style.filter = 'none';
+            }
+        }
+
+        function handleXYDragDrum(button, instrument, step, moveX, moveY) {
+            const dx = moveX - overlayCenterX;
+            const dy = overlayCenterY - moveY;
+            const maxDist = 100; // radius for full-scale movement
+
+            let velocity = 0.5 + (dy / maxDist) * 0.5;
+            velocity = Math.min(Math.max(velocity, 0), 1);
+
+            let lengthVal = 0.5 + (dx / maxDist) * 0.5;
+            lengthVal = Math.min(Math.max(lengthVal, 0), 1);
+            const mappedLength = 0.1 + lengthVal * 1.9;
+
+            const stepObj = patterns[instrument][step];
+            if (!stepObj.active) {
+                stepObj.active = true;
+                button.classList.add('active');
+            }
+
+            stepObj.velocity = velocity;
+            stepObj.length = mappedLength;
+            button.style.filter = `brightness(${0.5 + velocity * 0.5})`;
+        }
+
+        //----------------------------------------------------------------------------------
+        // MAIN SYNTH FUNCTIONS
+        //----------------------------------------------------------------------------------
+        const majorScaleIntervals = [0, 2, 4, 5, 7, 9, 11, 12];
+
+        function defineSynthScale(key) {
+            const keyMap = {
+                'C': 60,
+                'D': 62,
+                'E': 64,
+                'G': 67
+            };
+            const rootMidi = keyMap[key] || 60;
+            synthNotes.length = 0;
+            majorScaleIntervals.forEach(interval => {
+                synthNotes.push(rootMidi + interval);
+            });
+        }
+
+        function buildSynthPattern() {
+            for (let noteIndex = 0; noteIndex < 8; noteIndex++) {
+                synthPattern[noteIndex] = [];
+                for (let step = 0; step < totalStepsInBar; step++) {
+                    synthPattern[noteIndex][step] = {
+                        active: false,
+                        velocity: 1.0,
+                        length: 0.5
+                    };
+                }
+            }
+        }
+
+        function buildSynthUI() {
+            synthGrid.innerHTML = '';
+            for (let noteIndex = 0; noteIndex < 8; noteIndex++) {
+                for (let step = 0; step < totalStepsInBar; step++) {
+                    const cell = document.createElement('div');
+                    cell.classList.add('synth-button');
+                    cell.dataset.noteIndex = noteIndex;
+                    cell.dataset.step = step;
+
+                    let pressTimer;
+                    let isLongPress = false;
+
+                    const onPointerDown = (e) => {
+                        e.preventDefault();
+                        isLongPress = false;
+                        pressTimer = setTimeout(() => {
+                            isLongPress = true;
+                            showXYOverlay(e.clientX, e.clientY);
+                        }, LONG_PRESS_THRESHOLD);
+                        cell.setPointerCapture(e.pointerId);
+                    };
+
+                    const onPointerMove = (e) => {
+                        if (isLongPress) {
+                            handleXYDragSynth(cell, noteIndex, step, e.clientX, e.clientY);
+                        }
+                    };
+
+                    const onPointerUp = (e) => {
+                        clearTimeout(pressTimer);
+                        if (!isLongPress) {
+                            quickToggleSynth(cell, noteIndex, step);
+                        } else {
+                            hideXYOverlay();
+                        }
+                        cell.releasePointerCapture(e.pointerId);
+                    };
+
+                    const onPointerCancel = (e) => {
+                        clearTimeout(pressTimer);
+                        hideXYOverlay();
+                        cell.releasePointerCapture(e.pointerId);
+                    };
+
+                    cell.addEventListener('pointerdown', onPointerDown);
+                    cell.addEventListener('pointermove', onPointerMove);
+                    cell.addEventListener('pointerup', onPointerUp);
+                    cell.addEventListener('pointercancel', onPointerCancel);
+
+                    synthGrid.appendChild(cell);
+                }
+            }
+        }
+
+        function quickToggleSynth(cell, noteIndex, step) {
+            const stepObj = synthPattern[noteIndex][step];
+            stepObj.active = !stepObj.active;
+            if (stepObj.active) {
+                stepObj.velocity = 1.0;
+                stepObj.length = 0.5;
+                cell.classList.add('active');
+                cell.style.filter = 'brightness(1.0)';
+            } else {
+                cell.classList.remove('active');
+                cell.style.filter = 'none';
+            }
+        }
+
+        function handleXYDragSynth(cell, noteIndex, step, moveX, moveY) {
+            const dx = moveX - overlayCenterX;
+            const dy = overlayCenterY - moveY;
+            const maxDist = 100;
+
+            let velocity = 0.5 + (dy / maxDist) * 0.5;
+            velocity = Math.min(Math.max(velocity, 0), 1);
+
+            let lengthVal = 0.5 + (dx / maxDist) * 0.5;
+            lengthVal = Math.min(Math.max(lengthVal, 0), 1);
+            const mappedLength = 0.1 + lengthVal * 1.9;
+
+            const stepObj = synthPattern[noteIndex][step];
+            if (!stepObj.active) {
+                stepObj.active = true;
+                cell.classList.add('active');
+            }
+            stepObj.velocity = velocity;
+            stepObj.length = mappedLength;
+            cell.style.filter = `brightness(${0.5 + velocity * 0.5})`;
+        }
+
+        //----------------------------------------------------------------------------------
+        // bass SYNTH FUNCTIONS (LOW OCTAVE)
+        //----------------------------------------------------------------------------------
+        function definebassSynthScale(key) {
+            // Shift everything down by 12 for one octave below
+            const keyMap = {
+                'C': 60 - 12,
+                'D': 62 - 12,
+                'E': 64 - 12,
+                'G': 67 - 12
+            };
+            const rootMidi = keyMap[key] || (60 - 12);
+            bassSynthNotes.length = 0;
+            majorScaleIntervals.forEach(interval => {
+                bassSynthNotes.push(rootMidi + interval);
+            });
+        }
+
+        function buildbassSynthPattern() {
+            for (let noteIndex = 0; noteIndex < 8; noteIndex++) {
+                bassSynthPattern[noteIndex] = [];
+                for (let step = 0; step < totalStepsInBar; step++) {
+                    bassSynthPattern[noteIndex][step] = {
+                        active: false,
+                        velocity: 1.0,
+                        length: 0.5
+                    };
+                }
+            }
+        }
+
+        function buildbassSynthUI() {
+            bassSynthGrid.innerHTML = '';
+            for (let noteIndex = 0; noteIndex < 8; noteIndex++) {
+                for (let step = 0; step < totalStepsInBar; step++) {
+                    const cell = document.createElement('div');
+                    cell.classList.add('bass-synth-button');
+                    cell.dataset.noteIndex = noteIndex;
+                    cell.dataset.step = step;
+
+                    let pressTimer;
+                    let isLongPress = false;
+
+                    const onPointerDown = (e) => {
+                        e.preventDefault();
+                        isLongPress = false;
+                        pressTimer = setTimeout(() => {
+                            isLongPress = true;
+                            showXYOverlay(e.clientX, e.clientY);
+                        }, LONG_PRESS_THRESHOLD);
+                        cell.setPointerCapture(e.pointerId);
+                    };
+
+                    const onPointerMove = (e) => {
+                        if (isLongPress) {
+                            handleXYDragbassSynth(cell, noteIndex, step, e.clientX, e.clientY);
+                        }
+                    };
+
+                    const onPointerUp = (e) => {
+                        clearTimeout(pressTimer);
+                        if (!isLongPress) {
+                            quickTogglebassSynth(cell, noteIndex, step);
+                        } else {
+                            hideXYOverlay();
+                        }
+                        cell.releasePointerCapture(e.pointerId);
+                    };
+
+                    const onPointerCancel = (e) => {
+                        clearTimeout(pressTimer);
+                        hideXYOverlay();
+                        cell.releasePointerCapture(e.pointerId);
+                    };
+
+                    cell.addEventListener('pointerdown', onPointerDown);
+                    cell.addEventListener('pointermove', onPointerMove);
+                    cell.addEventListener('pointerup', onPointerUp);
+                    cell.addEventListener('pointercancel', onPointerCancel);
+
+                    bassSynthGrid.appendChild(cell);
+                }
+            }
+        }
+
+        function quickTogglebassSynth(cell, noteIndex, step) {
+            const stepObj = bassSynthPattern[noteIndex][step];
+            stepObj.active = !stepObj.active;
+            if (stepObj.active) {
+                stepObj.velocity = 1.0;
+                stepObj.length = 0.5;
+                cell.classList.add('active');
+                cell.style.filter = 'brightness(1.0)';
+            } else {
+                cell.classList.remove('active');
+                cell.style.filter = 'none';
+            }
+        }
+
+        function handleXYDragbassSynth(cell, noteIndex, step, moveX, moveY) {
+            const dx = moveX - overlayCenterX;
+            const dy = overlayCenterY - moveY;
+            const maxDist = 100;
+
+            let velocity = 0.5 + (dy / maxDist) * 0.5;
+            velocity = Math.min(Math.max(velocity, 0), 1);
+
+            let lengthVal = 0.5 + (dx / maxDist) * 0.5;
+            lengthVal = Math.min(Math.max(lengthVal, 0), 1);
+            const mappedLength = 0.1 + lengthVal * 1.9;
+
+            const stepObj = bassSynthPattern[noteIndex][step];
+            if (!stepObj.active) {
+                stepObj.active = true;
+                cell.classList.add('active');
+            }
+            stepObj.velocity = velocity;
+            stepObj.length = mappedLength;
+            cell.style.filter = `brightness(${0.5 + velocity * 0.5})`;
+        }
+
+        //----------------------------------------------------------------------------------
+        // XY OVERLAY FUNCTIONS
+        //----------------------------------------------------------------------------------
+        function showXYOverlay(x, y) {
+            xyOverlay.style.display = 'block';
+            xyOverlay.style.left = x + 'px';
+            xyOverlay.style.top = y + 'px';
+            overlayCenterX = x;
+            overlayCenterY = y;
+        }
+
+        function hideXYOverlay() {
+            xyOverlay.style.display = 'none';
+        }
+
+        // Hide overlay if user lifts pointer outside a grid cell
+        window.addEventListener('pointerup', () => {
+            hideXYOverlay();
+        });
+
+        //----------------------------------------------------------------------------------
+        // TRANSPORT CONTROL LOGIC
+        //----------------------------------------------------------------------------------
+        playBtn.addEventListener('click', () => {
+            // Fallback for older Safari
+            if (!audioContext) {
+                if (window.AudioContext) {
+                    audioContext = new AudioContext();
+                } else if (window.webkitAudioContext) {
+                    audioContext = new window.webkitAudioContext();
+                } else {
+                    alert('Web Audio not supported in this browser.');
+                    return;
+                }
+            }
+
+            // If context is suspended (common in Chrome), resume on user gesture
+            if (audioContext.state === 'suspended') {
+                audioContext.resume();
+            }
+
+            if (!isPlaying) {
+                isPlaying = true;
+                isPaused = false;
+                currentStep = 0;
+                nextStepTime = audioContext.currentTime;
+                scheduler();
+            } else if (isPaused) {
+                isPaused = false;
+                nextStepTime = audioContext.currentTime;
+                scheduler();
+            }
+            console.log('Play pressed');
+        });
+
+        pauseBtn.addEventListener('click', () => {
+            if (isPlaying) {
+                isPaused = true;
+                clearInterval(schedulerTimer);
+                console.log('Pause pressed');
+            }
+        });
+
+        stopBtn.addEventListener('click', () => {
+            isPlaying = false;
+            isPaused = false;
+            clearInterval(schedulerTimer);
+            currentStep = 0;
+            console.log('Stop pressed');
+        });
+
+        looperSelect.addEventListener('change', (e) => {
+            loopBars = parseInt(e.target.value);
+            console.log('Loop set to:', loopBars);
+        });
+
+        tempoInput.addEventListener('change', (e) => {
+            tempo = parseInt(e.target.value);
+            console.log('Tempo set to:', tempo, 'BPM');
+        });
+
+        //----------------------------------------------------------------------------------
+        // SHOW / HIDE SECTIONS
+        //----------------------------------------------------------------------------------
+        toggleDrumBtn.addEventListener('click', () => {
+            drumMachineVisible = !drumMachineVisible;
+            drumMachine.style.display = drumMachineVisible ? 'block' : 'none';
+            toggleDrumBtn.textContent = drumMachineVisible ? 'Unload TR-808' : 'Load TR-808';
+        });
+
+        toggleSynthBtn.addEventListener('click', () => {
+            synthVisible = !synthVisible;
+            synthContainer.style.display = synthVisible ? 'block' : 'none';
+            toggleSynthBtn.textContent = synthVisible ? 'Unload Synth' : 'Load Synth';
+        });
+
+        togglebassSynthBtn.addEventListener('click', () => {
+            bassSynthVisible = !bassSynthVisible;
+            bassSynthContainer.style.display = bassSynthVisible ? 'block' : 'none';
+            togglebassSynthBtn.textContent = bassSynthVisible ? 'Unload bass Synth' : 'Load bass Synth';
+        });
+
+        synthKeySelect.addEventListener('change', (e) => {
+            synthKey = e.target.value;
+            defineSynthScale(synthKey);
+            console.log('Synth key set to:', synthKey);
+        });
+
+        bassSynthKeySelect.addEventListener('change', (e) => {
+            bassSynthKey = e.target.value;
+            definebassSynthScale(bassSynthKey);
+            console.log('bass Synth key set to:', bassSynthKey);
+        });
+
+        //----------------------------------------------------------------------------------
+        // SCHEDULER FUNCTIONS
+        //----------------------------------------------------------------------------------
+        function scheduler() {
+            clearInterval(schedulerTimer);
+            schedulerTimer = setInterval(() => {
+                if (!isPlaying || isPaused || !audioContext) return;
+                while (nextStepTime < audioContext.currentTime + 0.1) {
+                    // If we fall behind, clamp to current time
+                    if (nextStepTime < audioContext.currentTime) {
+                        nextStepTime = audioContext.currentTime;
+                    }
+                    scheduleStep(currentStep, nextStepTime);
+                    advanceStep();
+                }
+            }, 100);
+        }
+
+        function advanceStep() {
+            const secondsPerBeat = 60.0 / tempo;
+            // 1 beat = 4 steps in a 16th grid, so each step is 1/4 of a beat
+            const secondsPer16th = secondsPerBeat / 4;
+            nextStepTime += secondsPer16th;
+            currentStep = (currentStep + 1) % (totalStepsInBar * loopBars);
+        }
+
+        function scheduleStep(step, time) {
+            const patternIndex = step % totalStepsInBar;
+
+            // Drums
+            instrumentNames.forEach((inst) => {
+                const stepObj = patterns[inst][patternIndex];
+                if (stepObj.active) {
+                    playDrumSound(inst, time, stepObj.velocity, stepObj.length);
+                }
+            });
+
+            // Main Synth
+            for (let noteIndex = 0; noteIndex < 8; noteIndex++) {
+                const noteStep = synthPattern[noteIndex][patternIndex];
+                if (noteStep.active) {
+                    const midiNote = synthNotes[noteIndex];
+                    playSynthNote(midiNote, time, noteStep.velocity, noteStep.length);
+                }
+            }
+
+            // bass Synth
+            for (let noteIndex = 0; noteIndex < 8; noteIndex++) {
+                const noteStep = bassSynthPattern[noteIndex][patternIndex];
+                if (noteStep.active) {
+                    const midiNote = bassSynthNotes[noteIndex];
+                    playbassSynthNote(midiNote, time, noteStep.velocity, noteStep.length);
+                }
+            }
+        }
+
+        //----------------------------------------------------------------------------------
+        // DRUM SOUND FUNCTIONS
+        //----------------------------------------------------------------------------------
+        function playDrumSound(instrument, time, velocity, length) {
+            const ctx = audioContext;
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+
+            let frequency = 200;
+            switch (instrument) {
+                case 'kick': frequency = 100; break;
+                case 'snare': frequency = 200; break;
+                case 'hat': frequency = 800; break;
+                case 'tom': frequency = 400; break;
+                case 'ride': frequency = 1200; break;
+            }
+            osc.frequency.setValueAtTime(frequency, time);
+
+            // Set volume envelope
+            gain.gain.setValueAtTime(velocity, time);
+            gain.gain.exponentialRampToValueAtTime(0.001, time + length);
+
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+
+            osc.start(time);
+            osc.stop(time + length + 0.05);
+        }
+
+        //----------------------------------------------------------------------------------
+        // SYNTH SOUND FUNCTIONS
+        //----------------------------------------------------------------------------------
+        function playSynthNote(midiNote, time, velocity, length) {
+            const ctx = audioContext;
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+
+            const freq = 440 * Math.pow(2, (midiNote - 69) / 12);
+            osc.frequency.setValueAtTime(freq, time);
+
+            // Volume envelope
+            gain.gain.setValueAtTime(velocity, time);
+            gain.gain.exponentialRampToValueAtTime(0.001, time + length);
+
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+
+            osc.start(time);
+            osc.stop(time + length + 0.1);
+        }
+
+        function playbassSynthNote(midiNote, time, velocity, length) {
+            const ctx = audioContext;
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+
+            const freq = 440 * Math.pow(2, (midiNote - 69) / 12) / 2;
+            osc.frequency.setValueAtTime(freq, time);
+
+            // Volume envelope
+            gain.gain.setValueAtTime(velocity, time);
+            gain.gain.exponentialRampToValueAtTime(0.001, time + length);
+
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+
+            osc.start(time);
+            osc.stop(time + length + 0.1);
+        }
+
+        //----------------------------------------------------------------------------------
+        // START INITIALISATION
+        //----------------------------------------------------------------------------------
+        init();
+    </script>
+</body>
+</html>

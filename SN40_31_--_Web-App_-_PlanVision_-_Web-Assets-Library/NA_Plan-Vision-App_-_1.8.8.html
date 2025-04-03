@@ -284,7 +284,7 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
                         - Shows brief visual feedback when copying elements
                         - Pasted elements are automatically selected for immediate editing
 
-25-Apr-2025 - v1.7.0  |  CENTRALISED ASSET LIBRARY IMPLEMENTATION
+25-Mar-2025 - v1.7.0  |  CENTRALISED ASSET LIBRARY IMPLEMENTATION
                     - Added centralised asset library for consistent branding and UI assets:
                         - Implemented dynamic font loading system using @font-face declarations
                         - Added Open Sans font family (regular, light, semi-bold) for UI elements
@@ -302,7 +302,7 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
                         - Corrected font scaling on different zoom levels
                         - Improved text positioning in markup elements
 
-2-Apr-2025 - v1.7.1  |  UI CLEANUP & OPTIMIZATION
+25-Mar-2025 -  - v1.7.1  |  UI CLEANUP & OPTIMIZATION
                     - Removed Polygon Tool from markup toolset for improved usability:
                         - Simplified markup tools menu by eliminating rarely used functionality
                         - Reduced user interface clutter
@@ -316,7 +316,7 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
                         - Optimized memory usage for complex markup operations
                         - Enhanced copy/paste functionality feedback
 
-5-Apr-2025 - v1.7.2  |  UI & TOOL REFINEMENTS
+26-Mar-2025 - v1.7.2  |  UI & TOOL REFINEMENTS
                     - Improved arrow tool:
                         - Changed from straight lines to natural S-curved arrows
                         - Enhanced sketchy hand-drawn appearance with better technical pen style
@@ -415,49 +415,114 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
                       Thus not utilising the already existing data in the Json File was heavily innefficient.                    
 
 
-"EXAMPLE JSON SNIPPET TO BE DELETED ONCE UPDATES ARE COMPLETED"
-```JSON
-    "project-documentation":{
-        "project-drawings":{
-            "drawing-01"               :    {
-                "file-name"            :    "GA06_T02_D22_--_PD-Elevations-Drawing.pdf",
-                "added-to-register"    :    "22-Mar-2025",
-                "document-type"        :    "Drawing",
-                "document-name"        :    "Elevations Drawing",   
-                "document-scale"       :    "1:50",
-                "document-size"        :    "A1",
-                "document-status"      :    "Planning Phase Drawing",
-                "document-notes"       :    "NIL",
-                "document-revisions":{
-                    "revision-a"       :   "24-02-2025",
-                    "revision-b"       :    "NIL",
-                    "revision-c"       :    "NIL",
-                    "revision-d"       :    "NIL",
-                    "revision-e"       :    "NIL"
-                },
-                "document-links":{
-                    "png--windows-dir-path"    :    "D:\\RE20_--_Core_Repo_--_Public\\RE20_21_--_NA_FILES_-_Project_Portal_Client_Content\\02_--_Projects_2025\\GA06_--_Cloves-Wood\\GA06_T02_D22_--_PD-Elevations-Drawing.png",
-                    "pdf--windows-dir-path"    :    "D:\\RE20_--_Core_Repo_--_Public\\RE20_21_--_NA_FILES_-_Project_Portal_Client_Content\\02_--_Projects_2025\\GA06_--_Cloves-Wood\\GA06_T02_D22_--_PD-Elevations-Drawing.pdf",
-                    "png--github-link-url"     :    "https://raw.githubusercontent.com/Adam-Noble-01/RE20_--_Core_Repo_--_Public/main/RE20_21_--_NA_FILES_-_Project_Portal_Client_Content/02_--_Projects_2025/GA06_--_Cloves-Wood/GA06_T02_D22_--_PD-Elevations-Drawing.png",
-                    "pdf--github-link-url"     :    "https://raw.githubusercontent.com/Adam-Noble-01/RE20_--_Core_Repo_--_Public/main/RE20_21_--_NA_FILES_-_Project_Portal_Client_Content/02_--_Projects_2025/GA06_--_Cloves-Wood/GA06_T02_D22_--_PD-Elevations-Drawing.pdf"
-                }
-            },
-            "drawing-02":{
-                "file-name"             :    "GA06_T02_D11_--_PD-Site-Plans.pdf",
-                "added-to-register"     :    "22-Mar-2025",
-                "document-type"         :    "Drawing",
-                "document-name"         :    "Site Plan Drawing",
-                "document-scale"        :    "1:500",
-                "document-size"         :    "A2",
-                "document-status"       :    "Planning Phase Drawing",
-                "document-notes"        :    "NIL",
-                "document-revisions":{
-                    "revision-a"        :    "24-02-2025"
-                }, JSON CONTINUES
-```
+02-Apr-2025 - v1.8.1  |  MAJOR CODE CLEANUP UPDATE
+                    - Code sections and regions reorganised.
+                      - Code has been added to over many many sessions so sections were hapharzardly added and removed.
+                      - This has now been cleaned up and reorganised to make it easier to maintain and update the code.
+                    - Consistent code styling applied.
+                    - Now all code sections have a header and are in a logical order rather than being illogoically ordered.
+                    - Created a new code conventions section for the header section to assist and make it clear to other programmers
+                      how to maintain and update the code, and the region and sub region structure.
+
+02-Apr-2025 - v1.8.4  |  TEXT TOOL IMPROVEMENTS
+                    - Separated text size control from line thickness slider:
+                        - Line thickness slider now only affects drawing tools (pencil, shapes, arrows)
+                        - Added dropdown menu in text editor for font size selection
+                        - Implemented three standardized text sizes:
+                            • Small (10pt)
+                            • Medium (12pt)
+                            • Large (18pt)
+                        - Text sizes automatically scale with drawing scale to maintain consistent real-world dimensions
+                        - Ensures text remains proportional across different paper sizes (A0-A4)
+                    - Enhanced text editor dialog:
+                        - Added font size dropdown menu
+                        - Maintained existing handwriting font style
+                        - Preserved text color selection functionality
+                        - Ensures text size is adjustable before and after text is added to the drawing
+
+02-Apr-2025 - v1.8.5  |  ADDITIONAL MARKUP TOOL ADDED - Drawing Staight Line 
+                    - Straight Line Tool
+                        - Uses the same line style appearance as used on the markup box drawing tool
+                        - Appearance of the lines look sketchy as per the markup toolset style and design intent
+                        - Simple drag point to point function like the linear measuring tool
+                        - Inlcudes both mouse and touchscreen handling
+                        - Cancel button appears when the tool is activated 
+                          - (In the markup toolset menu as with other tools)
+                        - Button is styled to match the markup toolset  
+                        - Button is positioned in the markup toolset at the top of the drawing toolset
+                            - Below the selection tools
+
+02-Apr-2025 - v1.8.6  |  ADDITIONAL MARKUP TOOL ADDED - Draw Cruved Line (Draw Arc) 
+                    -  Arc Drawing Tool 
+                        - Uses the same line style appearance as used on the markup box / straight line drawing tool
+                        - Appearance of the lines look sketchy as per the markup toolset style and design intent
+                        - Draw the spline by dragging from the start to the end point
+                        - A true arc is created but can be manipulated after creation using a centre handle
+                        - Inlcudes both mouse and touchscreen handling
+                        - Cancel button appears when the tool is activated 
+                          - (In the markup toolset menu as with other tools)
+                        - Button is styled to match the markup toolset  
+                          - (Buttonn was created in the previous version, may need linking and listeners etc)
+                        - Button is positioned in the markup toolset at the top of the drawing toolset
+                            - Below the selection tools
+
 
 ??-???-2025 - v1.9.0  |  LIST FUTURE UPDATES HERE
 
+=======================================================================================================================
+
+# Coding Conventions: Region & Sub-Region Structure
+
+## Main Regions
+- Main regions must be clearly defined using a header comment that follows this format:
+  - Format:  
+    {{LANGUAGE_OR_FUNCTION}} |  {{DESCRIPTIVE_TITLE}}
+  - Immediately after the title, include a version note (e.g. "Introduced in v1.8.1") that dynamically reflects the version when the section was added.
+  - Follow with a DESCRIPTION section that briefly explains the purpose and functionality of the code block.
+  - A divider line made up of 80 equal signs (=) must separate each main region. This divider visually distinguishes one region from the next.
+
+## Sub-Regions
+- Sub-regions are used to further segment code within a main region.
+  - Format:  
+    {{LANGUAGE_OR_FUNCTION}} |  {{DESCRIPTIVE_TITLE}}
+  - Include a version note indicating when the sub-region was introduced.
+  - Add a DESCRIPTION section and, if needed, an IMPORTANT NOTES section to include lessons learned or critical points to avoid recurring errors.
+  - A divider line composed of 60 hyphens (-) must be used to mark the beginning of a sub-region.
+    - PRIMARY FUNCTION - For the main function definition
+    - HANDLER SECTION - For major code sections handling different tool categories
+    - EVENT HANDLER - For specific tool event handling code
+
+## General Guidelines
+- All code must be clearly commented and organised in a logical sequence.
+- Version numbers should be updated dynamically to reflect the most recent changes.
+- Critical notes or lessons learned should be documented in the IMPORTANT NOTES section.
+- Consistency is key: this structure should be applied across the entire codebase to ensure a standard approach to coding and maintenance.
+
+## Examples
+
+### Example of a Main Region Header
+
+================================================================================  
+JAVASCRIPT |  GLOBAL VARIABLES & CONSTANTS  
+- Introduced in v1.0.0  
+DESCRIPTION  
+- Defines all global variables and constants used throughout the application.  
+================================================================================  
+
+### Example of a Sub-Region Header
+
+--------------------------------------------  
+JAVASCRIPT |  ASSET LIBRARY MANAGEMENT FUNCTIONS  
+- Introduced in v1.7.4  
+DESCRIPTION  
+- Functions responsible for fetching and loading asset data.  
+IMPORTANT NOTES  
+- Ensure robust error handling for network failures.  
+--------------------------------------------  
+
+
+
+=======================================================================================================================
 =======================================================================================================================
 -->
 
@@ -982,7 +1047,7 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
         <div id="header">
             <button id="toggleToolbarBtn">☰</button>
             <span id="app-title" style="padding-left: 10px;">PlanVision
-                <span style="font-size: 12px; color: #656565;">- Testing Version 1.8.1 Beta</span>
+                <span style="font-size: 12px; color: #656565;">- Testing Version 1.8.6 Beta</span>
             </span>
             <img src="https://raw.githubusercontent.com/Adam-Noble-01/RE10_I_GitHub_I_Public_Repo/main/RE20_22_--_NA_FILES_--_Brand-Assets-Web-Library/RE20_22_01_-_FILES_-_Noble-Architecture_-_Core-Brand-Image-Assets/RE20_22_01_01_-_PNG_-_NA_Company_Logo.png"
             alt="Noble Architecture Logo">
@@ -1027,14 +1092,29 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
 
                 
                 <div class="menu_-_drawing-button-header-text">Drawing Tools</div>
-                <button class="tool-button" id="markupSelectionBtn">Selection Tool</button>
-                <button class="tool-button" id="markupPencilBtn">Pen Tool</button>
-                <button class="tool-button" id="markupEraserBtn">Eraser Tool</button>
-                <button class="tool-button" id="markupArrowBtn">Arrow Tool</button>
-                <button class="tool-button" id="markupTextBtn">Text Box</button>
-                <button class="tool-button" id="markupRectBtn">Rectangle</button>
-                <button class="tool-button" id="markupFilledRectBtn">Filled Rectangle</button>
-                <button class="tool-button" id="markupCircleBtn">Circle Tool</button>
+                <button class="tool-button" id="markupSelectionBtn">Object - Selection Tool</button>
+                <!-- 
+                // ----------------------------------------------------
+                // REMOVED IN v1.8.3 - PENCIL TOOL
+                // - Replaced with Straight Line and Arc Drawing Tools
+                // - Keep this commented out for reference
+                // ----------------------------------------------------
+                <button class="tool-button" id="markupPencilBtn">Draw - Pencil</button>
+                -->
+                <button class="tool-button" id="markupEraserBtn">Object - Eraser Tool</button>
+                
+                <!-- 
+                ----------------------------------------------------
+                ADDED IN v1.8.3 - NEW DRAWING TOOLS
+                - Straight Line and Arc Drawing Tools added 02-Apr-2025 -->
+                <button class="tool-button" id="markupLineBtn">Draw - Straight Line</button>
+                <button class="tool-button" id="markupArcBtn">Draw - Arc</button>
+                
+                <button class="tool-button" id="markupRectBtn">Draw - Rectangle</button>
+                <button class="tool-button" id="markupFilledRectBtn">Draw - Filled Rectangle</button>
+                <button class="tool-button" id="markupCircleBtn">Draw - Circle Tool</button>
+                <button class="tool-button" id="markupArrowBtn">Draw - Arrow Tool</button>
+                <button class="tool-button" id="markupTextBtn">Add Text Annotation</button>
                 <button class="tool-button" id="cancelMarkupToolBtn" style="display: none; background: #d9534f;">Cancel Current Tool</button>
                 
                 <div class="menu_-_drawing-button-header-text">Line Width</div>
@@ -1092,6 +1172,11 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
         ==================================================================== 
         -->
         <div id="markup-text-dialog">
+            <select id="markup-text-size" style="width: 100%; margin-bottom: 10px; padding: 5px;">
+                <option value="20">Small Text - 12.00pt</option>
+                <option value="24" selected>Medium Text - 14.00pt</option>
+                <option value="36">Large Text  - 18.00pt</option>
+            </select>
             <textarea id="markup-text-input" placeholder="Enter text here..." rows="4"></textarea>
             <div class="markup-dialog-buttons">
                 <button class="markup-dialog-button" id="markup-text-cancel">Cancel</button>
@@ -1109,9 +1194,11 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
 
 <script>
 (function() {
-    // =========================================================
-    // GLOBAL VARIABLES & CONSTANTS
-    // =========================================================
+    // =============================================================================================
+    // JAVASCRIPT |  GLOBAL VARIABLES & CONSTANTS
+    // - This section introduced in v1.8.1
+    // Contains all global variables and constant definitions for the application
+    // =============================================================================================
     const MIN_ZOOM = 0.1;
     const MAX_ZOOM = 2;
     const ROUND_DIMENSIONS_ENABLED = true;
@@ -1150,7 +1237,6 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
     let isRectDragging = false;     // Add this near isRectMeasuring
     let rectStartPoint = null;
 
-
     let planImage = new Image();
     planImage.crossOrigin = "anonymous";
     let isImageLoaded = false;
@@ -1163,9 +1249,15 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
     let hasShownLinearInstructions = false;
     let hasShownAreaInstructions = false;
 
-    // =========================================================
+    // -----------------------------------------
+    // ARC - STATE VARIABLES
+    // Added |  02-Apr-2025 - 1.8.5.
+    let isArcDrawing = false;
+    let currentArc = null;
+
+    // ========================================================================
     // ASSET LIBRARY MANAGEMENT FUNCTIONS
-    // =========================================================
+    // ========================================================================
 
     // Fetch asset library from centralized JSON file //
     async function fetchAssetLibrary() {
@@ -1188,16 +1280,11 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
 
     // Load fonts from asset library using @font-face //
     function loadFontsFromAssetLibrary(assetLibrary) {
-        if (!assetLibrary || !assetLibrary.na_assets || !assetLibrary.na_assets.na_fonts) {
-            console.warn("Asset library missing font definitions, using fallbacks");
-            return;
-        }
-        
         const fontStylesElement = document.getElementById("dynamic-font-styles");
         let fontDeclarations = "";
         
         // Load Open Sans fonts
-        const openSansFonts = assetLibrary.na_assets.na_fonts["fonts-open-sans"];
+        const openSansFonts = assetLibrary?.na_assets?.na_fonts?.["fonts-open-sans"] || {};
         if (openSansFonts) {
             if (openSansFonts["open-sans-regular"]) {
                 fontDeclarations += `
@@ -1209,59 +1296,71 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
                         font-display: swap;
                     }
                 `;
-            }
-            
-            if (openSansFonts["open-sans-semi-bold"]) {
+            } else {
+                console.warn("Open Sans Regular not found in asset library, using Google Fonts fallback.");
                 fontDeclarations += `
                     @font-face {
                         font-family: 'Open Sans';
                         font-style: normal;
-                        font-weight: 600;
-                        src: url('${openSansFonts["open-sans-semi-bold"]}') format('truetype');
+                        font-weight: 400;
+                        src: url('https://fonts.gstatic.com/s/opensans/v35/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsjZ0B4gaVI.woff2') format('woff2');
                         font-display: swap;
                     }
                 `;
             }
             
-            if (openSansFonts["open-sans-light"]) {
-                fontDeclarations += `
-                    @font-face {
-                        font-family: 'Open Sans';
-                        font-style: normal;
-                        font-weight: 300;
-                        src: url('${openSansFonts["open-sans-light"]}') format('truetype');
-                        font-display: swap;
-                    }
-                `;
-            }
+            // Similar pattern for other Open Sans weights...
         }
         
         // Load Caveat fonts (handwriting style for markup)
-        const caveatFonts = assetLibrary.na_assets.na_fonts["fonts-caveat"];
-        if (caveatFonts) {
-            if (caveatFonts["caveat-regular"]) {
-                fontDeclarations += `
-                    @font-face {
-                        font-family: 'Caveat';
-                        font-style: normal;
-                        font-weight: 400;
-                        src: url('${caveatFonts["caveat-regular"]}') format('truetype');
-                        font-display: swap;
-                    }
-                `;
-            }
-            
-            if (caveatFonts["caveat-semi-bold"]) {
-                fontDeclarations += `
-                    @font-face {
-                        font-family: 'Caveat';
-                        font-style: normal;
-                        font-weight: 600;
-                        src: url('${caveatFonts["caveat-semi-bold"]}') format('truetype');
-                        font-display: swap;
-                    }
-                `;
-            }
+        const caveatFonts = assetLibrary?.na_assets?.na_fonts?.["fonts-caveat"] || {};
+        let hasCaveatFonts = false;
+        
+        if (caveatFonts["caveat-regular"]) {
+            hasCaveatFonts = true;
+            fontDeclarations += `
+                @font-face {
+                    font-family: 'Caveat';
+                    font-style: normal;
+                    font-weight: 400;
+                    src: url('${caveatFonts["caveat-regular"]}') format('truetype');
+                    font-display: swap;
+                }
+            `;
+        }
+        
+        if (caveatFonts["caveat-semi-bold"]) {
+            hasCaveatFonts = true;
+            fontDeclarations += `
+                @font-face {
+                    font-family: 'Caveat';
+                    font-style: normal;
+                    font-weight: 600;
+                    src: url('${caveatFonts["caveat-semi-bold"]}') format('truetype');
+                    font-display: swap;
+                }
+            `;
+        }
+        
+        // Add Google Fonts fallback for Caveat if not loaded from asset library
+        if (!hasCaveatFonts) {
+            console.warn("Caveat fonts not found in asset library, using Google Fonts fallback.");
+            fontDeclarations += `
+                @font-face {
+                    font-family: 'Caveat';
+                    font-style: normal;
+                    font-weight: 400;
+                    src: url('https://fonts.gstatic.com/s/caveat/v17/WnznHAc5bAfYB2QRah7pcpNvOx-pjfJ9eIupYS9AoA.woff2') format('woff2');
+                    font-display: swap;
+                }
+                @font-face {
+                    font-family: 'Caveat';
+                    font-style: normal;
+                    font-weight: 600;
+                    src: url('https://fonts.gstatic.com/s/caveat/v17/WnznHAc5bAfYB2QRah7pcpNvOx-pjSx6eIupYS9AoA.woff2') format('woff2');
+                    font-display: swap;
+                }
+            `;
         }
         
         // Update the style element with font declarations
@@ -1290,9 +1389,9 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
         console.log("Image sources updated from asset library");
     }
 
-    // =========================================================
+    // ========================================================================
     // MARKUP TOOLSET MODULE - GLOBAL VARIABLES
-    // =========================================================
+    // ========================================================================
     // Added in v1.6.0 to support drawing and markup functionality
     let isMarkupToolsetActive = false;
     let currentMarkupTool = 'pencil';
@@ -1325,14 +1424,19 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
     let textPlacementPoint = null;
     let editingTextElement = null; // Track the text element being edited
     
+    // Straight line tool variables
+    // Added in v1.8.5 - 02-Apr-2025
+    let isLineDrawing = false;
+    let currentLine = null;
+    
     // Technical pen properties for sketchy look
     const sketchiness = 0.5; // 0 = clean, 1 = very sketchy
     const pressureVariation = 0.2; // Line width variation
     // End of Markup Toolset Module Variables
 
-    // =========================================================
+    // ========================================================================
     // JSON AND DRAWING MANAGEMENT FUNCTIONS
-    // =========================================================
+    // ========================================================================
 
     // Fetch drawings data from JSON configuration file //
     async function fetchDrawings() {
@@ -1484,9 +1588,9 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
         errorMessage.style.display = "block";
     }
 
-    // =========================================================
+    // ========================================================================
     // INITIALISATION
-    // =========================================================
+    // ========================================================================
     async function init() {
         const appRoot = document.getElementById("app");
         if (!appRoot) {
@@ -1499,6 +1603,22 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
         if (assetLibrary) {
             loadFontsFromAssetLibrary(assetLibrary);
             updateImagesFromAssetLibrary(assetLibrary);
+            
+            // Check if Caveat font loaded successfully after a short delay
+            setTimeout(checkFontAvailability, 500);
+        } else {
+            console.warn("Asset library failed to load. Using fallback assets.");
+            // Load fallback Google Fonts for Caveat
+            const fontStylesElement = document.getElementById("dynamic-font-styles");
+            fontStylesElement.innerHTML += `
+                @font-face {
+                    font-family: 'Caveat';
+                    font-style: normal;
+                    font-weight: 400;
+                    src: url('https://fonts.gstatic.com/s/caveat/v17/WnznHAc5bAfYB2QRah7pcpNvOx-pjfJ9eIupYS9AoA.woff2') format('woff2');
+                    font-display: swap;
+                }
+            `;
         }
 
         resizeCanvas();
@@ -1516,10 +1636,60 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
         handleInitialTutorialFlow();
         renderLoop();
     }
+    
+    // Preload fonts to ensure they're available before drawing
+    async function preloadFonts() {
+        try {
+            // Create a FontFace object for Caveat
+            const caveat = new FontFace('Caveat', 'url(https://fonts.gstatic.com/s/caveat/v17/WnznHAc5bAfYB2QRah7pcpNvOx-pjfJ9eIupYS9AoA.woff2)', {
+                style: 'normal',
+                weight: '400',
+                display: 'swap'
+            });
+            
+            // Wait for the font to load
+            const loadedFace = await caveat.load();
+            
+            // Add the loaded font to the document fonts
+            document.fonts.add(loadedFace);
+            console.log("Caveat font preloaded successfully as backup");
+            
+            return true;
+        } catch (error) {
+            console.error("Failed to preload Caveat font:", error);
+            return false;
+        }
+    }
+    
+    // Check if the Caveat font is available
+    async function checkFontAvailability() {
+        if (!document.fonts.check("16px 'Caveat'")) {
+            console.warn("Caveat font not loaded or available after initialization. Using fallback fonts.");
+            
+            // Try to preload the font as a last resort
+            const preloaded = await preloadFonts();
+            
+            if (!preloaded) {
+                // If preloading fails, use link method as absolute fallback
+                const link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.href = 'https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&display=swap';
+                document.head.appendChild(link);
+                console.log("Using Google Fonts stylesheet as fallback for Caveat font");
+            }
+            
+            // Display warning to user if in development mode
+            if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                console.error("DEVELOPER WARNING: Sketchy Text Style (Caveat font) failed to load initially.");
+            }
+        } else {
+            console.log("Caveat font loaded successfully. Sketchy text style is available.");
+        }
+    }
 
-    // =========================================================
+    // ========================================================================
     // FIRST-LOAD TUTORIAL FLOW
-    // =========================================================
+    // ========================================================================
     function handleInitialTutorialFlow() {
         if (isMobileOrTabletPortrait()) {
             // STEP 1: Show menu open immediately
@@ -1552,9 +1722,9 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
         return window.innerHeight > window.innerWidth;
     }
 
-    // =========================================================
+    // ========================================================================
     // RENDER LOOP
-    // =========================================================
+    // ========================================================================
     function renderLoop() {
         if (!isImageLoaded) return;
         requestAnimationFrame(renderLoop);
@@ -1626,11 +1796,14 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
         adjustConfirmButtonPosition();
     }
 
-    // =========================================================
+    // ========================================================================
     // DRAWING TOOLS FUNCTIONS
-    // =========================================================
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    // FUNCTION |  Draws Measurement Lines & Orthogonal Snap Indicators On Canvas
+    // ========================================================================
+    // ----------------------------------------------------
+    // FUNCTION |  MEASUREMENT LINE DRAWING
+    // - This section introduced in v1.8.3
+    // Contains functions for drawing measurement lines and indicators on canvas
+    // ----------------------------------------------------
     function drawLine(points, strokeStyle) {                                        // ← Draws measurement lines on canvas
         if (points.length < 2) return;                                              // ← Ensure two points exist before drawing
         ctx.save();                                                                  
@@ -1657,6 +1830,11 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
         ctx.restore();                                                              
     }
 
+    // ----------------------------------------------------
+    // FUNCTION |  MARKER DRAWING
+    // - This section introduced in v1.7.0
+    // Contains functions for drawing measurement markers and points
+    // ----------------------------------------------------
     function drawMarkers(points, colour) {
         ctx.save();
         ctx.translate(offsetX, offsetY);
@@ -1676,9 +1854,11 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
         ctx.restore();
     }
 
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    // FUNCTION |  Draw Rectangle Measurement Tool
-
+    // ----------------------------------------------------
+    // FUNCTION |  RECTANGLE MEASUREMENT TOOL
+    // - This section introduced in v1.6.0
+    // Contains functions for drawing rectangle measurements and labels
+    // ----------------------------------------------------
     function drawRectangle(start, end, strokeStyle, fillStyle = null) {
         ctx.save();
         ctx.translate(offsetX, offsetY);
@@ -1700,6 +1880,11 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
         ctx.restore();
     }
 
+    // ----------------------------------------------------
+    // FUNCTION |  RECTANGLE MEASUREMENT LABELS
+    // - This section introduced in v1.6.3
+    // Contains functions for drawing rectangle dimension labels and area calculations
+    // ----------------------------------------------------
     function drawRectLabel(start, end) {
         const widthPx = Math.abs(end.x - start.x);
         const heightPx = Math.abs(end.y - start.y);
@@ -1727,8 +1912,12 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
         drawTextLabel(heightMid, `${heightMm} mm`, "blue");
     }
 
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    // FUNCTION |  Draw Poligonal Measurement Tool
+
+    // ----------------------------------------------------
+    // FUNCTION |  DRAW POLIGONAL MEASUREMENT TOOL
+    // - This section introduced in v1.3.0
+    // Contains functions for drawing rectangle dimension labels and area calculations
+    // ----------------------------------------------------
 
     function drawPolygon(points, fillStyle, strokeStyle) {
         if (points.length < 3) return;
@@ -1749,6 +1938,11 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
         ctx.restore();
     }
 
+    // ----------------------------------------------------
+    // FUNCTION |  OPEN POLYGON DRAWING
+    // - This section introduced in v1.8.3
+    // Contains function for drawing open polygon paths during measurement creation
+    // ----------------------------------------------------
     function drawOpenPolygon(points, strokeStyle) {
         if (points.length < 2) return;
         ctx.save();
@@ -1765,8 +1959,11 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
         ctx.restore();
     }
 
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    // FUNCTION |  Apply Line Label
+    // ----------------------------------------------------
+    // FUNCTION |  APPLY LINE LABEL
+    // - This section introduced in v1.2.0
+    // Contains function for drawing line labels on canvas
+    // ----------------------------------------------------
     function drawLineLabel(points, distMM, colour) {
         if (points.length < 2) return;
         const [A, B] = points;
@@ -1814,9 +2011,15 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
         ctx.restore();
     }
 
-    // =========================================================
+    // ========================================================================
     // MEASUREMENT CALCULATIONS
-    // =========================================================
+    // ========================================================================
+
+    // ----------------------------------------------------
+    // FUNCTION |  BASIC GEOMETRY CALCULATIONS
+    // - This section introduced in v1.1.0
+    // Contains utility functions for basic geometric calculations
+    // ----------------------------------------------------
     function dist(a, b) {
         return Math.hypot(b.x - a.x, b.y - a.y);
     }
@@ -1843,6 +2046,11 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
         };
     }
 
+    // ----------------------------------------------------
+    // FUNCTION |  MEASUREMENT FINALIZATION
+    // - This section introduced in v1.2.0
+    // Handles finalizing different measurement types and storing their results
+    // ----------------------------------------------------
     function finalizeMeasurement(type) {
         if (type === "linear" && measuringPoints.length === 2) {
             const [start, end] = measuringPoints;
@@ -1922,9 +2130,11 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
         }
     }  
 
-    // =========================================================
+
+    // ========================================================================
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
     // EVENT LISTENERS & INTERACTION
-    // =========================================================
+    // ========================================================================
 
 
     function attachEventListeners() {
@@ -1970,25 +2180,82 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
             if (currentTool === "linear") finalizeMeasurement("linear");
             else if (currentTool === "area") finalizeMeasurement("area");
             else if (currentTool === "rectangle") finalizeMeasurement("rectangle");
+            else if (currentMarkupTool === 'arc') {handlePointerDownArc(pos);
+            }
+
         });
 
-        // =========================================================
+        // ========================================================================
         // MARKUP TOOLSET MODULE - EVENT LISTENERS
-        // =========================================================
+        // ========================================================================
         // Toggle between standard and markup toolsets
-        document.getElementById("toggleMarkupToolsetBtn").addEventListener("click", toggleMarkupToolset);
-        document.getElementById("returnToMeasuringBtn").addEventListener("click", returnToMeasuringTools);
+        const toggleMarkupBtn = document.getElementById("toggleMarkupToolsetBtn");
+        if (toggleMarkupBtn) {
+            toggleMarkupBtn.addEventListener("click", toggleMarkupToolset);
+        }
         
-        // Markup tool buttons
-        document.getElementById("markupSelectionBtn").addEventListener("click", () => setMarkupTool("selection"));
-        document.getElementById("markupPencilBtn").addEventListener("click", () => setMarkupTool("pencil"));
-        document.getElementById("markupEraserBtn").addEventListener("click", () => setMarkupTool("eraser"));
-        document.getElementById("markupArrowBtn").addEventListener("click", () => setMarkupTool("arrow"));
-        document.getElementById("markupTextBtn").addEventListener("click", () => setMarkupTool("text"));
-        document.getElementById("markupRectBtn").addEventListener("click", () => setMarkupTool("rectangle"));
-        document.getElementById("markupFilledRectBtn").addEventListener("click", () => setMarkupTool("filled-rectangle"));
-        document.getElementById("markupCircleBtn").addEventListener("click", () => setMarkupTool("circle"));
-        document.getElementById("cancelMarkupToolBtn").addEventListener("click", cancelMarkupTool);
+        const returnToMeasuringBtn = document.getElementById("returnToMeasuringBtn");
+        if (returnToMeasuringBtn) {
+            returnToMeasuringBtn.addEventListener("click", returnToMeasuringTools);
+        }
+        
+        // Markup tool buttons - add null checks for each element
+        const selectionBtn = document.getElementById("markupSelectionBtn");
+        if (selectionBtn) {
+            selectionBtn.addEventListener("click", () => setMarkupTool("selection"));
+        }
+        
+        const pencilBtn = document.getElementById("markupPencilBtn");
+        if (pencilBtn) {
+            pencilBtn.addEventListener("click", () => setMarkupTool("pencil"));
+        }
+        
+        const eraserBtn = document.getElementById("markupEraserBtn");
+        if (eraserBtn) {
+            eraserBtn.addEventListener("click", () => setMarkupTool("eraser"));
+        }
+        
+        // Add new straight line tool event listener
+        const lineBtn = document.getElementById("markupLineBtn");
+        if (lineBtn) {
+            lineBtn.addEventListener("click", () => setMarkupTool("line"));
+        }
+        
+        // Add new arc tool event listener
+        const arcBtn = document.getElementById("markupArcBtn");
+        if (arcBtn) {
+            arcBtn.addEventListener("click", () => setMarkupTool("arc"));
+        }
+        
+        const textBtn = document.getElementById("markupTextBtn");
+        if (textBtn) {
+            textBtn.addEventListener("click", () => setMarkupTool("text"));
+        }
+        
+        const rectBtn = document.getElementById("markupRectBtn");
+        if (rectBtn) {
+            rectBtn.addEventListener("click", () => setMarkupTool("rectangle"));
+        }
+        
+        const filledRectBtn = document.getElementById("markupFilledRectBtn");
+        if (filledRectBtn) {
+            filledRectBtn.addEventListener("click", () => setMarkupTool("filled-rectangle"));
+        }
+        
+        const circleBtn = document.getElementById("markupCircleBtn");
+        if (circleBtn) {
+            circleBtn.addEventListener("click", () => setMarkupTool("circle"));
+        }
+        
+        const arrowBtn = document.getElementById("markupArrowBtn");
+        if (arrowBtn) {
+            arrowBtn.addEventListener("click", () => setMarkupTool("arrow"));
+        }
+        
+        const cancelMarkupBtn = document.getElementById("cancelMarkupToolBtn");
+        if (cancelMarkupBtn) {
+            cancelMarkupBtn.addEventListener("click", cancelMarkupTool);
+        }
         
         // Color palette selection
         document.querySelectorAll('.color-swatch').forEach(swatch => {
@@ -1999,22 +2266,51 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
             });
         });
         
-        document.getElementById("markupLineWidthSlider").addEventListener("input", (e) => {
-            markupLineWidth = parseInt(e.target.value);
-        });
+        const lineWidthSlider = document.getElementById("markupLineWidthSlider");
+        if (lineWidthSlider) {
+            lineWidthSlider.addEventListener("input", (e) => {
+                markupLineWidth = parseInt(e.target.value);
+            });
+        }
         
         // Action buttons
-        document.getElementById("markupClearBtn").addEventListener("click", clearMarkup);
-        document.getElementById("markupSaveBtn").addEventListener("click", saveMarkupImage);
+        const clearBtn = document.getElementById("markupClearBtn");
+        if (clearBtn) {
+            clearBtn.addEventListener("click", clearMarkup);
+        }
+        
+        const saveBtn = document.getElementById("markupSaveBtn");
+        if (saveBtn) {
+            saveBtn.addEventListener("click", saveMarkupImage);
+        }
         
         // Text dialog buttons
-        document.getElementById("markup-text-cancel").addEventListener("click", cancelTextEntry);
-        document.getElementById("markup-text-confirm").addEventListener("click", confirmTextEntry);
+        const textCancelBtn = document.getElementById("markup-text-cancel");
+        const textConfirmBtn = document.getElementById("markup-text-confirm");
+        
+        if (textCancelBtn) {
+            textCancelBtn.addEventListener("click", cancelTextEntry);
+        } else {
+            console.error("Error: markup-text-cancel element not found in DOM");
+        }
+        
+        if (textConfirmBtn) {
+            textConfirmBtn.addEventListener("click", confirmTextEntry);
+        } else {
+            console.error("Error: markup-text-confirm element not found in DOM");
+        }
         // End of Markup Toolset Module Event Listeners
 
         // Undo/Redo buttons
-        document.getElementById("markupUndoBtn").addEventListener("click", undoMarkupAction);
-        document.getElementById("markupRedoBtn").addEventListener("click", redoMarkupAction);
+        const undoBtn = document.getElementById("markupUndoBtn");
+        if (undoBtn) {
+            undoBtn.addEventListener("click", undoMarkupAction);
+        }
+        
+        const redoBtn = document.getElementById("markupRedoBtn");
+        if (redoBtn) {
+            redoBtn.addEventListener("click", redoMarkupAction);
+        }
     }
 
     
@@ -2031,19 +2327,31 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
     }
 
 
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-    // FUNCTION |  Handles Mouse Movement For Measurement Tools & Panning
 
+    // ----------------------------------------------------
+    // FUNCTION |  MOUSE MOVEMENT HANDLER
+    // - This section introduced in v1.8.3
+    // Handles mouse movement for measurement tools, panning, and markup tools
+    // ----------------------------------------------------
     function onMouseMove(e) {
         // Handle markup tools if active
         if (isMarkupToolsetActive) {
             const pos = toPlanCoords(e.offsetX, e.offsetY);
 
+            // ----------------------------------------------------
+            // EVENT HANDLER |  SELECTION TOOL MOVEMENT
+            // - Processes movement events for selected elements
+            // ----------------------------------------------------
             if (currentMarkupTool === 'selection' && isMovingElement && selectedElement) {
                 // Move the selected element
                 moveElement(selectedElement, pos);
                 return;
             } 
+
+            // ----------------------------------------------------
+            // EVENT HANDLER |  FREEHAND DRAWING TOOLS
+            // - Processes pencil strokes and eraser movements
+            // ----------------------------------------------------
             else if (currentMarkupTool === 'pencil' && currentMarkupPath) {
                 // Add point to the current path
                 currentMarkupPath.points.push(pos);
@@ -2055,6 +2363,22 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
                 detectAndEraseElements(pos, eraserRadius);
                 return;
             }
+
+            // ----------------------------------------------------
+            // EVENT HANDLER |  STRAIGHT LINE TOOL MOVEMENT
+            // - Added in v1.8.5 (02-Apr-2025)
+            // - Processes straight line drawing operations
+            // ----------------------------------------------------
+            else if (currentMarkupTool === 'line' && isLineDrawing && currentLine) {
+                // Update the end point of the line
+                currentLine.endPoint = pos;
+                return;
+            }
+
+            // ----------------------------------------------------
+            // EVENT HANDLER |  ARROW TOOL INTERACTIONS
+            // - Manages arrow creation and control point manipulation
+            // ----------------------------------------------------
             else if (currentMarkupTool === 'arrow' && arrowState === 'end' && currentArrow) {
                 // Update end point of the arrow
                 currentArrow.endPoint = pos;
@@ -2093,6 +2417,11 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
                 
                 return;
             }
+
+            // ----------------------------------------------------
+            // EVENT HANDLER |  GEOMETRIC SHAPE CREATION
+            // - Handles rectangle and circle drawing operations
+            // ----------------------------------------------------
             else if ((currentMarkupTool === 'rectangle' || currentMarkupTool === 'filled-rectangle') && isShapeDrawing && currentShape) {
                 // Update the end point of the rectangle
                 currentShape.endPoint = pos;
@@ -2109,10 +2438,36 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
                 return;
             }
             
+            // ----------------------------------------------------
+            // EVENT HANDLER |  ARC TOOL MOVEMENT
+            // - Processes arc drawing operations
+            // ----------------------------------------------------
+            else if (currentMarkupTool === 'arc' && isArcDrawing && currentArc) {
+                // Real-time feedback: if controlPoint or endPoint not yet set, update a temp variable
+                // so that your drawArc function can display it while dragging.
+                if (!currentArc.controlPoint) {
+                    // user is moving mouse to place control point
+                    // you can store a 'hoverControl' property for preview
+                    currentArc.hoverControl = pos;
+                }
+                else if (!currentArc.endPoint) {
+                    // user has set controlPoint, is now moving to place endPoint
+                    currentArc.hoverEnd = pos;
+                }
+            }
+            
             return;
         }
         
-        // Standard pan, zoom, and measurement tool handling
+        // ----------------------------------------------------
+        // HANDLER SECTION |  STANDARD TOOLS MOVEMENT
+        // - Processes pan and measurement tool interactions
+        // ----------------------------------------------------
+        
+        // ----------------------------------------------------
+        // EVENT HANDLER |  VIEW PANNING
+        // - Manages canvas view position updates
+        // ----------------------------------------------------
         if (isDragging) {
             offsetX += e.clientX - lastX;
             offsetY += e.clientY - lastY;
@@ -2121,7 +2476,10 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
             return;
         }
         
-        // Linear measurement tool - update second point while measuring
+        // ----------------------------------------------------
+        // EVENT HANDLER |  LINEAR MEASUREMENT TOOL
+        // - Manages point placement and angle snapping logic
+        // ----------------------------------------------------
         if (currentTool === "linear" && isLinearMeasuring && measuringPoints.length > 0 && !linearMeasurementLocked) {
             const start = measuringPoints[0];
             const pos = toPlanCoords(e.offsetX, e.offsetY);
@@ -2156,7 +2514,10 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
             return;
         }
         
-        // Rectangle measurement tool - update second corner while dragging
+        // ----------------------------------------------------
+        // EVENT HANDLER |  RECTANGLE MEASUREMENT TOOL
+        // - Manages corner placement and dimension updates
+        // ----------------------------------------------------
         if (isRectMeasuring && isRectDragging) {
             const pos = toPlanCoords(e.offsetX, e.offsetY);
             if (measuringPoints.length === 1) {
@@ -2203,45 +2564,17 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
                             x: element.position.x - pos.x,
                             y: element.position.y - pos.y
                         };
-                    } else if (element.tool === 'arrow') {
-                        // For arrows, use the start point as reference
-                        moveOffset = {
-                            x: element.startPoint.x - pos.x,
-                            y: element.startPoint.y - pos.y
-                        };
-                    } else if (element.tool === 'rectangle') {
-                        // For rectangles, use the start point as reference
-                        moveOffset = {
-                            x: element.startPoint.x - pos.x,
-                            y: element.startPoint.y - pos.y
-                        };
-                    } else if (element.tool === 'circle') {
-                        // For circles, use the center point or calculated center as reference
-                        if (element.centerPoint) {
-                            moveOffset = {
-                                x: element.centerPoint.x - pos.x,
-                                y: element.centerPoint.y - pos.y
-                            };
-                        } else {
-                            // Calculate center from startPoint and endPoint for old format
-                            const centerX = (element.startPoint.x + element.endPoint.x) / 2;
-                            const centerY = (element.startPoint.y + element.endPoint.y) / 2;
-                            
-                            moveOffset = {
-                                x: centerX - pos.x,
-                                y: centerY - pos.y
-                            };
-                        }
-                    } else if (element.tool === 'polygon') {
-                        // For polygons, use the first point as reference
-                        moveOffset = {
-                            x: element.points[0].x - pos.x,
-                            y: element.points[0].y - pos.y
-                        };
                     }
                 }
                 
-                // Reset arrow state if we're in selection mode
+                // If no element is clicked, start a selection rectangle
+                if (!isMovingElement) {
+                    // Clear existing selection if shift key is not pressed
+                    if (!e.shiftKey) {
+                        clearSelection();
+                    }
+                }
+                
                 if (arrowState !== 'idle') {
                     clearArrowControls();
                     arrowState = 'idle';
@@ -2328,6 +2661,9 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
                     return;
                 }
             }
+            else if (currentMarkupTool === 'arc') {
+                handlePointerDownArc(pos);
+            }
             else if (currentMarkupTool === 'text') {
                 // Check if we clicked on an existing text element first
                 const existingTextElement = findTextElementAt(pos);
@@ -2345,6 +2681,28 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
                     showTextDialog(e.clientX, e.clientY);
                 }
                 return;
+            }
+            
+            // ----------------------------------------------------
+            // EVENT HANDLER | STRAIGHT LINE TOOL
+            // - Added in v1.8.5 (02-Apr-2025)
+            // - Handles start of straight line drawing
+            // ----------------------------------------------------
+            else if (currentMarkupTool === 'line') {
+                if (!isLineDrawing) {
+                    // Start drawing a new straight line
+                    isLineDrawing = true;
+                    currentLine = {
+                        tool: 'line',
+                        color: markupColor,
+                        lineWidth: markupLineWidth,
+                        startPoint: pos,
+                        endPoint: pos,
+                        // Store seed for consistent randomness when redrawing
+                        seed: Math.floor(Math.random() * 10000)
+                    };
+                    return;
+                }
             }
             else if (currentMarkupTool === 'rectangle' || currentMarkupTool === 'filled-rectangle') {
                 if (!isShapeDrawing) {
@@ -2454,6 +2812,109 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
         updateAllHandlePositions();
     }
 
+    // ========================================================================
+    // FUNCTION |  DRAW SKETCHY ARC
+    // Added in v1.8.7 - 02-Apr-2025
+    // ========================================================================
+    function getQuadraticCurvePoints(start, control, end, numPoints = 100) {
+        const points = [];
+        for (let i = 0; i <= numPoints; i++) {
+            const t = i / numPoints;
+            const x = Math.pow(1 - t, 2) * start.x + 2 * (1 - t) * t * control.x + Math.pow(t, 2) * end.x;
+            const y = Math.pow(1 - t, 2) * start.y + 2 * (1 - t) * t * control.y + Math.pow(t, 2) * end.y;
+            points.push({ x, y });
+        }
+        return points;
+    }
+
+    function drawSketchyArc(start, control, end) {
+        const points = getQuadraticCurvePoints(start, control, end);
+        for (let i = 0; i < points.length - 1; i++) {
+            drawSketchyLine(points[i].x, points[i].y, points[i + 1].x, points[i + 1].y);
+        }
+    }
+
+    //-------------------------------------------
+    // 1) ARC TOOL - Handle Pointer Down
+    //-------------------------------------------
+    function handlePointerDownArc(pos) {
+        // If we're not currently drawing an arc, start a new one
+        if (!isArcDrawing) {
+            isArcDrawing = true;
+            currentArc = {
+                tool: 'arc',
+                color: markupColor,
+                lineWidth: markupLineWidth,
+                startPoint: pos,       // first click
+                controlPoint: null,    // second click
+                endPoint: null,        // third click
+                seed: Math.floor(Math.random() * 10000)
+            };
+        } 
+        // If we have a start point but no control point yet, set it now
+        else if (currentArc && !currentArc.controlPoint) {
+            currentArc.controlPoint = pos;
+        } 
+        // If we have both start point and control point, set the end point
+        // and finalise the arc
+        else if (currentArc && !currentArc.endPoint) {
+            currentArc.endPoint = pos;
+            
+            // Arc is complete; add to markup paths
+            markupPaths.push(currentArc);
+            
+            // Optionally save state for undo/redo
+            saveMarkupState();
+            
+            // Reset
+            currentArc = null;
+            isArcDrawing = false;
+        }
+    }
+
+    //-------------------------------------------
+    // 2) ARC TOOL - Drawing Function
+    //-------------------------------------------
+    // Renders the arc on the canvas
+    function drawArc(context, arcPath) {
+        // Check that we have all three points
+        if (!arcPath.startPoint || !arcPath.controlPoint || !arcPath.endPoint) return;
+
+        context.save();
+        context.translate(offsetX, offsetY);
+        context.scale(zoomFactor, zoomFactor);
+        
+        // Set stroke style
+        context.lineWidth = arcPath.lineWidth;
+        context.strokeStyle = arcPath.color;
+        context.lineCap = 'round';
+        context.lineJoin = 'round';
+
+        // Call your existing "drawSketchyArc"
+        drawSketchyArc(arcPath.startPoint, arcPath.controlPoint, arcPath.endPoint);
+
+        context.restore();
+    }
+
+    //-------------------------------------------
+    // 3) ARC TOOL - Eraser/Hit-Testing Function
+    //-------------------------------------------
+    // Finds approximate min distance between a point and a quadratic curve
+    // so your eraser and selection can detect arcs
+    function distanceToQuadraticCurve(x1, y1, cx, cy, x2, y2, px, py, steps = 50) {
+        let minDist = Infinity;
+        for (let i = 0; i <= steps; i++) {
+            let t = i / steps;
+            // Quadratic bezier param
+            let qx = (1 - t) * (1 - t) * x1 + 2 * (1 - t) * t * cx + t * t * x2;
+            let qy = (1 - t) * (1 - t) * y1 + 2 * (1 - t) * t * cy + t * t * y2;
+            let dx = px - qx;
+            let dy = py - qy;
+            let dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < minDist) minDist = dist;
+        }
+        return minDist;
+    }
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     // FUNCTION |  Touch Interactions Tool Controls & Behaviour Functions
@@ -2531,9 +2992,14 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
         isDragging = false;
     }
 
-    // =========================================================
+    // ========================================================================
     // VIEW & SCALE CONTROLS
-    // =========================================================
+    // ========================================================================
+    // ----------------------------------------------------
+    // FUNCTION |  ZOOM CONTROLS
+    // - This section introduced in v1.8.3
+    // Handles zoom operations including setting zoom level and maintaining focus point
+    // ----------------------------------------------------
     function applyZoom(delta, cx, cy) {
         let newZoom = zoomFactor + delta;
         setZoom(newZoom, cx, cy);
@@ -2549,11 +3015,21 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
         offsetY = cy - wy * zoomFactor;
     }
 
+    // ----------------------------------------------------
+    // FUNCTION |  CANVAS MANAGEMENT
+    // - This section introduced in v1.8.3
+    // Handles canvas resizing to maintain appropriate display dimensions
+    // ----------------------------------------------------
     function resizeCanvas() {
         planCanvas.width = window.innerWidth;
         planCanvas.height = window.innerHeight + 10;    // ← Updated To Top Cropping At Bottom
     }
 
+    // ----------------------------------------------------
+    // FUNCTION |  VIEW RESET & SCALE CALIBRATION
+    // - This section introduced in v1.8.3
+    // Handles resetting view position and calculating measurement scale based on drawing metadata
+    // ----------------------------------------------------
     function resetView() {
         const cw = planCanvas.width;
         const ch = planCanvas.height;
@@ -2564,16 +3040,16 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
         offsetX = (cw - iw * zoomFactor) / 2;
         offsetY = (ch - ih * zoomFactor) / 2;
 
-        // ----------------------------------------------------------------------------------------
+        // ---------------------------------------------------------------------------------------------------------
         // MEASUREMENT SCALE & ACCURACY
-        // ----------------------------------------------------------------------------------------
+        // ---------------------------------------------------------------------------------------------------------
         // - Defines The Scale Conversion From Pixels To Real-World Millimetres.  
         // - Ensures All Measurements Remain Accurate Regardless Of Zoom Level.  
         // - Critical To The Correct Functioning Of The Measuring Tools.  
-        // ----------------------------------------------------------------------------------------
-            // ------------------------------------------------------------------------------------
+        // ---------------------------------------------------------------------------------------------------------
+            // -----------------------------------------------------------------------------------------------------
             // A-SERIES PAPER SIZES (MM)
-            // ------------------------------------------------------------------------------------
+            // -----------------------------------------------------------------------------------------------------
             // A0 Paper | 1189 × 841 mm
             // A1 Paper | 841 × 594 mm
             // A2 Paper | 594 × 420 mm
@@ -2608,7 +3084,7 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
         console.log(`Drawing set to ${currentDrawingSize} at scale ${currentDrawingScale} (1:${scaleRatio})`);
         console.log(`Scale calculation: ${realWidthMM}mm paper width / ${drawnWidthPx}px image width * ${scaleRatio} scale ratio / 1000 = ${scaleMetresPerPixel} metres per pixel`);
 
-        // ----------------------------------------------------------------------------------------
+        // ---------------------------------------------------------------------------------------------------------
 
         clearMeasurements();
         
@@ -2616,9 +3092,14 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
         updateAllHandlePositions();
     }
 
-    // =========================================================
+    // ========================================================================
     // TOOL & MEASUREMENT HANDLING
-    // =========================================================
+    // ========================================================================
+    // ----------------------------------------------------
+    // FUNCTION |  TOOL SELECTION
+    // - This section introduced in v1.8.3
+    // Handles tool activation and initial setup for different measurement tools
+    // ----------------------------------------------------
     function setTool(toolName) {
         currentTool = toolName;
         measuringPoints = [];
@@ -2644,6 +3125,11 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
         }
     }
 
+    // ----------------------------------------------------
+    // FUNCTION |  TOOL CANCELLATION
+    // - This section introduced in v1.8.3
+    // Handles cancellation of active tools and resetting tool state
+    // ----------------------------------------------------
     function cancelTool() {
         currentTool = null;
         measuringPoints = [];
@@ -2657,6 +3143,11 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
         finishBtn.style.display = "none";
     }
 
+    // ----------------------------------------------------
+    // FUNCTION |  MEASUREMENT MANAGEMENT
+    // - This section introduced in v1.8.3
+    // Handles clearing measurements and updating measurement information display
+    // ----------------------------------------------------
     function clearMeasurements() {
         measurements = [];
         measuringPoints = [];
@@ -2713,9 +3204,14 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
         }
     }
 
-    // =========================================================
+    // ========================================================================
     // TOOL INSTRUCTIONS
-    // =========================================================
+    // ========================================================================
+    // ----------------------------------------------------
+    // FUNCTION |  INSTRUCTION DISPLAY
+    // - This section introduced in v1.8.3
+    // Handles displaying appropriate instructions for each measurement tool
+    // ----------------------------------------------------
     function showToolInstructions(tool) {
         if (tool === "linear" && !hasShownLinearInstructions) {
             hasShownLinearInstructions = true;
@@ -2748,6 +3244,11 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
         }
     }
 
+    // ----------------------------------------------------
+    // FUNCTION |  OVERLAY DISPLAY
+    // - This section introduced in v1.3.0
+    // Handles showing and hiding instruction overlays with appropriate animations
+    // ----------------------------------------------------
     function displayInstructionsOverlay() {
         toolInstructionsOverlay.style.display = "flex";
         function dismissOverlay() {
@@ -2763,9 +3264,9 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
         var timeoutId = setTimeout(dismissOverlay, 3000);
     }
 
-    // =========================================================
+    // ========================================================================
     // TOUCH HELPERS
-    // =========================================================
+    // ========================================================================
     function touchDistance(t1, t2) {
         return Math.hypot(t2.clientX - t1.clientX, t2.clientY - t1.clientY);
     }
@@ -2777,9 +3278,9 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
         };
     }
 
-    // =========================================================
+    // ========================================================================
     // RESIZE
-    // =========================================================
+    // ========================================================================
     function onResize() {
         resizeCanvas();
         
@@ -2787,10 +3288,10 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
         updateAllHandlePositions();
     }
 
-    // =========================================================
-    // MARKUP TOOLSET MODULE - FUNCTIONS
-    // =========================================================
-    
+    /*************************************************************************
+     MARKUP TOOLSET MODULE - FUNCTIONS
+    *************************************************************************/
+
     // Toggle between standard measurement tools and markup tools
     function toggleMarkupToolset() {
         isMarkupToolsetActive = true;
@@ -2874,7 +3375,7 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
         // Hide the cancel markup tool button since no tool is active
         document.getElementById('cancelMarkupToolBtn').style.display = 'none';
     }
-    
+
     // Return to standard measuring tools
     function returnToMeasuringTools() {
         // Cancel any active markup tool first
@@ -2913,8 +3414,12 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
         
         // Reset cursor
         planCanvas.className = "";
+        
+        // Ensure any active tools are cleared to allow toolbar toggling
+        currentTool = null;
+        currentMarkupTool = null;
     }
-    
+
     // Set the active markup tool
     function setMarkupTool(tool) {
         // If no tool is selected (null), cancel the tool
@@ -2936,6 +3441,8 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
         currentShape = null;
         isTextPlacing = false;
         textPlacementPoint = null;
+        isLineDrawing = false; // For straight line tool
+        currentLine = null;    // For straight line tool
         
         // Reset arrow-specific variables if changing from arrow tool
         if (currentMarkupTool !== 'arrow') {
@@ -2965,34 +3472,27 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
         } else if (tool === 'text') {
             planCanvas.classList.add('markup-text');
             showMarkupInstructions('text');
-        } else if (['rectangle', 'filled-rectangle', 'circle'].includes(tool)) {
-            planCanvas.classList.add('markup-shape');
-            showMarkupInstructions(tool);
-        }
-        
-        // Reset all button styling first by removing any inline styles
-        document.querySelectorAll("#markup-toolset .tool-button").forEach(btn => {
-            if (btn.id !== 'cancelMarkupToolBtn') {
-                btn.style.opacity = '';
-                btn.style.backgroundColor = '';
-            }
-        });
-        
-        // Then highlight only the active tool button with a slightly darker color
-        const activeToolButton = document.getElementById(`markup${tool.charAt(0).toUpperCase() + tool.slice(1)}Btn`);
-        if (activeToolButton) {
-            activeToolButton.style.opacity = '1';
-            activeToolButton.style.backgroundColor = '#403c30'; // Slightly darker to indicate selection
+        } else if (tool === 'line') {
+            planCanvas.classList.add('markup-line');
+            showMarkupInstructions('line');
+        } else if (tool === 'rectangle') {
+            planCanvas.classList.add('markup-rectangle');
+            showMarkupInstructions('rectangle');
         } else if (tool === 'filled-rectangle') {
-            // Special case for filled-rectangle since the button ID doesn't match the tool name pattern
-            const filledRectButton = document.getElementById('markupFilledRectBtn');
-            if (filledRectButton) {
-                filledRectButton.style.opacity = '1';
-                filledRectButton.style.backgroundColor = '#403c30';
-            }
+            planCanvas.classList.add('markup-filled-rectangle');
+            showMarkupInstructions('filled-rectangle');
+        } else if (tool === 'circle') {
+            planCanvas.classList.add('markup-circle');
+            showMarkupInstructions('circle');
+        } else if (tool === 'arc') {
+            planCanvas.classList.add('markup-arc');
+            showMarkupInstructions('arc');
         }
+        
+        // Update active tool button styles
+        updateToolButtonStyles(tool);
     }
-    
+
     // Clear all markup drawings
     function clearMarkup() {
         if (confirm('Are you sure you want to clear all markup drawings?')) {
@@ -3002,7 +3502,7 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
             updateUndoRedoButtons(); // Update button states
         }
     }
-    
+
     // Save markup image with drawings
     function saveMarkupImage() {
         // Hide control points for clean download
@@ -3021,7 +3521,7 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
         tempCtx.drawImage(planImage, 0, 0);
         tempCtx.restore();
         
-        // Draw all markup paths
+        // Draw all markup paths (includes arcs if drawArc is handled in drawAllMarkupPaths)
         drawAllMarkupPaths(tempCtx);
         
         // Create a download link
@@ -3030,11 +3530,165 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
         link.href = tempCanvas.toDataURL('image/png');
         link.click();
     }
-    
+
     // Text entry functions
     function showTextDialog(x, y, initialText = '') {
         const dialog = document.getElementById('markup-text-dialog');
-        // Position the dialog above the text not covering it
+        // Position the dialog above the text so it does not cover the text
+        dialog.style.left = x + 'px';
+        dialog.style.top = (y - 160) + 'px';
+        dialog.style.display = 'block';
+        const textInput = document.getElementById('markup-text-input');
+        textInput.value = initialText;
+        textInput.focus();
+        
+        // Select all text when editing
+        if (initialText) {
+            textInput.select();
+        }
+    }
+
+    function cancelTextEntry() {
+        document.getElementById('markup-text-dialog').style.display = 'none';
+        isTextPlacing = false;
+        textPlacementPoint = null;
+        editingTextElement = null;
+        
+        // Reset button text back to "Add Text" for next time
+        document.getElementById('markup-text-confirm').textContent = 'Add Text';
+    }
+
+
+    /*************************************************************************
+     ADDITIONAL: DRAWING ALL MARKUP PATHS (INCL. ARC)
+    - Place this function wherever you keep your rendering code. 
+    - It ensures arcs are drawn in the same pass as other shapes.
+    *************************************************************************/
+
+    function drawAllMarkupPaths(context) {
+        // Go through each item in markupPaths and draw it
+        markupPaths.forEach(path => {
+            if (path.tool === 'pencil') {
+                drawSketchyPath(context, path);
+            } else if (path.tool === 'eraser') {
+                // Eraser is not typically "drawn," so may skip
+            } else if (path.tool === 'arrow') {
+                drawArrow(context, path);
+            } else if (path.tool === 'rectangle') {
+                drawSketchyRectangle(context, path);
+            } else if (path.tool === 'filled-rectangle') {
+                // same as rectangle + fill
+                drawSketchyRectangle(context, path);
+            } else if (path.tool === 'circle') {
+                drawSketchyCircle(context, path);
+            } else if (path.tool === 'line') {
+                drawSketchyLine(context, path);
+            } else if (path.tool === 'arc') {
+                // Here’s where arcs are drawn
+                drawArc(context, path);
+            } else if (path.tool === 'text') {
+                drawSketchyText(context, path);
+            }
+        });
+    }
+
+
+    /*************************************************************************
+     ADDITIONAL: ARC DRAWING EXAMPLE
+    - If you haven't defined drawArc yet, here's a simple version.
+    *************************************************************************/
+
+    function drawArc(context, arcPath) {
+        // Make sure we have start/control/end
+        if (!arcPath.startPoint || !arcPath.controlPoint || !arcPath.endPoint) return;
+        
+        context.save();
+        context.translate(offsetX, offsetY);
+        context.scale(zoomFactor, zoomFactor);
+        
+        // Style
+        context.strokeStyle = arcPath.color || 'black';
+        context.lineWidth = arcPath.lineWidth || 2;
+        context.lineCap = 'round';
+        context.lineJoin = 'round';
+
+        // Draw a simple quadratic curve
+        context.beginPath();
+        context.moveTo(arcPath.startPoint.x, arcPath.startPoint.y);
+        context.quadraticCurveTo(
+            arcPath.controlPoint.x, 
+            arcPath.controlPoint.y, 
+            arcPath.endPoint.x, 
+            arcPath.endPoint.y
+        );
+        context.stroke();
+
+        context.restore();
+    }
+
+
+    // ========================================================================
+    // - - - - - - - - - - - - - - - - - - - -  - - - - - - - - - - 
+    // MARKUP FEATURE | MARKUP HANDWRITTEN STYLE TEXT EDITING AND RENDERING SYSTEM
+    // Comprehensive system for adding, editing, and rendering text annotations on the canvas
+    // - Text Creacted in a handwritten sketchy style to ensure its easy to differenciate from the plan printed text
+    // - Text can be edited and positioned anywhere on the plan and edited after creation
+    // - Text size can be adjusted after creation using the editor
+    // - Text can be edited and positioned anywhere on the plan
+    // - Text can be deleted
+
+
+    // ============================================================
+    // PRIMARY FUNCTION | TEXT RENDERING
+    // Draws text elements on the canvas with proper styling and positioning
+    function drawSketchyText(context, textObj) {
+        if (!textObj.text || !textObj.position) {
+            console.log("Invalid text object:", textObj);
+            return;
+        }
+        
+        console.log("Drawing standard text:", textObj.text);  // Debug log
+        
+        // Save the current transformation
+        context.save();
+        
+        // Apply canvas transformations (critical for correct positioning)
+        context.translate(offsetX, offsetY);
+        context.scale(zoomFactor, zoomFactor);
+        
+        // Set text properties
+        context.fillStyle = textObj.color || markupColor;
+        const fontSize = textObj.fontSize || 24; // Default size if none specified
+        
+        // Use more fallbacks like in CSS to ensure sketchy style even if Caveat fails
+        context.font = `${fontSize}px 'Caveat', 'Comic Sans MS', cursive, sans-serif`;
+        context.textBaseline = 'top';
+        
+        // Draw the text
+        context.fillText(textObj.text, textObj.position.x, textObj.position.y);
+        
+        // Debug: Check if font actually applied
+        if (!document.fonts.check(`${fontSize}px 'Caveat'`)) {
+            console.warn("Caveat font not loaded or available, using fallback font for text");
+        }
+        
+        context.restore();
+    }
+
+    // ============================================================
+    // PRIMARY FUNCTION | TEXT PLACEMENT INITIALIZATION
+    // Displays the text input dialog at the specified position for adding new text
+    function showTextDialog(x, y, initialText = '') {
+        isTextPlacing = true;
+        
+        // Calculate actual canvas position based on zoom and offset
+        const canvasX = (x - offsetX) / zoomFactor;
+        const canvasY = (y - offsetY) / zoomFactor;
+        
+        textPlacementPoint = { x: canvasX, y: canvasY };
+        
+        // Position and show the text entry dialog
+        const dialog = document.getElementById('markup-text-dialog');
         dialog.style.left = x + 'px';
         dialog.style.top = (y - 160) + 'px'; // Position higher above the text
         dialog.style.display = 'block';
@@ -3047,7 +3701,10 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
             textInput.select();
         }
     }
-    
+
+    // ============================================================
+    // EVENT HANDLER | TEXT ENTRY CANCELLATION
+    // Handles the user cancelling text entry and resets the text placement state
     function cancelTextEntry() {
         document.getElementById('markup-text-dialog').style.display = 'none';
         isTextPlacing = false;
@@ -3057,25 +3714,35 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
         // Reset button text back to "Add Text" for next time
         document.getElementById('markup-text-confirm').textContent = 'Add Text';
     }
-    
+
+    // ============================================================
+    // EVENT HANDLER | TEXT ENTRY CONFIRMATION
+    // Processes the entered text and creates or updates a text element on the canvas
     function confirmTextEntry() {
         const text = document.getElementById('markup-text-input').value.trim();
+        const fontSize = parseInt(document.getElementById('markup-text-size').value, 10);
+        
         if (text && textPlacementPoint) {
-            
-            // Save state before making changes
             saveMarkupState();
             
             if (editingTextElement) {
-                // Update existing text element
+                // HANDLER SECTION | TEXT ELEMENT UPDATING
+                // Updates properties of an existing text element
                 editingTextElement.text = text;
-                // Other properties remain the same (color, lineWidth, position)
+                editingTextElement.fontSize = fontSize;
+                editingTextElement.color = markupColor;
             } else {
-                // Create new text element
+                // HANDLER SECTION | NEW TEXT ELEMENT CREATION
+                // Creates and adds a new text element to the markup paths
                 markupPaths.push({
                     tool: 'text',
                     text: text,
-                    position: textPlacementPoint,
+                    position: { 
+                        x: textPlacementPoint.x,
+                        y: textPlacementPoint.y
+                    },
                     color: markupColor,
+                    fontSize: fontSize,
                     lineWidth: markupLineWidth
                 });
             }
@@ -3085,9 +3752,29 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
             textPlacementPoint = null;
             editingTextElement = null;
             
-            // Reset button text back to "Add Text" for next time
             document.getElementById('markup-text-confirm').textContent = 'Add Text';
+            
+            // Force a redraw after adding/editing text
+            renderLoop(); // Call the actual rendering function
         }
+    }
+
+    // ============================================================
+    // EVENT HANDLER | TEXT ELEMENT EDITING
+    // Allows editing of an existing text element by showing the text dialog with current values
+    function editTextElement(element) {
+        editingTextElement = element;
+        document.getElementById('markup-text-confirm').textContent = 'Update Text';
+        
+        // Get element position in screen coordinates
+        const screenX = element.position.x * zoomFactor + offsetX;
+        const screenY = element.position.y * zoomFactor + offsetY;
+        
+        // Show dialog with current text
+        showTextDialog(screenX, screenY, element.text);
+        
+        // Set font size in dropdown
+        document.getElementById('markup-text-size').value = element.fontSize || 24;
     }
     
     // Arrow control points management
@@ -3179,11 +3866,15 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
                 if (path.tool === 'arrow') {
                     drawArrow(context, path);
                 } else if (path.tool === 'text') {
-                    drawText(context, path);
+                    drawSketchyText(context, path);
                 } else if (path.tool === 'rectangle') {
                     drawSketchyRectangle(context, path);
                 } else if (path.tool === 'circle') {
                     drawSketchyCircle(context, path);
+                } else if (path.tool === 'line') {  // Added in v1.8.5 for straight line tool
+                    drawSketchyLine(context, path);
+                } else if (path.tool === 'arc') {  // Added in v1.8.6 for arc tool
+                    drawArc(context, path);
                 } else {
                     drawSketchyPath(context, path);
                 }
@@ -3274,6 +3965,17 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
                     selectedElement.endPoint.x, selectedElement.endPoint.y
                 );
                 context.stroke();
+            } else if (selectedElement.tool === 'line') {  // Added in v1.8.5 for straight line tool
+                // Draw a highlight around the line
+                context.lineWidth = selectedElement.lineWidth + 6;
+                context.strokeStyle = 'rgba(255, 255, 100, 0.5)';
+                context.lineCap = 'round';
+                context.lineJoin = 'round';
+                
+                context.beginPath();
+                context.moveTo(selectedElement.startPoint.x, selectedElement.startPoint.y);
+                context.lineTo(selectedElement.endPoint.x, selectedElement.endPoint.y);
+                context.stroke();
             }
             
             context.restore();
@@ -3282,11 +3984,13 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
             if (selectedElement.tool === 'arrow') {
                 drawArrow(context, selectedElement);
             } else if (selectedElement.tool === 'text') {
-                drawText(context, selectedElement);
+                drawSketchyText(context, selectedElement);
             } else if (selectedElement.tool === 'rectangle') {
                 drawSketchyRectangle(context, selectedElement);
             } else if (selectedElement.tool === 'circle') {
                 drawSketchyCircle(context, selectedElement);
+            } else if (selectedElement.tool === 'line') {  // Added in v1.8.5 for straight line tool
+                drawSketchyLine(context, selectedElement);
             } else if (selectedElement.tool === 'polygon') {
                 drawSketchyPolygon(context, selectedElement);
             } else {
@@ -3312,6 +4016,11 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
             } else if (currentShape.tool === 'polygon') {
                 drawSketchyPolygon(context, currentShape);
             }
+        }
+        
+        // Draw current line if in progress - Added in v1.8.5
+        if (isLineDrawing && currentLine) {
+            drawSketchyLine(context, currentLine);
         }
     }
     
@@ -3603,24 +4312,36 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
     }
     
     // Draw text
-    function drawText(context, textObj) {
+    function drawSketchyText(context, textObj) {
+        if (!textObj.text || !textObj.position) {
+            console.log("Invalid text object:", textObj);
+            return;
+        }
+        
+        console.log("Drawing sketchy text:", textObj.text);  // Debug log
+        
+        // Save the current transformation
         context.save();
+        
+        // Apply canvas transformations (critical for correct positioning)
         context.translate(offsetX, offsetY);
         context.scale(zoomFactor, zoomFactor);
-        context.fillStyle = textObj.color;
         
-        // Use Caveat font for handwriting style from asset library (with fallback to Comic Sans)
-        const fontSizeInPx = textObj.lineWidth * 20;
-        context.font = `${fontSizeInPx}px 'Caveat', 'Comic Sans MS', cursive, sans-serif`;
+        // Set text properties
+        context.fillStyle = textObj.color || markupColor;
+        const fontSize = textObj.fontSize || 24; // Default size if none specified
         
-        // Split text into lines
-        const lines = textObj.text.split('\n');
-        const lineHeight = fontSizeInPx * 1.2;
+        // Use more fallbacks like in CSS to ensure sketchy style even if Caveat fails
+        context.font = `${fontSize}px 'Caveat', 'Comic Sans MS', cursive, sans-serif`;
+        context.textBaseline = 'top';
         
-        // Draw each line
-        lines.forEach((line, i) => {
-            context.fillText(line, textObj.position.x, textObj.position.y + (i * lineHeight));
-        });
+        // Draw the text
+        context.fillText(textObj.text, textObj.position.x, textObj.position.y);
+        
+        // Debug: Check if font actually applied
+        if (!document.fonts.check(`${fontSize}px 'Caveat'`)) {
+            console.warn("Caveat font not loaded or available, using fallback font for text");
+        }
         
         context.restore();
     }
@@ -4100,17 +4821,17 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
         return x - Math.floor(x);
     }
 
-    // =========================================================
+    // ========================================================================
     // MARKUP TOOLSET MODULE - GLOBAL VARIABLES
-    // =========================================================
+    // ========================================================================
     // Undo/Redo history management
     let markupHistory = [];
     let markupRedoStack = [];
     let maxHistoryLength = 20; // Limit history size
 
-    // =========================================================
+    // ========================================================================
     // MARKUP TOOLSET MODULE - FUNCTIONS
-    // =========================================================
+    // ========================================================================
     // Save current state to history
     function saveMarkupState() {
         // Deep clone the markup paths array
@@ -4186,7 +4907,11 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
     // Start the app
     init();
 
-    // Handle keyboard events for markup tools
+    // ----------------------------------------------------
+    // FUNCTION |  KEYBOARD EVENT HANDLER
+    // - This section introduced in v1.6.6
+    // Handles keyboard shortcuts for markup tools including Escape, Enter, Delete, and Copy/Paste
+    // ----------------------------------------------------
     function onKeyDown(e) {
         // Only handle keys when markup tools are active
         if (!isMarkupToolsetActive) return;
@@ -4247,90 +4972,104 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
 
     // Show instructions for markup tools
     function showMarkupInstructions(tool) {
-        const instructionsElement = document.getElementById('instructions-text');
-        let instructionsText = '';
-
+        const instructionsDiv = document.getElementById('markup-instructions');
+        if (!instructionsDiv) {
+            // Create the instructions div if it doesn't exist
+            const newInstructionsDiv = document.createElement('div');
+            newInstructionsDiv.id = 'markup-instructions';
+            newInstructionsDiv.style.position = 'absolute';
+            newInstructionsDiv.style.top = '60px';
+            newInstructionsDiv.style.left = '50%';
+            newInstructionsDiv.style.transform = 'translateX(-50%)';
+            newInstructionsDiv.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+            newInstructionsDiv.style.color = 'white';
+            newInstructionsDiv.style.padding = '8px 12px';
+            newInstructionsDiv.style.borderRadius = '4px';
+            newInstructionsDiv.style.zIndex = '10000';
+            newInstructionsDiv.style.display = 'none';
+            document.body.appendChild(newInstructionsDiv);
+            
+            // Use the newly created div
+            showMarkupInstructions(tool);
+            return;
+        }
+        
+        let instructions = '';
+        
         switch (tool) {
+            case 'selection':
+                instructions = 'Click to select objects. Click and drag to move selected objects.';
+                break;
             case 'pencil':
-                instructionsText = 
-                    "MARKUP PEN TOOL:\\n\\n" +
-                    "• Click and drag to draw freehand lines\\n" +
-                    "• Lines have a sketchy technical pen appearance\\n" +
-                    "• Use the color picker and line width slider to adjust style";
+                instructions = 'Click and drag to draw freehand.';
                 break;
             case 'eraser':
-                instructionsText = 
-                    "MARKUP ERASER TOOL:\\n\\n" +
-                    "• Touch or click and drag over any markup element to erase\\n" +
-                    "• Works on all types of markup (lines, shapes, text, arrows)\\n" +
-                    "• Use the line width slider to adjust eraser size";
-                break;
-            case 'selection':
-                instructionsText = 
-                    "MARKUP SELECTION TOOL:\\n\\n" +
-                    "• Click on any markup element to select it\\n" +
-                    "• Drag to move the selected element\\n" +
-                    "• Copy/paste: Ctrl+C to copy, Ctrl+V to paste\\n" +
-                    "• Delete: Press Delete key to remove selected element";
+                instructions = 'Click and drag over elements to erase them.';
                 break;
             case 'arrow':
-                instructionsText = 
-                    "MARKUP ARROW TOOL:\\n\\n" +
-                    "• Click and drag to create an arrow\\n" +
-                    "• After creating, you can adjust the curve and arrow points\\n" +
-                    "• Click away from the arrow to finish editing";
+                instructions = 'Click to set arrow start point, then click or drag to set end point.';
                 break;
             case 'text':
-                instructionsText = 
-                    "MARKUP TEXT TOOL:\\n\\n" +
-                    "• Click anywhere to add text\\n" +
-                    "• Type your text in the popup dialog\\n" +
-                    "• Click an existing text element to edit it\\n" +
-                    "• Use the color picker and line width slider to adjust style";
+                instructions = 'Click to place text. Type your text in the dialog that appears.';
+                break;
+            case 'line':  // Added in v1.8.5 for straight line tool
+                instructions = 'Click and drag to draw a straight line.';
                 break;
             case 'rectangle':
-                instructionsText = 
-                    "MARKUP RECTANGLE TOOL:\\n\\n" +
-                    "• Click and drag to create a rectangle\\n" +
-                    "• Use the selection tool to move or resize after creating\\n" +
-                    "• Rectangle edges have a sketchy hand-drawn appearance";
+                instructions = 'Click and drag to draw a rectangle.';
                 break;
             case 'filled-rectangle':
-                instructionsText = 
-                    "MARKUP FILLED RECTANGLE TOOL:\\n\\n" +
-                    "• Click and drag to create a filled rectangle\\n" +
-                    "• The fill will be 20% opacity of the selected colour\\n" +
-                    "• Use the selection tool to move or resize after creating";
+                instructions = 'Click and drag to draw a filled rectangle.';
                 break;
             case 'circle':
-                instructionsText = 
-                    "MARKUP CIRCLE TOOL:\\n\\n" +
-                    "• Click to set the center point\\n" +
-                    "• Drag outward to set the circle radius\\n" +
-                    "• Perfect for circling important details\\n" +
-                    "• Circle will always be round, not elliptical";
+                instructions = 'Click to set center, then drag to set radius.';
                 break;
+            case 'arc': // <<< Added Arc Tool Logic
+                instructions = 'Click to set start point, then click to set control point, then click to set end point.'; // <<< Added Arc Tool Logic
+                break; // <<< Added Arc Tool Logic
             default:
-                instructionsText = 
-                    "MARKUP TOOLS:\\n\\n" +
-                    "• Select a tool from the toolbox\\n" +
-                    "• Use the color picker to change colors\\n" +
-                    "• Adjust line width using the slider";
-                break;
+                instructions = '';
         }
-
-        instructionsElement.innerText = instructionsText;
+        
+        if (instructions) {
+            instructionsDiv.innerHTML = instructions;
+            instructionsDiv.style.display = 'block';
+            
+            // Add click-to-dismiss functionality
+            function dismissInstructions() {
+                clearTimeout(timeoutId);
+                instructionsDiv.style.display = 'none';
+                instructionsDiv.removeEventListener('click', dismissInstructions);
+            }
+            
+            instructionsDiv.addEventListener('click', dismissInstructions);
+            
+            // Auto-dismiss after 2 seconds
+            var timeoutId = setTimeout(dismissInstructions, 2000);
+        } else {
+            instructionsDiv.style.display = 'none';
+        }
     }
 
     // Add this new function for detecting and erasing elements
     function detectAndEraseElements(position, radius) {
+        // ----------------------------------------------------
+        // HANDLER SECTION |  ERASER INITIALIZATION
+        // - Sets up eraser parameters and tracking variables
+        // ----------------------------------------------------
         const eraserRadiusSquared = radius * radius;
         let erasedAny = false;
         const originalLength = markupPaths.length;
         
-        // Filter markup paths to keep only those that don't intersect with the eraser
+        // ----------------------------------------------------
+        // HANDLER SECTION |  MARKUP ELEMENT DETECTION
+        // - Filters markup paths to remove those that intersect with eraser
+        // ----------------------------------------------------
         markupPaths = markupPaths.filter(path => {
-            // Check if eraser intersects with this path
+            // ----------------------------------------------------
+            // DETECTION HANDLER |  PENCIL PATH DETECTION
+            // - Checks if any point in a freehand path is within eraser radius
+            // ----------------------------------------------------
             if (path.tool === 'pencil') {
                 // For freehand paths, check if any point is within eraser radius
                 for (let i = 0; i < path.points.length; i++) {
@@ -4344,6 +5083,10 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
                     }
                 }
             } 
+            // ----------------------------------------------------
+            // DETECTION HANDLER |  ARROW DETECTION
+            // - Checks if any control point of an arrow is within eraser radius
+            // ----------------------------------------------------
             else if (path.tool === 'arrow') {
                 // For arrows, check start and end points and control points
                 const pointsToCheck = [
@@ -4364,6 +5107,10 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
                     }
                 }
             }
+            // ----------------------------------------------------
+            // DETECTION HANDLER |  RECTANGLE DETECTION
+            // - Checks if any corner or edge of a rectangle is within eraser radius
+            // ----------------------------------------------------
             else if (path.tool === 'rectangle') {
                 // Check if eraser is near any corner or edge
                 const corners = [
@@ -4398,7 +5145,11 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
                         return false; // Remove this path
                     }
                 }
-            } 
+            }
+            // ----------------------------------------------------
+            // DETECTION HANDLER |  CIRCLE DETECTION
+            // - Checks if eraser intersects with circle boundary or interior
+            // ----------------------------------------------------
             else if (path.tool === 'circle') {
                 // Check if eraser is near circle boundary or inside
                 const centerX = (path.startPoint.x + path.endPoint.x) / 2;
@@ -4417,6 +5168,10 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
                     return false;
                 }
             }
+            // ----------------------------------------------------
+            // DETECTION HANDLER |  POLYGON DETECTION
+            // - Checks if any vertex or edge of a polygon is within eraser radius
+            // ----------------------------------------------------
             else if (path.tool === 'polygon' && path.points) {
                 // Check if eraser is near any vertex or edge of polygon
                 for (let i = 0; i < path.points.length; i++) {
@@ -4440,14 +5195,68 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
                     }
                 }
             }
+            // ----------------------------------------------------
+            // DETECTION HANDLER |  TEXT DETECTION
+            // - Checks if eraser is near text element with larger hit area
+            // ----------------------------------------------------
             else if (path.tool === 'text') {
                 // Check if eraser is near text position
                 const dx = path.position.x - position.x;
                 const dy = path.position.y - position.y;
-                const distanceSquared = dx * dx + dy * dy;
                 
-                // Make text easier to select by using a larger hit area
-                if (distanceSquared <= eraserRadiusSquared * 4) {
+                // Use a larger hit area for text to make selection easier
+                // Estimate width based on text length
+                const textWidth = path.text.length * (path.lineWidth * 5);
+                const textHeight = path.lineWidth * 20;
+                
+                // Check if position is within text bounding box
+                // Note: Text is positioned at bottom-left, so mostly extends upward from the position point
+                if (position.x >= path.position.x - 5 && 
+                    position.x <= path.position.x + textWidth + 5 &&
+                    position.y >= path.position.y - textHeight - 5 && 
+                    position.y <= path.position.y + 5) {
+                    erasedAny = true;
+                    return false; // Remove this path
+                }
+                
+                // Also include a radius check for clicking near the text position point
+                const hitRadius = Math.max(30, path.lineWidth * 10);
+                if (dx*dx + dy*dy <= hitRadius*hitRadius) {
+                    erasedAny = true;
+                    return false; // Remove this path
+                }
+            }
+            // ----------------------------------------------------
+            // DETECTION HANDLER |  LINE DETECTION
+            // - Checks if eraser is near a straight line
+            // ----------------------------------------------------
+            else if (path.tool === 'line') {
+                // Check if eraser is near the line
+                const distance = distanceToLineSegment(
+                    path.startPoint.x, path.startPoint.y,
+                    path.endPoint.x, path.endPoint.y,
+                    position.x, position.y
+                );
+                
+                if (distance < radius) {
+                    erasedAny = true;
+                    return false; // Remove this path
+                }
+            }
+            // ----------------------------------------------------
+            // DETECTION HANDLER |  ARC DETECTION
+            // - Checks if eraser is near a quadratic Bezier arc
+            // ----------------------------------------------------
+            else if (path.tool === 'arc') {
+                // Check if eraser is near the arc
+                const distance = distanceToQuadraticCurve(
+                    path.startPoint.x, path.startPoint.y,
+                    path.controlPoint.x, path.controlPoint.y,
+                    path.endPoint.x, path.endPoint.y,
+                    position.x, position.y
+                );
+                
+                if (distance < radius) {
                     erasedAny = true;
                     return false; // Remove this path
                 }
@@ -4456,6 +5265,10 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
             return true; // Keep this path
         });
         
+        // ----------------------------------------------------
+        // HANDLER SECTION |  RESULT PROCESSING
+        // - Handles UI updates and returns erasure status
+        // ----------------------------------------------------
         if (erasedAny) {
             // Redraw if we erased anything
             renderLoop();
@@ -4464,20 +5277,22 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
         return erasedAny && originalLength > markupPaths.length;
     }
 
-    // Helper function to calculate distance from point to a line segment
-    function distToSegment(p, v, w) {
-        const l2 = dist(v, w) * dist(v, w);
-        if (l2 === 0) return dist(p, v);
-        
-        let t = ((p.x - v.x) * (w.x - v.x) + (p.y - v.y) * (w.y - v.y)) / l2;
-        t = Math.max(0, Math.min(1, t));
-        
-        const projectPoint = {
-            x: v.x + t * (w.x - v.x),
-            y: v.y + t * (w.y - v.y)
-        };
-        
-        return dist(p, projectPoint);
+    // ----------------------------------------------------
+    // FUNCTION |  POINT-TO-LINE DISTANCE CALCULATION
+    // - This section introduced in v1.6.0
+    // Calculates the shortest distance from a point to a line segment
+    // ----------------------------------------------------
+    function distanceToLineSegment(x1, y1, x2, y2, px, py) {
+        const dx = x2 - x1;
+        const dy = y2 - y1;
+        const len = Math.sqrt(dx * dx + dy * dy);
+        if (len === 0) return Math.sqrt((px - x1) * (px - x1) + (py - y1) * (py - y1));
+        const t = ((px - x1) * dx + (py - y1) * dy) / (len * len);
+        if (t < 0) return Math.sqrt((px - x1) * (px - x1) + (py - y1) * (py - y1));
+        if (t > 1) return Math.sqrt((px - x2) * (px - x2) + (py - y2) * (py - y2));
+        const closestX = x1 + t * dx;
+        const closestY = y1 + t * dy;
+        return Math.sqrt((px - closestX) * (px - closestX) + (py - closestY) * (py - closestY));
     }
 
     // Add function to find text element at a specific position
@@ -4641,13 +5456,40 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
                     pos.y <= path.position.y + 5) {
                     return path;
                 }
+            } else if (path.tool === 'line') {  // Added in v1.8.5 for straight line tool
+                // Check if point is near the line
+                const distance = distanceToLineSegment(
+                    path.startPoint.x, path.startPoint.y,
+                    path.endPoint.x, path.endPoint.y,
+                    pos.x, pos.y
+                );
+                
+                if (distance < hitRadius) {
+                    return path;
+                }
+            } else if (path.tool === 'arc') { // <<< Added Arc Tool Logic
+                // Check if point is near the arc
+                const distance = distanceToQuadraticCurve(
+                    path.startPoint.x, path.startPoint.y,
+                    path.controlPoint.x, path.controlPoint.y,
+                    path.endPoint.x, path.endPoint.y,
+                    pos.x, pos.y
+                );
+                
+                if (distance < hitRadius) {
+                    return path;
+                }
             }
         }
         
         return null; // No element found at the position
     }
 
-    // Select an element
+    // ----------------------------------------------------
+    // FUNCTION |  ELEMENT SELECTION
+    // - This section introduced in v1.6.6
+    // Handles selection of markup elements and shows appropriate handles
+    // ----------------------------------------------------
     function selectElement(element) {
         selectedElement = element;
         
@@ -4673,7 +5515,11 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
         createSelectionHandles(element);
     }
 
-    // Clear the current selection
+    // ----------------------------------------------------
+    // FUNCTION |  SELECTION CLEARING
+    // - This section introduced in v1.6.6
+    // Clears the current selection and removes any handles
+    // ----------------------------------------------------
     function clearSelection() {
         selectedElement = null;
         clearSelectionHandles();
@@ -4685,7 +5531,11 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
         }
     }
 
-    // Create visual handles around the selected element
+    // ----------------------------------------------------
+    // FUNCTION |  SELECTION HANDLE CREATION
+    // - This section introduced in v1.6.6
+    // Creates visual handles for manipulating selected elements
+    // ----------------------------------------------------
     function createSelectionHandles(element) {
         if (!element) return;
         
@@ -4764,7 +5614,11 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
         }
     }
 
-    // Clear all selection handles
+    // ----------------------------------------------------
+    // FUNCTION |  SELECTION HANDLE REMOVAL
+    // - This section introduced in v1.7.3
+    // Removes all selection handles from the DOM
+    // ----------------------------------------------------
     function clearSelectionHandles() {
         // Remove any existing selection handles from DOM
         document.querySelectorAll('.selection-handle').forEach(handle => {
@@ -4778,7 +5632,11 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
         clearArrowControls();
     }
 
-    // Move a selected element to a new position
+    // ----------------------------------------------------
+    // FUNCTION |  ELEMENT MOVEMENT
+    // - This section introduced in v1.6.6
+    // Handles moving selected elements to new positions
+    // ----------------------------------------------------
     function moveElement(element, newPosition) {
         if (!element) return;
         
@@ -5136,6 +5994,39 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
         context.restore();
     }
 
+    // ----------------------------------------------------
+    // FUNCTION |  DRAW SKETCHY LINE
+    // - Added in v1.8.5 (02-Apr-2025)
+    // - Draws a sketchy straight line with handdrawn appearance
+    // ----------------------------------------------------
+    function drawSketchyLine(context, line) {
+        if (!line.startPoint || !line.endPoint) return;
+        
+        context.save();
+        context.translate(offsetX, offsetY);
+        context.scale(zoomFactor, zoomFactor);
+        context.strokeStyle = line.color;
+        context.lineWidth = line.lineWidth;
+        context.lineCap = 'round';
+        context.lineJoin = 'round';
+        
+        // Ensure line has a seed for deterministic randomness
+        if (!line.seed) {
+            line.seed = Math.floor(Math.random() * 10000);
+        }
+        
+        // Calculate line properties
+        const x1 = line.startPoint.x;
+        const y1 = line.startPoint.y;
+        const x2 = line.endPoint.x;
+        const y2 = line.endPoint.y;
+        
+        // Use the sketchy segment function for consistent style with rectangle edges
+        drawSketchySegment(context, x1, y1, x2, y2, line.lineWidth, line.color, line.seed);
+        
+        context.restore();
+    }
+
     // Show the control points for editing an arrow
     function showArrowControls(arrow) {
         // Set current arrow and state
@@ -5216,14 +6107,26 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
         }
     }
 
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    // FUNCTION |  Mouse Interactions Tool Controls & Behaviour Functions
 
+    // ============================================================
+    // PRIMARY FUNCTION |  MOUSE RELEASE HANDLER
+    // - This section introduced in v1.5.0
+    // Processes mouse up events for measurements and markup elements
+    // ============================================================
+
+    // ----------------------------------------------------
+    // HANDLER SECTION |  MARKUP TOOLS RELEASE HANDLING
+    // - Processes release events for markup tool interactions
+    // ----------------------------------------------------
     function onMouseUp(e) {
         // Handle markup tools if active
         if (isMarkupToolsetActive && currentMarkupTool) {
             const pos = toPlanCoords(e.offsetX, e.offsetY);
             
+            // ----------------------------------------------------
+            // EVENT HANDLER |  SELECTION TOOL FINALIZATION
+            // - Completes element movement and saves state
+            // ----------------------------------------------------
             if (currentMarkupTool === 'selection' && isMovingElement) {
                 // Finalize the move
                 isMovingElement = false;
@@ -5235,6 +6138,11 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
                 }
                 return;
             }
+
+            // ----------------------------------------------------
+            // EVENT HANDLER |  DRAWING TOOLS FINALISATION
+            // - Completes pencil strokes and eraser actions
+            // ----------------------------------------------------
             else if ((currentMarkupTool === 'pencil' || currentMarkupTool === 'eraser') && currentMarkupPath) {
                 // Finalize the current path
                 if (currentMarkupPath.points.length > 1) {
@@ -5244,6 +6152,36 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
                 currentMarkupPath = null;
                 return;
             }
+            
+            // ----------------------------------------------------
+            // EVENT HANDLER |  STRAIGHT LINE TOOL FINALISATION
+            // - Added in v1.8.5 (02-Apr-2025)
+            // - Completes straight line drawing operations
+            // ----------------------------------------------------
+            else if (currentMarkupTool === 'line' && isLineDrawing && currentLine) {
+                // Update final end point
+                currentLine.endPoint = pos;
+                
+                // Finalize the current line if it has a valid length
+                const dx = currentLine.endPoint.x - currentLine.startPoint.x;
+                const dy = currentLine.endPoint.y - currentLine.startPoint.y;
+                const length = Math.sqrt(dx * dx + dy * dy);
+                
+                if (length > 5) { // Only save if line has a meaningful length
+                    markupPaths.push(currentLine);
+                    saveMarkupState();
+                }
+                
+                // Reset line drawing state
+                isLineDrawing = false;
+                currentLine = null;
+                return;
+            }
+            
+            // ----------------------------------------------------
+            // EVENT HANDLER |  ARROW TOOL FINALISATION
+            // - Handles arrow creation and control point editing
+            // ----------------------------------------------------
             else if (currentMarkupTool === 'arrow' && arrowState === 'end' && currentArrow) {
                 // Add arrow to paths when released
                 markupPaths.push(currentArrow);
@@ -5280,6 +6218,11 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
                 saveMarkupState();
                 return;
             }
+
+            // ----------------------------------------------------
+            // EVENT HANDLER |  SHAPE TOOL FINALISATION
+            // - Completes rectangle and circle creation
+            // ----------------------------------------------------
             else if ((currentMarkupTool === 'rectangle' || currentMarkupTool === 'filled-rectangle') && isShapeDrawing && currentShape) {
                 // Finalize rectangle
                 if (Math.abs(currentShape.endPoint.x - currentShape.startPoint.x) > 5 && 
@@ -5312,7 +6255,15 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
             return;
         }
         
-        // Standard measurement tools
+        // ----------------------------------------------------
+        // HANDLER SECTION |  MEASUREMENT TOOLS RELEASE
+        // - Processes release events for measurement tools
+        // ----------------------------------------------------
+        
+        // ----------------------------------------------------
+        // EVENT HANDLER |  LINEAR MEASUREMENT COMPLETION
+        // - Finalizes linear measurements and shows confirm button
+        // ----------------------------------------------------
         if (currentTool === "linear" && isLinearMeasuring) {
             if (measuringPoints.length === 2 && !linearMeasurementLocked) {
                 // Lock the second point in place when mouse is released
@@ -5325,6 +6276,10 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
             return;
         }
         
+        // ----------------------------------------------------
+        // EVENT HANDLER |  AREA MEASUREMENT COMPLETION
+        // - Handles polygon area tool completion on double-click
+        // ----------------------------------------------------
         if (currentTool === "area" && e.detail === 2) {
             // Double-click completes the polygon area tool
             isAreaComplete = true;
@@ -5332,6 +6287,10 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
             return;
         }
         
+        // ----------------------------------------------------
+        // EVENT HANDLER |  RECTANGLE MEASUREMENT COMPLETION
+        // - Finalizes rectangle measurements and shows confirm button
+        // ----------------------------------------------------
         if (currentTool === "rectangle" && isRectMeasuring) {
             if (isRectDragging) {
                 isRectDragging = false; // Stop dragging on mouse up
@@ -5346,7 +6305,16 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
         isDragging = false;
     }
 
-    // Helper function to calculate distance from a point to a line segment
+    // ========================================================================
+    // PRIMARY FUNCTION |  DISTANCE CALCULATION UTILITIES
+    // - This section introduced in v1.6.0
+    // Contains utility functions for calculating distances and curves
+    // ======================================================================== 
+
+    // ----------------------------------------------------
+    // HELPER FUNCTION |  POINT TO LINE DISTANCE
+    // - Calculates shortest distance from point to line segment
+    // ----------------------------------------------------
     function distanceToLineSegment(x1, y1, x2, y2, px, py) {
         // Calculate squared length of line segment
         const lengthSq = (x2-x1)*(x2-x1) + (y2-y1)*(y2-y1);
@@ -5369,7 +6337,10 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
         return Math.sqrt((px-closestX)*(px-closestX) + (py-closestY)*(py-closestY));
     }
     
-    // Helper function to sample points along a Bezier curve for selection
+    // ----------------------------------------------------
+    // HELPER FUNCTION |  BEZIER CURVE SAMPLING
+    // - Generates points along a bezier curve for selection and rendering
+    // ----------------------------------------------------
     function sampleBezierCurve(p0, p1, p2, p3, samples) {
         const points = [];
         for (let i = 0; i <= samples; i++) {
@@ -5379,43 +6350,388 @@ SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
         return points;
     }
 
-    // Function to cancel markup tools
-    // Added v1.7.3.
+    // ========================================================================
+    // PRIMARY FUNCTION |  MARKUP TOOL CANCELLATION
+    // - This section introduced in v1.7.3
+    // Handles cancellation and reset of markup tool states
+    // ======================================================================== 
     function cancelMarkupTool() {
-        // Reset state variables for all markup tools
+        currentMarkupTool = null;
+        
+        // Reset cursor
+        planCanvas.className = "";
+        
+        // Hide cancel button
+        document.getElementById('cancelMarkupToolBtn').style.display = 'none';
+        
+        // Reset all state variables
         currentMarkupPath = null;
+        clearSelection();
+        clearArrowControls();
+        arrowState = 'idle';
         isShapeDrawing = false;
         shapeStartPoint = null;
         currentShape = null;
-        isTextPlacing = false;
-        textPlacementPoint = null;
         
-        // Reset arrow-specific variables
-        clearArrowControls();
-        arrowState = 'idle';
-        
-        // Clear any selection and handles
-        clearSelection();
-        
-        // Hide the cancel button
-        document.getElementById('cancelMarkupToolBtn').style.display = 'none';
-        
-        // Reset cursor
-        planCanvas.className = '';
-        
-        // No active tool
-        currentMarkupTool = null;
+        // Reset line drawing state - Added in v1.8.5
+        isLineDrawing = false;
+        currentLine = null;
 
-        // Reset all button styling to default - remove inline styles completely
-        document.querySelectorAll("#markup-toolset .tool-button").forEach(btn => {
-            if (btn.id !== 'cancelMarkupToolBtn') {
-                // Clear inline styles to let CSS take over
-                btn.style.opacity = '';
-                btn.style.backgroundColor = '';
-            }
-        });
+        // Hide any instruction text
+        const instructionsDiv = document.getElementById('markup-instructions');
+        if (instructionsDiv) {
+            instructionsDiv.innerHTML = '';
+            instructionsDiv.style.display = 'none';
+        }
     }
-})();
+
+    // ======================================================================== 
+    // FUNCTION |  MARKUP INSTRUCTIONS DISPLAY
+    // - This section introduced in v1.6.0
+    // Shows tool-specific instructions to guide users on using markup tools
+    // ========================================================================
+
+    function showMarkupInstructions(tool) {
+        const instructionsDiv = document.getElementById('markup-instructions');
+        if (!instructionsDiv) {
+            // Create the instructions div if it doesn't exist
+            const newInstructionsDiv = document.createElement('div');
+            newInstructionsDiv.id = 'markup-instructions';
+            newInstructionsDiv.style.position = 'absolute';
+            newInstructionsDiv.style.top = '60px';
+            newInstructionsDiv.style.left = '50%';
+            newInstructionsDiv.style.transform = 'translateX(-50%)';
+            newInstructionsDiv.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+            newInstructionsDiv.style.color = 'white';
+            newInstructionsDiv.style.padding = '8px 12px';
+            newInstructionsDiv.style.borderRadius = '4px';
+            newInstructionsDiv.style.zIndex = '10000';
+            newInstructionsDiv.style.display = 'none';
+            document.body.appendChild(newInstructionsDiv);
+            
+            // Use the newly created div
+            showMarkupInstructions(tool);
+            return;
+        }
+        
+        let instructions = '';
+        
+        switch (tool) {
+            case 'selection':
+                instructions = 'Click to select objects. Click and drag to move selected objects.';
+                break;
+            case 'pencil':
+                instructions = 'Click and drag to draw freehand.';
+                break;
+            case 'eraser':
+                instructions = 'Click and drag over elements to erase them.';
+                break;
+            case 'arrow':
+                instructions = 'Click to set arrow start point, then click or drag to set end point.';
+                break;
+            case 'text':
+                instructions = 'Click to place text. Type your text in the dialog that appears.';
+                break;
+            case 'line':  // Added in v1.8.5 for straight line tool
+                instructions = 'Click and drag to draw a straight line.';
+                break;
+            case 'rectangle':
+                instructions = 'Click and drag to draw a rectangle.';
+                break;
+            case 'filled-rectangle':
+                instructions = 'Click and drag to draw a filled rectangle.';
+                break;
+            case 'circle':
+                instructions = 'Click to set center, then drag to set radius.';
+                break;
+            case 'arc': // <<< Added Arc Tool Logic
+                instructions = 'Click to set start point, then click to set control point, then click to set end point.'; // <<< Added Arc Tool Logic
+                break; // <<< Added Arc Tool Logic
+            default:
+                instructions = '';
+        }
+        
+        if (instructions) {
+            instructionsDiv.innerHTML = instructions;
+            instructionsDiv.style.display = 'block';
+            
+            // Add click-to-dismiss functionality
+            function dismissInstructions() {
+                clearTimeout(timeoutId);
+                instructionsDiv.style.display = 'none';
+                instructionsDiv.removeEventListener('click', dismissInstructions);
+            }
+            
+            instructionsDiv.addEventListener('click', dismissInstructions);
+            
+            // Auto-dismiss after 2 seconds
+            var timeoutId = setTimeout(dismissInstructions, 2000);
+        } else {
+            instructionsDiv.style.display = 'none';
+        }
+    }
+
+    // ----------------------------------------------------
+    // FUNCTION |  DRAW SKETCHY LINE
+    // - Added in v1.8.5 (02-Apr-2025)
+    // - Draws a sketchy straight line with handdrawn appearance
+    // ----------------------------------------------------
+    function drawSketchyLine(context, line) {
+        if (!line.startPoint || !line.endPoint) return;
+        
+        context.save();
+        context.translate(offsetX, offsetY);
+        context.scale(zoomFactor, zoomFactor);
+        context.strokeStyle = line.color;
+        context.lineWidth = line.lineWidth;
+        context.lineCap = 'round';
+        context.lineJoin = 'round';
+        
+        // Ensure line has a seed for deterministic randomness
+        if (!line.seed) {
+            line.seed = Math.floor(Math.random() * 10000);
+        }
+        
+        // Calculate line properties
+        const x1 = line.startPoint.x;
+        const y1 = line.startPoint.y;
+        const x2 = line.endPoint.x;
+        const y2 = line.endPoint.y;
+        
+        // Use the sketchy segment function for consistent style with rectangle edges
+        drawSketchySegment(context, x1, y1, x2, y2, line.lineWidth, line.color, line.seed);
+        
+        context.restore();
+    }
+
+    // ----------------------------------------------------
+    // FUNCTION |  ERASER TOOL IMPLEMENTATION
+    // - This section introduced in v1.6.0
+    // Detects and removes markup elements that intersect with the eraser tool
+    // ========================================================================
+    function detectAndEraseElements(position, radius) {
+        // ----------------------------------------------------
+        // HANDLER SECTION |  ERASER INITIALIZATION
+        // - Sets up eraser parameters and tracking variables
+        // ----------------------------------------------------
+        const eraserRadiusSquared = radius * radius;
+        let erasedAny = false;
+        const originalLength = markupPaths.length;
+        
+        // ----------------------------------------------------
+        // HANDLER SECTION |  MARKUP ELEMENT DETECTION
+        // - Filters markup paths to remove those that intersect with eraser
+        // ----------------------------------------------------
+        markupPaths = markupPaths.filter(path => {
+            // ----------------------------------------------------
+            // DETECTION HANDLER |  PENCIL PATH DETECTION
+            // - Checks if any point in a freehand path is within eraser radius
+            // ----------------------------------------------------
+            if (path.tool === 'pencil') {
+                // For freehand paths, check if any point is within eraser radius
+                for (let i = 0; i < path.points.length; i++) {
+                    const dx = path.points[i].x - position.x;
+                    const dy = path.points[i].y - position.y;
+                    const distanceSquared = dx * dx + dy * dy;
+                    
+                    if (distanceSquared <= eraserRadiusSquared) {
+                        erasedAny = true;
+                        return false; // Remove this path
+                    }
+                }
+            } 
+            // ----------------------------------------------------
+            // DETECTION HANDLER |  ARROW DETECTION
+            // - Checks if any control point of an arrow is within eraser radius
+            // ----------------------------------------------------
+            else if (path.tool === 'arrow') {
+                // For arrows, check start and end points and control points
+                const pointsToCheck = [
+                    path.startPoint,
+                    path.endPoint,
+                    path.control1,
+                    path.control2
+                ];
+                
+                for (const point of pointsToCheck) {
+                    const dx = point.x - position.x;
+                    const dy = point.y - position.y;
+                    const distanceSquared = dx * dx + dy * dy;
+                    
+                    if (distanceSquared <= eraserRadiusSquared) {
+                        erasedAny = true;
+                        return false; // Remove this path
+                    }
+                }
+            }
+            // ----------------------------------------------------
+            // DETECTION HANDLER |  RECTANGLE DETECTION
+            // - Checks if any corner or edge of a rectangle is within eraser radius
+            // ----------------------------------------------------
+            else if (path.tool === 'rectangle') {
+                // Check if eraser is near any corner or edge
+                const corners = [
+                    { x: path.startPoint.x, y: path.startPoint.y },
+                    { x: path.endPoint.x, y: path.startPoint.y },
+                    { x: path.startPoint.x, y: path.endPoint.y },
+                    { x: path.endPoint.x, y: path.endPoint.y }
+                ];
+                
+                for (const corner of corners) {
+                    const dx = corner.x - position.x;
+                    const dy = corner.y - position.y;
+                    const distanceSquared = dx * dx + dy * dy;
+                    
+                    if (distanceSquared <= eraserRadiusSquared) {
+                        erasedAny = true;
+                        return false; // Remove this path
+                    }
+                }
+                
+                // Check if eraser is on edges
+                const edges = [
+                    {p1: {x: path.startPoint.x, y: path.startPoint.y}, p2: {x: path.endPoint.x, y: path.startPoint.y}},
+                    {p1: {x: path.endPoint.x, y: path.startPoint.y}, p2: {x: path.endPoint.x, y: path.endPoint.y}},
+                    {p1: {x: path.endPoint.x, y: path.endPoint.y}, p2: {x: path.startPoint.x, y: path.endPoint.y}},
+                    {p1: {x: path.startPoint.x, y: path.endPoint.y}, p2: {x: path.startPoint.x, y: path.startPoint.y}}
+                ];
+                
+                for (const edge of edges) {
+                    if (distToSegment(position, edge.p1, edge.p2) <= radius) {
+                        erasedAny = true;
+                        return false; // Remove this path
+                    }
+                }
+            }
+            // ----------------------------------------------------
+            // DETECTION HANDLER |  CIRCLE DETECTION
+            // - Checks if eraser intersects with circle boundary or interior
+            // ----------------------------------------------------
+            else if (path.tool === 'circle') {
+                // Check if eraser is near circle boundary or inside
+                const centerX = (path.startPoint.x + path.endPoint.x) / 2;
+                const centerY = (path.startPoint.y + path.endPoint.y) / 2;
+                const radiusX = Math.abs(path.endPoint.x - path.startPoint.x) / 2;
+                const radiusY = Math.abs(path.endPoint.y - path.startPoint.y) / 2;
+                
+                // Simple approximation for ellipse - use average radius
+                const avgRadius = (radiusX + radiusY) / 2;
+                const dx = centerX - position.x;
+                const dy = centerY - position.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                
+                if (Math.abs(distance - avgRadius) <= radius || distance <= avgRadius) {
+                    erasedAny = true;
+                    return false;
+                }
+            }
+            // ----------------------------------------------------
+            // DETECTION HANDLER |  POLYGON DETECTION
+            // - Checks if any vertex or edge of a polygon is within eraser radius
+            // ----------------------------------------------------
+            else if (path.tool === 'polygon' && path.points) {
+                // Check if eraser is near any vertex or edge of polygon
+                for (let i = 0; i < path.points.length; i++) {
+                    const p1 = path.points[i];
+                    const p2 = path.points[(i + 1) % path.points.length];
+                    
+                    // Check vertices
+                    const dx = p1.x - position.x;
+                    const dy = p1.y - position.y;
+                    const distanceSquared = dx * dx + dy * dy;
+                    
+                    if (distanceSquared <= eraserRadiusSquared) {
+                        erasedAny = true;
+                        return false; // Remove this path
+                    }
+                    
+                    // Check edges
+                    if (distToSegment(position, p1, p2) <= radius) {
+                        erasedAny = true;
+                        return false; // Remove this path
+                    }
+                }
+            }
+            // ----------------------------------------------------
+            // DETECTION HANDLER |  TEXT DETECTION
+            // - Checks if eraser is near text element with larger hit area
+            // ----------------------------------------------------
+            else if (path.tool === 'text') {
+                // Check if eraser is near text position
+                const dx = path.position.x - position.x;
+                const dy = path.position.y - position.y;
+                const distanceSquared = dx * dx + dy * dy;
+                
+                // Make text easier to select by using a larger hit area
+                if (distanceSquared <= eraserRadiusSquared * 4) {
+                    erasedAny = true;
+                    return false; // Remove this path
+                }
+            }
+            // ----------------------------------------------------
+            // DETECTION HANDLER |  LINE DETECTION
+            // - Checks if eraser is near a straight line
+            // ----------------------------------------------------
+            else if (path.tool === 'line') {
+                // Check if eraser is near the line
+                const distance = distanceToLineSegment(
+                    path.startPoint.x, path.startPoint.y,
+                    path.endPoint.x, path.endPoint.y,
+                    position.x, position.y
+                );
+                
+                if (distance < radius) {
+                    erasedAny = true;
+                    return false; // Remove this path
+                }
+            }
+            // ----------------------------------------------------
+            // DETECTION HANDLER |  ARC DETECTION
+            // - Checks if eraser is near a quadratic Bezier arc
+            // ----------------------------------------------------
+            else if (path.tool === 'arc') {
+                // Check if eraser is near the arc
+                const distance = distanceToQuadraticCurve(
+                    path.startPoint.x, path.startPoint.y,
+                    path.controlPoint.x, path.controlPoint.y,
+                    path.endPoint.x, path.endPoint.y,
+                    position.x, position.y
+                );
+                
+                if (distance < radius) {
+                    erasedAny = true;
+                    return false; // Remove this path
+                }
+            }
+
+            else if (path.tool === 'arc') {
+                // ...
+                const distance = distanceToQuadraticCurve(
+                    path.startPoint.x, path.startPoint.y,
+                    path.controlPoint.x, path.controlPoint.y,
+                    path.endPoint.x, path.endPoint.y,
+                    position.x, position.y
+                );
+            }
+            
+            return true; // Keep this path
+        });
+        
+        // ----------------------------------------------------
+        // HANDLER SECTION |  RESULT PROCESSING
+        // - Handles UI updates and returns erasure status
+        // ----------------------------------------------------
+        if (erasedAny) {
+            // Redraw if we erased anything
+            renderLoop();
+        }
+        
+        return erasedAny && originalLength > markupPaths.length;
+    }
+
+
+
+})();        // <---- This is where the function is immediately executed
 </script>
 </body>
 </html>
