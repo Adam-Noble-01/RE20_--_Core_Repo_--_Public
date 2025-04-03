@@ -1,0 +1,31 @@
+## Directory Links Export
+
+##### Root Folder
+
+D:\RE20_--_Core_Repo_--_Public\RE20_10_--_Web-App_-_Text-Utility_-_Web-Assets-Library
+
+##### Date Of Query
+
+03/04/2025
+
+---
+
+| HTML FILE | RE20_10_01_--_Web-App_-_Text-Utility_-_Reader-Tool |
+| ---------------------- | ------------------------------------------------------------ |
+| **FILE NAME** | RE20_10_01_--_Web-App_-_Text-Utility_-_Reader-Tool.html |
+| **LOCAL PATH** | D:\RE20_--_Core_Repo_--_Public\RE20_10_--_Web-App_-_Text-Utility_-_Web-Assets-Library\RE20_10_01_--_Web-App_-_Text-Utility_-_Reader-Tool.html |
+| **LOCAL PATH (JSON)** | D:\\RE20_--_Core_Repo_--_Public\\RE20_10_--_Web-App_-_Text-Utility_-_Web-Assets-Library\\RE20_10_01_--_Web-App_-_Text-Utility_-_Reader-Tool.html |
+| **GITHUB RAW URL** | https://raw.githubusercontent.com/Adam-Noble-01/RE20_--_Core_Repo_--_Public/main/RE20_10_--_Web-App_-_Text-Utility_-_Web-Assets-Library/RE20_10_01_--_Web-App_-_Text-Utility_-_Reader-Tool.html |
+
+---
+
+| HTML FILE | RE20_10_02_--_Web-App_-_Text-Utility_-_Text-Regex-Tool |
+| ---------------------- | ------------------------------------------------------------ |
+| **FILE NAME** | RE20_10_02_--_Web-App_-_Text-Utility_-_Text-Regex-Tool.html |
+| **LOCAL PATH** | D:\RE20_--_Core_Repo_--_Public\RE20_10_--_Web-App_-_Text-Utility_-_Web-Assets-Library\RE20_10_02_--_Web-App_-_Text-Utility_-_Text-Regex-Tool.html |
+| **LOCAL PATH (JSON)** | D:\\RE20_--_Core_Repo_--_Public\\RE20_10_--_Web-App_-_Text-Utility_-_Web-Assets-Library\\RE20_10_02_--_Web-App_-_Text-Utility_-_Text-Regex-Tool.html |
+| **GITHUB RAW URL** | https://raw.githubusercontent.com/Adam-Noble-01/RE20_--_Core_Repo_--_Public/main/RE20_10_--_Web-App_-_Text-Utility_-_Web-Assets-Library/RE20_10_02_--_Web-App_-_Text-Utility_-_Text-Regex-Tool.html |
+
+---
+
+###### End Of Report

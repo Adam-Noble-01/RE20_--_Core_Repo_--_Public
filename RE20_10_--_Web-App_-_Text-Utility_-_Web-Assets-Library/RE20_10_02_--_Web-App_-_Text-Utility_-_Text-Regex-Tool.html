@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- 
+    =============================================================================================
+    HTML | HEAD SECTION: META, TITLE, FONTS, CSS
+    - Added v1.0.0 | Updated v1.1.0
+    Contains metadata (including application version), page title, font links, 
+    and all CSS styles for the application.
+    =============================================================================================
+    -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Add Application Version Meta Tag -->
+    <meta name="application-version" content="1.1.0"> 
+    <title>User-Friendly Regex Tool</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600&display=swap" rel="stylesheet">
+        <!--
+        ================================================================================================================
+        APPLICATION  |  Regex UI Tool Web App
+        FILE NAME    |  RE20_10_02--_Web-App_-_Text-Utility_-_Text-Regex-Tool.html
+        FILE TYPE    |  HTML/CSS/JS Single-File Web Application
+        APP DETAILS  |  A user-friendly web tool for common text manipulation tasks using simplified Regex interfaces.
+        AUTHOR       |  Adam Noble - Studio NoodlFjord
+        ================================================================================================================
+
+        - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        SCRIPT DESCRIPTION
+
+        This HTML file contains the complete code for the User-Friendly Regex Tool.
+        It integrates HTML, CSS, and JavaScript into a single file to provide functionalities including:
+        - Text input area for pasting or typing raw text.
+        - A modular set of Regex tools with user-friendly interfaces (buttons, simple inputs).
+        - Dynamic loading of tools based on definitions in the `REGEX_TOOL_MODULES` JavaScript array.
+        - Modules for common tasks like:
+            - Find & Replace (with case-insensitive/global options)
+            - Remove Lines Containing Text (case-insensitive)
+            - Extract Matches using a user-provided Regex pattern
+            - Remove Blank Lines
+            - Extract Email Addresses
+            - Add Line Numbers
+        - An output area displaying the results of the applied tool.
+        - Action buttons for copying the output or clearing all text fields.
+        - Adherence to the "RE10_20_01-_SCHEMA_-_Core-Web-Dev-Code-Conventions.txt" standard for code structure and commenting.
+        - Dynamic injection of the application version (from meta tag) into the header title.
+
+        - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  
+        ISSUES & LESSONS LEARNED  
+
+        - Regex Complexity: Standard Regex can be unintuitive. The tool aims to abstract common patterns into simpler UI controls.
+        - User Input in Regex: Direct user input used in Regex patterns (e.g., Find/Replace text) must be properly escaped (`escapeRegExp` function) to prevent errors or unintended behavior from special Regex characters.
+        - Regex Errors: The "Extract Matches (Using Regex)" tool allows users to input raw Regex. Invalid patterns will cause errors, hence the use of `try...catch` for graceful handling.
+        - Performance: While generally performant for moderate text sizes, extremely large inputs might slow down complex Regex operations, especially global replacements or line-by-line processing. No specific optimization for massive files yet implemented.
+        - Modularity: The `REGEX_TOOL_MODULES` array provides good modularity, but requires careful adherence to the structure when adding new tools.
+
+        - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        TOOL MODULE ARCHITECTURE
+
+        The application's core extensibility comes from the `REGEX_TOOL_MODULES` JavaScript array.
+
+        1. Structure:
+            - It's an array of JavaScript objects.
+            - Each object represents a single, distinct Regex tool available in the UI.
+
+        2. Key Properties per Module:
+            - `id` (String): Unique identifier for the tool (used internally).
+            - `name` (String): User-friendly name displayed as the tool's title.
+            - `description` (String): Brief explanation of what the tool does, shown in the UI.
+            - `inputs` (Array): Defines the input fields needed for the tool. Each input object specifies:
+                * `type` (String): E.g., 'text', 'checkbox'.
+                * `id` (String): Unique ID for the input within the module.
+                * `label` (String): Text label displayed next to the input.
+                * `checked` (Boolean, Optional): Default state for checkboxes.
+                * `placeholder` (String, Optional): Placeholder text for text inputs.
+            - `action` (Function): The core logic for the tool. It receives:
+                * `text` (String): The current input text from the main textarea.
+                * `inputs` (Object): An object containing the current values from the tool's defined input fields (keyed by the input `id`).
+                * Must return the processed text (String) to be displayed in the output area.
+
+        3. Dynamic UI Generation:
+            - The `populateRegexToolsUI` function reads this array.
+            - For each module object, it dynamically creates the corresponding HTML elements (title, description, labels, inputs, apply button) and adds them to the `#regex-tools-container` div.
+            - Event listeners for the "Apply" buttons are attached automatically.
+
+        4. Extensibility:
+            - Adding a new tool involves:
+                1. Creating a new object with the required properties (`id`, `name`, etc.).
+                2. Defining the necessary input fields in the `inputs` array.
+                3. Writing the text processing logic within the `action` function.
+                4. Adding this new object to the `REGEX_TOOL_MODULES` array.
+            - The UI automatically updates on the next page load.
+
+        - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        VISUAL JAVASCRIPT MODULE HIERARCHY TREE (Simplified)
+
+        REGEX_TOOL_MODULES (Array)
+        └── Module Object 1 (e.g., Find & Replace)
+        │   ├── id: 'findReplace'
+        │   ├── name: 'Find & Replace'
+        │   ├── description: '...'
+        │   ├── inputs: (Array)
+        │   │   ├── { type: 'text', id: 'findText', label: '...' }
+        │   │   └── { type: 'checkbox', id: 'global', label: '...' }
+        │   └── action: function(text, inputs) { /* logic */ }
+        │
+        └── Module Object 2 (e.g., Remove Lines)
+            ├── id: 'removeLinesContaining'
+            ├── name: '...'
+            │   ... (similar structure)
+            └── action: function(text, inputs) { /* logic */ }
+            │
+            └── ... more module objects
+
+
+        - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        FUTURE SCRIPT IMPROVEMENTS & IDEAS
+
+        - Pre-built Patterns: Add modules for extracting common patterns like URLs, phone numbers, dates without requiring user Regex.
+        - Regex Syntax Highlighting: For the "Extract Matches (Using Regex)" tool, add highlighting to the pattern input field.
+        - Tool Chaining: Allow applying multiple tools sequentially without manually copying/pasting output back to input.
+        - User-Defined Tools/Patterns: Ability for users to save and load their own custom Regex patterns or simple tool configurations.
+        - State Persistence: Optionally save input text or tool settings using localStorage.
+        - Real-time Preview: Show a live preview of the changes in the output area as tool options are adjusted (might be complex/slow).
+
+        - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
+
+        03-Apr-2025 - v1.0.0  |  Initial creation based on user request.
+                            - Core structure (HTML, CSS, JS in single file).
+                            - Input/Output areas, Copy/Clear buttons.
+                            - Modular `REGEX_TOOL_MODULES` architecture implemented.
+                            - Initial tools: Find/Replace, Remove Lines, Extract Pattern, Remove Blank Lines.
+                            - Adherence to specified coding conventions established.
+
+        03-Apr-2025 - v1.1.0  |  FEATURE ADDITIONS & REFINEMENTS
+                            - Added "Extract Email Addresses" module.
+                            - Added "Add Line Numbers" module.
+                            - Implemented dynamic version note injection into header title.
+                                - Reads version from `<meta name="application-version">`.
+                                - `injectVersionNote` helper function created with modular options.
+                            - Updated global constants (removed G_APP_VERSION).
+                            - Minor CSS adjustments for header layout with version note.
+                            - Added this master header comment block.
+
+        ??-???-???? - vX.Y.Z  |  LIST FUTURE UPDATES HERE
+
+        =======================================================================================================================
+        -->
+        <style>
+        /* =============================================================================================
+           CSS | BASIC RESET & LAYOUT
+           - Introduced in v1.0.0
+           Resets default browser styles and sets up the basic page layout and font.
+           ============================================================================================= */
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            min-height: 100%; /* Use min-height to allow content growth */
+            background: #f0f0f0;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 14px; /* Slightly larger base font */
+            color: #333;
+            line-height: 1.5;
+        }
+        #app-container {
+            width: 100%;
+            min-height: 100vh; /* Ensure container fills viewport height */
+            overflow-y: auto; /* Allow scrolling if content overflows */
+        }
+
+        /* =============================================================================================
+           CSS | HEADER STYLING
+           - Introduced in v1.0.0 | Updated v1.1.0
+           Styles the top header bar of the application, including the version note.
+           ============================================================================================= */
+        #header {
+            width: 100%;
+            height: 55px; /* Slightly taller */
+            background: #fff;
+            border-bottom: 2px solid #4a4a4a; /* Darker grey */
+            display: flex;
+            align-items: center;
+            padding: 0 20px; /* More padding */
+            box-sizing: border-box;
+            position: sticky; /* Keep header visible */
+            top: 0;
+            z-index: 10;
+        }
+        #app-title {
+            font-size: 22px; /* Larger title */
+            color: #4a4a4a;
+            font-weight: 600;
+            display: flex; /* Use flex to keep elements on one line */
+            align-items: baseline; /* Align text baseline */
+            gap: 8px; /* Space between title and version note */
+        }
+        /* Style specifically for the injected version note span */
+        #app-title .version-note {
+             /* Styles are applied via JS, but can add fallbacks here */
+             /* Example: font-style: italic; */
+        }
+
+
+        /* =============================================================================================
+           CSS | MAIN CONTENT AREA
+           - Introduced in v1.0.0
+           Styles the primary content wrapper, centers it, and adds padding.
+           ============================================================================================= */
+        #main {
+            width: 90%; /* Wider */
+            max-width: 900px; /* Increased max-width */
+            margin: 30px auto; /* More top/bottom margin */
+            padding: 25px;
+            background-color: #ffffff; /* White background for content */
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1); /* Subtle shadow */
+        }
+
+        /* =============================================================================================
+           CSS | TEXTAREA STYLING (INPUT & OUTPUT)
+           - Introduced in v1.0.0
+           Common styles for the input and specific styles for the output display area.
+           ============================================================================================= */
+        #inputText, #output {
+            width: 100%;
+            padding: 12px;
+            font-size: 14px; /* Consistent font size */
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-family: monospace; /* Use monospace for code/text manipulation */
+            line-height: 1.6;
+        }
+        #inputText {
+            height: 250px;
+            resize: vertical;
+            margin-bottom: 20px; /* Space below input */
+        }
+        #output {
+            min-height: 250px;
+            background-color: #f9f9f9; /* Slightly different background */
+            white-space: pre-wrap; /* Preserve whitespace and wrap */
+            word-wrap: break-word; /* Break long words */
+            overflow-y: auto; /* Allow scrolling within output */
+            margin-top: 20px; /* Space above output */
+            border-color: #ddd; /* Slightly lighter border */
+        }
+
+        /* =============================================================================================
+           CSS | DIVIDER STYLING
+           - Introduced in v1.0.0
+           Styles the horizontal rule used to separate sections visually.
+           ============================================================================================= */
+        hr.section-divider {
+            border: none;
+            height: 1px;
+            background-color: #e0e0e0; /* Light grey divider */
+            margin: 30px 0; /* More vertical space */
+        }
+
+        /* =============================================================================================
+           CSS | REGEX TOOLS SECTION
+           - Introduced in v1.0.0
+           Styles the container and individual elements within the regex toolset area.
+           ============================================================================================= */
+        #regex-tools-container {
+            padding: 15px 0;
+            text-align: left; /* Align tool content left */
+        }
+        .regex-tool-module {
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 15px;
+            background-color: #fafafa;
+        }
+        .regex-tool-module h3 {
+            margin: 0 0 10px 0;
+            font-size: 16px;
+            color: #005a9e; /* Use a theme color */
+            padding-bottom: 5px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .regex-tool-module p {
+             margin: 0 0 12px 0;
+             font-size: 13px;
+             color: #555;
+        }
+        .regex-tool-module .tool-inputs {
+            display: flex;
+            flex-direction: column; /* Stack inputs vertically */
+            gap: 10px; /* Space between inputs */
+            margin-bottom: 12px;
+        }
+        .regex-tool-module .tool-inputs label {
+            display: block;
+            margin-bottom: 4px;
+            font-weight: 600;
+            font-size: 13px;
+        }
+        .regex-tool-module .tool-inputs input[type="text"],
+        .regex-tool-module .tool-inputs select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 13px;
+        }
+         .regex-tool-module .tool-inputs input[type="checkbox"] {
+             margin-right: 5px;
+         }
+         .regex-tool-module .tool-inputs .checkbox-label {
+             display: flex;
+             align-items: center;
+             font-weight: normal;
+             font-size: 13px;
+         }
+
+        .regex-tool-module button.apply-tool-button {
+            padding: 10px 15px;
+            font-size: 14px;
+            border: none;
+            color: #fff;
+            background-color: #0078D7;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .regex-tool-module button.apply-tool-button:hover {
+            background-color: #005a9e;
+        }
+
+        /* =============================================================================================
+           CSS | OUTPUT ACTION BUTTONS
+           - Introduced in v1.0.0
+           Styles the buttons located below the output area (Copy, Clear).
+           ============================================================================================= */
+        #output-actions {
+            display: flex;
+            justify-content: flex-end; /* Align buttons to the right */
+            gap: 10px; /* Space between buttons */
+            margin-top: 15px;
+        }
+        #output-actions button {
+            padding: 10px 20px;
+            font-size: 14px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            color: #fff;
+        }
+        #copyOutputButton {
+            background-color: #28a745; /* Green */
+        }
+        #copyOutputButton:hover {
+            background-color: #218838;
+        }
+        #clearAllButton {
+            background-color: #dc3545; /* Red */
+        }
+        #clearAllButton:hover {
+            background-color: #c82333;
+        }
+        #copyOutputButton.copied {
+             background-color: #1e7e34; /* Darker green when copied */
+        }
+    </style>
+</head>
+<body>
+    <!-- 
+    =============================================================================================
+    HTML | APP CONTAINER & HEADER
+    - Introduced in v1.0.0 | Updated v1.1.0 (App title span structure)
+    Outermost container and the sticky header bar. App title is prepared for version injection.
+    =============================================================================================
+    -->
+    <div id="app-container">
+        <div id="header">
+            <!-- App title span: JS will inject version note here -->
+            <span id="app-title">User-Friendly Regex Tool</span> 
+        </div>
+
+        <!-- 
+        =============================================================================================
+        HTML | MAIN CONTENT: Input, Tools, Output, Actions
+        - Introduced in v1.0.0
+        The main scrolling area containing all interactive elements.
+        =============================================================================================
+        -->
+        <div id="main">
+
+            <!-- -----------------------------------------------------------------------------------------
+               HTML | INPUT AREA
+               - Introduced in v1.0.0
+               Textarea for user to paste or type their input text.
+               ----------------------------------------------------------------------------------------- -->
+            <textarea
+                id="inputText"
+                placeholder="Paste your text here..."
+            ></textarea>
+
+            <hr class="section-divider">
+
+            <!-- -----------------------------------------------------------------------------------------
+               HTML | REGEX TOOLS PLACEHOLDER
+               - Introduced in v1.0.0
+               This container will be dynamically populated with regex tools by JavaScript.
+               ----------------------------------------------------------------------------------------- -->
+            <h2>Regex Tools</h2>
+            <div id="regex-tools-container">
+                <!-- Tools will be loaded here by JS -->
+            </div>
+
+            <hr class="section-divider">
+
+            <!-- -----------------------------------------------------------------------------------------
+               HTML | OUTPUT AREA
+               - Introduced in v1.0.0
+               Area where the processed text is displayed.
+               ----------------------------------------------------------------------------------------- -->
+            <h2>Output</h2>
+            <div id="output"></div>
+
+            <!-- -----------------------------------------------------------------------------------------
+               HTML | OUTPUT ACTIONS
+               - Introduced in v1.0.0
+               Buttons for copying the output or clearing everything.
+               ----------------------------------------------------------------------------------------- -->
+            <div id="output-actions">
+                <button id="copyOutputButton">Copy Output</button>
+                <button id="clearAllButton">Clear All</button>
+            </div>
+
+        </div> <!-- End #main -->
+    </div> <!-- End #app-container -->
+
+    <!-- 
+    =============================================================================================
+    JAVASCRIPT | CORE APPLICATION SCRIPT
+    - Introduced in v1.0.0 | Updated v1.1.0
+    Contains all JavaScript logic for the Regex tool, including module definitions, 
+    UI population, event handling, helper functions, and version injection.
+    =============================================================================================
+    -->
+    <script>
+        // =============================================================================================
+        // JAVASCRIPT | GLOBAL VARIABLES & CONSTANTS
+        // - Introduced in v1.0.0 | Updated v1.1.0 (Removed G_APP_VERSION, version now from meta)
+        // Defines global constants and caches frequently accessed DOM elements.
+        // =============================================================================================
+        // Note: G_APP_VERSION is no longer needed here, version comes from meta tag.
+        const G_DOM_ELEMENTS = {
+            appTitle: null, // Added caching for app title element
+            inputText: null,
+            output: null,
+            regexToolsContainer: null,
+            copyOutputButton: null,
+            clearAllButton: null,
+        };
+
+        // =============================================================================================
+        // JAVASCRIPT | REGEX TOOL MODULE DEFINITIONS
+        // - Introduced in v1.0.0 | Updated v1.1.0 (Added Email Extract & Line Numbers)
+        // An array of objects defining each available regex tool. Each object contains metadata
+        // for UI generation and the core action function.
+        // IMPORTANT NOTES
+        // - New tools should be added to this array following the established structure.
+        // - The 'id' must be unique for each module.
+        // - The 'action' function receives the input text and an object containing values
+        //   from the defined 'inputs'.
+        // =============================================================================================
+        const REGEX_TOOL_MODULES = [
+            // ------------------------------------------------------------
+            // MODULE | FIND & REPLACE
+            // - Introduced in v1.0.0
+            // DESCRIPTION
+            // - Simple find and replace functionality. Allows specifying text to find
+            //   and text to replace it with. Supports case-insensitive and global flags.
+            // ------------------------------------------------------------
+            {
+                id: 'findReplace',
+                name: 'Find & Replace',
+                description: 'Replace occurrences of specific text with something else.',
+                inputs: [
+                    { type: 'text', id: 'findText', label: 'Find:' },
+                    { type: 'text', id: 'replaceText', label: 'Replace With:' },
+                    { type: 'checkbox', id: 'caseInsensitive', label: 'Case Insensitive (i)'},
+                    { type: 'checkbox', id: 'global', label: 'Replace All (g)', checked: true } // Default to global
+                ],
+                action: function(text, inputs) {
+                    if (!inputs.findText) return text; // Avoid replacing empty string globally
+
+                    const flags = (inputs.caseInsensitive ? 'i' : '') + (inputs.global ? 'g' : '');
+                    // Escape special regex characters in the user's find text
+                    const escapedFindText = escapeRegExp(inputs.findText);
+                    const regex = new RegExp(escapedFindText, flags);
+                    return text.replace(regex, inputs.replaceText || '');
+                }
+            },
+            // ------------------------------------------------------------
+            // MODULE | REMOVE LINES CONTAINING TEXT
+            // - Introduced in v1.0.0
+            // DESCRIPTION
+            // - Removes entire lines that contain a specific piece of text.
+            //   Supports case-insensitive matching.
+            // ------------------------------------------------------------
+             {
+                id: 'removeLinesContaining',
+                name: 'Remove Lines Containing Text',
+                description: 'Delete entire lines if they contain the specified text.',
+                inputs: [
+                    { type: 'text', id: 'searchText', label: 'Remove lines containing:' },
+                    { type: 'checkbox', id: 'caseInsensitive', label: 'Case Insensitive (i)'}
+                ],
+                action: function(text, inputs) {
+                    if (!inputs.searchText) return text;
+
+                    const flags = 'm' + (inputs.caseInsensitive ? 'i' : ''); // 'm' for multiline (^/$ match line ends)
+                    // Escape special regex characters in the user's search text
+                    const escapedSearchText = escapeRegExp(inputs.searchText);
+                    // Regex explanation:
+                    // ^              - Start of line (due to 'm' flag)
+                    // .*             - Match any characters (except newline) zero or more times
+                    // escapedSearchText - The user's text to find
+                    // .*             - Match any characters (except newline) zero or more times until end of line
+                    // \r?\n?         - Match optional carriage return and optional newline (handles different line endings)
+                    const regex = new RegExp(`^.*${escapedSearchText}.*\\r?\\n?`, flags);
+                    
+                    // Repeatedly replace until no more matches are found
+                    let result = text;
+                    let previousResult = '';
+                    // Need loop because global replace on multiline anchors can be tricky
+                    while (result !== previousResult) {
+                       previousResult = result;
+                       result = result.replace(regex, ''); 
+                    }
+                    return result.trim(); // Trim potential final newline
+                }
+            },
+            // ------------------------------------------------------------
+            // MODULE | EXTRACT PATTERN MATCHES
+            // - Introduced in v1.0.0
+            // DESCRIPTION
+            // - Extracts all text segments that match a given standard Regex pattern.
+            //   Useful for finding emails, URLs, numbers, etc. Requires user to input Regex.
+            // IMPORTANT NOTES
+            // - User provides the Regex directly, so it must be valid syntax.
+            // ------------------------------------------------------------
+            {
+                id: 'extractPattern',
+                name: 'Extract Matches (Using Regex)',
+                description: 'List all parts of the text that match a standard Regex pattern.',
+                inputs: [
+                    { type: 'text', id: 'regexPattern', label: 'Regex Pattern:' },
+                    { type: 'checkbox', id: 'caseInsensitive', label: 'Case Insensitive (i)'},
+                    { type: 'checkbox', id: 'global', label: 'Find All (g)', checked: true },
+                    { type: 'checkbox', id: 'multiline', label: 'Multiline Mode (m)'}
+                ],
+                action: function(text, inputs) {
+                    if (!inputs.regexPattern) return "Error: Please provide a Regex pattern.";
+
+                    try {
+                        const flags = (inputs.caseInsensitive ? 'i' : '') +
+                                      (inputs.global ? 'g' : '') +
+                                      (inputs.multiline ? 'm' : '');
+                        const regex = new RegExp(inputs.regexPattern, flags);
+                        const matches = text.match(regex);
+
+                        if (matches) {
+                            return matches.join('\n'); // List each match on a new line
+                        } else {
+                            return "No matches found.";
+                        }
+                    } catch (e) {
+                        console.error("Regex Error:", e);
+                        return `Error: Invalid Regex pattern provided.\nDetails: ${e.message}`;
+                    }
+                }
+            },
+            // ------------------------------------------------------------
+            // MODULE | REMOVE BLANK LINES
+            // - Introduced in v1.0.0
+            // DESCRIPTION
+            // - Removes empty lines or lines containing only whitespace from the text.
+            // ------------------------------------------------------------
+            {
+                id: 'removeBlankLines',
+                name: 'Remove Blank Lines',
+                description: 'Removes lines that are empty or contain only spaces/tabs.',
+                inputs: [], // No user inputs needed for this one
+                action: function(text, inputs) {
+                    // Regex explanation:
+                    // ^        - Start of line
+                    // \s*      - Match zero or more whitespace characters (space, tab, etc.)
+                    // $        - End of line
+                    // \r?\n    - Match the newline sequence (optional carriage return)
+                    // The 'gm' flags make ^ and $ match start/end of lines and finds all occurrences.
+                    const regex = /^[\t ]*$\r?\n/gm; // Match empty or whitespace-only lines followed by a newline
+                    return text.replace(regex, '').trim(); // Remove matched lines and trim ends
+                }
+            },
+             // ------------------------------------------------------------
+            // MODULE | EXTRACT EMAIL ADDRESSES
+            // - Introduced in v1.1.0
+            // DESCRIPTION
+            // - Finds and lists all valid-looking email addresses within the text.
+            // IMPORTANT NOTES
+            // - Uses a common pattern, but might not catch all edge-case valid emails
+            //   or might occasionally match something that isn't strictly an email.
+            // ------------------------------------------------------------
+            {
+                id: 'extractEmails',
+                name: 'Extract Email Addresses',
+                description: 'List all email addresses found in the text.',
+                inputs: [
+                     { type: 'checkbox', id: 'global', label: 'Find All (g)', checked: true } // Typically want all
+                ],
+                action: function(text, inputs) {
+                    // Regex Explanation:
+                    // [a-zA-Z0-9._%+-]+   - Match one or more username characters (letters, numbers, ., _, %, +, -)
+                    // @                  - Match the literal "@" symbol
+                    // [a-zA-Z0-9.-]+    - Match one or more domain name characters (letters, numbers, ., -)
+                    // \.                 - Match the literal "." before the top-level domain
+                    // [a-zA-Z]{2,}       - Match at least two letters for the top-level domain (e.g., com, org, uk)
+                    const emailRegexPattern = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/;
+                    const flags = inputs.global ? 'g' : ''; // Primarily global makes sense here
+                    const regex = new RegExp(emailRegexPattern.source, flags); // Use source to avoid double-escaping
+
+                    try {
+                        const matches = text.match(regex);
+
+                        if (matches) {
+                            // Optional: Filter out potential duplicates if global is true
+                            // const uniqueMatches = [...new Set(matches)];
+                            // return uniqueMatches.join('\n');
+                            return matches.join('\n'); // List each match on a new line
+                        } else {
+                            return "No email addresses found.";
+                        }
+                    } catch (e) {
+                         console.error("Regex Error during email extraction:", e);
+                         return `Error: Could not perform email extraction.\nDetails: ${e.message}`;
+                    }
+                }
+            },
+            // ------------------------------------------------------------
+            // MODULE | ADD LINE NUMBERS
+            // - Introduced in v1.1.0
+            // DESCRIPTION
+            // - Adds a sequential number followed by a separator to the beginning of each line.
+            // IMPORTANT NOTES
+            // - Handles both Unix (LF) and Windows (CRLF) line endings.
+            // - Preserves blank lines, numbering them as well.
+            // ------------------------------------------------------------
+            {
+                id: 'addLineNumbers',
+                name: 'Add Line Numbers',
+                description: 'Prefix each line with its number (e.g., "1: ").',
+                inputs: [
+                    { type: 'text', id: 'separator', label: 'Separator after number:', placeholder: ': ' } // Default to ': '
+                ],
+                action: function(text, inputs) {
+                    const separator = inputs.separator !== null && inputs.separator !== undefined ? inputs.separator : ': '; // Use provided or default
+
+                    // Split lines reliably, handling different line endings
+                    const lines = text.split(/\r?\n/);
+                    let maxDigits = String(lines.length).length; // Calculate padding width
+
+                    const numberedLines = lines.map((line, index) => {
+                        // Pad number with leading spaces for alignment
+                        let lineNumber = String(index + 1).padStart(maxDigits, ' ');
+                        return `${lineNumber}${separator}${line}`;
+                    });
+
+                    return numberedLines.join('\n'); // Join back with standard newline
+                }
+            }
+            // --- Add more modules here following the same structure ---
+        ];
+
+        // =============================================================================================
+        // HELPER FUNCTION | ESCAPE REGEXP CHARACTERS
+        // - Introduced in v1.0.0
+        // DESCRIPTION
+        // - Escapes characters that have special meaning in regular expressions. Used to safely
+        //   include user input (like find text) in a RegExp constructor.
+        // =============================================================================================
+        function escapeRegExp(string) {
+            // $& means the whole matched string
+            return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        }
+        
+        // =============================================================================================
+        // HELPER FUNCTION | INJECT VERSION NOTE
+        // - Introduced in v1.1.0 (Inspired by PlanVision v1.8.1 style)
+        // DESCRIPTION
+        // - Dynamically reads the application version from a meta tag and adds a styled
+        //   version note (e.g., "- Testing Version X.Y.Z Beta") into the application
+        //   title element (#app-title) in the header. Preserves the original base title text.
+        // ARGUMENTS
+        // - options (Object, optional): Configuration options.
+        //      - metaTagName (String): Name attribute of the meta tag containing the version (default: 'application-version').
+        //      - targetElementId (String): ID of the element to inject the note into (default: 'app-title').
+        //      - prefix (String): Text before the version number (default: " - Testing Version ").
+        //      - suffix (String): Text after the version number (default: " Beta").
+        //      - style (Object): CSS properties for the note span (default: { fontSize: '12px', color: '#656565' }).
+        // IMPORTANT NOTES
+        // - Assumes the specified meta tag and target element ID exist in the DOM.
+        // - Handles potential errors gracefully if elements or version are missing.
+        // - Best called during application initialization (e.g., within initApp).
+        // =============================================================================================
+        function injectVersionNote(options = {}) {
+             // --- Configuration with Defaults ---
+            const config = {
+                metaTagName: options.metaTagName || 'application-version',
+                targetElementId: options.targetElementId || 'app-title',
+                prefix: options.prefix !== undefined ? options.prefix : ' - Testing Version ',
+                suffix: options.suffix !== undefined ? options.suffix : ' Beta',
+                style: options.style || {
+                    fontSize: '12px',
+                    color: '#656565'
+                }
+            };
+
+            // --- Find Target Element ---
+            const targetElement = G_DOM_ELEMENTS.appTitle || document.getElementById(config.targetElementId); // Use cache first
+             if (!targetElement) {
+                console.error(`Error: Target element #${config.targetElementId} not found for injecting version note.`);
+                return;
+            }
+
+            // --- Get Version from Meta Tag ---
+            const metaTag = document.querySelector(`meta[name="${config.metaTagName}"]`);
+            if (!metaTag) {
+                console.warn(`Warning: Meta tag with name="${config.metaTagName}" not found. Cannot inject version note.`);
+                return;
+            }
+            const versionString = metaTag.getAttribute('content');
+            if (!versionString) {
+                 console.warn(`Warning: Meta tag "${config.metaTagName}" found, but has no content attribute. Cannot inject version note.`);
+                return;
+            }
+            console.log(`Injecting version: ${versionString}`); // Log the version being injected
+
+            // --- Get Base Title ---
+            // Assumes the base title is the first text node within the target element.
+            let baseTitle = '';
+            for (let i = 0; i < targetElement.childNodes.length; i++) {
+                if (targetElement.childNodes[i].nodeType === Node.TEXT_NODE) {
+                    baseTitle = targetElement.childNodes[i].textContent.trim();
+                    break;
+                }
+            }
+             // Fallback if base title not found as first text node
+             if (!baseTitle && targetElement.textContent) {
+                  baseTitle = targetElement.textContent.split(config.prefix.trim())[0].trim();
+             }
+             if (!baseTitle) { // Last resort fallback
+                 console.warn(`#${config.targetElementId} base text could not be reliably determined. Using current text or 'App'.`);
+                 baseTitle = targetElement.textContent || 'App';
+             }
+
+
+            // --- Create the Version Note Span ---
+            const versionSpan = document.createElement('span');
+            versionSpan.className = 'version-note'; // Add class for potential CSS targeting
+            versionSpan.textContent = `${config.prefix}${versionString}${config.suffix}`;
+
+            // --- Apply Styling ---
+            for (const property in config.style) {
+                if (config.style.hasOwnProperty(property)) {
+                    // Apply style directly to the element's style object
+                    versionSpan.style[property] = config.style[property];
+                }
+            }
+
+            // --- Inject into DOM ---
+            // Clear existing content and rebuild to ensure correct order and remove old notes
+            targetElement.innerHTML = ''; // Clear completely
+            targetElement.appendChild(document.createTextNode(baseTitle + ' ')); // Add base title and a space
+            targetElement.appendChild(versionSpan); // Append the new version span
+        }
+
+
+        // =============================================================================================
+        // FUNCTION | POPULATE REGEX TOOLS UI
+        // - Introduced in v1.0.0
+        // DESCRIPTION
+        // - Iterates through the REGEX_TOOL_MODULES array and dynamically creates the HTML
+        //   elements for each tool (title, description, inputs, button) and adds them to the DOM.
+        // =============================================================================================
+        function populateRegexToolsUI() {
+            if (!G_DOM_ELEMENTS.regexToolsContainer) return; // Ensure container exists
+            G_DOM_ELEMENTS.regexToolsContainer.innerHTML = ''; // Clear existing tools first
+
+            REGEX_TOOL_MODULES.forEach(module => {
+                const toolDiv = document.createElement('div');
+                toolDiv.className = 'regex-tool-module';
+                toolDiv.setAttribute('data-module-id', module.id); // Link div to module id
+
+                const title = document.createElement('h3');
+                title.textContent = module.name;
+                toolDiv.appendChild(title);
+
+                const description = document.createElement('p');
+                description.textContent = module.description;
+                toolDiv.appendChild(description);
+
+                const inputsDiv = document.createElement('div');
+                inputsDiv.className = 'tool-inputs';
+
+                module.inputs.forEach(inputDef => {
+                    const inputContainer = document.createElement('div'); // Wrap label and input
+                    
+                    const label = document.createElement('label');
+                    label.htmlFor = `${module.id}-${inputDef.id}`; // Unique ID for label 'for'
+                    label.textContent = inputDef.label;
+
+                    if (inputDef.type === 'checkbox') {
+                        const checkbox = document.createElement('input');
+                        checkbox.type = 'checkbox';
+                        checkbox.id = `${module.id}-${inputDef.id}`;
+                        checkbox.setAttribute('data-input-id', inputDef.id); // Store original id
+                        if (inputDef.checked) {
+                           checkbox.checked = true; 
+                        }
+                        label.classList.add('checkbox-label'); // Style label differently
+                        label.prepend(checkbox); // Put checkbox inside label for easy clicking
+                        inputContainer.appendChild(label);
+
+                    } else if (inputDef.type === 'text') {
+                         inputContainer.appendChild(label);
+                         const input = document.createElement('input');
+                         input.type = 'text';
+                         input.id = `${module.id}-${inputDef.id}`;
+                         input.placeholder = inputDef.placeholder || '';
+                         input.setAttribute('data-input-id', inputDef.id); // Store original id
+                         inputContainer.appendChild(input);
+                     }
+                    // Add other input types (select, textarea) here if needed
+                     
+                    inputsDiv.appendChild(inputContainer);
+                });
+
+                toolDiv.appendChild(inputsDiv);
+
+                const applyButton = document.createElement('button');
+                applyButton.textContent = `Apply: ${module.name}`;
+                applyButton.className = 'apply-tool-button';
+                applyButton.setAttribute('data-tool-id', module.id); // Link button to module id
+                applyButton.addEventListener('click', handleApplyToolClick); // Attach listener here
+                toolDiv.appendChild(applyButton);
+
+                G_DOM_ELEMENTS.regexToolsContainer.appendChild(toolDiv);
+            });
+        }
+
+        // =============================================================================================
+        // EVENT HANDLER | APPLY TOOL BUTTON CLICK
+        // - Introduced in v1.0.0
+        // DESCRIPTION
+        // - Handles clicks on any of the dynamically generated "Apply" buttons for regex tools.
+        //   Identifies the tool, gathers its specific inputs, calls the tool's action function,
+        //   and updates the output area.
+        // =============================================================================================
+        function handleApplyToolClick(event) {
+            const button = event.target;
+            const toolId = button.getAttribute('data-tool-id');
+            const module = REGEX_TOOL_MODULES.find(m => m.id === toolId);
+
+            if (!module) {
+                console.error(`Module with ID ${toolId} not found.`);
+                G_DOM_ELEMENTS.output.textContent = "Error: Tool module definition not found.";
+                return;
+            }
+
+            const toolDiv = button.closest('.regex-tool-module');
+            const inputValues = {};
+
+            // Gather values from this tool's specific inputs
+            module.inputs.forEach(inputDef => {
+                const inputElement = toolDiv.querySelector(`[data-input-id="${inputDef.id}"]`);
+                if (inputElement) {
+                    if (inputDef.type === 'checkbox') {
+                        inputValues[inputDef.id] = inputElement.checked;
+                    } else { // Default to text-like inputs
+                        inputValues[inputDef.id] = inputElement.value;
+                    }
+                } else {
+                     console.warn(`Input element for ${inputDef.id} in module ${toolId} not found.`);
+                     inputValues[inputDef.id] = null; // Or default value
+                }
+            });
+
+            const inputTextValue = G_DOM_ELEMENTS.inputText.value;
+            
+            try {
+                const result = module.action(inputTextValue, inputValues);
+                G_DOM_ELEMENTS.output.textContent = result; // Display result
+            } catch (error) {
+                 console.error(`Error executing action for module ${toolId}:`, error);
+                 G_DOM_ELEMENTS.output.textContent = `An error occurred while applying the tool: ${error.message}`;
+            }
+        }
+
+        // =============================================================================================
+        // EVENT HANDLER | COPY OUTPUT BUTTON CLICK
+        // - Introduced in v1.0.0
+        // DESCRIPTION
+        // - Copies the current content of the output area to the clipboard using the
+        //   Clipboard API. Provides visual feedback on the button.
+        // =============================================================================================
+        function handleCopyOutputClick() {
+            const outputText = G_DOM_ELEMENTS.output.textContent;
+            if (!outputText) return; // Don't copy if empty
+
+            navigator.clipboard.writeText(outputText)
+                .then(() => {
+                    // Success feedback
+                    G_DOM_ELEMENTS.copyOutputButton.textContent = 'Copied!';
+                    G_DOM_ELEMENTS.copyOutputButton.classList.add('copied');
+                    G_DOM_ELEMENTS.copyOutputButton.disabled = true; // Optional: disable briefly
+                    
+                    // Reset button after a short delay
+                    setTimeout(() => {
+                        G_DOM_ELEMENTS.copyOutputButton.textContent = 'Copy Output';
+                        G_DOM_ELEMENTS.copyOutputButton.classList.remove('copied');
+                        G_DOM_ELEMENTS.copyOutputButton.disabled = false;
+                    }, 1500); // Reset after 1.5 seconds
+                })
+                .catch(err => {
+                    console.error('Failed to copy text: ', err);
+                    G_DOM_ELEMENTS.output.textContent = "Error: Could not copy text to clipboard. Check browser permissions.";
+                });
+        }
+
+        // =============================================================================================
+        // EVENT HANDLER | CLEAR ALL BUTTON CLICK
+        // - Introduced in v1.0.0
+        // DESCRIPTION
+        // - Clears the content of both the input textarea and the output display area.
+        // =============================================================================================
+        function handleClearAllClick() {
+            G_DOM_ELEMENTS.inputText.value = '';
+            G_DOM_ELEMENTS.output.textContent = '';
+             // Optionally reset tool inputs? Decide based on desired UX
+            // resetAllToolInputs(); // Example if needed
+        }
+
+        // =============================================================================================
+        // INITIALIZATION | MAIN APPLICATION INIT
+        // - Introduced in v1.0.0 | Updated v1.1.0 (Added version injection)
+        // DESCRIPTION
+        // - Sets up the application when the page loads. Caches DOM elements, injects the version note,
+        //   populates the dynamic UI components (regex tools), and attaches global event listeners.
+        // IMPORTANT NOTES
+        // - This function should be called once the DOM is fully loaded.
+        // =============================================================================================
+        function initApp() {
+            // Note: Logging G_APP_VERSION is removed as version now comes from meta tag
+            console.log(`Initializing Regex Tool...`); 
+
+            // --- Cache DOM Elements ---
+            G_DOM_ELEMENTS.appTitle = document.getElementById('app-title'); // Added
+            G_DOM_ELEMENTS.inputText = document.getElementById('inputText');
+            G_DOM_ELEMENTS.output = document.getElementById('output');
+            G_DOM_ELEMENTS.regexToolsContainer = document.getElementById('regex-tools-container');
+            G_DOM_ELEMENTS.copyOutputButton = document.getElementById('copyOutputButton');
+            G_DOM_ELEMENTS.clearAllButton = document.getElementById('clearAllButton');
+
+            // --- Check if all essential elements were found ---
+            let essentialElementsFound = true;
+             for (const key in G_DOM_ELEMENTS) {
+                if (G_DOM_ELEMENTS[key] === null) {
+                     console.error(`Initialization Error: DOM element with ID corresponding to '${key}' not found.`);
+                     essentialElementsFound = false;
+                }
+             }
+
+             if (!essentialElementsFound) {
+                 document.body.innerHTML = '<p style="color: red; font-weight: bold; padding: 20px;">Error: Application could not initialize. Essential HTML elements are missing. Check the console.</p>';
+                 return; // Stop initialization
+             }
+             
+             // --- Inject Version Note ---
+             // Call the helper function without arguments, it will read from meta tag
+             injectVersionNote(); 
+             // Example customization:
+             // injectVersionNote({ suffix: ' - Debug Mode', style: { color: 'orange', fontStyle: 'italic' }});
+
+
+            // --- Populate Dynamic UI ---
+            populateRegexToolsUI();
+
+            // --- Attach Global Event Listeners ---
+            G_DOM_ELEMENTS.copyOutputButton.addEventListener('click', handleCopyOutputClick);
+            G_DOM_ELEMENTS.clearAllButton.addEventListener('click', handleClearAllClick);
+            // Note: Tool-specific listeners are attached in populateRegexToolsUI
+
+             console.log("Regex Tool Initialized Successfully.");
+        }
+
+        // =============================================================================================
+        // LISTENER | DOM CONTENT LOADED
+        // - Introduced in v1.0.0
+        // DESCRIPTION
+        // - Ensures the DOM is fully parsed before running the main initialization script.
+        // =============================================================================================
+        document.addEventListener('DOMContentLoaded', initApp);
+
+    </script>
+
+</body>
+</html>
