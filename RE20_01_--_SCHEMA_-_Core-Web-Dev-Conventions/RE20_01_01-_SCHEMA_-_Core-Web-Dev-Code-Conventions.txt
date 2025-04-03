@@ -17,29 +17,29 @@ Consistency is paramount. When modifying existing code, adhere to the establishe
 
 ##### General Principles
 
-* **Consistency** 
-
-    * Apply these conventions uniformly throughout the codebase.
-    * When provided with snippets outside of these conventions such as old codebase sections that predate these conventions, always refactor new code ensuring all new code complies with these rules.
-
-* **Clarity**
-
-    * Write code that is easy to understand. 
-    * Prioritize readability over overly clever or terse solutions.
-    * Code does not need to be lean, linting will be applied prior to final packaging.
-
-* **Organisation**
-
-    * Structure code logically using regions.
-    * further break up code using sub-regions.
-
-* **Commenting**
-
-    * Use comments effectively to explain why code exists;
-    * not just what it does (unless the "what" is complex). 
-    * Document complex logic, workarounds, and version introductions.
-
-* **Commenting & Code Regional Structure **
+- **Consistency** 
+  
+    - Apply these conventions uniformly throughout the codebase.
+    - When provided with snippets outside of these conventions such as old codebase sections that predate these conventions, always refactor new code ensuring all new code complies with these rules.
+    
+- **Clarity**
+  
+    - Write code that is easy to understand. 
+    - Prioritize readability over overly clever or terse solutions.
+    - Code does not need to be lean, linting will be applied prior to final packaging.
+    
+- **Organisation**
+  
+    - Structure code logically using regions.
+    - further break up code using sub-regions.
+    
+- **Commenting**
+  
+    - Use comments effectively to explain why code exists;
+    - not just what it does (unless the "what" is complex). 
+    - Document complex logic, workarounds, and version introductions.
+    
+- **Commenting & Code Regional Structure** 
 
     -   Code is organized into logical blocks using specifically formatted header comments and dividers.
 
@@ -200,7 +200,7 @@ KEY LINK COMMENTS
 
 * **Indentation:** Use consistent indentation (4 spaces observed in the sample).
 * **Braces:** Use braces `{}` for all control structures (`if`, `else`, `for`, `while`, `try...catch`), even single-line ones. Place the opening brace on the same line as the statement.
-    
+  
     ```javascript
     if (condition) {
         // code
@@ -227,15 +227,15 @@ KEY LINK COMMENTS
 
 ##### Version Notes
 
-* Detailed version tracking is important as the project is still in development, detailed notes are preffered.
-* Add brief notes to the Master File Header each time changes are implemented.
-    * Log date of changes.
-    * Log version.
-    * Log brief updates and note regions affected.
-* Add more detailed granular update notes to the respective Region Header.
-    * Log date of changes.
-    * Log version.
-    * Log brief updates and note regions affected.
+- Detailed version tracking is important as the project is still in development, detailed notes are preffered.
+- Add brief notes to the Master File Header each time changes are implemented.
+    - Log date of changes.
+    - Log version.
+    - Log brief updates and note regions affected.
+- Add more detailed granular update notes to the respective Region Header.
+    - Log date of changes.
+    - Log version.
+    - Log brief updates and note regions affected.
 
 
 
