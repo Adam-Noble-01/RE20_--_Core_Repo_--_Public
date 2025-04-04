@@ -584,29 +584,48 @@
             // --- Cache DOM Elements ---
             G_DOM_ELEMENTS.snippetGrid = document.getElementById('snippet-grid');
             G_DOM_ELEMENTS.gridMessage = document.getElementById('grid-message');
-            // Note: appTitle targeted by ID directly in injectVersionNote
-
+            
             // --- Check Essential Elements ---
             if (!G_DOM_ELEMENTS.snippetGrid || !G_DOM_ELEMENTS.gridMessage) {
-                 document.body.innerHTML = '<p class="GRID__message GRID__message--error">Error: Core application HTML elements (grid/message area) are missing.</p>';
-                 return; 
+                document.body.innerHTML = '<p class="GRID__message GRID__message--error">Error: Core application HTML elements (grid/message area) are missing.</p>';
+                return; 
             }
              
             // --- Inject Version Note ---
-             injectVersionNote(); // Still using ID target here
+            injectVersionNote();
 
             // --- Fetch Configuration Data ---
-             G_APP_CONFIG_DATA = await fetchConfigData(G_CONFIG_JSON_URL);
+            G_APP_CONFIG_DATA = await fetchConfigData(G_CONFIG_JSON_URL);
+
+            // --- LOAD CSS FROM CONFIG URL ---
+            if (G_APP_CONFIG_DATA && G_APP_CONFIG_DATA["app-files-data"] && 
+                G_APP_CONFIG_DATA["app-files-data"]["app-style-sheet-file"]) {
+                
+                const cssUrl = G_APP_CONFIG_DATA["app-files-data"]["app-style-sheet-file"]["file-github-url"];
+                console.log("Loading CSS from:", cssUrl);
+                
+                if (cssUrl) {
+                    // Remove existing stylesheet link
+                    const oldLink = document.querySelector('link[href="RE20_11_03_--_STYLE_-_Coding-Utility-Style-Sheet.css"]');
+                    if (oldLink) oldLink.parentNode.removeChild(oldLink);
+                    
+                    // Create new link with GitHub URL
+                    const cssLink = document.createElement('link');
+                    cssLink.rel = 'stylesheet';
+                    cssLink.href = cssUrl;
+                    document.head.appendChild(cssLink);
+                    console.log("CSS loaded dynamically from config URL");
+                }
+            }
 
             // --- Render Grid ONLY if Config Loaded ---
-             if (G_APP_CONFIG_DATA) {
-                 renderSnippetGrid(G_APP_CONFIG_DATA); 
-             } else {
-                 console.error("Initialization halted due to configuration load failure.");
-                 // Error message already displayed by fetchConfigData
-             }
+            if (G_APP_CONFIG_DATA) {
+                renderSnippetGrid(G_APP_CONFIG_DATA); 
+            } else {
+                console.error("Initialization halted due to configuration load failure.");
+            }
 
-             console.log("App Initialization Sequence Complete.");
+            console.log("App Initialization Sequence Complete.");
         }
 
         // =============================================================================================

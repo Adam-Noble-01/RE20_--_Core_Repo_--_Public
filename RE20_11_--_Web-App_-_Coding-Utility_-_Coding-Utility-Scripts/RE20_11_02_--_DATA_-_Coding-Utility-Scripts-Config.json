@@ -4,7 +4,7 @@
         "file-type"         :  "Application Files Link & Configurations Library",
         "file-description"  :  "This is the configuration file for the coding utility scripts.",
         "file-created"      :  "04-Apr-2025",
-        "file-version"      :  "1.0.0",
+        "file-version"      :  "1.2.0",
         "file-author"       :  "Adam Noble - Studio NoodlFjord",
         "file-local-path"   :  "D:\\RE20_--_Core_Repo_--_Public\\RE20_11_--_Web-App_-_Coding-Utility_-_Coding-Utility-Scripts\\RE20_11_02_--_DATA_-_Coding-Utility-Scripts-Config.json",
         "file-github-url"   :  "https://raw.githubusercontent.com/Adam-Noble-01/RE20_--_Core_Repo_--_Public/main/RE20_11_--_Web-App_-_Coding-Utility_-_Coding-Utility-Scripts/RE20_11_02_--_DATA_-_Coding-Utility-Scripts-Config.json"
@@ -15,7 +15,7 @@
             "file-type"         :  "Main Application Index File",
             "file-description"  :  "This is the main application index file for the coding utility scripts.",
             "file-added"        :  "04-Apr-2025",
-            "file-version"      :  "1.0.0",
+            "file-version"      :  "1.2.0",
             "file-local-dir"    :  "D:\\RE20_--_Core_Repo_--_Public\\RE20_11_--_Web-App_-_Coding-Utility_-_Coding-Utility-Scripts\\RE20_11_01_--_Index_-_Coding-Utility-Scripts.html",
             "file-github-url"   :  "https://raw.githubusercontent.com/Adam-Noble-01/RE20_--_Core_Repo_--_Public/main/RE20_11_--_Web-App_-_Coding-Utility_-_Coding-Utility-Scripts/RE20_11_01_--_Index_-_Coding-Utility-Scripts.html"
         },
@@ -24,7 +24,7 @@
             "file-type"         :  "Main Application CSS Stylesheet File",
             "file-description"  :  "This is the main application style file for the coding utility scripts.",
             "file-added"        :  "04-Apr-2025",
-            "file-version"      :  "1.0.0",
+            "file-version"      :  "1.2.0",
             "file-local-dir"    :  "D:\\RE20_--_Core_Repo_--_Public\\RE20_11_--_Web-App_-_Coding-Utility_-_Coding-Utility-Scripts\\RE20_11_03_--_STYLE_-_Coding-Utility-Style-Sheet..css",
             "file-github-url"   :  "https://raw.githubusercontent.com/Adam-Noble-01/RE20_--_Core_Repo_--_Public/main/RE20_11_--_Web-App_-_Coding-Utility_-_Coding-Utility-Scripts/RE20_11_03_--_STYLE_-_Coding-Utility-Style-Sheet.css"
         }
