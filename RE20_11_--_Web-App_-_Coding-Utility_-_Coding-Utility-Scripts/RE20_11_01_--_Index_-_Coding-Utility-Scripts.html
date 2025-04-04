@@ -625,19 +625,32 @@
                 
                 if (cssUrl) {
                     try {
+                        // Remove any existing stylesheet link with the same ID
+                        const existingLink = document.getElementById('app-stylesheet');
+                        if (existingLink) {
+                            existingLink.parentNode.removeChild(existingLink);
+                        }
+                        
+                        // Force browser to fetch fresh file by adding timestamp parameter
+                        const urlWithCache = cssUrl + '?t=' + new Date().getTime();
+                        
                         // Create new link with GitHub URL
                         const cssLink = document.createElement('link');
                         cssLink.rel = 'stylesheet';
-                        cssLink.href = cssUrl;
+                        cssLink.type = 'text/css'; // Explicitly set the type
+                        cssLink.href = urlWithCache;
                         cssLink.id = 'app-stylesheet';
                         document.head.appendChild(cssLink);
-                        console.log("CSS link created and added to head with URL:", cssUrl);
+                        console.log("CSS link created and added to head with URL:", urlWithCache);
                         
-                        // Verify link was added
-                        setTimeout(() => {
-                            const newLink = document.querySelector(`link[href="${cssUrl}"]`);
-                            console.log("Stylesheet applied successfully:", newLink ? "Yes" : "No");
-                        }, 500);
+                        // Add load event listener to confirm CSS loaded
+                        cssLink.onload = function() {
+                            console.log("CSS stylesheet successfully loaded");
+                        };
+                        
+                        cssLink.onerror = function(e) {
+                            console.error("CSS stylesheet failed to load:", e);
+                        };
                     } catch (err) {
                         console.error("Error loading CSS:", err);
                     }
