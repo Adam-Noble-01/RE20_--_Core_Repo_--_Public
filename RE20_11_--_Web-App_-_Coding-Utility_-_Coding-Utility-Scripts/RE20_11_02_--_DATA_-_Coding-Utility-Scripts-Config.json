@@ -1,0 +1,22 @@
+{
+    "file-metadata": {
+        "file-name"         :  "RE20_11_02_--_DATA_-_Coding-Utility-Scripts-Config.json",
+        "file-type"         :  "Application Files Link & Configurations Library",
+        "file-description"  :  "This is the configuration file for the coding utility scripts.",
+        "file-created"      :  "04-Apr-2025",
+        "file-version"      :  "1.0.0",
+        "file-author"       :  "Adam Noble - Studio NoodlFjord",
+        "file-local-path"   :  "D:\\RE20_--_Core_Repo_--_Public\\RE20_11_--_Web-App_-_Coding-Utility_-_Coding-Utility-Scripts\\RE20_11_02_--_DATA_-_Coding-Utility-Scripts-Config.json",
+        "file-github-url"   :  "ENTER-GITHUB-URL-HERE"
+    },
+    "script-files-data": {
+        "tool-script-01": {
+            "file-name"        :  "RE20_11_10_--_CODE_-_Code-Utility_-_Code-Snapshot-To-Text-File.py",
+            "file-type"        :  "Python Script",
+            "file-added"       :  "04-Apr-2025",
+            "file-version"     :  "1.0.0",
+            "file-local-dir"   :  "D:\\RE20_--_Core_Repo_--_Public\\RE20_11_--_Web-App_-_Coding-Utility_-_Coding-Utility-Scripts\\RE20_11_10_--_CODE_-_Code-Utility_-_Code-Snapshot-To-Text-File.py",
+            "file-github-url"  :  "D:\\RE20_--_Core_Repo_--_Public\\RE20_11_--_Web-App_-_Coding-Utility_-_Coding-Utility-Scripts\\RE20_11_10_--_CODE_-_Code-Utility_-_Code-Snapshot-To-Text-File.py"
+        }
+    }
+}
