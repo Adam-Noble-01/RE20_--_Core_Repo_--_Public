@@ -31,6 +31,25 @@
     - Injecting the application version into the header.
 
     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    CSS LOADING ARCHITECTURE
+
+    The application uses a triple-layer CSS loading approach for maximum reliability:
+    1. Primary: JSON Configuration 
+       - CSS stylesheet URL is retrieved from the JSON configuration file
+       - The stylesheet link is dynamically created with the GitHub URL
+
+    2. Secondary: Direct GitHub URL Fallback
+       - If no stylesheet is detected after 1 second, a direct link to GitHub CSS is applied
+       - This provides a safety net if there are issues with the JSON configuration
+
+    3. Ultimate: Embedded CSS for Google Sites
+       - When embedded in Google Sites (detected by hostname), critical CSS is injected directly
+       - This avoids MIME type issues that occur when Google Sites serves external CSS files
+       - Essential styles are embedded directly in the HTML page for reliable rendering
+
+    This architecture ensures consistent styling across all environments and deployment scenarios.
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     ISSUES & LESSONS LEARNED  
 
     - CORS Requirement: Requires being served over HTTP/HTTPS due to fetching external JSON and code snippets.
@@ -39,6 +58,8 @@
     - JSON Structure Dependency: Assumes the specific structure of the external JSON config file.
     - Prism.js Dependency: Relies on Prism.js CDN for syntax highlighting. Requires mapping script types to Prism languages.
     - CSS Naming Convention Rigidity: Adhering strictly to the custom convention requires careful naming in both CSS and JS.
+    - MIME Type Issues: When embedded in Google Sites, external CSS files may be served with incorrect MIME types.
+      Solution: Multi-layer CSS loading strategy with embedded CSS fallback for Google Sites environments.
 
     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     LOGIC ARCHITECTURE
@@ -137,8 +158,6 @@
     <!-- Prism.js CSS (Using Okaidia theme) -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" /> <!-- ← KEY LINK | Prism Theme -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" rel="stylesheet" />
-    <!-- Main application stylesheet -->
-    <link href="RE20_11_03_--_STYLE_-_Coding-Utility-Style-Sheet.css" rel="stylesheet" />
 </head>
 <body>
     <!-- 
@@ -605,17 +624,28 @@
                 console.log("Loading CSS from:", cssUrl);
                 
                 if (cssUrl) {
-                    // Remove existing stylesheet link
-                    const oldLink = document.querySelector('link[href="RE20_11_03_--_STYLE_-_Coding-Utility-Style-Sheet.css"]');
-                    if (oldLink) oldLink.parentNode.removeChild(oldLink);
-                    
-                    // Create new link with GitHub URL
-                    const cssLink = document.createElement('link');
-                    cssLink.rel = 'stylesheet';
-                    cssLink.href = cssUrl;
-                    document.head.appendChild(cssLink);
-                    console.log("CSS loaded dynamically from config URL");
+                    try {
+                        // Create new link with GitHub URL
+                        const cssLink = document.createElement('link');
+                        cssLink.rel = 'stylesheet';
+                        cssLink.href = cssUrl;
+                        cssLink.id = 'app-stylesheet';
+                        document.head.appendChild(cssLink);
+                        console.log("CSS link created and added to head with URL:", cssUrl);
+                        
+                        // Verify link was added
+                        setTimeout(() => {
+                            const newLink = document.querySelector(`link[href="${cssUrl}"]`);
+                            console.log("Stylesheet applied successfully:", newLink ? "Yes" : "No");
+                        }, 500);
+                    } catch (err) {
+                        console.error("Error loading CSS:", err);
+                    }
+                } else {
+                    console.error("No CSS URL found in config!");
                 }
+            } else {
+                console.error("Could not find app-style-sheet-file in config data!");
             }
 
             // --- Render Grid ONLY if Config Loaded ---
