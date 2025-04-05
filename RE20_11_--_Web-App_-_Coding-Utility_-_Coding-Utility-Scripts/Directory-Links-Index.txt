@@ -28,4 +28,13 @@ D:\RE20_--_Core_Repo_--_Public\RE20_11_--_Web-App_-_Coding-Utility_-_Coding-Util
 
 ---
 
+| CSS FILE | RE20_11_03_--_STYLE_-_Coding-Utility-Style-Sheet |
+| ---------------------- | ------------------------------------------------------------ |
+| **FILE NAME** | RE20_11_03_--_STYLE_-_Coding-Utility-Style-Sheet.css |
+| **LOCAL PATH** | D:\RE20_--_Core_Repo_--_Public\RE20_11_--_Web-App_-_Coding-Utility_-_Coding-Utility-Scripts\RE20_11_03_--_STYLE_-_Coding-Utility-Style-Sheet.css |
+| **LOCAL PATH (JSON)** | D:\\RE20_--_Core_Repo_--_Public\\RE20_11_--_Web-App_-_Coding-Utility_-_Coding-Utility-Scripts\\RE20_11_03_--_STYLE_-_Coding-Utility-Style-Sheet.css |
+| **GITHUB RAW URL** | https://raw.githubusercontent.com/Adam-Noble-01/RE20_--_Core_Repo_--_Public/main/RE20_11_--_Web-App_-_Coding-Utility_-_Coding-Utility-Scripts/RE20_11_03_--_STYLE_-_Coding-Utility-Style-Sheet.css |
+
+---
+
 ###### End Of Report

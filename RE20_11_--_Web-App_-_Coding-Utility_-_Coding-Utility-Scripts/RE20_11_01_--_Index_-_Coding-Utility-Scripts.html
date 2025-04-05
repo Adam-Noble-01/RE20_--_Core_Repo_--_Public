@@ -1,15 +1,16 @@
 <!DOCTYPE html> <!-- MUST BE THE VERY FIRST LINE -->
 <html lang="en">
 <head>
-    <!-- 
+    <!--
     ====================================================================================================================
     APPLICATION  |  Coding Utility Scripts Viewer
-    FILE NAME    |  RE20_11_01_--_Index_-_Coding-Utility-Scripts_v1.1.0.html (Suggested Name)
+    FILE NAME    |  RE20_11_01_--_Index_-_Coding-Utility-Scripts_v1.1.1.html (Suggested Name - Updated Version)
     FILE TYPE    |  HTML/CSS/JS Single-File Web Application
-    APP DETAILS  |  Displays code snippets fetched from GitHub based on an external configuration JSON. 
+    APP DETAILS  |  Displays code snippets fetched from GitHub based on an external configuration JSON.
                  |  Allows users to easily browse and copy snippets, URLs, and local paths. Includes syntax highlighting.
+                 |  Uses a separate script to load CSS early.
     AUTHOR       |  Adam Noble - Studio NoodlFjord (Generated based on request)
-    VERSION      |  1.1.0 
+    VERSION      |  1.1.1
     ====================================================================================================================
 
     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -25,225 +26,259 @@
         - The code snippet content.
         - The GitHub URL of the snippet file.
         - The local directory path specified in the config.
-    - Applying syntax highlighting using Prism.js for supported languages (Python, JS, HTML, CSS, Bash, PowerShell).
+    - Applying syntax highlighting using Prism.js for supported languages.
     - Utilizing a CSS naming convention (HEAD__, GRID__, CARD__, BTNS__, etc.).
     - Displaying loading and error states for configuration and code fetching.
     - Injecting the application version into the header.
+    - **MODULAR CSS LOADING:** Uses a dedicated script in the <head> to fetch the config and inject the CSS link (using jsDelivr) before the main app logic runs.
 
     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     CSS LOADING ARCHITECTURE
 
-    The application uses a triple-layer CSS loading approach for maximum reliability:
-    1. Primary: JSON Configuration 
-       - CSS stylesheet URL is retrieved from the JSON configuration file
-       - The stylesheet link is dynamically created with the GitHub URL
+    1. Dedicated Loader Script (<head>):
+       - Fetches config JSON solely to get the CSS URL.
+       - Creates a <link> tag using a reliable CDN URL (jsDelivr) derived from the config URL to avoid MIME type issues.
+       - Appends the <link> tag to the <head> early in the page load process.
+    2. (Fallback Strategies from v1.1.0 - could be added if needed, but jsDelivr should be reliable)
 
-    2. Secondary: Direct GitHub URL Fallback
-       - If no stylesheet is detected after 1 second, a direct link to GitHub CSS is applied
-       - This provides a safety net if there are issues with the JSON configuration
-
-    3. Ultimate: Embedded CSS for Google Sites
-       - When embedded in Google Sites (detected by hostname), critical CSS is injected directly
-       - This avoids MIME type issues that occur when Google Sites serves external CSS files
-       - Essential styles are embedded directly in the HTML page for reliable rendering
-
-    This architecture ensures consistent styling across all environments and deployment scenarios.
+    This ensures styles are requested and applied before the main application attempts to render content dependent on those styles.
 
     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    ISSUES & LESSONS LEARNED  
+    ISSUES & LESSONS LEARNED
 
-    - CORS Requirement: Requires being served over HTTP/HTTPS due to fetching external JSON and code snippets.
-    - Network Dependency: Relies on network access for both config and code snippets.
-    - Clipboard API Limitations: Requires secure context (HTTPS/localhost).
-    - JSON Structure Dependency: Assumes the specific structure of the external JSON config file.
-    - Prism.js Dependency: Relies on Prism.js CDN for syntax highlighting. Requires mapping script types to Prism languages.
-    - CSS Naming Convention Rigidity: Adhering strictly to the custom convention requires careful naming in both CSS and JS.
-    - MIME Type Issues: When embedded in Google Sites, external CSS files may be served with incorrect MIME types.
-      Solution: Multi-layer CSS loading strategy with embedded CSS fallback for Google Sites environments.
+    - CORS Requirement: Requires HTTP/HTTPS.
+    - Network Dependency: Relies on network for config (twice) and code.
+    - Clipboard API Limitations: Requires secure context.
+    - JSON Structure Dependency: Assumes specific JSON structure.
+    - Prism.js Dependency: Relies on Prism.js CDN.
+    - **MIME Type Issues (Addressed):** Loading CSS directly from `raw.githubusercontent.com` often fails due to `text/plain` MIME type. Solution: Use a CDN like jsDelivr for the CSS link.
+    - **JS Execution Order:** Helper functions must be defined before being called. Placing `initApp` after helper definitions in the script ensures availability.
+    - **Configuration Fetch Inefficiency:** Fetching the config JSON twice (once for CSS, once for app data) is necessary with this modular approach but is less efficient.
 
     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     LOGIC ARCHITECTURE
 
-    1. Initialization (`initApp` on DOMContentLoaded):
-        - Caches essential DOM elements.
-        - Injects the application version.
-        - Calls `fetchConfigData` (async) to load JSON from `G_CONFIG_JSON_URL`.
-    2. Config Fetching (`fetchConfigData`):
-        - Uses `fetch()` to get the JSON.
-        - Parses the response.
-        - On success: Stores data in `G_APP_CONFIG_DATA`, calls `renderSnippetGrid`.
-        - On error: Displays an error message in the grid area.
-    3. Grid Rendering (`renderSnippetGrid`):
-        - Iterates through `G_APP_CONFIG_DATA['script-files-data']`.
-        - Creates HTML cards (`createSnippetCard`) using the new CSS convention and updated data display.
-        - Appends cards to the grid.
-        - Calls `fetchAndDisplayCode` asynchronously for each card.
-    4. Code Fetching & Highlighting (`fetchAndDisplayCode`):
-        - Fetches code from `script-file-github-url`.
-        - On success:
-            - Sets `codeElement.textContent`.
-            - Determines Prism language using `mapTypeToPrismLanguage`.
-            - Adds `language-xxxx` class to `codeElement`.
-            - Calls `Prism.highlightElement(codeElement)`.
-            - Enables the code copy button.
-        - On error: Displays error message. Disables code copy button.
-    5. Copy Functionality:
-        - `handleCopyCodeClick`: Copies code content from the `<code>` element.
-        - `handleGenericCopyClick`: Copies text (URL/Path) stored in the button's `dataset.copyText`.
+    1. HTML Parsing & Early CSS Load:
+        - Browser parses HTML <head>.
+        - CSS Loader Script executes:
+            - Fetches config JSON.
+            - Extracts CSS URL (original raw GitHub URL).
+            - **Constructs jsDelivr URL.**
+            - Creates `<link rel="stylesheet" href="[jsDelivr URL]">`.
+            - Appends link to `<head>`. Browser starts fetching/applying CSS.
+    2. DOMContentLoaded Event:
+        - Fires after HTML is fully parsed.
+        - Triggers `initApp` in the main application script.
+    3. Main App Initialization (`initApp`):
+        - Caches DOM elements.
+        - Calls `injectVersionNote` (now defined earlier in the script).
+        - Calls `fetchConfigData` (fetches config JSON *again*).
+        - If config fetch is successful:
+            - Calls `renderSnippetGrid`.
+    4. Grid Rendering (`renderSnippetGrid`):
+        - Iterates through script data from fetched config.
+        - Creates cards using `createSnippetCard`.
+        - Appends cards.
+        - Calls `fetchAndDisplayCode` for each card.
+    5. Code Fetching & Highlighting (`fetchAndDisplayCode`):
+        - Fetches code from GitHub URL.
+        - Updates `<code>` element.
+        - Calls `Prism.highlightElement`.
+        - Enables copy button.
+    6. Copy Functionality (`handle...Click`, `performCopy`).
 
     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    VISUAL JAVASCRIPT FUNCTION FLOW (Simplified)
+    VISUAL JAVASCRIPT FUNCTION FLOW
 
-    DOMContentLoaded -> initApp() (async)
-        ├── Cache DOM Elements (G_DOM_ELEMENTS)
-        ├── injectVersionNote() -> Updates .HEAD__title
-        ├── G_APP_CONFIG_DATA = await fetchConfigData(G_CONFIG_JSON_URL)
-        │   ├── fetch(G_CONFIG_JSON_URL) -> Handle Success/Error
-        │   └── (Error handling stops further execution)
-        └── renderSnippetGrid(G_APP_CONFIG_DATA)
-            ├── Loop through G_APP_CONFIG_DATA['script-files-data']
-            │   ├── createSnippetCard(scriptData) -> cardElement (Using new classes)
-            │   │   └── Adds metadata, pre/code block, all copy buttons
-            │   ├── Append cardElement to #snippet-grid
-            │   └── fetchAndDisplayCode(scriptData, codeElement, copyCodeButton) (async)
-            │       ├── fetch(scriptData['script-file-github-url'])
-            │       ├── Update codeElement.textContent
-            │       ├── mapTypeToPrismLanguage() -> langClass
-            │       ├── Add langClass to codeElement
-            │       ├── Prism.highlightElement(codeElement)
-            │       ├── Enable copyCodeButton -> handleCopyCodeClick()
-            │       └── Add EventListeners to other copy buttons -> handleGenericCopyClick()
-            └── (Grid Populates Asynchronously)
+    HTML Parse -> CSS Loader Script (in <head>)
+        ├── fetch(configUrl) for CSS URL
+        ├── Construct jsDelivr URL
+        └── Inject <link> tag into <head> -> Browser loads CSS
 
-    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    FUTURE SCRIPT IMPROVEMENTS & IDEAS
-
-    - Search/Filter functionality.
-    - Local Storage Caching for offline use/performance.
-    - Theme switcher (including Prism theme).
-    - More robust error handling and display.
-    - Display `script-tool-notes`.
-    - Loading indicator for initial JSON fetch.
+    DOMContentLoaded -> Main App Script (end of <body>)
+        └── initApp() (async)
+            ├── Cache DOM Elements
+            ├── injectVersionNote()  // Now defined before initApp
+            ├── G_APP_CONFIG_DATA = await fetchConfigData(configUrl) // Second fetch
+            │   └── fetch(configUrl) -> Handle Success/Error
+            └── renderSnippetGrid(G_APP_CONFIG_DATA) // If config loaded
+                └── Loop -> createSnippetCard() -> fetchAndDisplayCode() -> Prism.highlightElement()
 
     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     SCRIPT DEVELOPMENT & VERSION HISTORY TRACKER
 
-    05-Apr-2024 - v1.0.0  |  Initial Version with embedded JSON.
-    06-Apr-2024 - v1.1.0  |  Major Update:
-                        - Fetches JSON configuration from external URL.
-                        - Refactored CSS using custom BEM-like convention (HEAD__, GRID__, CARD__, etc.).
-                        - Updated card display to prioritize Tool Name/Usage.
-                        - Added "Copy URL" and "Copy Path" buttons.
-                        - Reduced code block font size significantly (to 9px).
-                        - Integrated Prism.js for syntax highlighting (Python, JS, HTML, CSS, Bash, PowerShell).
-                        - Updated JS logic for external JSON and highlighting.
-
-    ??-???-???? - vX.Y.Z  |  LIST FUTURE UPDATES HERE
+    05-Apr-2024 - v1.0.0  |  Initial Version.
+    06-Apr-2024 - v1.1.0  |  External JSON, new CSS, Prism, Copy buttons.
+    08-Apr-2024 - v1.1.1  |  Modular CSS loading script in <head> using jsDelivr.
+                        |  Restructured main script to define helpers before initApp to fix ReferenceError.
 
     ====================================================================================================================
     -->
 
-    <!-- 
+    <!--
     =============================================================================================
     HTML | HEAD SECTION: META, TITLE, FONTS, CSS, PRISM CSS
-    - Introduced in v1.0.0 | Updated v1.1.0 (Added Prism CSS)
-    Contains metadata, page title, font links, Prism CSS, and all application CSS styles.
     =============================================================================================
     -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="application-version" content="1.1.0"> <!-- ← CONFIG | Set Application Version Here -->
+    <meta name="application-version" content="1.1.1"> <!-- ← CONFIG | Set Application Version Here -->
     <title>Coding Utility Scripts Viewer</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600&display=swap" rel="stylesheet">
     <!-- Prism.js CSS (Using Okaidia theme) -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" /> <!-- ← KEY LINK | Prism Theme -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" rel="stylesheet" />
+
+    <!-- ============================================================================================= -->
+    <!-- SCRIPT | DYNAMIC CSS LOADER (Runs early in <head>) -->
+    <!-- Fetches config JSON SOLELY to inject the CSS link using jsDelivr. -->
+    <!-- ============================================================================================= -->
+    <script>
+        (function() { // Use an IIFE to avoid polluting global scope
+            const configUrl = 'https://raw.githubusercontent.com/Adam-Noble-01/RE20_--_Core_Repo_--_Public/main/RE20_11_--_Web-App_-_Coding-Utility_-_Coding-Utility-Scripts/RE20_11_02_--_DATA_-_Coding-Utility-Scripts-Config.json';
+            const cssLinkId = 'app-stylesheet'; // Consistent ID
+            const repoUser = 'Adam-Noble-01'; // Configurable parts for jsDelivr
+            const repoName = 'RE20_--_Core_Repo_--_Public';
+            const repoBranch = 'main';
+
+            console.log('[CSS Loader] Attempting to fetch config for CSS:', configUrl);
+
+            fetch(configUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`[CSS Loader] HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('[CSS Loader] Config fetched successfully.');
+                    const rawCssFileUrl = data?.['app-files-data']?.['app-style-sheet-file']?.['file-github-url'];
+
+                    if (rawCssFileUrl) {
+                        console.log('[CSS Loader] Found raw CSS URL:', rawCssFileUrl);
+
+                        // --- Construct jsDelivr URL ---
+                        // Extract path after '/main/' from the raw URL
+                        const pathRegex = /\/main\/(.*)/;
+                        const match = rawCssFileUrl.match(pathRegex);
+                        let jsDelivrCssUrl = null;
+
+                        if (match && match[1]) {
+                            const filePathInRepo = match[1];
+                            jsDelivrCssUrl = `https://cdn.jsdelivr.net/gh/${repoUser}/${repoName}@${repoBranch}/${filePathInRepo}`;
+                            console.log('[CSS Loader] Constructed jsDelivr URL:', jsDelivrCssUrl);
+                        } else {
+                             console.error('[CSS Loader] Could not extract file path from raw URL to build jsDelivr URL.');
+                             // As a fallback, maybe try the raw URL but expect failure? Or do nothing.
+                             jsDelivrCssUrl = rawCssFileUrl; // Fallback - likely to fail MIME check
+                             console.warn('[CSS Loader] Falling back to raw GitHub URL - styles may not load.');
+                        }
+                        // --- End jsDelivr URL Construction ---
+
+                        const finalCssUrl = jsDelivrCssUrl; // Use the constructed (or fallback) URL
+
+                        console.log('[CSS Loader] Injecting CSS link for:', finalCssUrl);
+
+                        const existingLink = document.getElementById(cssLinkId);
+                        if (existingLink) {
+                            existingLink.parentNode.removeChild(existingLink);
+                        }
+
+                        const link = document.createElement('link');
+                        link.rel = 'stylesheet';
+                        link.type = 'text/css';
+                        link.href = finalCssUrl + '?t=' + new Date().getTime(); // Cache buster
+                        link.id = cssLinkId;
+
+                        link.onload = () => console.log('[CSS Loader] Stylesheet loaded successfully:', link.href);
+                        link.onerror = (e) => console.error('[CSS Loader] Failed to load stylesheet:', link.href, e);
+
+                        document.head.appendChild(link);
+
+                    } else {
+                        console.error('[CSS Loader] CSS URL path (`file-github-url`) not found in fetched JSON config.');
+                    }
+                })
+                .catch(error => {
+                    console.error('[CSS Loader] Failed to fetch or process config for CSS:', error);
+                });
+        })();
+    </script>
+
 </head>
 <body>
-    <!-- 
+    <!--
     =============================================================================================
-    HTML | APP CONTAINER & HEADER (Using new CSS classes)
-    - Introduced in v1.0.0 | Updated v1.1.0
+    HTML | APP CONTAINER & HEADER
     =============================================================================================
     -->
     <div class="PAGE__container">
         <header class="HEAD">
-            <span class="HEAD__title" id="app-title">Coding Utility Scripts Viewer</span> 
+            <span class="HEAD__title" id="app-title">Coding Utility Scripts Viewer</span>
         </header>
 
-        <!-- 
+        <!--
         =============================================================================================
-        HTML | MAIN CONTENT: Snippet Grid (Using new CSS classes)
-        - Introduced in v1.0.0 | Updated v1.1.0
+        HTML | MAIN CONTENT: Snippet Grid
         =============================================================================================
         -->
         <main class="MAIN__content">
             <!-- ID kept for JS targeting -->
-            <div class="GRID" id="snippet-grid"> 
-                <p class="GRID__message" id="grid-message">Loading configuration...</p> 
+            <div class="GRID" id="snippet-grid">
+                <p class="GRID__message" id="grid-message">Loading configuration...</p>
             </div>
         </main> <!-- End .MAIN__content -->
     </div> <!-- End .PAGE__container -->
 
-    <!-- 
+    <!--
     =============================================================================================
     JAVASCRIPT | THIRD-PARTY LIBRARIES (Prism.js)
-    - Introduced in v1.1.0
     =============================================================================================
     -->
-    <!-- Prism Core & Theme loaded in <head> -->
-    <!-- Prism Components -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script> <!-- Autoloader is simpler -->
-    <!-- Required language dependencies for autoloader -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-clike.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script> <!-- For HTML -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-powershell.min.js"></script>
-    <!-- Prism Line Numbers Plugin -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
 
 
-    <!-- 
+    <!--
     =============================================================================================
-    JAVASCRIPT | CORE APPLICATION SCRIPT
-    - Introduced in v1.0.0 | Significantly Updated v1.1.0
+    JAVASCRIPT | CORE APPLICATION SCRIPT (Restructured)
     =============================================================================================
     -->
     <script>
         // =============================================================================================
         // JAVASCRIPT | GLOBAL VARIABLES & CONSTANTS
-        // - Updated in v1.1.0
         // =============================================================================================
         const G_DOM_ELEMENTS = {
-            appTitle: null,
+            appTitle: null, // Will be cached in initApp if needed by ID
             snippetGrid: null,
             gridMessage: null,
         };
-        
-        // URL for the external configuration JSON file
+
         const G_CONFIG_JSON_URL = 'https://raw.githubusercontent.com/Adam-Noble-01/RE20_--_Core_Repo_--_Public/main/RE20_11_--_Web-App_-_Coding-Utility_-_Coding-Utility-Scripts/RE20_11_02_--_DATA_-_Coding-Utility-Scripts-Config.json';
-        
-        // Global variable to hold the fetched config data
-        let G_APP_CONFIG_DATA = null; 
+
+        let G_APP_CONFIG_DATA = null; // Holds config fetched by the main app
 
         // =============================================================================================
-        // JAVASCRIPT | HELPER FUNCTIONS
-        // - Updated / Added functions in v1.1.0
+        // JAVASCRIPT | HELPER FUNCTIONS (Defined *before* initApp)
         // =============================================================================================
 
         // ------------------------------------------------------------
-        // HELPER FUNCTION | INJECT VERSION NOTE (Unchanged Logically)
-        // - Reused from v1.0.0, targets updated CSS class
+        // HELPER FUNCTION | INJECT VERSION NOTE
         // ------------------------------------------------------------
          function injectVersionNote(options = {}) {
              const config = {
                 metaTagName: options.metaTagName || 'application-version',
-                targetElementId: options.targetElementId || 'app-title', // Still using ID for targeting title itself
-                prefix: options.prefix !== undefined ? options.prefix : ' - v', 
+                targetElementId: options.targetElementId || 'app-title', // Targets title SPAN by ID
+                prefix: options.prefix !== undefined ? options.prefix : ' - v',
                 suffix: options.suffix !== undefined ? options.suffix : '',
                 style: options.style || {
                     fontSize: '12px',
@@ -251,41 +286,66 @@
                     fontWeight: 'normal'
                 }
             };
-            const targetElement = document.getElementById(config.targetElementId); 
+            // Cache target element here if not cached globally, or rely on getElementById
+            const targetElement = document.getElementById(config.targetElementId);
              if (!targetElement) {
-                console.error(`Error: Target element #${config.targetElementId} not found.`);
+                console.error(`[Main App] Error: Target element #${config.targetElementId} not found for version injection.`);
                 return;
             }
-            // ... rest of the function remains the same as v1.0.0 ...
             const metaTag = document.querySelector(`meta[name="${config.metaTagName}"]`);
             if (!metaTag) return;
             const versionString = metaTag.getAttribute('content');
             if (!versionString) return;
-            console.log(`Injecting version: ${versionString}`);
+
+            console.log(`[Main App] Injecting version: ${versionString}`);
+
+            // Find base title text node more reliably
             let baseTitle = '';
-            for (let i = 0; i < targetElement.childNodes.length; i++) {
-                if (targetElement.childNodes[i].nodeType === Node.TEXT_NODE) {
-                    baseTitle = targetElement.childNodes[i].textContent.trim(); break;
+            for (let node of targetElement.childNodes) {
+                if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
+                    baseTitle = node.textContent.trim();
+                    break;
                 }
             }
-             if (!baseTitle) { baseTitle = targetElement.textContent.split(config.prefix.trim())[0].trim() || 'App'; }
-            const versionSpan = document.createElement('span');
-            versionSpan.className = 'version-note'; // Keep class name generic
+             if (!baseTitle) { // Fallback if no text node found initially
+                 baseTitle = targetElement.textContent.split(config.prefix.trim())[0].trim() || 'App';
+             }
+
+            // Create or update version span
+             let versionSpan = targetElement.querySelector('.version-note');
+             if (!versionSpan) {
+                 versionSpan = document.createElement('span');
+                 versionSpan.className = 'version-note'; // Keep class name generic
+                 targetElement.appendChild(versionSpan); // Append only once
+             }
+
             versionSpan.textContent = `${config.prefix}${versionString}${config.suffix}`;
             for (const property in config.style) {
                 if (config.style.hasOwnProperty(property)) { versionSpan.style[property] = config.style[property]; }
             }
-            targetElement.innerHTML = ''; 
-            targetElement.appendChild(document.createTextNode(baseTitle));
-            targetElement.appendChild(versionSpan); 
+
+            // Ensure base title text node exists and is correct
+            let textNode = null;
+             for (let node of targetElement.childNodes) {
+                if (node.nodeType === Node.TEXT_NODE) {
+                    textNode = node;
+                    break;
+                }
+            }
+            if (textNode) {
+                if (textNode.textContent.trim() !== baseTitle) {
+                    textNode.textContent = baseTitle + ' '; // Add space before version span
+                }
+            } else {
+                 // If no text node, prepend it
+                 targetElement.insertBefore(document.createTextNode(baseTitle + ' '), targetElement.firstChild);
+             }
+             // Ensure span is the last child
+             targetElement.appendChild(versionSpan);
         }
 
         // ------------------------------------------------------------
         // HELPER FUNCTION | MAP TYPE TO PRISM LANGUAGE
-        // - Introduced in v1.1.0
-        // DESCRIPTION: Maps file type strings from JSON to Prism.js language classes.
-        // ARGUMENTS: fileType (String) - The script type from JSON.
-        // RETURNS: (String) - The corresponding Prism language class (e.g., 'language-python'), or null if no match.
         // ------------------------------------------------------------
         function mapTypeToPrismLanguage(fileType) {
             if (!fileType) return null;
@@ -297,41 +357,35 @@
             if (lowerType.includes('css')) return 'language-css';
             if (lowerType.includes('bash') || lowerType.includes('shell')) return 'language-bash';
             if (lowerType.includes('powershell')) return 'language-powershell';
-            // Add more mappings as needed
-            
-            console.warn(`No Prism language mapping found for type: ${fileType}`);
-            return null; // Default or no highlighting if type is unknown
-        }
+            // Add support for .code-workspace files (using JSON highlighting)
+            if (lowerType.includes('code-workspace') || lowerType.includes('json')) return 'language-json';
 
+            console.warn(`[Main App] No Prism language mapping found for type: ${fileType}`);
+            return null;
+        }
 
         // ------------------------------------------------------------
         // HELPER FUNCTION | CREATE SNIPPET CARD ELEMENT
-        // - Updated in v1.1.0
-        // DESCRIPTION: Creates HTML structure for a snippet card using new JSON fields and CSS classes.
-        // ARGUMENTS: scriptData (Object), scriptKey (String)
-        // RETURNS: (HTMLElement) - The card div element.
         // ------------------------------------------------------------
         function createSnippetCard(scriptData, scriptKey) {
             const card = document.createElement('div');
-            card.className = 'CARD'; // Use new block class
-            card.id = `snippet-${scriptKey}`; 
+            card.className = 'CARD';
+            card.id = `snippet-${scriptKey}`;
 
-            // --- Card Content ---
             const title = document.createElement('h3');
-            title.className = 'CARD__title'; // Element class
-            title.textContent = scriptData['script-tool-name'] || scriptData['script-file-name'] || 'Unnamed Snippet'; // Prioritize tool name
+            title.className = 'CARD__title';
+            title.textContent = scriptData['script-tool-name'] || scriptData['script-file-name'] || 'Unnamed Snippet';
 
             const usage = document.createElement('p');
-            usage.className = 'CARD__usage'; // Element class
-            usage.innerHTML = `<strong>Usage:</strong> ${scriptData['script-tool-usage'] || 'No usage information.'}`;
+            usage.className = 'CARD__usage';
+            usage.innerHTML = `<strong>Usage:</strong> ${scriptData['script-tool-usage'] || 'N/A'}`;
 
             const description = document.createElement('p');
-            description.className = 'CARD__description'; // Element class
-            description.innerHTML = `<strong>Description:</strong> ${scriptData['script-file-description'] || 'No description.'}`;
-           
+            description.className = 'CARD__description';
+            description.innerHTML = `<strong>Description:</strong> ${scriptData['script-file-description'] || 'N/A'}`;
+
             const metaInfo = document.createElement('div');
-            metaInfo.className = 'CARD__meta'; // Element class
-            // Display file name less prominently in meta
+            metaInfo.className = 'CARD__meta';
             metaInfo.innerHTML = `
                 <span class="CARD__meta-item"><strong>Type:</strong> ${scriptData['script-file-type'] || 'N/A'}</span>
                 <span class="CARD__meta-item"><strong>Version:</strong> ${scriptData['script-file-version'] || 'N/A'}</span>
@@ -339,68 +393,58 @@
                 <span class="CARD__meta-item CARD__meta-filename"><strong>File:</strong> ${scriptData['script-file-name'] || 'N/A'}</span>
             `;
 
-            // --- Code Block ---
             const pre = document.createElement('pre');
-            pre.className = 'CARD__code-block line-numbers'; // Element class + Prism plugin class
+            pre.className = 'CARD__code-block line-numbers'; // Add line-numbers for Prism plugin
             const code = document.createElement('code');
-            code.className = 'CARD__code-content CARD__code-content--status'; // Element + Initial status modifier
-            code.id = `code-${scriptKey}`; // ID for targeting
-            code.textContent = 'Loading code...'; 
+            code.className = 'CARD__code-content CARD__code-content--status'; // Initial status
+            code.id = `code-${scriptKey}`;
+            code.textContent = 'Loading code...';
             pre.appendChild(code);
 
-            // --- Buttons Container ---
-             const buttonContainer = document.createElement('div');
-             buttonContainer.className = 'BTNS'; // Buttons block
+            const buttonContainer = document.createElement('div');
+            buttonContainer.className = 'BTNS';
 
-             // Copy Code Button (Positioned separately via CSS absolute positioning)
-             const copyCodeButton = document.createElement('button');
-             copyCodeButton.className = 'BTNS__item BTNS__item--code'; // Item + Modifier
-             copyCodeButton.textContent = 'Copy Code';
-             copyCodeButton.title = 'Copy code snippet to clipboard';
-             copyCodeButton.disabled = true; 
-             copyCodeButton.dataset.codeElementId = code.id; // Link to code element
-             copyCodeButton.addEventListener('click', handleCopyCodeClick); // Specific handler
-             
-             // Copy URL Button
-             const copyUrlButton = document.createElement('button');
-             copyUrlButton.className = 'BTNS__item BTNS__item--url';
-             copyUrlButton.textContent = 'Copy URL';
-             copyUrlButton.title = 'Copy GitHub Raw URL';
-             copyUrlButton.dataset.copyText = scriptData['script-file-github-url'] || ''; // Data to copy
-             copyUrlButton.disabled = !scriptData['script-file-github-url']; // Disable if no URL
-             copyUrlButton.addEventListener('click', handleGenericCopyClick); // Generic handler
+            const copyCodeButton = document.createElement('button');
+            copyCodeButton.className = 'BTNS__item BTNS__item--code';
+            copyCodeButton.textContent = 'Copy Code';
+            copyCodeButton.title = 'Copy code snippet to clipboard';
+            copyCodeButton.disabled = true;
+            copyCodeButton.dataset.codeElementId = code.id;
+            copyCodeButton.addEventListener('click', handleCopyCodeClick); // Attach handler
 
-             // Copy Path Button
-             const copyPathButton = document.createElement('button');
-             copyPathButton.className = 'BTNS__item BTNS__item--path';
-             copyPathButton.textContent = 'Copy Path';
-             copyPathButton.title = 'Copy Local Directory Path';
-             copyPathButton.dataset.copyText = scriptData['script-file-local-dir'] || ''; // Data to copy
-             copyPathButton.disabled = !scriptData['script-file-local-dir']; // Disable if no path
-             copyPathButton.addEventListener('click', handleGenericCopyClick); // Generic handler
+            const copyUrlButton = document.createElement('button');
+            copyUrlButton.className = 'BTNS__item BTNS__item--url';
+            copyUrlButton.textContent = 'Copy URL';
+            copyUrlButton.title = 'Copy GitHub Raw URL';
+            copyUrlButton.dataset.copyText = scriptData['script-file-github-url'] || '';
+            copyUrlButton.disabled = !scriptData['script-file-github-url'];
+            copyUrlButton.addEventListener('click', handleGenericCopyClick); // Attach handler
 
-             // Append buttons to container (order matters for flex layout)
-             buttonContainer.appendChild(copyUrlButton);
-             buttonContainer.appendChild(copyPathButton);
+            const copyPathButton = document.createElement('button');
+            copyPathButton.className = 'BTNS__item BTNS__item--path';
+            copyPathButton.textContent = 'Copy Path';
+            copyPathButton.title = 'Copy Local Directory Path';
+            copyPathButton.dataset.copyText = scriptData['script-file-local-dir'] || '';
+            copyPathButton.disabled = !scriptData['script-file-local-dir'];
+            copyPathButton.addEventListener('click', handleGenericCopyClick); // Attach handler
 
-             // --- Assemble Card ---
-             // Add code copy button directly to pre for absolute positioning context if desired, or card root
-             card.appendChild(title);
-             card.appendChild(usage);
-             card.appendChild(description);
-             card.appendChild(metaInfo);
-             card.appendChild(pre);      // Add code block
-             pre.appendChild(copyCodeButton); // Add code copy button INSIDE pre
-             card.appendChild(buttonContainer); // Add container with other buttons
+            buttonContainer.appendChild(copyUrlButton);
+            buttonContainer.appendChild(copyPathButton);
 
-            return card; 
+            // Assemble Card
+            card.appendChild(title);
+            card.appendChild(usage);
+            card.appendChild(description);
+            card.appendChild(metaInfo);
+            card.appendChild(pre); // Add code block <pre>
+            pre.appendChild(copyCodeButton); // Add code copy button INSIDE pre for positioning context
+            card.appendChild(buttonContainer); // Add container with other buttons
+
+            return card;
         }
 
         // ------------------------------------------------------------
         // HELPER FUNCTION | FETCH AND DISPLAY CODE & HIGHLIGHT
-        // - Updated in v1.1.0
-        // DESCRIPTION: Fetches code, updates element, applies Prism highlighting.
-        // ARGUMENTS: scriptData (Object), codeElement (HTMLElement), copyButton (HTMLElement)
         // ------------------------------------------------------------
         async function fetchAndDisplayCode(scriptData, codeElement, copyButton) {
             const url = scriptData['script-file-github-url'];
@@ -411,142 +455,173 @@
                 codeElement.className = 'CARD__code-content CARD__code-content--error';
                 copyButton.disabled = true; return;
             }
-            if (!codeElement || !copyButton) { console.error("Missing elements for fetch/display."); return; }
+            if (!codeElement || !copyButton) {
+                 console.error("[Main App] Missing elements (codeElement or copyButton) for fetchAndDisplayCode."); return;
+            }
 
             try {
                 const response = await fetch(url);
-                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
                 const codeText = await response.text();
-                
+
                 codeElement.textContent = codeText; // Set raw text first
-                
-                // Determine Prism language and apply class
+
                 const prismLangClass = mapTypeToPrismLanguage(fileType);
-                codeElement.className = 'CARD__code-content'; // Reset classes first
+                codeElement.className = 'CARD__code-content'; // Reset classes
                 if (prismLangClass) {
-                    codeElement.classList.add(prismLangClass); // Add language class
+                    codeElement.classList.add(prismLangClass);
                 } else {
                     codeElement.classList.add('language-none'); // Indicate no specific language
                 }
 
-                // Apply Prism highlighting
+                // Apply Prism highlighting (check if Prism and method exist)
                 if (typeof Prism !== 'undefined' && Prism.highlightElement) {
                     Prism.highlightElement(codeElement);
                 } else {
-                    console.warn("Prism.js not available for highlighting.");
+                    console.warn("[Main App] Prism.js or Prism.highlightElement not available for highlighting.");
                 }
 
                 copyButton.disabled = false; // Enable copy button
-                console.log(`Fetched and highlighted: ${scriptData['script-file-name']}`);
+                // console.log(`[Main App] Fetched and highlighted: ${scriptData['script-file-name']}`);
 
             } catch (error) {
-                console.error(`Failed to fetch/highlight code from ${url}:`, error);
+                console.error(`[Main App] Failed to fetch/highlight code from ${url}:`, error);
                 codeElement.textContent = `Error loading code: ${error.message}`;
-                codeElement.className = 'CARD__code-content CARD__code-content--error'; 
-                copyButton.disabled = true; 
+                codeElement.className = 'CARD__code-content CARD__code-content--error';
+                copyButton.disabled = true;
             }
-        }
-
-
-        // =============================================================================================
-        // JAVASCRIPT | EVENT HANDLERS
-        // - Updated / Added handlers in v1.1.0
-        // =============================================================================================
-
-        // ------------------------------------------------------------
-        // EVENT HANDLER | COPY CODE BUTTON CLICK (Specific Handler)
-        // - Updated in v1.1.0
-        // ------------------------------------------------------------
-        async function handleCopyCodeClick(event) {
-            const button = event.target;
-            const codeElementId = button.dataset.codeElementId;
-            const codeElement = document.getElementById(codeElementId);
-
-            if (!codeElement) { console.error("Code element not found:", codeElementId); return; }
-
-            const codeToCopy = codeElement.textContent;
-            await performCopy(button, codeToCopy); // Use shared copy logic
-        }
-
-        // ------------------------------------------------------------
-        // EVENT HANDLER | GENERIC COPY BUTTON CLICK (URL, Path)
-        // - Introduced in v1.1.0
-        // ------------------------------------------------------------
-        async function handleGenericCopyClick(event) {
-            const button = event.target;
-            const textToCopy = button.dataset.copyText;
-
-            if (textToCopy === undefined || textToCopy === null) { 
-                console.error("No text found in data-copy-text attribute."); 
-                return; 
-            }
-
-            await performCopy(button, textToCopy); // Use shared copy logic
         }
 
         // ------------------------------------------------------------
         // ASYNC HELPER | PERFORM COPY & PROVIDE FEEDBACK
-        // - Introduced in v1.1.0 (Refactored from original copy handler)
         // ------------------------------------------------------------
          async function performCopy(buttonElement, textToCopy) {
              const originalButtonText = buttonElement.textContent;
-             // Clear previous feedback classes immediately
-             buttonElement.classList.remove('BTNS__item--copied', 'BTNS__item--error'); 
+             buttonElement.classList.remove('BTNS__item--copied', 'BTNS__item--error'); // Clear previous states
 
              try {
+                 // Check for clipboard API and secure context
                  if (!navigator.clipboard || !window.isSecureContext) {
-                      throw new Error('Clipboard API unavailable/insecure.');
-                  }
-                 await navigator.clipboard.writeText(textToCopy);
-                 console.log('Text copied to clipboard:', textToCopy.substring(0, 50) + '...');
-                 
+                     console.warn('[Main App] Clipboard API unavailable or context is not secure (HTTPS/localhost required).');
+                     // Fallback attempt (less reliable, may be blocked)
+                     const textArea = document.createElement("textarea");
+                     textArea.value = textToCopy;
+                     textArea.style.position = "fixed"; // Prevent scrolling to bottom
+                     textArea.style.top = "-9999px";
+                     textArea.style.left = "-9999px";
+                     document.body.appendChild(textArea);
+                     textArea.focus();
+                     textArea.select();
+                     try {
+                         const successful = document.execCommand('copy');
+                         if (!successful) throw new Error('Fallback copy command failed.');
+                         console.log('[Main App] Fallback copy successful.');
+                     } catch (err) {
+                         throw new Error('Clipboard API unavailable and fallback failed.'); // Re-throw if fallback fails
+                     } finally {
+                         document.body.removeChild(textArea);
+                     }
+                 } else {
+                     // Use modern clipboard API
+                     await navigator.clipboard.writeText(textToCopy);
+                     console.log('[Main App] Text copied to clipboard via API:', textToCopy.substring(0, 50) + '...');
+                 }
+
                  // Success Feedback
                  buttonElement.textContent = 'Copied!';
                  buttonElement.classList.add('BTNS__item--copied');
                  setTimeout(() => {
-                     buttonElement.textContent = originalButtonText;
-                     buttonElement.classList.remove('BTNS__item--copied');
-                 }, 1500); // Shorter delay
+                     // Check if button still exists before resetting
+                     if(document.body.contains(buttonElement)) {
+                        buttonElement.textContent = originalButtonText;
+                        buttonElement.classList.remove('BTNS__item--copied');
+                     }
+                 }, 1500);
 
              } catch (err) {
-                 console.error('Failed to copy:', err);
+                 console.error('[Main App] Failed to copy:', err);
                  // Error Feedback
                  buttonElement.textContent = 'Copy Failed';
                  buttonElement.classList.add('BTNS__item--error');
                   setTimeout(() => {
-                     buttonElement.textContent = originalButtonText;
-                     buttonElement.classList.remove('BTNS__item--error');
-                 }, 2500); 
+                      if(document.body.contains(buttonElement)) {
+                         buttonElement.textContent = originalButtonText;
+                         buttonElement.classList.remove('BTNS__item--error');
+                      }
+                 }, 2500);
              }
          }
 
+        // =============================================================================================
+        // JAVASCRIPT | EVENT HANDLERS (Defined *before* initApp)
+        // =============================================================================================
+
+        // ------------------------------------------------------------
+        // EVENT HANDLER | COPY CODE BUTTON CLICK
+        // ------------------------------------------------------------
+        async function handleCopyCodeClick(event) {
+            const button = event.currentTarget; // Use currentTarget for attached listener
+            const codeElementId = button.dataset.codeElementId;
+            const codeElement = document.getElementById(codeElementId);
+
+            if (!codeElement) {
+                console.error("[Main App] Code element not found for copy:", codeElementId);
+                return;
+            }
+            const codeToCopy = codeElement.textContent;
+            await performCopy(button, codeToCopy);
+        }
+
+        // ------------------------------------------------------------
+        // EVENT HANDLER | GENERIC COPY BUTTON CLICK (URL, Path)
+        // ------------------------------------------------------------
+        async function handleGenericCopyClick(event) {
+            const button = event.currentTarget; // Use currentTarget
+            const textToCopy = button.dataset.copyText;
+
+            if (textToCopy === undefined || textToCopy === null || textToCopy === '') {
+                console.warn("[Main App] No text found in data-copy-text or text is empty.");
+                // Optional: Provide visual feedback for empty data
+                const originalText = button.textContent;
+                button.textContent = 'No Data';
+                button.disabled = true; // Temporarily disable
+                setTimeout(() => {
+                    if(document.body.contains(button)){
+                       button.textContent = originalText;
+                       button.disabled = !button.dataset.copyText; // Re-evaluate disabled state
+                    }
+                }, 1500);
+                return;
+            }
+            await performCopy(button, textToCopy);
+        }
 
         // =============================================================================================
-        // JAVASCRIPT | CORE LOGIC FUNCTIONS
-        // - Updated in v1.1.0
+        // JAVASCRIPT | CORE LOGIC FUNCTIONS (Defined *before* initApp)
         // =============================================================================================
-        
+
         // ------------------------------------------------------------
-        // CORE FUNCTION | FETCH CONFIG DATA
-        // - Introduced in v1.1.0
-        // DESCRIPTION: Fetches and parses the JSON configuration file.
-        // ARGUMENTS: url (String) - The URL of the JSON config.
-        // RETURNS: (Promise<Object|null>) - Resolves with the parsed JSON data or null on error.
+        // CORE FUNCTION | FETCH CONFIG DATA (Used by main app)
         // ------------------------------------------------------------
         async function fetchConfigData(url) {
-            console.log(`Fetching configuration from: ${url}`);
+            console.log(`[Main App] Fetching configuration from: ${url}`); // Log start
+            // Ensure grid message exists before trying to update it
+            if (G_DOM_ELEMENTS.gridMessage && G_DOM_ELEMENTS.gridMessage.textContent === '') {
+                 G_DOM_ELEMENTS.gridMessage.textContent = 'Fetching configuration...';
+                 G_DOM_ELEMENTS.gridMessage.className = 'GRID__message';
+            }
             try {
                 const response = await fetch(url);
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
                 const data = await response.json();
-                console.log("Configuration loaded successfully.");
+                console.log("[Main App] Configuration loaded successfully.");
                 return data;
             } catch (error) {
-                console.error("Failed to fetch or parse configuration:", error);
+                console.error("[Main App] Failed to fetch or parse configuration:", error);
                 if (G_DOM_ELEMENTS.gridMessage) {
-                    G_DOM_ELEMENTS.gridMessage.textContent = `Error loading configuration: ${error.message}. Please check the console and the config URL.`;
+                    G_DOM_ELEMENTS.gridMessage.textContent = `Error loading configuration: ${error.message}. Check console & config URL.`;
                     G_DOM_ELEMENTS.gridMessage.className = 'GRID__message GRID__message--error';
                 }
                 return null; // Indicate failure
@@ -556,126 +631,117 @@
 
         // ------------------------------------------------------------
         // CORE FUNCTION | RENDER SNIPPET GRID
-        // - Updated in v1.1.0
-        // DESCRIPTION: Renders snippet cards based on the fetched configuration data.
-        // ARGUMENTS: configData (Object) - The loaded application configuration.
         // ------------------------------------------------------------
         function renderSnippetGrid(configData) {
-            if (!G_DOM_ELEMENTS.snippetGrid) { console.error("Grid container not found."); return; }
-            
-            // Use the data passed as argument
-            const scripts = configData?.['script-files-data']; 
+            if (!G_DOM_ELEMENTS.snippetGrid) {
+                 console.error("[Main App] Snippet grid container not found for rendering."); return;
+            }
 
-            if (!scripts || Object.keys(scripts).length === 0) {
-                 G_DOM_ELEMENTS.snippetGrid.innerHTML = '<p class="GRID__message">No script snippets found in the configuration.</p>';
+            const scripts = configData?.['script-files-data']; // Use safe navigation
+
+            if (!scripts || typeof scripts !== 'object' || Object.keys(scripts).length === 0) {
+                 G_DOM_ELEMENTS.snippetGrid.innerHTML = '<p class="GRID__message">No script snippets found in the configuration or data is invalid.</p>';
+                 console.warn("[Main App] No valid 'script-files-data' found in config.");
                  return;
             }
-            
+
             G_DOM_ELEMENTS.snippetGrid.innerHTML = ''; // Clear loading/error message
 
             const scriptKeys = Object.keys(scripts);
+            console.log(`[Main App] Rendering ${scriptKeys.length} snippet cards.`);
+
             scriptKeys.forEach(key => {
                 const scriptData = scripts[key];
+                // Basic validation of scriptData object
+                if (typeof scriptData !== 'object' || scriptData === null) {
+                    console.warn(`[Main App] Invalid script data found for key: ${key}. Skipping card.`);
+                    return; // Skip this iteration
+                }
+
                 const cardElement = createSnippetCard(scriptData, key);
                 G_DOM_ELEMENTS.snippetGrid.appendChild(cardElement);
-                
-                // Find elements within the specific card for the fetch call
-                const codeElement = cardElement.querySelector(`#code-${key}`);
-                const copyCodeButton = cardElement.querySelector('.BTNS__item--code'); // Find the code copy button
 
-                // Initiate fetch & highlight
-                 setTimeout(() => { // Debounce slightly
-                     fetchAndDisplayCode(scriptData, codeElement, copyCodeButton);
-                 }, 0); 
+                // Find elements *within the newly created card*
+                const codeElement = cardElement.querySelector(`#code-${key}`);
+                const copyCodeButton = cardElement.querySelector('.BTNS__item--code');
+
+                if (!codeElement || !copyCodeButton) {
+                     console.error(`[Main App] Could not find code element or copy button in card for key: ${key}`);
+                     return; // Skip fetch if elements are missing
+                }
+
+                // Use setTimeout 0 to yield to the browser, allowing UI updates before fetching
+                setTimeout(() => {
+                    fetchAndDisplayCode(scriptData, codeElement, copyCodeButton);
+                }, 0);
             });
-             console.log(`Rendered ${scriptKeys.length} snippet card placeholders.`);
         }
 
 
         // =============================================================================================
-        // INITIALIZATION | MAIN APPLICATION INIT
-        // - Updated in v1.1.0 (now async for config fetch)
+        // INITIALIZATION | MAIN APPLICATION INIT (Defined *after* helpers, called by listener)
         // =============================================================================================
         async function initApp() {
-            const appVersion = document.querySelector('meta[name="application-version"]')?.content || 'N/A';
-            console.log(`Initializing Coding Utility Scripts Viewer v${appVersion}...`); 
+            const appVersionMeta = document.querySelector('meta[name="application-version"]');
+            const appVersion = appVersionMeta ? appVersionMeta.content : 'N/A';
+            console.log(`[Main App] Initializing Coding Utility Scripts Viewer v${appVersion}...`);
 
-            // --- Cache DOM Elements ---
+            // --- Cache Essential DOM Elements ---
             G_DOM_ELEMENTS.snippetGrid = document.getElementById('snippet-grid');
             G_DOM_ELEMENTS.gridMessage = document.getElementById('grid-message');
-            
+            // G_DOM_ELEMENTS.appTitle = document.getElementById('app-title'); // Cached dynamically in injectVersionNote if needed
+
             // --- Check Essential Elements ---
             if (!G_DOM_ELEMENTS.snippetGrid || !G_DOM_ELEMENTS.gridMessage) {
-                document.body.innerHTML = '<p class="GRID__message GRID__message--error">Error: Core application HTML elements (grid/message area) are missing.</p>';
-                return; 
+                document.body.innerHTML = '<p style="color: red; font-weight: bold; padding: 20px;">Critical Error: Core HTML elements (#snippet-grid or #grid-message) are missing. Application cannot start.</p>';
+                console.error("[Main App] Initialization failed: Core HTML elements missing.");
+                return; // Stop initialization
             }
-             
-            // --- Inject Version Note ---
-            injectVersionNote();
 
-            // --- Fetch Configuration Data ---
+            // --- Inject Version Note (Function is defined above) ---
+            try {
+                 injectVersionNote();
+            } catch(e) {
+                 console.error("[Main App] Error during injectVersionNote:", e);
+            }
+
+
+            // --- Fetch Configuration Data (This is the SECOND fetch, for app data) ---
             G_APP_CONFIG_DATA = await fetchConfigData(G_CONFIG_JSON_URL);
 
-            // --- LOAD CSS FROM CONFIG URL ---
-            if (G_APP_CONFIG_DATA && G_APP_CONFIG_DATA["app-files-data"] && 
-                G_APP_CONFIG_DATA["app-files-data"]["app-style-sheet-file"]) {
-                
-                const cssUrl = G_APP_CONFIG_DATA["app-files-data"]["app-style-sheet-file"]["file-github-url"];
-                console.log("Loading CSS from:", cssUrl);
-                
-                if (cssUrl) {
-                    try {
-                        // Remove any existing stylesheet link with the same ID
-                        const existingLink = document.getElementById('app-stylesheet');
-                        if (existingLink) {
-                            existingLink.parentNode.removeChild(existingLink);
-                        }
-                        
-                        // Force browser to fetch fresh file by adding timestamp parameter
-                        const urlWithCache = cssUrl + '?t=' + new Date().getTime();
-                        
-                        // Create new link with GitHub URL
-                        const cssLink = document.createElement('link');
-                        cssLink.rel = 'stylesheet';
-                        cssLink.type = 'text/css'; // Explicitly set the type
-                        cssLink.href = urlWithCache;
-                        cssLink.id = 'app-stylesheet';
-                        document.head.appendChild(cssLink);
-                        console.log("CSS link created and added to head with URL:", urlWithCache);
-                        
-                        // Add load event listener to confirm CSS loaded
-                        cssLink.onload = function() {
-                            console.log("CSS stylesheet successfully loaded");
-                        };
-                        
-                        cssLink.onerror = function(e) {
-                            console.error("CSS stylesheet failed to load:", e);
-                        };
-                    } catch (err) {
-                        console.error("Error loading CSS:", err);
-                    }
-                } else {
-                    console.error("No CSS URL found in config!");
-                }
-            } else {
-                console.error("Could not find app-style-sheet-file in config data!");
-            }
+            // --- CSS Loading is Handled by the script in <head> ---
+            // No CSS loading logic needed here anymore.
 
-            // --- Render Grid ONLY if Config Loaded ---
+            // --- Render Grid ONLY if Config Loaded Successfully ---
             if (G_APP_CONFIG_DATA) {
-                renderSnippetGrid(G_APP_CONFIG_DATA); 
+                 // Check if render function exists before calling
+                 if (typeof renderSnippetGrid === 'function') {
+                    renderSnippetGrid(G_APP_CONFIG_DATA);
+                 } else {
+                     console.error("[Main App] renderSnippetGrid function is not defined!");
+                      if (G_DOM_ELEMENTS.gridMessage) {
+                          G_DOM_ELEMENTS.gridMessage.textContent = 'Application Error: Cannot render snippets.';
+                          G_DOM_ELEMENTS.gridMessage.className = 'GRID__message GRID__message--error';
+                      }
+                 }
             } else {
-                console.error("Initialization halted due to configuration load failure.");
+                // Error message already displayed by fetchConfigData on failure
+                console.error("[Main App] Initialization halted: Configuration load failed.");
             }
 
-            console.log("App Initialization Sequence Complete.");
+            console.log("[Main App] App Initialization Sequence Complete.");
         }
 
         // =============================================================================================
-        // LISTENER | DOM CONTENT LOADED
-        // - Unchanged, triggers async initApp
+        // LISTENER | DOM CONTENT LOADED (Triggers the main app initialization)
         // =============================================================================================
-        document.addEventListener('DOMContentLoaded', initApp);
+        // Ensure this listener is added *after* initApp is defined.
+        if (typeof initApp === 'function') {
+            document.addEventListener('DOMContentLoaded', initApp);
+        } else {
+            console.error("CRITICAL ERROR: initApp function not defined before adding DOMContentLoaded listener!");
+            document.body.innerHTML = '<p style="color: red; font-weight: bold; padding: 20px;">Application Error: Initialization function missing.</p>';
+        }
 
     </script>
 
