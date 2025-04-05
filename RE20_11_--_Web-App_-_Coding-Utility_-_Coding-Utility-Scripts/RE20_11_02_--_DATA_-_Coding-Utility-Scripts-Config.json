@@ -43,7 +43,7 @@
             "script-file-github-url"   :  "https://raw.githubusercontent.com/Adam-Noble-01/RE20_--_Core_Repo_--_Public/main/RE20_11_--_Web-App_-_Coding-Utility_-_Coding-Utility-Scripts/RE20_11_10_--_CODE_-_Code-Utility_-_Code-Snapshot-To-Text-File.py"
         },
         "tool-script-02": {
-            "script-tool-name"         :  "RE20_11_11_--_CODE_-_Template_-_VS-Code-Workspace.code-workspace",
+            "script-tool-name"         :  "VS Code Workspace Template",
             "script-tool-usage"        :  "VS Code Default Workspace Example File",
             "script-tool-notes"        :  "NIL",
             "script-file-name"         :  "RE20_11_11_--_CODE_-_Template_-_VS-Code-Workspace.code-workspace",
