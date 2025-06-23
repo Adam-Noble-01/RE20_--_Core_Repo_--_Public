@@ -12,3 +12,5 @@ This tool scans the repository for HTML, CSS and JavaScript files and produces a
 2. Open `project_map.html` in your browser to view the graph.
 
 Nodes are colored by file type (HTML, JS, CSS or external resource). Links show which files reference each other.
+
+Use the mouse wheel to zoom. Drag with the middle or right mouse button to pan across the graph.

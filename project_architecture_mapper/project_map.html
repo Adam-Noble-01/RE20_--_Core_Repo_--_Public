@@ -24,6 +24,19 @@ var height = window.innerHeight;
 var svg = d3.select('#graph')
     .attr('width', width)
     .attr('height', height);
+var container = svg.append('g');
+
+var zoom = d3.zoom()
+  .scaleExtent([0.5, 5])
+  .filter(function(event) {
+    return event.type === 'wheel' ||
+      (event.type === 'mousedown' && (event.button === 1 || event.button === 2));
+  })
+  .on('zoom', function(event) {
+    container.attr('transform', event.transform);
+  });
+
+svg.call(zoom).on('contextmenu', function(e) { e.preventDefault(); });
 
 var color = function(d){
   return d.type && svg.select('style').text().includes('.' + d.type) ? null : null;
@@ -34,7 +47,7 @@ var simulation = d3.forceSimulation(graph.nodes)
   .force('charge', d3.forceManyBody().strength(-200))
   .force('center', d3.forceCenter(width / 2, height / 2));
 
-var link = svg.append('g')
+var link = container.append('g')
   .attr('stroke', '#999')
   .attr('stroke-opacity', 0.6)
   .selectAll('line')
@@ -42,7 +55,7 @@ var link = svg.append('g')
   .enter().append('line')
   .attr('stroke-width', 1);
 
-var node = svg.append('g')
+var node = container.append('g')
   .attr('stroke', '#fff')
   .attr('stroke-width', 1.5)
   .selectAll('circle')
@@ -52,7 +65,7 @@ var node = svg.append('g')
   .attr('class', d => d.type)
   .call(drag(simulation));
 
-var label = svg.append('g')
+var label = container.append('g')
   .selectAll('text')
   .data(graph.nodes)
   .enter().append('text')
