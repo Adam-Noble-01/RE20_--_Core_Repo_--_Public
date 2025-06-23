@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Project Architecture Map</title>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<style>
+  html, body { margin:0; padding:0; height:100%; }
+  #graph { width:100%; height:100%; }
+  text { font-family: sans-serif; font-size: 10px; pointer-events: none; }
+  .html { fill: #1f77b4; }
+  .js { fill: #ff7f0e; }
+  .css { fill: #2ca02c; }
+  .external { fill: #d62728; }
+  circle { stroke: #fff; stroke-width: 1.5px; }
+</style>
+</head>
+<body>
+<svg id="graph"></svg>
+<script>
+var graph = {"nodes":[{"id":0,"label":"/workspace/RE20_--_Core_Repo_--_Public/02_Public_HTML/03_folder_viewer/file_mapper.html","type":"html"},{"id":1,"label":"https://d3js.org/d3.v6.min.js","type":"external"},{"id":2,"label":"https://d3js.org/d3-scale-chromatic.v1.min.js","type":"external"},{"id":3,"label":"/workspace/RE20_--_Core_Repo_--_Public/04_Public_Python/NS02_02_01_File_Tree_Mapper/File_Mapper_HTML_Test_Version_02.html","type":"html"},{"id":4,"label":"/workspace/RE20_--_Core_Repo_--_Public/80_Test_Branch/Test-Pdf/True-Vision-App-1.2.1.HTML","type":"html"},{"id":5,"label":"https://cdn.babylonjs.com/babylon.js","type":"external"},{"id":6,"label":"https://cdn.babylonjs.com/loaders/babylon.glTF2FileLoader.js","type":"external"},{"id":7,"label":"/workspace/RE20_--_Core_Repo_--_Public/80_Test_Branch/Test-Pdf/links 02.HTML","type":"html"},{"id":8,"label":"https://unpkg.com/pdf-lib/dist/pdf-lib.min.js","type":"external"},{"id":9,"label":"https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js","type":"external"},{"id":10,"label":"/workspace/RE20_--_Core_Repo_--_Public/80_Test_Branch/Test-Pdf/links.HTML","type":"html"},{"id":11,"label":"/workspace/RE20_--_Core_Repo_--_Public/RE20_10_--_Web-App_-_Text-Utility_-_Web-Assets-Library/RE20_10_01_--_Web-App_-_Text-Utility_-_Reader-Tool.html","type":"html"},{"id":12,"label":"https://cdn.jsdelivr.net/npm/marked/marked.min.js","type":"external"},{"id":13,"label":"https://fonts.googleapis.com/css?family=Open+Sans:400,600&display=swap","type":"external"},{"id":14,"label":"/workspace/RE20_--_Core_Repo_--_Public/RE20_10_--_Web-App_-_Text-Utility_-_Web-Assets-Library/RE20_10_02_--_Web-App_-_Text-Utility_-_Text-Regex-Tool.html","type":"html"},{"id":15,"label":"/workspace/RE20_--_Core_Repo_--_Public/RE20_21_--_NA_FILES_-_Project_Portal_Client_Content/02_--_Projects_2025/SB03_--_Patterdale-Close/PlanVision - Foundations Plan.html","type":"html"},{"id":16,"label":"https://cdn.jsdelivr.net/npm/core-js-bundle/minified.js","type":"external"},{"id":17,"label":"/workspace/RE20_--_Core_Repo_--_Public/RE20_21_--_NA_FILES_-_Project_Portal_Client_Content/02_--_Projects_2025/SB03_--_Patterdale-Close/PlanVision - Plan Options.html","type":"html"},{"id":18,"label":"/workspace/RE20_--_Core_Repo_--_Public/project_architecture_mapper/generate_map.js","type":"js"},{"id":19,"label":"/workspace/RE20_--_Core_Repo_--_Public/project_architecture_mapper/fs","type":"other"},{"id":20,"label":"/workspace/RE20_--_Core_Repo_--_Public/project_architecture_mapper/path","type":"other"},{"id":21,"label":"/workspace/RE20_--_Core_Repo_--_Public/project_architecture_mapper/project_map.html","type":"html"},{"id":22,"label":"https://d3js.org/d3.v7.min.js","type":"external"}],"edges":[{"source":0,"target":1},{"source":0,"target":2},{"source":3,"target":1},{"source":4,"target":5},{"source":4,"target":6},{"source":7,"target":8},{"source":7,"target":9},{"source":10,"target":8},{"source":10,"target":9},{"source":11,"target":12},{"source":11,"target":13},{"source":14,"target":13},{"source":15,"target":16},{"source":17,"target":16},{"source":18,"target":19},{"source":18,"target":20},{"source":21,"target":22}]};
+var width = window.innerWidth;
+var height = window.innerHeight;
+var svg = d3.select('#graph')
+    .attr('width', width)
+    .attr('height', height);
+
+var color = function(d){
+  return d.type && svg.select('style').text().includes('.' + d.type) ? null : null;
+};
+
+var simulation = d3.forceSimulation(graph.nodes)
+  .force('link', d3.forceLink(graph.edges).id(d => d.id).distance(60))
+  .force('charge', d3.forceManyBody().strength(-200))
+  .force('center', d3.forceCenter(width / 2, height / 2));
+
+var link = svg.append('g')
+  .attr('stroke', '#999')
+  .attr('stroke-opacity', 0.6)
+  .selectAll('line')
+  .data(graph.edges)
+  .enter().append('line')
+  .attr('stroke-width', 1);
+
+var node = svg.append('g')
+  .attr('stroke', '#fff')
+  .attr('stroke-width', 1.5)
+  .selectAll('circle')
+  .data(graph.nodes)
+  .enter().append('circle')
+  .attr('r', 6)
+  .attr('class', d => d.type)
+  .call(drag(simulation));
+
+var label = svg.append('g')
+  .selectAll('text')
+  .data(graph.nodes)
+  .enter().append('text')
+  .attr('dy', -8)
+  .text(d => d.label.substring(d.label.lastIndexOf('/')+1));
+
+simulation.on('tick', () => {
+  link.attr('x1', d => d.source.x)
+      .attr('y1', d => d.source.y)
+      .attr('x2', d => d.target.x)
+      .attr('y2', d => d.target.y);
+
+  node.attr('cx', d => d.x)
+      .attr('cy', d => d.y);
+
+  label.attr('x', d => d.x)
+       .attr('y', d => d.y);
+});
+
+function drag(simulation) {
+  function dragstarted(event, d) {
+    if (!event.active) simulation.alphaTarget(0.3).restart();
+    d.fx = d.x;
+    d.fy = d.y;
+  }
+  function dragged(event, d) {
+    d.fx = event.x;
+    d.fy = event.y;
+  }
+  function dragended(event, d) {
+    if (!event.active) simulation.alphaTarget(0);
+    d.fx = null;
+    d.fy = null;
+  }
+  return d3.drag()
+    .on('start', dragstarted)
+    .on('drag', dragged)
+    .on('end', dragended);
+}
+</script>
+</body>
+</html>
